@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modèle de gouvernance SDLC · Claude Code · v1.2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,900;1,300&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-soft: #4a4a6a;
+    --ink-muted: #8888aa;
+    --bg: #f5f4f0;
+    --bg-card: #fafaf7;
+    --accent: #c8502a;
+    --accent-soft: #e8d5cc;
+    --teal: #2a7a6a;
+    --teal-soft: #c8e8e2;
+    --gold: #b8860b;
+    --gold-soft: #f0e8cc;
+    --blue: #2a4a8a;
+    --blue-soft: #d0d8ee;
+    --rule: rgba(26,26,46,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #f5f4f0;
+    padding: 64px 80px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 180px; height: 180px;
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 52px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 640px;
+  }
+  header h1 em {
+    font-style: italic;
+    font-weight: 300;
+    color: rgba(245,244,240,0.6);
+  }
+  .header-sub {
+    font-size: 16px;
+    color: rgba(245,244,240,0.55);
+    max-width: 520px;
+    line-height: 1.6;
+  }
+  .version-badge {
+    display: inline-block;
+    margin-top: 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 2px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── LAYOUT ── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 72px 48px 96px;
+  }
+
+  section {
+    margin-bottom: 80px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  .section-intro {
+    color: var(--ink-soft);
+    font-size: 15px;
+    max-width: 680px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 72px 0;
+  }
+
+  /* ── FILE CARDS ── */
+  .files-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .file-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 28px 28px 24px;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+  .file-card:hover { border-color: rgba(26,26,46,0.28); }
+
+  .file-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .file-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 10px;
+    word-break: break-all;
+  }
+
+  .file-role {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .file-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .file-dest {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--teal);
+    background: var(--teal-soft);
+    padding: 4px 8px;
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .file-dest.meta {
+    color: var(--ink-muted);
+    background: transparent;
+    border: 1px solid var(--rule);
+  }
+
+  .file-tag {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+  }
+  .tag-adapt { background: var(--gold-soft); color: var(--gold); }
+  .tag-copy  { background: var(--teal-soft); color: var(--teal); }
+  .tag-scratch { background: var(--blue-soft); color: var(--blue); }
+  .tag-meta  { background: rgba(26,26,46,0.06); color: var(--ink-muted); }
+
+  /* ── INVARIANTS ── */
+  .invariants-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .invariant-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 32px;
+  }
+
+  .inv-number {
+    font-family: 'Fraunces', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(26,26,46,0.07);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .inv-title {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+
+  .inv-principle {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  .inv-alarm {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 8px 12px;
+    border-left: 2px solid var(--accent);
+    line-height: 1.5;
+  }
+
+  /* ── CIRCUITS ── */
+  .circuit {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 36px;
+    margin-bottom: 2px;
+  }
+
+  .circuit-title {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .circuit-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .circuit-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .flow-step:last-child { border-bottom: none; }
+
+  .flow-step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    min-width: 24px;
+    padding-top: 2px;
+  }
+
+  .flow-step-content {
+    flex: 1;
+  }
+
+  .flow-step-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .flow-step-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .flow-step-file {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--teal);
+    background: var(--teal-soft);
+    padding: 2px 6px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 5px;
+  }
+
+  .flow-arrow {
+    font-size: 16px;
+    color: var(--ink-muted);
+    min-width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2px;
+  }
+
+  .manual-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    background: var(--gold-soft);
+    padding: 2px 8px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-top: 5px;
+  }
+
+  /* ── DECISIONS TABLE ── */
+  .decisions-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .decisions-table thead tr {
+    border-bottom: 2px solid var(--ink);
+  }
+  .decisions-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    padding: 0 16px 12px 0;
+    text-align: left;
+    font-weight: 400;
+  }
+  .decisions-table td {
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .decisions-table td:first-child {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .decisions-table td:nth-child(2) {
+    font-weight: 400;
+    color: var(--ink);
+  }
+  .version-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+  .v10 { background: var(--ink-muted); }
+  .v11 { background: var(--teal); }
+  .v12 { background: var(--accent); }
+
+  /* ── WORKFLOW ── */
+  .workflow-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 16px;
+  }
+
+  .workflow-phase {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 20px 18px;
+    position: relative;
+  }
+  .workflow-phase::after {
+    content: '→';
+    position: absolute;
+    right: -13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-muted);
+    font-size: 14px;
+    z-index: 1;
+  }
+  .workflow-phase:last-child::after { display: none; }
+
+  .phase-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .phase-action {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .phase-file {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+  }
+
+  /* ── BOOTSTRAP STEPS ── */
+  .bootstrap-steps {
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .bootstrap-step {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 20px 24px 20px 72px;
+    position: relative;
+    counter-increment: step;
+  }
+
+  .bootstrap-step::before {
+    content: counter(step);
+    position: absolute;
+    left: 24px;
+    top: 18px;
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: rgba(26,26,46,0.1);
+    width: 32px;
+    text-align: center;
+  }
+
+  .step-title {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .step-cmd {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: rgba(26,26,46,0.05);
+    padding: 6px 10px;
+    border-radius: 2px;
+    margin-top: 8px;
+    display: inline-block;
+    color: var(--ink);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(245,244,240,0.4);
+    padding: 32px 80px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    header { padding: 40px 28px; }
+    header h1 { font-size: 36px; }
+    main { padding: 48px 24px; }
+    .files-grid { grid-template-columns: 1fr; }
+    .invariants-grid { grid-template-columns: 1fr; }
+    .workflow-row { grid-template-columns: 1fr; }
+    footer { padding: 24px 28px; flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Modèle de gouvernance · Claude Code</div>
+  <h1>SDLC<br><em>by design,</em><br>not by habit.</h1>
+  <p class="header-sub">Un kit de templates et procédures pour structurer chaque projet Claude Code — du bootstrap au dernier sprint.</p>
+  <span class="version-badge">v1.2 · 30/05/2026 · 10 fichiers</span>
+</header>
+
+<main>
+
+  <!-- POURQUOI -->
+  <section>
+    <div class="section-label">Raison d'être</div>
+    <h2>Ce que le modèle résout</h2>
+    <p class="section-intro">Sans gouvernance explicite, Claude Code opère sur des règles implicites — qui disparaissent entre les sessions. Ce modèle rend les contraintes non-négociables, les décisions traçables, et les procédures reproductibles.</p>
+
+    <div class="invariants-grid">
+      <div class="invariant-card">
+        <div class="inv-number">01</div>
+        <div class="inv-title">Vérification exécutable</div>
+        <div class="inv-principle">Tout plan de test contient une commande exacte. Claude itère seul jusqu'à ce que la commande passe — il ne déclare jamais "terminé" sur estimation.</div>
+        <div class="inv-alarm">Signal d'alarme : si Claude peut conclure sans preuve observable → violation.</div>
+      </div>
+      <div class="invariant-card">
+        <div class="inv-number">02</div>
+        <div class="inv-title">Circuit fermé</div>
+        <div class="inv-principle">Toute règle implicite devient explicite (hook, DECISIONS.md, ou Claude.md). Si une contrainte dépend de la mémoire du modèle entre sessions, elle n'existe pas opérationnellement.</div>
+        <div class="inv-alarm">Signal d'alarme : observation dans LESSONS_LEARNED sans "Action proposée" → circuit ouvert.</div>
+      </div>
+      <div class="invariant-card">
+        <div class="inv-number">03</div>
+        <div class="inv-title">Contexte chirurgical</div>
+        <div class="inv-principle">Chaque template liste explicitement les fichiers à charger. Claude ne lit pas le repo en entier — il charge uniquement ce qui est listé dans §Handoff.</div>
+        <div class="inv-alarm">Signal d'alarme : template qui demande <code>cat specs/SPEC.md</code> sans condition → lecture non-chirurgicale.</div>
+      </div>
+      <div class="invariant-card">
+        <div class="inv-number">04</div>
+        <div class="inv-title">Boucle de rétroaction</div>
+        <div class="inv-principle">Toute observation de terrain a un chemin vers une règle permanente. L'ordre : incident → LESSONS_LEARNED → /retrospective → décision → hook ou Claude.md.</div>
+        <div class="inv-alarm">Signal d'alarme : règle dans pre-tool-bash.sh sans entrée DECISIONS.md → règle implicite.</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CARTE DES FICHIERS -->
+  <section>
+    <div class="section-label">Architecture</div>
+    <h2>Les 10 fichiers du modèle</h2>
+    <p class="section-intro">Chaque fichier a un rôle unique. Certains sont copiés tels quels dans les projets cibles, d'autres adaptés, d'autres créés from scratch.</p>
+
+    <div class="files-grid">
+
+      <div class="file-card">
+        <span class="file-tag tag-meta">méta</span>
+        <div class="file-number">00</div>
+        <div class="file-name">00-README.md</div>
+        <div class="file-role">Conscience du projet SDLC</div>
+        <div class="file-desc">Les 4 invariants, la carte des fichiers, la checklist d'évolution et l'historique des versions. Jamais copié dans les projets cibles.</div>
+        <span class="file-dest meta">ce projet uniquement</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-adapt">adapter</span>
+        <div class="file-number">01</div>
+        <div class="file-name">01-Claude-md-TEMPLATE.md</div>
+        <div class="file-role">Instructions permanentes Claude Code</div>
+        <div class="file-desc">Rôle, règles absolues, démarrage de session, workflow d'analyse, plan de test avec commande exacte obligatoire, /wrap-up et /retrospective.</div>
+        <span class="file-dest">→ Claude.md (racine repo)</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-adapt">adapter</span>
+        <div class="file-number">02</div>
+        <div class="file-name">02-STANDARDS-TEMPLATE.md</div>
+        <div class="file-role">Definition of Done &amp; standards</div>
+        <div class="file-desc">DoD livrable + clôture, types de sprint (Feature/Fix/Tuning/Doc/Spike/Dette), niveaux de test A/B/C, modules partagés, observabilité.</div>
+        <span class="file-dest">→ STANDARDS.md (racine repo)</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-adapt">adapter</span>
+        <div class="file-number">03</div>
+        <div class="file-name">03-wrap-up-SKILL-TEMPLATE.md</div>
+        <div class="file-role">Procédure de clôture de sprint</div>
+        <div class="file-desc">7 étapes : bilan session ancré sur git, rétrospective (3 questions), LESSONS_LEARNED avec tags HOOK_CANDIDATE et SDLC_CANDIDATE, docs, commit, amorce session suivante.</div>
+        <span class="file-dest">→ .claude/skills/wrap-up/SKILL.md</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-copy">copier</span>
+        <div class="file-number">04</div>
+        <div class="file-name">04-sprint-PDR-TEMPLATE.md</div>
+        <div class="file-role">Spec de sprint (PDR)</div>
+        <div class="file-desc">Contexte, objectif, portée, option retenue, contraintes + champ Interdit, critères d'acceptation avec commande exacte + Given/When/Then, risques, pre-mortem, handoff.</div>
+        <span class="file-dest">→ specs/sprint-template.md</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-adapt">adapter</span>
+        <div class="file-number">05</div>
+        <div class="file-name">05-ROADMAP-TEMPLATE.md</div>
+        <div class="file-role">Backlog Now / Next / Later</div>
+        <div class="file-desc">Structure tripartite avec règles de passage entre colonnes, seuils métriques déclencheurs, signaux faibles, tailles de référence XS/S/M/L.</div>
+        <span class="file-dest">→ doc/ROADMAP.md</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-meta">guide</span>
+        <div class="file-number">06</div>
+        <div class="file-name">06-PDR-bootstrap.md</div>
+        <div class="file-role">Guide opérationnel Sprint 0</div>
+        <div class="file-desc">Plan d'exécution en 9 étapes avec greps de validation, carte complète des fichiers à créer (6 groupes), critères d'acceptation, risques du bootstrap.</div>
+        <span class="file-dest meta">guide d'exécution, pas copié</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-meta">méta</span>
+        <div class="file-number">07</div>
+        <div class="file-name">07-DECISIONS-SDLC.md</div>
+        <div class="file-role">Registre des décisions sur le modèle</div>
+        <div class="file-desc">19 entrées M-ARCH / M-TMPL / M-PROC / M-SCOPE / M-HOOKS. Chaque décision : retenue · écartée · justification. Trace complète de l'évolution du modèle.</div>
+        <span class="file-dest meta">ce projet uniquement</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-adapt">adapter</span>
+        <div class="file-number">08</div>
+        <div class="file-name">08-hooks-TEMPLATE.md</div>
+        <div class="file-role">Hook PreToolUse Bash + settings</div>
+        <div class="file-desc">pre-tool-bash.sh Python générique avec blocages universels et 6 sections [ACTIVER si…] commentées. settings.json + settings.local.json. Boucle de rétroaction documentée.</div>
+        <span class="file-dest">→ .claude/hooks/</span>
+      </div>
+
+      <div class="file-card">
+        <span class="file-tag tag-copy">copier</span>
+        <div class="file-number">09</div>
+        <div class="file-name">09-retrospective-SKILL-TEMPLATE.md</div>
+        <div class="file-role">Procédure de rétrospective</div>
+        <div class="file-desc">6 étapes : chargement contexte, analyse patterns, actions internes, remontées modèle SDLC (SDLC_CANDIDATE), mise à jour LESSONS_LEARNED, index patterns. Seuils de déclenchement.</div>
+        <span class="file-dest">→ .claude/skills/retrospective/SKILL.md</span>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CIRCUITS -->
+  <section>
+    <div class="section-label">Mécanismes</div>
+    <h2>Les trois circuits fermés</h2>
+    <p class="section-intro">Chaque circuit transforme une observation de terrain en règle permanente. Aucun ne dépend de la mémoire du modèle entre sessions.</p>
+
+    <div class="circuit">
+      <div class="circuit-title">
+        Circuit hooks
+        <span class="circuit-tag" style="background:var(--teal-soft);color:var(--teal)">HOOK_CANDIDATE</span>
+      </div>
+      <div class="circuit-flow">
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Incident ou hésitation en session</div>
+            <div class="flow-step-desc">Claude aurait pu exécuter une commande risquée — ou l'a évitée manuellement.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Étape 1 du wrap-up — question hook</div>
+            <div class="flow-step-desc">"Y a-t-il eu une action risquée qu'un hook aurait dû bloquer ?" → réponse humaine.</div>
+            <div class="flow-step-file">03-wrap-up §Étape 1</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">LESSONS_LEARNED — tag [HOOK_CANDIDATE]</div>
+            <div class="flow-step-desc">Description de l'action + ligne bash proposée. Champ "décision : en attente".</div>
+            <div class="flow-step-file">doc/LESSONS_LEARNED.md</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">/retrospective — détection pattern</div>
+            <div class="flow-step-desc">≥ 2 occurrences identiques → proposition d'activation. 1 incident grave → activation immédiate.</div>
+            <div class="flow-step-file">09-retrospective §Étape 3</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">05</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Décision humaine → commit hook</div>
+            <div class="flow-step-desc">Section activée dans pre-tool-bash.sh + entrée DECISIONS.md §D-HOOK-XX.</div>
+            <div class="flow-step-file">08-hooks pre-tool-bash.sh</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="circuit" style="margin-top:2px">
+      <div class="circuit-title">
+        Circuit remontée modèle SDLC
+        <span class="circuit-tag" style="background:var(--gold-soft);color:var(--gold)">SDLC_CANDIDATE</span>
+      </div>
+      <div class="circuit-flow">
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Observation générique en session</div>
+            <div class="flow-step-desc">Quelque chose qui devrait changer le modèle pour tous les futurs projets, pas seulement celui-ci.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Étape 1 du wrap-up — question SDLC</div>
+            <div class="flow-step-desc">"Y a-t-il quelque chose qui devrait changer le modèle SDLC lui-même — un template, une procédure, un invariant ?"</div>
+            <div class="flow-step-file">03-wrap-up §Étape 1</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">LESSONS_LEARNED — tag [SDLC_CANDIDATE]</div>
+            <div class="flow-step-desc">Fichier cible + nature du changement (nouveau champ / règle renforcée / procédure modifiée) + proposition concrète.</div>
+            <div class="flow-step-file">doc/LESSONS_LEARNED.md</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">/retrospective — synthèse des candidats</div>
+            <div class="flow-step-desc">Étape 4 dédiée : liste structurée de tous les SDLC_CANDIDATE en attente, avec contexte et proposition concrète.</div>
+            <div class="flow-step-file">09-retrospective §Étape 4</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">05</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Remontée manuelle → projet SDLC</div>
+            <div class="flow-step-desc">Modification du template concerné + entrée 07-DECISIONS-SDLC.md. Toujours manuel — le modèle ne se modifie pas lui-même.</div>
+            <span class="manual-badge">↑ remontée manuelle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- WORKFLOW SPRINT -->
+  <section>
+    <div class="section-label">Cycle de vie</div>
+    <h2>Le workflow d'un sprint</h2>
+    <p class="section-intro">Chaque sprint suit le même chemin. L'aval humain est obligatoire avant le code. La vérification est exécutable, pas estimée.</p>
+
+    <div class="workflow-row">
+      <div class="workflow-phase">
+        <div class="phase-name">Démarrage</div>
+        <div class="phase-action">Lire sprint spec + état repo</div>
+        <div class="phase-file">06 PDR-bootstrap</div>
+      </div>
+      <div class="workflow-phase">
+        <div class="phase-name">Analyse</div>
+        <div class="phase-action">Compréhension + impact + plan de test</div>
+        <div class="phase-file">01 Claude.md §Analyse</div>
+      </div>
+      <div class="workflow-phase">
+        <div class="phase-name">Aval</div>
+        <div class="phase-action">Attendre confirmation explicite</div>
+        <div class="phase-file">01 Claude.md §Règles</div>
+      </div>
+      <div class="workflow-phase">
+        <div class="phase-name">Code + Test</div>
+        <div class="phase-action">Commande exacte → itérer jusqu'au vert</div>
+        <div class="phase-file">04 PDR §Tests A/B/C</div>
+      </div>
+      <div class="workflow-phase">
+        <div class="phase-name">Wrap-up</div>
+        <div class="phase-action">Bilan + rétro + docs + commit</div>
+        <div class="phase-file">03 wrap-up §Étapes 0–6</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- BOOTSTRAP -->
+  <section>
+    <div class="section-label">Sprint 0</div>
+    <h2>Bootstrapper un nouveau projet</h2>
+    <p class="section-intro">Le Sprint 0 installe la gouvernance complète avant le premier sprint métier. 9 étapes, un seul commit final.</p>
+
+    <div class="bootstrap-steps">
+      <div class="bootstrap-step">
+        <div class="step-title">Initialiser le repo</div>
+        <div class="step-desc">Créer le dépôt git, commit vide initial.</div>
+        <div class="step-cmd">git init && git commit --allow-empty -m "chore: init repo"</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Créer la structure des dossiers</div>
+        <div class="step-desc">doc/, specs/Sprints/, .claude/skills/wrap-up/, .claude/skills/retrospective/, .claude/hooks/, scripts/</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Copier sans modification</div>
+        <div class="step-desc">specs/sprint-template.md (depuis 04) · .claude/skills/retrospective/SKILL.md (depuis 09)</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Adapter Claude.md et STANDARDS.md</div>
+        <div class="step-desc">Remplir §Rôle, §Démarrage §2, §Limites bash, §Fichier .env. Vider §Carte des étapes et §Modules partagés.</div>
+        <div class="step-cmd">grep -i "\[→ adapter\]" Claude.md → zéro résultat attendu</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Adapter wrap-up SKILL</div>
+        <div class="step-desc">§Étape 0b (chemins git), §Étape 6 (nom projet Claude.ai), déclencheurs §Étape 3 conditionnels.</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Créer les fichiers from scratch</div>
+        <div class="step-desc">CHANGELOG.md · doc/DECISIONS.md · doc/ROADMAP.md · doc/LESSONS_LEARNED.md (avec format Hook + SDLC candidat) · doc/DIAGNOSTIC_CMDS.md · specs/SPEC.md · .claude/skills/diagnostic/SKILL.md</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Configurer les hooks</div>
+        <div class="step-desc">Copier pre-tool-bash.sh, décider des sections [ACTIVER si…], documenter chaque choix dans DECISIONS.md §D-HOOK-XX, test smoke.</div>
+        <div class="step-cmd">grep "\[ACTIVER" .claude/hooks/pre-tool-bash.sh → zéro résultat</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Vérification finale</div>
+        <div class="step-desc">11 critères d'acceptation. Zéro placeholder résiduel. Test smoke hook exit 0.</div>
+      </div>
+      <div class="bootstrap-step">
+        <div class="step-title">Commit</div>
+        <div class="step-desc">Un seul commit final après validation des 11 critères.</div>
+        <div class="step-cmd">git commit -m "chore: bootstrap SDLC v1.2"</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- DECISIONS -->
+  <section>
+    <div class="section-label">Traçabilité</div>
+    <h2>Historique des décisions</h2>
+    <p class="section-intro">19 décisions documentées dans 07-DECISIONS-SDLC.md. Chaque décision : retenue, alternative écartée, justification.</p>
+
+    <table class="decisions-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Décision</th>
+          <th>Version</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>M-ARCH-01</td><td>8 fichiers séparés vs monolithique</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-ARCH-02</td><td>Numérotation 00–09 des fichiers</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-ARCH-03</td><td>DECISIONS/CHANGELOG/LESSONS_LEARNED hors projet SDLC</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-ARCH-04</td><td>00-README comme méta-document</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-TMPL-01</td><td>Placeholders [entre crochets] + marqueurs [→ ADAPTER]</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-TMPL-02</td><td>Champ Interdit dans PDR</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-TMPL-03</td><td>Given/When/Then dans PDR (optionnel, Feature uniquement)</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-PROC-01</td><td>Sprint 0 comme PDR opérationnel complet</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-PROC-02</td><td>Bilan session intégré dans wrap-up (Étape 0)</td><td><span class="version-dot v11"></span>v1.1</td></tr>
+        <tr><td>M-PROC-03</td><td>Auto-exécution sans questions utilisateur</td><td><span class="version-dot v11"></span>v1.1</td></tr>
+        <tr><td>M-PROC-04</td><td>Nettoyage artefacts périmés en Étape 3</td><td><span class="version-dot v11"></span>v1.1</td></tr>
+        <tr><td>M-PROC-05</td><td>DIAGNOSTIC_CMDS.md obligatoire à chaque sprint</td><td><span class="version-dot v11"></span>v1.1</td></tr>
+        <tr><td>M-PROC-06</td><td>Boucle de rétroaction hook via LESSONS_LEARNED</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-PROC-07</td><td>Vérification exécutable renforcée — commande exacte obligatoire</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-PROC-08</td><td>Circuit SDLC_CANDIDATE via /retrospective</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-SCOPE-01</td><td>sprint-template.md = copie sans adaptation</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-SCOPE-02</td><td>SPEC.md = from scratch, jamais copiée</td><td><span class="version-dot v10"></span>v1.0</td></tr>
+        <tr><td>M-HOOKS-01</td><td>PreToolUse-only, PostToolUse optionnel</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+        <tr><td>M-HOOKS-02</td><td>Sections [ACTIVER si…] vs hook vide</td><td><span class="version-dot v12"></span>v1.2</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>
+  <span>Modèle de gouvernance SDLC · Claude Code · v1.2 · 30/05/2026</span>
+  <span>10 fichiers · 19 décisions · 4 invariants</span>
+</footer>
+
+</body>
+</html>
