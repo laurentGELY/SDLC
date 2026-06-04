@@ -14,11 +14,18 @@ Toutes les autres étapes sont auto-exécutées avec rapport de résultat.
 
 ## Étape 0 — Bilan de session
 
-### 0a. Identifier la référence de session
+### 0a. Lire la mémoire sprint
+```bash
+cat .claude/sprint-memory.md 2>/dev/null || echo "— aucun fichier mémoire"
+```
+Si le fichier existe → source de vérité prioritaire `[✓ mémoire]` pour reconstruire le bilan.
+Les entrées `EN ATTENTE [humain]` (QUESTION et BLOQUANT) deviennent des action items prioritaires.
+
+### 0b. Identifier la référence de session
 Chercher dans la conversation le document de référence initial (PRD uploadé,
 objectifs énoncés, liste de tâches du sprint). Si absent, utiliser `doc/ROADMAP.md §Now`.
 
-### 0b. Ancrer sur git
+### 0c. Ancrer sur git
 Demander à l'utilisateur de coller le résultat de :
 ```bash
 git diff --stat HEAD
@@ -29,7 +36,7 @@ Si absent → inférer depuis la conversation `[~ chat]` avec avertissement expl
 
 <!-- [→ ADAPTER] Remplacer les chemins git par les chemins du projet cible -->
 
-### 0c. Produire le bilan structuré
+### 0d. Produire le bilan structuré
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -200,6 +207,12 @@ Corps du commit :
 - [changement 2]
 - Tests : [résultat niveau A] · [résultat niveau B si applicable]
 ```
+
+**Après confirmation du commit — supprimer la mémoire sprint :**
+```bash
+rm -f .claude/sprint-memory.md && echo "✅ sprint-memory.md supprimé"
+```
+Supprimer *après* le commit — jamais avant. Si le commit échoue, conserver le fichier.
 
 ---
 

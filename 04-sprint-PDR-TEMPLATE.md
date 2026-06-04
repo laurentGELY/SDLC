@@ -117,3 +117,9 @@ Scénario : [nom du comportement]
 ```bash
 
 ```
+
+**Init mémoire sprint :**
+```bash
+echo "# Sprint N — [slug] · $(date +%Y-%m-%d)" > .claude/sprint-memory.md
+```
+*(Remplacer N et slug. Exécuter après avoir complété ce §Handoff.)*

@@ -393,3 +393,34 @@ pas seulement l'auteur du modèle.
 | M-SCOPE-02 | SPEC.md = from scratch | ✓ | — |
 | M-HOOKS-01 | PreToolUse-only au bootstrap | — | Si contraintes bash identifiées |
 | M-HOOKS-02 | Sections [ACTIVER si…] dans hook | — | Si contraintes bash identifiées |
+| M-PROC-10 | Mémoire de sprint intra-session | ✓ | — |
+
+---
+
+## M-PROC-10 · Mémoire de sprint intra-session · v1.3 · 04/06/2026
+
+**Retenu :** Fichier `.claude/sprint-memory.md` — non versionné (gitignore), créé au §Handoff,
+enrichi au fil du sprint (6 types d'entrées), lu à l'Étape 0 du wrap-up, détruit après commit (Étape 4).
+
+**Écarté :**
+- Section "ÉTAT DU SPRINT" en tête (oracle) : doublon de la vérification début de sprint, coût de maintenance à chaque écriture
+- Section "WRAP-UP automatique" en bas de fichier (oracle) : confusion de rôles avec le skill `/wrap-up`
+- Règle de résumé automatique >150 lignes (oracle) : corrige le symptôme, pas la cause (règles de déclenchement non respectées)
+- Matrice de tests (oracle) : sur-ingénierie pour 1-3 tests par sprint standard
+- Emplacement `specs/Sprints/sprint-N-memory.md` : versionné = bruit dans git log ; le fichier ne vit pas jusqu'au commit
+
+**Raison :** Deux fonctions distinctes — crash-recovery (reprendre une session interrompue) et matière
+première du wrap-up (extraire décisions/apprentissages sans relire toute la conversation).
+Non versionné → zéro bruit git. Destruction post-commit → force la migration vers les fichiers permanents
+(CHANGELOG, DECISIONS, LESSONS_LEARNED), cohérent avec INV-2 (circuit fermé).
+
+**Règles de déclenchement (c) :** écrire uniquement sur analyse, décision, test, question, pivot, bloquant
+— soit 3–5 entrées/heure. Maintient le fichier sous ~80 lignes (seuil empirique validé par oracle).
+
+**Vérification début de sprint :** si `.claude/sprint-memory.md` est non vide, Claude bloque et demande
+à l'humain (wrap-up oublié / crash / reprise volontaire). Exception : header correspond au sprint en cours
+→ reprise normale. Validation humaine obligatoire car Claude n'a pas l'information pour décider seul.
+
+**Enrichissements oracle retenus :**
+- Flag `EN ATTENTE [humain]` sur QUESTION et BLOQUANT → action items automatiques au wrap-up
+- Champ `→ fichiers :` optionnel sur DÉCISION → reprise de contexte rapide post-crash

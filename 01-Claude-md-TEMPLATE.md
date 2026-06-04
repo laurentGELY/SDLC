@@ -50,11 +50,17 @@ Contient : [LISTE_DES_VARIABLES_CRITIQUES]
 # 1. Sync et état dépôt
 git pull origin main && git status && git log --oneline -5
 
-# [→ ADAPTER] 2. État système — commandes de vérification spécifiques au projet
+# 2. Vérification mémoire sprint
+if [ -s .claude/sprint-memory.md ]; then
+  echo "⚠️  .claude/sprint-memory.md non vide"
+  cat .claude/sprint-memory.md
+fi
+
+# [→ ADAPTER] 3. État système — commandes de vérification spécifiques au projet
 [commande état composant principal]
 [commande état dépendances]
 
-# 3. Lire le sprint spec
+# 4. Lire le sprint spec
 cat specs/Sprints/sprint-<N>-<slug>.md
 # Référence architecturale complète :
 # cat specs/SPEC.md
@@ -62,6 +68,25 @@ cat specs/Sprints/sprint-<N>-<slug>.md
 
 Si aucun sprint spec n'est fourni → demander avant d'aller plus loin.
 Signaler toute anomalie avant de proposer un patch.
+
+**Si `.claude/sprint-memory.md` est non vide en début de session :**
+Afficher le contenu et poser le bloc suivant — **attendre la réponse avant de continuer** :
+
+```
+⚠️  MÉMOIRE SPRINT NON VIDE — sprint précédent non clôturé ?
+
+Causes possibles :
+  A) Wrap-up oublié à la fin du sprint précédent
+  B) Crash ou interruption de session
+  C) Sprint interrompu volontairement
+
+Actions :
+  1) Lancer /wrap-up maintenant pour clore ce sprint proprement
+  2) Reprendre ce sprint là où il s'est arrêté
+  3) Abandonner ce sprint — supprimer le fichier et démarrer un nouveau
+```
+
+Exception : si le header du fichier correspond au sprint spec en cours → reprise normale, pas d'anomalie, continuer sans bloquer.
 
 **Classifier le travail :**
 
@@ -131,6 +156,27 @@ Une description ("vérifier que X fonctionne") n'est pas un test.
 Résumé 3 lignes · fichiers à modifier · tests prévus
 → J'attends ton aval explicite avant de coder.
 ```
+
+---
+
+## Mémoire de sprint
+
+Fichier : `.claude/sprint-memory.md` — non versionné (gitignore), créé au §Handoff, détruit après commit.
+
+**Format des entrées — 6 types uniquement :**
+```
+[HH:MM] ANALYSE  — [objectif · périmètre · conclusion en 1 ligne]
+[HH:MM] DÉCISION — [retenu : X / écarté : Y — raison : Z]
+                   → fichiers : `path/to/file`  *(optionnel)*
+[HH:MM] TEST [A/B/C] — `[commande]` → [OK ✓ / FAIL ✗ — observation]
+[HH:MM] QUESTION — [question] → [réponse ou EN ATTENTE [humain]]
+[HH:MM] PIVOT    — [ce qui a changé par rapport au plan initial]
+[HH:MM] BLOQUANT — [description] → [RÉSOLU (solution) / EN ATTENTE [humain] (raison)]
+```
+
+**Écrire quand :** analyse complète formulée · décision prise · résultat de test · question identifiée ou résolue · pivot · bloquant détecté ou levé.
+
+**Ne pas écrire :** après chaque `read_file` / `bash` / `grep` · états intermédiaires sans décision · ce que le CLI montre déjà.
 
 ---
 
