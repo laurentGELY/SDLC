@@ -258,3 +258,56 @@ Format : ID · Décision retenue · Alternative écartée · Justification
 - Ne pas créer `specs/SPEC.md` depuis un template — structure from scratch
 - Un seul commit final après validation des 8 critères d'acceptation
 - Reporter dans ce fichier tout écart au plan (§Corrections ajustées)
+
+---
+
+## Mise à jour sur projet existant — Sprint SDLC-Sync
+
+> Ce guide est la référence du skill `/sdlc-sync` (`.claude/skills/sdlc-sync/SKILL.md`).
+> Pour l'exécution interactive, lancer `/sdlc-sync` dans Claude Code depuis le projet cible.
+> Pour le détail opérationnel humain, voir `10-OPERATIONS.html` §Mettre à jour un projet existant.
+
+### Principe
+
+Les projets antérieurs au modèle SDLC générique ont une gouvernance plus riche en tuning
+local mais moins complète structurellement. Ce n'est pas une divergence intentionnelle —
+le modèle n'existait pas encore. Le SDLC-Sync apporte les sections manquantes sans écraser
+le tuning local. **Le tuning local prime toujours.**
+
+### Détection de version
+
+```bash
+grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+```
+
+| Résultat | Situation | Approche |
+|----------|-----------|----------|
+| `<!-- SDLC version : vX.Y -->` | Projet versionné | Delta vX.Y → courant via tableau compatibilité `07-DECISIONS-SDLC.md` |
+| `ABSENT` | Projet antérieur au modèle générique | Delta complet depuis zéro — même règle de tri |
+
+### Règle de tri (étape B du skill)
+
+| Situation | Action |
+|-----------|--------|
+| Section absente, universelle | Ajouter |
+| Section absente, conditionnelle | Vérifier la contrainte, ajouter si pertinent |
+| Section présente, formulée différemment | Comparer : migrer si bénéfice net, sinon laisser |
+| Tuning local sans équivalent SDLC | Laisser intact — noter comme candidat remontée |
+
+### Traçabilité obligatoire
+
+Entrée `D-SYNC-XX` dans `doc/DECISIONS.md` du projet cible :
+
+```markdown
+## D-SYNC-01 · Alignement SDLC vX.Y (ou "antérieur") → vZ.W · [date]
+
+Appliqués    : [liste des sections ajoutées/migrées]
+Ignorés      : [liste + raison : contrainte absente / non pertinent]
+Laissés      : [tuning local conservé + description]
+Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]
+```
+
+Puis apposer le marqueur dans `Claude.md` et `STANDARDS.md` :
+```
+<!-- SDLC version : vZ.W · aligné le JJ/MM/AAAA -->
+```

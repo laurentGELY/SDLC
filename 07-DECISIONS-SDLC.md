@@ -295,3 +295,101 @@ remonté manuellement dans le projet SDLC.
 La remontée reste manuelle — le projet SDLC ne peut pas se modifier automatiquement.
 Le circuit garantit que l'information ne se perd pas dans un LESSONS_LEARNED de projet
 individuel : elle remonte au niveau méta via un chemin explicite et documenté.
+
+---
+
+## M-PROC-09 · Sprint SDLC-Sync — propagation descendante du modèle · v1.3 · 03/06/2026
+
+**Retenu :** Un type de sprint dédié `SDLC-Sync` pour aligner un projet existant
+sur une version plus récente du modèle SDLC, avec logique de tri asymétrique
+et possibilité de remontée bidirectionnelle. Exécuté via le skill `/sdlc-sync`.
+
+**Écarté :** Propagation automatique (trop risquée sur le tuning local) · migration
+manuelle non structurée (non traçable) · skill `/sdlc-init` dans le repo vide
+(impossible : le skill n'existe pas encore au moment du bootstrap).
+
+**Raison :** Les projets antérieurs au modèle SDLC générique ont une gouvernance
+plus riche en tuning local mais moins complète structurellement. Ce n'est pas
+une divergence intentionnelle — c'est une réalité historique : le modèle n'existait
+pas encore. Le SDLC-Sync apporte les sections manquantes sans écraser le tuning local.
+Le bootstrap d'un repo vide est délégué à `sdlc-init.sh` (script shell),
+car un skill ne peut pas être invoqué avant d'exister dans le repo.
+
+**Règle de tri :**
+- Section absente, universelle → ajouter
+- Section absente, conditionnelle → vérifier la contrainte, ajouter si pertinent
+- Section présente, formulée différemment → comparer, migrer si bénéfice net, sinon laisser
+- Tuning local sans équivalent SDLC → laisser intact, évaluer remontée vers modèle SDLC
+
+**Détection de version :**
+Chercher `<!-- SDLC version` dans `Claude.md` et `STANDARDS.md`.
+Si absent → projet antérieur au modèle générique. Même règle de tri, delta complet.
+À la fin du SDLC-Sync, apposer le marqueur de version courante dans les deux fichiers.
+
+**Traçabilité :** entrée `D-SYNC-XX` obligatoire dans `doc/DECISIONS.md` du projet cible.
+
+---
+
+## M-ARCH-05 · sdlc-init.sh comme point d'entrée bootstrap · v1.3 · 03/06/2026
+
+**Retenu :** Script shell `sdlc-init.sh` dans le repo SDLC pour bootstrapper un repo vide.
+Il crée la structure, copie les templates, remplace les placeholders mécaniques,
+et dépose le skill `/sdlc-sync` dans `.claude/skills/`. Claude Code prend le relais
+pour le travail de sens (§Rôle, §Limites bash, SPEC.md, hooks).
+
+**Écarté :** Skill `/sdlc-init` invoqué depuis Claude Code dans le repo vide.
+
+**Raison :** Problème de l'œuf et la poule — un skill ne peut pas être invoqué
+avant d'exister dans le repo. Un script shell n'a pas cette contrainte :
+il est exécuté depuis n'importe où, lit les templates du repo SDLC,
+et les copie dans le repo cible. Division claire : script = mécanique + structure,
+Claude Code = sens + adaptation domaine.
+
+---
+
+## M-ARCH-06 · 10-OPERATIONS.html comme mode opératoire humain · v1.3 · 03/06/2026
+
+**Retenu :** Document HTML autonome (`10-OPERATIONS.html`) couvrant les trois opérations
+humaines : initialiser un projet, mettre à jour un projet existant, faire évoluer le modèle.
+Navigation latérale fixe, copy-paste des commandes en un clic.
+
+**Écarté :** Section supplémentaire dans `06-PDR-bootstrap.md` (déjà dense) ·
+README standard (moins lisible pour un humain) · skill Claude Code (mauvaise audience).
+
+**Raison :** Les skills sont pour Claude Code. Le mode opératoire est pour l'humain
+qui orchestre. Le HTML permet une expérience de lecture qualitative impossible en markdown :
+navigation, sections, commandes copiables. Audience : tout développeur qui utilise le toolkit,
+pas seulement l'auteur du modèle.
+
+---
+
+## Tableau de compatibilité — décisions par version
+
+> Pour chaque décision du modèle : universelle (s'applique à tout projet sans condition)
+> ou conditionnelle (dépend d'une contrainte projet).
+> Référence utilisée à l'étape B du skill `/sdlc-sync`.
+
+| ID | Décision | Universelle | Conditionnelle si… |
+|----|----------|-------------|-------------------|
+| M-ARCH-01 | 8 fichiers séparés | ✓ | — |
+| M-ARCH-02 | Numérotation 00-0N | ✓ | — |
+| M-ARCH-03 | DECISIONS/CHANGELOG/LESSONS_LEARNED hors SDLC | ✓ | — |
+| M-ARCH-04 | 00-README méta-document | ✓ projet SDLC uniquement | — |
+| M-ARCH-05 | sdlc-init.sh point d'entrée bootstrap | ✓ | — |
+| M-ARCH-06 | 10-OPERATIONS.html mode opératoire humain | ✓ | — |
+| M-TMPL-01 | Placeholders + marqueurs [→ ADAPTER] | ✓ | — |
+| M-TMPL-02 | Champ Interdit dans PDR | ✓ | — |
+| M-TMPL-03 | Given/When/Then dans PDR | ✓ | — |
+| M-PROC-01 | Sprint 0 comme PDR opérationnel complet | ✓ | — |
+| M-PROC-02 | Bilan session intégré dans wrap-up (Étape 0) | ✓ | — |
+| M-PROC-03 | Auto-exécution sans questions utilisateur | ✓ | — |
+| M-PROC-04 | Nettoyage artefacts périmés en Étape 3 | ✓ | — |
+| M-PROC-05 | DIAGNOSTIC_CMDS.md obligatoire | ✓ | — |
+| M-PROC-06 | Boucle rétroaction hook via LESSONS_LEARNED | ✓ | — |
+| M-PROC-07 | Vérification exécutable renforcée | ✓ | — |
+| M-PROC-08 | Circuit SDLC_CANDIDATE via retrospective | ✓ | — |
+| M-PROC-09 | Sprint SDLC-Sync + skill /sdlc-sync | ✓ | — |
+| M-SCOPE-01 | sprint-template.md = copie sans adaptation | ✓ | — |
+| M-SCOPE-02 | SPEC.md = from scratch | ✓ | — |
+| M-HOOKS-01 | PreToolUse-only au bootstrap | — | Si contraintes bash identifiées |
+| M-HOOKS-02 | Sections [ACTIVER si…] dans hook | — | Si contraintes bash identifiées |
