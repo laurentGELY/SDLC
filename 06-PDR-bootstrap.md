@@ -36,7 +36,7 @@ et exécuter `/wrap-up` sans ambiguïté à la fin de ce sprint.
 
 ## Sources disponibles
 
-Les templates sont dans le Projet Claude.ai "Modèle SDLC" (fichiers 01 à 05).
+Les templates sont dans le Projet Claude.ai "Modèle SDLC" (fichiers 01 à 09).
 Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPTER]`.
 
 ---
@@ -94,153 +94,60 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 
 ---
 
-## Plan d'exécution (ordre important)
+## Plan d'exécution — 9 étapes
 
-```
-Étape 1 — Créer le repo, initialiser git
-  git init && git commit --allow-empty -m "chore: init repo"
+### Étape 1 — Cloner et préparer
 
-Étape 2 — Créer la structure des dossiers
-  mkdir -p doc specs/Sprints .claude/skills/wrap-up .claude/skills/retrospective .claude/skills/diagnostic scripts
-
-Étape 3 — Copier sans modification
-  specs/sprint-template.md  (depuis 04-sprint-PDR-TEMPLATE.md)
-
-Étape 4 — Adapter Claude.md
-  Source : 01-Claude-md-TEMPLATE.md
-  Modifier : §Rôle · §Démarrage §2 · §Limites bash · §Fichier .env
-  Grep de validation : grep -i "\[→ adapter\]\|\[nom du projet\]\|\[description\]" Claude.md
-  → zéro résultat attendu
-
-Étape 5 — Adapter STANDARDS.md
-  Source : 02-STANDARDS-TEMPLATE.md
-  Modifier : vider §Carte des étapes système · vider §Modules partagés
-  Grep de validation : grep -i "\[→ adapter\]\|\[nom du projet\]" STANDARDS.md
-  → zéro résultat attendu
-
-Étape 6 — Adapter wrap-up SKILL
-  Source : 03-wrap-up-SKILL-TEMPLATE.md
-  Modifier : §Étape 0b (chemins git du projet) · §Étape 6 (nom projet Claude.ai)
-             · §Étape 3 conditionnels (déclencheurs spécifiques au domaine)
-  Grep de validation : grep "\[→ ADAPTER\]" .claude/skills/wrap-up/SKILL.md
-  → zéro résultat attendu
-
-Étape 7 — Créer les fichiers from scratch
-  CHANGELOG.md       : header + entrée [1.0] Sprint 0
-  doc/DECISIONS.md   : header + tableau conventions préfixes, zéro entrée D-XX
-  doc/ROADMAP.md     : depuis 05-ROADMAP-TEMPLATE.md, Sprint 1 en §Now
-  doc/LESSONS_LEARNED.md : §Index vide + format (inclure le champ Hook candidat dans le format)
-  doc/DIAGNOSTIC_CMDS.md : header + format, zéro entrée
-  specs/SPEC.md      : structure vide du domaine (§1 Vue d'ensemble · §2 Architecture · §3 Modules)
-  .claude/skills/diagnostic/SKILL.md : commandes de diagnostic du nouveau système
-
-Étape 7b — Configurer les hooks (depuis 08-hooks-TEMPLATE.md)
-  mkdir -p .claude/hooks
-  Copier pre-tool-bash.sh depuis §1 du template
-  Décider des sections [ACTIVER si…] — documenter chaque choix dans doc/DECISIONS.md §D-HOOK-XX
-  chmod +x .claude/hooks/pre-tool-bash.sh
-  Copier settings.json depuis §2 du template
-  Créer settings.local.json vide depuis §3 du template
-  Test smoke : echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh
-  → exit 0 attendu
-  Grep de validation : grep "\[ACTIVER" .claude/hooks/pre-tool-bash.sh
-  → zéro résultat attendu
-
-Étape 8 — Vérification finale
-  (voir §Critères d'acceptation)
-
-Étape 9 — Commit
-  git add -A
-  git diff --stat HEAD   # vérifier la liste
-  git commit -m "chore: bootstrap SDLC v1.0"
+```bash
+git clone <sdlc-toolkit-repo> sdlc-toolkit
+cd <nouveau-projet>
+bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 ```
 
----
+### Étape 2 — Vérifier les placeholders résiduels
 
-## Critères d'acceptation
-
-- [ ] `Claude.md` : zéro placeholder `[entre crochets]`, §Démarrage exécutable dans le terminal
-- [ ] `STANDARDS.md` : §Definition of Done lisible, §Types de sprint présents, §Modules partagés vide
-- [ ] `specs/sprint-template.md` : identique au template source 04
-- [ ] `.claude/skills/wrap-up/SKILL.md` : étapes 0-6 présentes, chemins git adaptés, §Étape 6 nom projet correct
-- [ ] `.claude/skills/retrospective/SKILL.md` : étapes 1-6 présentes, seuils de déclenchement lisibles
-- [ ] `doc/ROADMAP.md` : §Now contient Sprint 1, §Next et §Later vides ou pertinents
-- [ ] `doc/DECISIONS.md` : header + conventions, zéro entrée D-XX
-- [ ] `CHANGELOG.md` : entrée [1.0] Sprint 0 présente avec le bon format
-- [ ] `.claude/hooks/pre-tool-bash.sh` : chmod +x · zéro `[ACTIVER` non décidé · test smoke exit 0
-- [ ] `.claude/settings.json` : hook PreToolUse Bash déclaré
-- [ ] Commit propre : `git diff --stat` montre uniquement les fichiers attendus
-
----
-
-## Risques
-
-**Placeholders oubliés** — des `[entre crochets]` résiduels dans Claude.md ou STANDARDS.md
-→ grep de validation obligatoire à l'étape 4 et 5
-
-**Contamination depuis un projet précédent** — termes spécifiques à un domaine
-qui traînent dans les fichiers adaptés
-→ grep après chaque fichier adapté avec les termes du projet source
-
-**SPEC.md copiée** — tentation de copier la SPEC d'un projet existant
-→ la SPEC est entièrement spécifique au domaine, toujours créer from scratch
-
-**Hooks sur-activés au bootstrap** — activer toutes les sections `[ACTIVER si…]` par précaution
-→ n'activer que les contraintes réelles et connues dès sprint 0 · les autres émergent via LESSONS_LEARNED
-
----
-
-## Format CHANGELOG.md — entrée Sprint 0
-
-```markdown
-<!-- VERSION : 1.0 | JJ/MM/AAAA | [Nom du projet] -->
-
-# CHANGELOG
-
-Toutes les modifications notables de ce projet sont documentées ici.
-Format : Semantic Versioning adapté aux sprints.
-
----
-
-## [1.0] — AAAA-MM-JJ · Sprint 0 · Bootstrap SDLC
-
-- **`Claude.md` v1.0** : instructions permanentes Claude Code
-- **`STANDARDS.md` v1.0** : Definition of Done · types de sprint · niveaux de test
-- **`specs/sprint-template.md`** : template PDR générique
-- **`.claude/skills/wrap-up/SKILL.md` v1.0** : procédure clôture sprint
-- **`.claude/hooks/pre-tool-bash.sh` v1.0** : hook PreToolUse Bash · sections activées documentées dans DECISIONS.md
-- **`.claude/settings.json`** : configuration hooks Claude Code
-- **`doc/ROADMAP.md` v1.0** : structure Now/Next/Later
-- **`doc/DECISIONS.md` v1.0** : registre décisions architecturales
-- **`doc/LESSONS_LEARNED.md`** : registre apprentissages
-- **`doc/DIAGNOSTIC_CMDS.md`** : archive commandes diagnostic
-- **`specs/SPEC.md`** : structure architecture vide
-- **Tests** : N/A (bootstrap doc)
+```bash
+grep "\[→ ADAPTER\]\|\[Nom du projet\]" Claude.md STANDARDS.md
+# → zéro résultat attendu pour les placeholders mécaniques
 ```
 
----
+### Étape 3 — Ouvrir Claude Code et compléter la gouvernance
 
-## Format doc/DECISIONS.md — structure initiale
+Prompt à utiliser :
 
-```markdown
-<!-- VERSION : 1.0 | JJ/MM/AAAA | [Nom du projet] -->
-
-# DECISIONS
-
-Registre exhaustif des décisions architecturales du projet.
-Format : ID · Décision retenue · Alternative écartée · Justification
-
----
-
-## Conventions
-
-| Préfixe | Domaine |
-|---------|---------|
-| D-ARCH  | Architecture globale |
-| D-PROC  | Procédures développement |
-| D-OBS   | Observabilité |
-| [ajouter les préfixes pertinents au domaine] |
 ```
+Le bootstrap mécanique est fait. Complète la gouvernance :
+- §Rôle dans Claude.md
+- §Limites bash dans Claude.md
+- §Démarrage §2 : commandes d'état du système
+- specs/SPEC.md : structure du domaine
+- .claude/skills/diagnostic/SKILL.md : commandes de diagnostic
+- Sections [ACTIVER si…] dans .claude/hooks/pre-tool-bash.sh
+  → décider lesquelles activer
+  → documenter chaque choix dans doc/DECISIONS.md §D-HOOK-XX
+
+Grep de validation final :
+grep "\[→ ADAPTER\]" Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
+→ zéro résultat attendu avant le commit.
+```
+
+### Étapes 4-9 — Validation et commit
+
+Voir `doc/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
+(vérifications, smoke test du hook, commit final).
+
+---
+
+## Critères d'acceptation (8)
+
+1. `grep "SDLC version" Claude.md STANDARDS.md` → affiche vX.Y
+2. `grep "\[→ ADAPTER\]" Claude.md STANDARDS.md` → vide
+3. `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
+4. `CHANGELOG.md` contient une entrée Sprint 0
+5. `doc/ROADMAP.md` contient Sprint 1 en §Now
+6. `doc/DECISIONS.md` existe avec header
+7. `.claude/skills/wrap-up/SKILL.md` existe
+8. `specs/SPEC.md` existe (structure vide du domaine)
 
 ---
 
@@ -265,7 +172,7 @@ Format : ID · Décision retenue · Alternative écartée · Justification
 
 > Ce guide est la référence du skill `/sdlc-sync` (`.claude/skills/sdlc-sync/SKILL.md`).
 > Pour l'exécution interactive, lancer `/sdlc-sync` dans Claude Code depuis le projet cible.
-> Pour le détail opérationnel humain, voir `10-OPERATIONS.html` §Mettre à jour un projet existant.
+> Pour le détail opérationnel humain, voir `doc/MODE-OPERATOIRE.html §Mettre à jour un projet existant`.
 
 ### Principe
 

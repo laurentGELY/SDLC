@@ -424,3 +424,23 @@ Non versionné → zéro bruit git. Destruction post-commit → force la migrati
 **Enrichissements oracle retenus :**
 - Flag `EN ATTENTE [humain]` sur QUESTION et BLOQUANT → action items automatiques au wrap-up
 - Champ `→ fichiers :` optionnel sur DÉCISION → reprise de contexte rapide post-crash
+
+---
+
+## M-PROC-11 · Modifications spot par script sed/grep · v1.4 · 04/06/2026
+
+**Retenu :** Toute modification ciblée sur un fichier existant (substitution de
+pattern, mise à jour de référence, renommage dans le contenu) se fait par script
+`sed`/`grep` exécutable, avec vérification finale obligatoire (grep de l'ancien
+pattern → zéro résultat). Si la modification est trop complexe pour `sed`,
+régénérer le fichier complet depuis le template.
+
+**Écarté :** Fournir un diff textuel ou des instructions manuelles "remplacer X
+par Y à la ligne N" à appliquer par l'humain.
+
+**Raison :** Cohérent avec INV-1 (vérification exécutable) : une modification sans
+preuve observable n'est pas une modification vérifiée. Un diff manuel est une
+source d'erreur (mauvaise ligne, contexte décalé, oubli d'occurrence). Un script
+`sed` avec grep de validation est reproductible, auditable, et échoue explicitement
+si le pattern a changé. La pratique existait déjà implicitement dans `sdlc-init.sh`
+(substitution des placeholders) mais n'était pas formalisée comme règle générale.

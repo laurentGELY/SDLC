@@ -109,6 +109,29 @@ Exception : si le header du fichier correspond au sprint spec en cours → repri
 
 ---
 
+## Modifications spot sur fichiers existants
+
+Toute modification ciblée sur un fichier existant (substitution de pattern,
+mise à jour de référence, renommage dans le contenu) se fait par script
+`sed`/`grep` exécutable — jamais par diff textuel à appliquer manuellement.
+
+**Règle :**
+1. Écrire le script `sed` avec les substitutions exactes
+2. Inclure une vérification finale : `grep` de l'ancien pattern → zéro résultat attendu
+3. Si la modification est trop complexe pour `sed` → régénérer le fichier complet depuis le template
+
+**Exemple minimal :**
+```bash
+sed -i 's|ancien-nom|nouveau-nom|g' fichier.md
+grep "ancien-nom" fichier.md  # → doit retourner vide
+```
+
+Cette règle s'applique à tous les fichiers : `.md`, `.html`, `.sh`, `.json`.
+Elle est cohérente avec INV-1 (vérification exécutable) : une modification
+sans grep de validation finale n'est pas une modification vérifiée.
+
+---
+
 ## Analyse (obligatoire — tous types sauf Revue)
 
 Toujours partir du code réel, pas d'une hypothèse mémoire.

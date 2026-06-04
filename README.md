@@ -29,7 +29,8 @@ Un projet gouverné par ce toolkit a :
 
 ```
 sdlc-toolkit/
-├── 00-README.md                     # Méta-document — invariants + historique versions
+├── README.md                        # Ce fichier — pitch + démarrage rapide
+├── 00-CONTEXT.md                    # Contexte Claude.ai — invariants + carte des fichiers
 ├── 01-Claude-md-TEMPLATE.md         # → Claude.md du projet cible
 ├── 02-STANDARDS-TEMPLATE.md         # → STANDARDS.md du projet cible
 ├── 03-wrap-up-SKILL-TEMPLATE.md     # → .claude/skills/wrap-up/SKILL.md
@@ -40,8 +41,10 @@ sdlc-toolkit/
 ├── 07-DECISIONS-SDLC.md             # Registre des décisions sur le modèle lui-même
 ├── 08-hooks-TEMPLATE.md             # → .claude/hooks/pre-tool-bash.sh + settings.json
 ├── 09-retrospective-SKILL-TEMPLATE.md  # → .claude/skills/retrospective/SKILL.md
-├── 10-OPERATIONS.html               # Mode opératoire complet (voir ci-dessous)
-└── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
+├── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
+└── doc/
+    ├── SPEC.html                    # Spec fonctionnelle du modèle (ouvrir dans un navigateur)
+    └── MODE-OPERATOIRE.html         # Procédures complètes (ouvrir dans un navigateur)
 ```
 
 ---
@@ -59,7 +62,7 @@ bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 
 # 3. Ouvrir Claude Code et compléter la gouvernance
 # (§Rôle, §Limites bash, SPEC.md, diagnostic skill)
-# → voir le prompt exact dans 10-OPERATIONS.html §Initialiser
+# → voir le prompt exact dans doc/MODE-OPERATOIRE.html §Initialiser
 ```
 
 ### Projet existant à aligner
@@ -85,10 +88,10 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 
 ## Faire évoluer le modèle
 
-1. Lire `00-README.md §3` (invariants) avant toute modification
+1. Lire `00-CONTEXT.md §Invariants` avant toute modification
 2. Modifier le(s) template(s) concerné(s) — mettre à jour le numéro de version dans l'en-tête
 3. Documenter la décision dans `07-DECISIONS-SDLC.md` (format `M-XXXX-NN`)
-4. Mettre à jour `00-README.md §5` (historique versions)
+4. Mettre à jour `§Historique des versions` ci-dessous
 5. Commit `docs(sdlc): description · vX.Y → vZ.W`
 
 > Après une évolution du modèle, tous les projets avec un marqueur de version antérieur sont candidats à un `/sdlc-sync`. Ce n'est pas automatique — décision humaine au cas par cas.
@@ -141,9 +144,12 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 
 ---
 
-## Mode opératoire complet
+## Documentation
 
-`10-OPERATIONS.html` — documentation opérationnelle avec navigation, commandes copiables, et le détail de chaque opération. Ouvrir directement dans un navigateur.
+- `doc/SPEC.html` — spec fonctionnelle du modèle : circuits, invariants, décisions M-XXXX
+- `doc/MODE-OPERATOIRE.html` — procédures détaillées avec commandes copiables
+
+Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans Claude.ai).
 
 ---
 
@@ -153,5 +159,6 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 |---------|------|------------------------|
 | v1.0 | 29/05/2026 | Bootstrap initial — 7 fichiers |
 | v1.1 | 30/05/2026 | Bilan session (Étape 0 wrap-up) · Auto-exécution · Nettoyage artefacts · DIAGNOSTIC_CMDS obligatoire |
-| v1.2 | 30/05/2026 | Hooks template · Boucle rétroaction LESSONS_LEARNED → hook · Given/When/Then PDR · Champ Interdit PDR · Vérification exécutable renforcée · README méta-document · Retrospective skill · Circuit remontée SDLC via [SDLC_CANDIDATE] |
-| v1.3 | 03/06/2026 | sdlc-sync skill + sprint SDLC-Sync · 10-OPERATIONS.html · Mémoire de sprint intra-session |
+| v1.2 | 30/05/2026 | Hooks template · Boucle rétroaction LESSONS_LEARNED → hook · Given/When/Then PDR · Champ Interdit PDR · Vérification exécutable renforcée · Retrospective skill · Circuit remontée SDLC via [SDLC_CANDIDATE] |
+| v1.3 | 03/06/2026 | sdlc-sync skill + sprint SDLC-Sync · MODE-OPERATOIRE.html · Mémoire de sprint intra-session |
+| v1.4 | 04/06/2026 | Restructuration doc/ : SPEC.html + MODE-OPERATOIRE.html · 00-README.md → 00-CONTEXT.md |

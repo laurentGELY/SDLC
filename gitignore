@@ -1,0 +1,17 @@
+# ─── OS & éditeurs ───────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*~
+
+# ─── IDEs ────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+
+# ─── Interface locale dérivée ─────────────────────────────────────────────────
+# 10-OPERATIONS.html est un rendu de consultation locale,
+# pas un fichier de gouvernance. Le décommenter pour l'exclure
+# si on ne publie pas via GitHub Pages.
+# 10-OPERATIONS.html
