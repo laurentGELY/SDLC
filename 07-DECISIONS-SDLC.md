@@ -394,6 +394,7 @@ pas seulement l'auteur du modèle.
 | M-HOOKS-01 | PreToolUse-only au bootstrap | — | Si contraintes bash identifiées |
 | M-HOOKS-02 | Sections [ACTIVER si…] dans hook | — | Si contraintes bash identifiées |
 | M-PROC-10 | Mémoire de sprint intra-session | ✓ | — |
+| M-PROC-11 | Modifications spot par script sed/grep | ✓ | — |
 
 ---
 

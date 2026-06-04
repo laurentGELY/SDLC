@@ -1,7 +1,7 @@
 # STANDARDS.md — [Nom du projet] · v1.0
 <!-- Template SDLC v1.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
-<!-- SDLC version : v1.3 · aligné le JJ/MM/AAAA -->
-<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et 10-OPERATIONS.html -->
+<!-- SDLC version : v1.4 · aligné le JJ/MM/AAAA -->
+<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
 > Référence technique permanente du dépôt.
 > Complémentaire à `Claude.md` — ne contient pas de workflow de sprint.
@@ -38,7 +38,7 @@
 
 **Spike :** output = décision documentée, jamais du code partiel. Durée bornée définie dans la spec.
 
-**SDLC-Sync :** output = gouvernance alignée sur la version SDLC courante. Tests : N/A (zéro code métier). Exécuter via le skill `/sdlc-sync` dans Claude Code. Voir `10-OPERATIONS.html` §Mettre à jour un projet existant.
+**SDLC-Sync :** output = gouvernance alignée sur la version SDLC courante. Tests : N/A (zéro code métier). Exécuter via le skill `/sdlc-sync` dans Claude Code. Voir `doc/MODE-OPERATOIRE.html` §Mettre à jour un projet existant.
 
 ---
 

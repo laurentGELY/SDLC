@@ -1,7 +1,7 @@
 # Claude.md — [Nom du projet] · v1.0
 <!-- Template SDLC v1.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.3 · aligné le JJ/MM/AAAA -->
-<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et 10-OPERATIONS.html -->
+<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
 > Règles permanentes d'exécution du dépôt pour Claude Code.
 > Ne modifier que si une contrainte est récurrente sur plusieurs sprints.
