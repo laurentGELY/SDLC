@@ -1,4 +1,4 @@
-# Modèle de gouvernance SDLC — Claude Code · v1.3
+# Modèle de gouvernance SDLC — Claude Code · v1.2
 <!-- Méta-document de ce projet Claude.ai · Ne pas copier dans les projets cibles -->
 <!-- Mis à jour à chaque évolution structurelle du modèle -->
 
@@ -19,14 +19,12 @@
 | 02 | `02-STANDARDS-TEMPLATE.md` | DoD, types de sprint, niveaux de test | `STANDARDS.md` (racine) |
 | 03 | `03-wrap-up-SKILL-TEMPLATE.md` | Procédure de clôture de sprint | `.claude/skills/wrap-up/SKILL.md` |
 | 04 | `04-sprint-PDR-TEMPLATE.md` | Spec de sprint — copier tel quel | `specs/sprint-template.md` |
+| 04b | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill /sdlc-sync | `.claude/skills/sdlc-sync/SKILL.md` |
 | 05 | `05-ROADMAP-TEMPLATE.md` | Backlog Now/Next/Later | `doc/ROADMAP.md` |
 | 06 | `06-PDR-bootstrap.md` | Guide opérationnel Sprint 0 | *(guide d'exécution, pas copié)* |
 | 07 | `07-DECISIONS-SDLC.md` | Registre des décisions sur le modèle | *(propre à ce projet)* |
 | 08 | `08-hooks-TEMPLATE.md` | Hook PreToolUse Bash + settings | `.claude/hooks/` |
 | 09 | `09-retrospective-SKILL-TEMPLATE.md` | Procédure de rétrospective + remontées SDLC | `.claude/skills/retrospective/SKILL.md` |
-| 10 | `10-OPERATIONS.html` | Mode opératoire humain (init · sync · évolution modèle) | *(consulté par l'humain, pas copié)* |
-| — | `sdlc-init.sh` | Script bootstrap d'un repo vide | *(exécuté depuis le repo SDLC)* |
-| — | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill `/sdlc-sync` pour projet existant | `.claude/skills/sdlc-sync/SKILL.md` |
 
 **Ce fichier (`00-README.md`)** : méta-document de ce projet uniquement — jamais copié.
 
@@ -124,4 +122,4 @@ Avant tout commit sur ce projet SDLC :
 | v1.0 | 29/05/2026 | Bootstrap initial — 7 fichiers |
 | v1.1 | 30/05/2026 | Bilan session (Étape 0 wrap-up) · Auto-exécution · Nettoyage artefacts · DIAGNOSTIC_CMDS obligatoire |
 | v1.2 | 30/05/2026 | Hooks template (08) · Boucle rétroaction LESSONS_LEARNED → hook · Given/When/Then PDR · Champ Interdit PDR · Vérification exécutable renforcée · README méta-document (00) · Retrospective skill (09) · Circuit remontée SDLC via [SDLC_CANDIDATE] |
-| v1.3 | 03/06/2026 | Sprint SDLC-Sync · Skill /sdlc-sync (04b) · Script sdlc-init.sh · Marqueur version SDLC dans templates · Tableau compatibilité décisions · Mode opératoire HTML (10) |
+| v1.3 | 03/06/2026 | sdlc-sync skill (04b) + sprint SDLC-Sync · 10-OPERATIONS.html mode opératoire · Mémoire de sprint intra-session (M-PROC-10) |

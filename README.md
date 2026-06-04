@@ -1,0 +1,157 @@
+# SDLC Toolkit — Gouvernance Claude Code
+
+Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
+Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
+
+**Version courante : v1.3**
+
+---
+
+## Ce que ça fait concrètement
+
+Un projet gouverné par ce toolkit a :
+
+- Un `Claude.md` qui donne à Claude Code des règles permanentes d'exécution (rôle, limites, workflow)
+- Un skill `/wrap-up` qui clôture chaque sprint en 6 étapes (bilan → rétro → doc → commit)
+- Un skill `/retrospective` qui détecte les patterns récurrents et propose des hooks ou règles
+- Un skill `/sdlc-sync` qui aligne le projet sur une version plus récente du modèle sans écraser le tuning local
+- Une boucle de rétroaction terrain : incident → `LESSONS_LEARNED` → `/retrospective` → hook ou règle permanente
+
+**Quatre invariants guident toute évolution :**
+- **INV-1 · Vérification exécutable** — tout test = une commande exacte, pas une description
+- **INV-2 · Circuit fermé** — toute règle implicite devient explicite (hook, `DECISIONS.md`, ou `Claude.md`)
+- **INV-3 · Contexte chirurgical** — Claude charge uniquement les fichiers listés dans `§Handoff`, pas le repo entier
+- **INV-4 · Boucle de rétroaction** — toute observation terrain a un chemin vers une règle permanente
+
+---
+
+## Structure du repo
+
+```
+sdlc-toolkit/
+├── 00-README.md                     # Méta-document — invariants + historique versions
+├── 01-Claude-md-TEMPLATE.md         # → Claude.md du projet cible
+├── 02-STANDARDS-TEMPLATE.md         # → STANDARDS.md du projet cible
+├── 03-wrap-up-SKILL-TEMPLATE.md     # → .claude/skills/wrap-up/SKILL.md
+├── 04-sprint-PDR-TEMPLATE.md        # → specs/sprint-template.md (copie tel quel)
+├── 04b-sdlc-sync-SKILL-TEMPLATE.md  # → .claude/skills/sdlc-sync/SKILL.md
+├── 05-ROADMAP-TEMPLATE.md           # → doc/ROADMAP.md
+├── 06-PDR-bootstrap.md              # Guide opérationnel Sprint 0 (référence, non copié)
+├── 07-DECISIONS-SDLC.md             # Registre des décisions sur le modèle lui-même
+├── 08-hooks-TEMPLATE.md             # → .claude/hooks/pre-tool-bash.sh + settings.json
+├── 09-retrospective-SKILL-TEMPLATE.md  # → .claude/skills/retrospective/SKILL.md
+├── 10-OPERATIONS.html               # Mode opératoire complet (voir ci-dessous)
+└── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
+```
+
+---
+
+## Démarrage rapide
+
+### Nouveau projet
+
+```bash
+# 1. Cloner le toolkit
+git clone <ce-repo> sdlc-toolkit
+
+# 2. Depuis la racine du nouveau projet (git init déjà fait)
+bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
+
+# 3. Ouvrir Claude Code et compléter la gouvernance
+# (§Rôle, §Limites bash, SPEC.md, diagnostic skill)
+# → voir le prompt exact dans 10-OPERATIONS.html §Initialiser
+```
+
+### Projet existant à aligner
+
+```bash
+# Détecter la situation
+grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+```
+
+| Résultat | Action |
+|----------|--------|
+| Aucun fichier | → `sdlc-init.sh` (nouveau projet) |
+| `ABSENT` | → `/sdlc-sync` dans Claude Code (delta complet) |
+| `SDLC version : vX.Y` | → `/sdlc-sync` dans Claude Code (delta vX.Y → courant) |
+| Version courante | Rien à faire ✓ |
+
+```bash
+# Dans Claude Code du projet cible
+/sdlc-sync
+```
+
+---
+
+## Faire évoluer le modèle
+
+1. Lire `00-README.md §3` (invariants) avant toute modification
+2. Modifier le(s) template(s) concerné(s) — mettre à jour le numéro de version dans l'en-tête
+3. Documenter la décision dans `07-DECISIONS-SDLC.md` (format `M-XXXX-NN`)
+4. Mettre à jour `00-README.md §5` (historique versions)
+5. Commit `docs(sdlc): description · vX.Y → vZ.W`
+
+> Après une évolution du modèle, tous les projets avec un marqueur de version antérieur sont candidats à un `/sdlc-sync`. Ce n'est pas automatique — décision humaine au cas par cas.
+
+---
+
+## Référence
+
+### Fichiers créés dans le projet cible
+
+| Source (toolkit) | Destination (projet) | Action au bootstrap |
+|------------------|----------------------|---------------------|
+| `01-Claude-md-TEMPLATE.md` | `Claude.md` | Adapter §Rôle · §Démarrage · §Limites bash |
+| `02-STANDARDS-TEMPLATE.md` | `STANDARDS.md` | Vider §Modules partagés · §Carte des étapes |
+| `03-wrap-up-SKILL-TEMPLATE.md` | `.claude/skills/wrap-up/SKILL.md` | Adapter §Étape 0b · §Étape 6 |
+| `04-sprint-PDR-TEMPLATE.md` | `specs/sprint-template.md` | Copier tel quel |
+| `04b-sdlc-sync-SKILL-TEMPLATE.md` | `.claude/skills/sdlc-sync/SKILL.md` | Copier tel quel |
+| `05-ROADMAP-TEMPLATE.md` | `doc/ROADMAP.md` | Sprint 1 en §Now |
+| `08-hooks-TEMPLATE.md §1` | `.claude/hooks/pre-tool-bash.sh` | Activer les sections pertinentes · `chmod +x` |
+| `08-hooks-TEMPLATE.md §2` | `.claude/settings.json` | Copier tel quel |
+| `09-retrospective-SKILL-TEMPLATE.md` | `.claude/skills/retrospective/SKILL.md` | Copier tel quel |
+| *(from scratch)* | `CHANGELOG.md` | Header + entrée Sprint 0 |
+| *(from scratch)* | `doc/DECISIONS.md` | Header + conventions préfixes |
+| *(from scratch)* | `doc/LESSONS_LEARNED.md` | §Index vide + format |
+| *(from scratch)* | `doc/DIAGNOSTIC_CMDS.md` | Header + format |
+| *(from scratch)* | `specs/SPEC.md` | Structure vide du domaine |
+| *(from scratch)* | `.claude/skills/diagnostic/SKILL.md` | Commandes de diagnostic |
+
+### Skills disponibles dans Claude Code
+
+| Commande | Quand | Fréquence |
+|----------|-------|-----------|
+| `/sdlc-init` | Repo vide — bootstrap complet | Une fois par projet |
+| `/sdlc-sync` | Aligner sur une version SDLC plus récente | À chaque évolution du modèle |
+| `/wrap-up` | Clôture de sprint | Fin de chaque sprint |
+| `/retrospective` | Analyse de patterns sur N sprints | Toutes les ~5 sprints ou après incident |
+| `/diagnostic` | Bug ou comportement inattendu | Sur incident |
+
+### Types de sprint
+
+| Type | Description | Output attendu |
+|------|-------------|----------------|
+| Feature | Nouvelle fonctionnalité | Code + tests + doc |
+| Fix | Correction de bug ou régression | Code corrigé + test non-régression |
+| Tuning | Seuils, prompts, paramètres | Mesure avant/après + `DECISIONS.md` |
+| Doc | Documentation, process, SDLC | Fichiers doc mis à jour, zéro code |
+| Spike | Investigation bornée dans le temps | Décision dans `DECISIONS.md` (pas de code) |
+| Dette | Remboursement dette technique | Code nettoyé + test non-régression |
+| SDLC-Sync | Alignement sur version SDLC plus récente | Marqueur version à jour + `D-SYNC-XX` |
+
+---
+
+## Mode opératoire complet
+
+`10-OPERATIONS.html` — documentation opérationnelle avec navigation, commandes copiables, et le détail de chaque opération. Ouvrir directement dans un navigateur.
+
+---
+
+## Historique des versions
+
+| Version | Date | Changements principaux |
+|---------|------|------------------------|
+| v1.0 | 29/05/2026 | Bootstrap initial — 7 fichiers |
+| v1.1 | 30/05/2026 | Bilan session (Étape 0 wrap-up) · Auto-exécution · Nettoyage artefacts · DIAGNOSTIC_CMDS obligatoire |
+| v1.2 | 30/05/2026 | Hooks template · Boucle rétroaction LESSONS_LEARNED → hook · Given/When/Then PDR · Champ Interdit PDR · Vérification exécutable renforcée · README méta-document · Retrospective skill · Circuit remontée SDLC via [SDLC_CANDIDATE] |
+| v1.3 | 03/06/2026 | sdlc-sync skill + sprint SDLC-Sync · 10-OPERATIONS.html · Mémoire de sprint intra-session |
