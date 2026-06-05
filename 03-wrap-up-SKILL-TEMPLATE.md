@@ -142,6 +142,12 @@ Règles format : zéro `###` dans les entrées · bullets plats · **bold** pour
 Relire la conversation. Extraire toute commande utilisée ou affinée ce sprint.
 Ajouter si nouvelle. Si aucune commande nouvelle : confirmer explicitement "✅ DIAGNOSTIC_CMDS — RAS".
 
+**`specs/Sprints/sprint-N-slug.md`** — obligatoire, auto-exécuté :
+Vérifier que le fichier existe (créé en étape 4a du démarrage).
+Si absent : signaler l'anomalie explicitement — `⚠️ specs/Sprints/sprint-N-slug.md absent`.
+Si présent : compléter la section §Corrections ajustées vs spec si ≥ 1 divergence par rapport à la spec initiale.
+Si aucune divergence : confirmer explicitement "✅ spec sprint — aucune correction ajustée".
+
 ### Nettoyage artefacts — auto-exécuté, rapporter le résultat
 
 **Artefacts périmés (Q1) :**

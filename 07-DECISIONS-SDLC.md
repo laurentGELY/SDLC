@@ -395,6 +395,7 @@ pas seulement l'auteur du modèle.
 | M-HOOKS-02 | Sections [ACTIVER si…] dans hook | — | Si contraintes bash identifiées |
 | M-PROC-10 | Mémoire de sprint intra-session | ✓ | — |
 | M-PROC-11 | Modifications spot par script sed/grep | ✓ | — |
+| M-PROC-12 | Init sprint : spec + mémoire + plan de développement | ✓ | — |
 
 ---
 
@@ -445,3 +446,24 @@ source d'erreur (mauvaise ligne, contexte décalé, oubli d'occurrence). Un scri
 `sed` avec grep de validation est reproductible, auditable, et échoue explicitement
 si le pattern a changé. La pratique existait déjà implicitement dans `sdlc-init.sh`
 (substitution des placeholders) mais n'était pas formalisée comme règle générale.
+
+---
+
+## M-PROC-12 · Init sprint : spec + mémoire + plan de développement · v1.5 · 05/06/2026
+
+**Retenu :** Séquence obligatoire en 4 étapes (4a→4d) avant tout code :
+(4a) créer `specs/Sprints/sprint-N-slug.md` depuis le PDR reçu,
+(4b) initialiser `.claude/sprint-memory.md`,
+(4c) lire le spec,
+(4d) écrire le §Plan de développement dans le spec.
+
+**Écarté :**
+- Hook `pre-tool-bash.sh` détectant l'absence du fichier sprint : trop invasif pour un gap de process
+- Skill `/sprint-init` dédié : surcharge pour 4 actions séquentielles déjà dans §Démarrage
+
+**Raison :** Observation directe projet JobSearch (05/06/2026) — sprints 33–37b sans fichier
+`specs/Sprints/sprint-N.md` dans git. La règle §4 existante (`cat specs/Sprints/…`) supposait
+que le fichier existait déjà. Rendre la création explicite et vérifiable dès la réception du PDR
+garantit la traçabilité du plan de développement et la matière première du wrap-up.
+La distinction §Handoff (humain) / §Plan de développement (Claude Code) / §Corrections ajustées
+(wrap-up) matérialise les trois temps du sprint dans un seul fichier versionné.

@@ -121,5 +121,28 @@ Scénario : [nom du comportement]
 **Init mémoire sprint :**
 ```bash
 echo "# Sprint N — [slug] · $(date +%Y-%m-%d)" > .claude/sprint-memory.md
+echo "# Spec : specs/Sprints/sprint-N-slug.md" >> .claude/sprint-memory.md
 ```
-*(Remplacer N et slug. Exécuter après avoir complété ce §Handoff.)*
+*(Remplacer N et slug. Exécuter en étape 4b du démarrage, après création du fichier spec.)*
+
+---
+
+## Plan de développement
+*(produit par Claude Code après analyse — à compléter en étape 4d, avant tout code)*
+
+**Modules touchés :**
+
+**Risques identifiés :**
+
+**Plan d'exécution :**
+1.
+2.
+
+**Plan de test :**
+- A — Ciblé : `<commande exacte>`
+- B — Non-régression :
+
+---
+
+## Corrections ajustées vs spec
+*(complété au wrap-up — §Étape 3)*

@@ -1,6 +1,6 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v1.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
-<!-- SDLC version : v1.3 · aligné le JJ/MM/AAAA -->
+<!-- Template SDLC v1.5 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- SDLC version : v1.5 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
 > Règles permanentes d'exécution du dépôt pour Claude Code.
@@ -17,6 +17,7 @@
 - conclure sans preuves observables (logs, sorties, commandes)
 - modifier un fichier de configuration sans noter la valeur précédente
 - lancer un refactor hors périmètre sans validation explicite
+- commencer à coder sans avoir exécuté les étapes 4a/4b/4c et écrit le §Plan de développement dans le spec (4d)
 
 **Si l'aval n'est pas donné → s'arrêter après l'analyse et attendre.**
 
@@ -60,10 +61,21 @@ fi
 [commande état composant principal]
 [commande état dépendances]
 
-# 4. Lire le sprint spec
+# 4a. Créer le fichier spec du sprint dans le repo
+# → Écrire le contenu du PDR reçu dans specs/Sprints/sprint-<N>-<slug>.md
+# (fichier inexistant au démarrage — le créer depuis le PDR fourni en conversation)
+
+# 4b. Initialiser la mémoire sprint
+echo "# Sprint <N> — <slug> · $(date +%Y-%m-%d)" > .claude/sprint-memory.md
+echo "# Spec : specs/Sprints/sprint-<N>-<slug>.md" >> .claude/sprint-memory.md
+
+# 4c. Lire le sprint spec
 cat specs/Sprints/sprint-<N>-<slug>.md
 # Référence architecturale complète :
 # cat specs/SPEC.md
+
+# 4d. Écrire le §Plan de développement dans le spec avant tout code
+# → compléter modules touchés, risques, plan d'exécution, plan de test
 ```
 
 Si aucun sprint spec n'est fourni → demander avant d'aller plus loin.
