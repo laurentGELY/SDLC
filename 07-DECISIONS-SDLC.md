@@ -467,3 +467,176 @@ que le fichier existait déjà. Rendre la création explicite et vérifiable dè
 garantit la traçabilité du plan de développement et la matière première du wrap-up.
 La distinction §Handoff (humain) / §Plan de développement (Claude Code) / §Corrections ajustées
 (wrap-up) matérialise les trois temps du sprint dans un seul fichier versionné.
+
+---
+
+## M-PROC-13 · Annotation de confiance sur les entrées ANALYSE · v1.6 · 11/06/2026
+
+**Retenu :** Suffixe optionnel `[CONF: HAUTE/MOY/FAIBLE — raison en 1 ligne]` sur les entrées
+`ANALYSE` dans `sprint-memory.md`, et mention explicite du niveau de confiance dans la
+`## Demande d'aval` de `Claude.md §Analyse`.
+
+**Écarté :**
+- Confiance sur tous les types d'entrées (DÉCISION, TEST, etc.) : surcharge sans bénéfice net — TEST a déjà OK/FAIL, DÉCISION est binaire par construction
+- Score numérique (0–100%) : fausse précision, difficile à calibrer de façon cohérente
+- Champ obligatoire : ajoute de la friction sur les analyses simples où la confiance est évidemment haute
+
+**Raison :** Issu de l'analyse des skills `/incident-response` (Harness) — le niveau HIGH/MEDIUM/LOW
+sur les corrélations causales permet à l'humain de calibrer son aval sans relire toute l'analyse.
+Principe 9.9 du chapitre (vérification indépendante) : l'annotateur et l'analyste sont le même
+agent, mais nommer l'incertitude force une auto-évaluation explicite et donne à l'humain
+un signal rapide pour savoir où concentrer son attention. Sur les analyses FAIBLE, l'humain
+sait immédiatement qu'un Oracle ou une vérification manuelle est justifiée avant l'aval.
+
+**Critères de calibration :**
+- HAUTE : information directement observable dans les fichiers/logs, pas d'inférence
+- MOY : inférence fondée sur des indices convergents, mais sans preuve directe
+- FAIBLE : hypothèse de travail, information manquante ou contradictoire
+
+---
+
+## M-PROC-14 · Alternative concrète dans les messages de blocage · v1.6 · 11/06/2026
+
+**Retenu :** Champ optionnel `→ alternative : [action concrète possible sans lever ce bloquant]`
+sur les entrées `BLOQUANT` dans `sprint-memory.md`. Dans les hooks `pre-tool-bash.sh`,
+étendre le message `exit 2` pour inclure une alternative quand elle existe.
+
+**Écarté :**
+- Alternative obligatoire sur tout BLOQUANT : certains bloquants n'ont pas d'alternative
+  (ex : secret manquant — la seule action est d'attendre l'humain)
+- Arbre de décision complet dans le hook : trop lourd pour un message d'erreur bash
+
+**Raison :** Issu des troubleshooting sections des skills Harness — la distinction entre
+"mur" et "mur avec porte" change radicalement l'expérience de friction. Principe 9.7
+du chapitre (recovery optimizes for continuation) : ne pas laisser l'utilisateur dans
+un état d'échec sans chemin de sortie visible. Le champ est optionnel car son absence
+est aussi informative : un BLOQUANT sans alternative signale une dépendance humaine
+réelle, pas une limitation contournable.
+
+**Règle d'application aux hooks :**
+Quand une section `[ACTIVER si…]` est activée dans `pre-tool-bash.sh`, si une alternative
+concrète existe, l'ajouter au message `exit 2` :
+```bash
+echo "BLOQUÉ : X interdit." >&2
+echo "Alternative : Y." >&2  # ← ajouter quand pertinent
+exit 2
+```
+Documenter l'alternative dans l'entrée `doc/DECISIONS.md §D-HOOK-XX` correspondante.
+
+---
+
+## M-PROC-15 · Marqueur de validité conditionnelle sur les entrées DÉCISION · v1.6 · 11/06/2026
+
+**Retenu :** Champ optionnel `[valide jusqu'à : condition]` sur les entrées `DÉCISION`
+dans `sprint-memory.md`. La condition est un état observable du système, pas un timestamp.
+
+**Écarté :**
+- Timestamp d'expiration (ex : `[valide jusqu'à : 17:00]`) : une décision n'expire pas
+  avec le temps mais avec un changement d'état — le timestamp est une approximation incorrecte
+- Champ obligatoire : la majorité des décisions sont stables pour toute la durée du sprint
+  et le rendre obligatoire créerait du remplissage vide
+
+**Raison :** Issu des performance notes des skills Harness — `/deployment-readiness` note
+explicitement que les checks doivent tourner contre l'état réel, pas un état mis en cache,
+et que l'analyse de drift est valide "right before deployment", pas des heures avant.
+En session longue (> 2h avec modifications de fichiers), une `DÉCISION` prise sur la base
+d'une analyse peut être invalidée par un changement ultérieur sans que Claude le détecte.
+Le marqueur rend la condition d'invalidation explicite au moment où la décision est prise,
+ce qui permet de la repérer immédiatement au wrap-up ou en reprise de session tronquée.
+
+**Exemples de conditions valides :**
+```
+[valide jusqu'à : aucun fichier config modifié]
+[valide jusqu'à : schema DB stable]
+[valide jusqu'à : dépendance X non mise à jour]
+[stable]  ← forme courte pour les décisions sans condition d'invalidation
+```
+
+**Interaction avec M-PROC-13 (session tronquée) :**
+En reprise après crash (option D du démarrage), les entrées DÉCISION avec
+`[valide jusqu'à : condition]` doivent être vérifiées en premier — si la condition
+n'est plus vraie, la décision est invalidée et l'analyse doit être refaite.
+
+---
+
+## M-ARCH-07 · §Dépendances dans le PDR sprint · v1.6 · 11/06/2026
+
+**Retenu :** Nouvelle section `## Dépendances` dans `04-sprint-PDR-TEMPLATE.md`,
+avec deux sous-listes : **Inputs requis** (outputs de sprints précédents ou ressources
+externes que ce sprint assume comme valides) et **Outputs produits** (artefacts que
+les sprints suivants pourront utiliser). Vérification des inputs requise en §Plan de
+développement avant toute analyse.
+
+**Écarté :**
+- Dépendances dans §Contexte (enfouies dans du texte, non vérifiables par grep)
+- Liste unique sans distinction input/output (perd l'information de direction)
+- Section obligatoire avec "aucune" par défaut (aucune dépendance n'est aussi informative
+  que de cocher explicitement la case)
+
+**Raison :** Issu de l'analyse des §Cross-Skill Workflows Harness — la règle
+*"always check if a referenced resource exists before creating something that depends on it"*
+s'applique directement aux sprints : une décision D-07 citée dans un sprint ultérieur
+peut avoir été révisée. Sans §Dépendances explicite, cette vérification est implicite
+dans la tête de l'humain, pas dans le processus. Cohérent avec INV-1 (vérification
+exécutable) étendu au séquencement inter-sprints, pas seulement aux tests unitaires.
+
+**Propagation :** §Plan de développement du PDR inclut désormais un sous-bloc
+"Dépendances vérifiées" avec la liste des inputs et leur état constaté.
+
+---
+
+## M-PROC-16 · §Handoff eager/lazy — chargement immédiat vs différé · v1.6 · 11/06/2026
+
+**Retenu :** Le §Handoff du PDR sprint distingue explicitement deux listes :
+**"chargement immédiat"** (lire en étape 4c, avant toute analyse) et
+**"chargement différé"** (grep d'abord, lire entièrement seulement si le grep
+confirme la pertinence). Cette distinction est répercutée dans `Claude.md §Démarrage`
+(étape 4c) et `Claude.md §Tokens`.
+
+**Écarté :**
+- Liste unique sans distinction (état actuel — force un choix implicite à chaque session)
+- Toujours tout charger en immédiat (viole INV-3 sur les sessions avec SPEC.md dense)
+- Laisser Claude décider au cas par cas sans guidage (non reproductible, dépend de
+  l'expérience accumulée de l'auteur du §Handoff)
+
+**Raison :** Issu du pattern `harness_describe` de l'architecture Harness MCP —
+*"don't embed schemas in skills, discover at runtime what you need."* Traduit dans
+le SDLC : la distinction eager/lazy dans le §Handoff est une décision prise par
+l'humain qui rédige la spec, pas une heuristique que Claude reconstruit à chaque session.
+Cohérent avec INV-3 (contexte chirurgical) et principe 9.5 du chapitre (context is
+working memory — optimise for governable, not more). Les fichiers différés typiques :
+SPEC.md complet, modules non touchés par ce sprint, DECISIONS.md historique.
+Les fichiers immédiats typiques : spec du sprint, fichiers directement modifiés.
+
+---
+
+## M-PROC-17 · Index structuré des patterns dans /retrospective · v1.6 · 11/06/2026
+
+**Retenu :** Le skill `/retrospective` produit désormais un §Index des patterns
+en format tableau markdown (colonnes : ID, Pattern, Occurrences, Sprints, Statut,
+Décision) et un §Métriques de rétro (compteurs : sprints couverts, HOOK_CANDIDATE,
+SDLC_CANDIDATE, décisions invalidées, patterns nouveaux/résolus). Ces deux sections
+remplacent le simple horodatage `Dernière /retrospective : JJ/MM/AAAA · Sprints N→M`.
+Un bloc §Requêtes utiles documente les greps permettant des vues rapides sans relire
+tout le fichier.
+
+**Écarté :**
+- Format JSON dans LESSONS_LEARNED (lisible par machine mais pas par humain sans outil)
+- Fichier séparé `doc/RETRO_INDEX.md` (un fichier de plus à maintenir, risque de
+  désynchronisation avec LESSONS_LEARNED)
+- Compteurs seulement sans tableau de patterns (perd la traçabilité par pattern)
+
+**Raison :** Issu de l'observation que les skills `/dora-metrics` et `/sei-analytics`
+Harness rendent les patterns engineering *requêtables* — pas seulement lisibles.
+Après 10-15 sprints, un LESSONS_LEARNED en prose devient difficile à exploiter :
+les patterns se répètent sans être facilement identifiables. Le format tableau
+markdown est à la fois human-readable et grep-able — les requêtes §Requêtes utiles
+permettent d'extraire patterns actifs, HOOK_CANDIDATE en attente, et décisions
+invalidées sans charger tout le fichier (INV-3). Le §Métriques de rétro donne
+une vue d'état instantanée de la santé du processus, analogue à un DORA snapshot
+pour le workflow de sprint lui-même.
+
+**Interaction avec M-PROC-15 :** Les décisions `[valide jusqu'à : condition]`
+sont désormais scannées à chaque `/retrospective` (Étape 2 — bloc DÉCISIONS
+POTENTIELLEMENT INVALIDÉES), ce qui ferme la boucle entre la pose du marqueur
+(en session) et sa vérification (en rétro).

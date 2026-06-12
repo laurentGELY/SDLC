@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v1.1 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v1.6 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -65,6 +65,22 @@ Ex : "Le composant Z accepte les formats A et B sans erreur"]
 
 ---
 
+## Dépendances
+
+**Inputs requis** *(ce sprint assume que ces outputs de sprints précédents existent et sont valides)* :
+- [ ] [Sprint N ou artifact — ex : `specs/Sprints/sprint-12-auth.md` · décision D-07 stable]
+- [ ] [Ressource externe — ex : connecteur GitHub configuré · secret API_KEY présent dans .env]
+- *(aucune dépendance explicite)* ← supprimer si des dépendances sont listées
+
+**Outputs produits** *(ce que les sprints suivants pourront utiliser)* :
+- [ ] [ex : `src/module_x.py` · interface publique stable]
+- [ ] [ex : décision D-XX dans DECISIONS.md]
+
+**Règle :** avant de démarrer, vérifier que tous les inputs requis cochés existent et sont dans l'état attendu.
+Si un input manque ou a changé → signaler comme BLOQUANT avant toute analyse.
+
+---
+
 ## Critères d'acceptation
 
 - [ ] [Critère 1 — vérifiable par commande ou observation]
@@ -103,9 +119,11 @@ Scénario : [nom du comportement]
 ## Handoff Claude Code
 *(à compléter en début de session)*
 
-**Fichiers à inspecter en priorité :**
--
--
+**Fichiers — chargement immédiat :**
+- *(lire en étape 4c, avant toute analyse)*
+
+**Fichiers — chargement différé :**
+- *(grep d'abord · lire uniquement si le grep confirme la pertinence)*
 
 **Données à collecter avant de coder :**
 -
@@ -129,6 +147,9 @@ echo "# Spec : specs/Sprints/sprint-N-slug.md" >> .claude/sprint-memory.md
 
 ## Plan de développement
 *(produit par Claude Code après analyse — à compléter en étape 4d, avant tout code)*
+
+**Dépendances vérifiées :**
+- [ ] [input requis] — état : [présent / absent / modifié depuis spec]
 
 **Modules touchés :**
 
