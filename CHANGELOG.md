@@ -2,6 +2,26 @@
 
 ---
 
+## [v1.7] — 2026-06-11 · Sprint SDLC-04 · Confiance FAIBLE → vérification externe + PostToolUse Option A/B
+
+- **`01-Claude-md-TEMPLATE.md` v1.7** : §Analyse §Demande d'aval — si confiance FAIBLE, recommander explicitement une vérification externe (Oracle ou revue humaine) avant l'aval (M-PROC-18)
+- **`08-hooks-TEMPLATE.md` v1.7** : §PostToolUse restructuré en Option A — lint/format ruff (reformulée, ex-M-HOOKS-01) / Option B — nouveau hook `post-commit-changelog.sh` + snippet `settings.json` + smoke test (M-HOOKS-03)
+- **`02-STANDARDS-TEMPLATE.md`** : marqueur `SDLC version` v1.5 → v1.7 (paire avec `01-Claude-md-TEMPLATE.md`, cf. M-PROC-09)
+- **`07-DECISIONS-SDLC.md`** : M-PROC-18, M-HOOKS-03
+- **Tests** : `post-commit-changelog.sh` — `bash -n` OK · 4 scénarios smoke test (non-commit, --amend, commit avec/sans CHANGELOG.md) ✓
+
+---
+
+## [v1.6] — 2026-06-11 · Sprint SDLC-03 · Annotations sprint-memory + Handoff eager/lazy + index retrospective
+
+- **`01-Claude-md-TEMPLATE.md` v1.6** : §Mémoire de sprint — annotation `[CONF: HAUTE/MOY/FAIBLE — raison]` sur ANALYSE (M-PROC-13) · champ `→ alternative :` sur BLOQUANT (M-PROC-14) · `[valide jusqu'à : condition]` sur DÉCISION (M-PROC-15) ; §Démarrage 4c + §Tokens — distinction Handoff chargement immédiat/différé (M-PROC-16)
+- **`04-sprint-PDR-TEMPLATE.md` v1.6** : §Handoff scindé en chargement immédiat / chargement différé (M-PROC-16) · nouvelle section §Dépendances — inputs requis / outputs produits (M-ARCH-07)
+- **`09-retrospective-SKILL-TEMPLATE.md` v1.6** : §Index des patterns en tableau structuré + §Métriques de rétro + §Requêtes utiles sur l'index (M-PROC-17)
+- **`07-DECISIONS-SDLC.md`** : M-PROC-13, M-PROC-14, M-PROC-15, M-PROC-16, M-PROC-17, M-ARCH-07
+- **Tests** : N/A (gouvernance uniquement)
+
+---
+
 ## [v1.5] — 2026-06-05 · Sprint SDLC-02 · Init sprint spec + mémoire
 
 - **`01-Claude-md-TEMPLATE.md` v1.5** : §Démarrage étape 4 remplacée par séquence 4a/4b/4c/4d — création spec, init mémoire, lecture, plan de dev ; règle absolue ajoutée

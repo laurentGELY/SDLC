@@ -1,5 +1,5 @@
 # DECISIONS-SDLC — Modèle de gouvernance Claude Code
-<!-- v1.0 · 29/05/2026 · Décisions sur le modèle lui-même, pas sur les projets cibles -->
+<!-- v1.7 · 11/06/2026 · Décisions sur le modèle lui-même, pas sur les projets cibles -->
 
 Registre des décisions prises sur le modèle SDLC.
 Format : ID · Décision retenue · Alternative écartée · Justification · Sprint / Date
@@ -396,6 +396,14 @@ pas seulement l'auteur du modèle.
 | M-PROC-10 | Mémoire de sprint intra-session | ✓ | — |
 | M-PROC-11 | Modifications spot par script sed/grep | ✓ | — |
 | M-PROC-12 | Init sprint : spec + mémoire + plan de développement | ✓ | — |
+| M-PROC-13 | Annotation `[CONF: HAUTE/MOY/FAIBLE]` sur ANALYSE (sprint-memory) | ✓ | — |
+| M-PROC-14 | Champ `→ alternative :` sur BLOQUANT (sprint-memory) | ✓ | — |
+| M-PROC-15 | `[valide jusqu'à : condition]` sur DÉCISION (sprint-memory) | ✓ | — |
+| M-PROC-16 | Handoff PDR scindé en chargement immédiat / différé | ✓ | — |
+| M-PROC-17 | Index structuré des patterns + métriques dans /retrospective | ✓ | — |
+| M-ARCH-07 | §Dépendances (inputs/outputs) dans le PDR sprint | ✓ | — |
+| M-PROC-18 | Recommandation de vérification externe (Oracle/revue humaine) si confiance FAIBLE | ✓ | — |
+| M-HOOKS-03 | §PostToolUse restructuré en Option A (lint) / Option B (changelog) | ✓ | — |
 
 ---
 
@@ -640,3 +648,77 @@ pour le workflow de sprint lui-même.
 sont désormais scannées à chaque `/retrospective` (Étape 2 — bloc DÉCISIONS
 POTENTIELLEMENT INVALIDÉES), ce qui ferme la boucle entre la pose du marqueur
 (en session) et sa vérification (en rétro).
+
+---
+
+## M-PROC-18 · Recommandation de vérification externe si confiance FAIBLE · v1.7 · 11/06/2026
+
+**Contexte :** M-PROC-13 a introduit l'annotation `[CONF: HAUTE/MOY/FAIBLE — raison]` sur
+les entrées `ANALYSE` de `sprint-memory.md`, comme signal de calibration. Le signal est
+correctement renseigné mais n'a aucune conséquence procédurale : une `ANALYSE [CONF: FAIBLE]`
+mène à une `Demande d'aval` formulée exactement comme une analyse `[CONF: HAUTE]`.
+
+**Retenu :** Ajout d'une ligne dans `Claude.md §Analyse §Demande d'aval`, juste après la
+ligne de résumé :
+> Si confiance FAIBLE → recommander explicitement une vérification externe (Oracle ou
+> revue humaine) avant l'aval.
+
+**Écarté :**
+- Statu quo (annotation `[CONF: FAIBLE]` purement informative) — c'est l'option qui motive
+  cette décision : un signal sans conséquence se dégrade en habitude ignorée après quelques
+  sprints.
+- Vérification externe obligatoire et bloquante sur toute analyse `[CONF: FAIBLE]` —
+  transférerait la décision de l'humain vers une règle automatique, contraire à
+  "Claude propose, l'humain décide" (INV-3).
+
+**Raison :** Ferme la boucle ouverte par M-PROC-13 sans changer qui décide. La
+recommandation apparaît au moment précis où l'humain donne (ou non) son aval — il reste
+libre de l'ignorer, mais ne peut plus l'ignorer *passivement*.
+
+**Interaction avec M-PROC-15 :** une `ANALYSE [CONF: FAIBLE]` qui mène à une `DÉCISION`
+porte souvent un `[valide jusqu'à : condition]` non trivial — faible confiance et validité
+conditionnelle sont fréquemment corrélées (l'incertitude vient généralement d'une
+dépendance à un état qui peut changer).
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` (§Analyse §Demande d'aval, +1 ligne).
+
+---
+
+## M-HOOKS-03 · §PostToolUse restructuré en deux options indépendantes · v1.7 · 11/06/2026
+
+**Contexte :** `08-hooks-TEMPLATE.md §PostToolUse` ne documentait qu'une seule option
+(lint/format `ruff`, M-HOOKS-01), non titrée, avec une recommandation de timing unique
+("décider au sprint 1 ou 2 une fois la stack stabilisée"). Cette recommandation est
+justifiée pour `ruff` (suppose un formatter configuré) mais n'a aucune raison de
+s'appliquer à un hook sans dépendance externe.
+
+**Retenu :** Restructuration de la section en deux sous-sections indépendamment activables :
+- **Option A — Lint/format automatique (ruff)** : contenu inchangé (M-HOOKS-01), retitré,
+  intro reformulée pour expliciter la sémantique PostToolUse (s'exécute après l'action,
+  ne peut pas bloquer — seulement avertir ou compléter). Référence `§D-HOOK-07`.
+- **Option B — Vérification CHANGELOG au commit** (nouvelle) :
+  `.claude/hooks/post-commit-changelog.sh`, hook `PostToolUse` sur `Bash`, avertit
+  (non bloquant) si un `git commit` ne modifie pas `CHANGELOG.md`, hors `--amend`.
+  Snippet `settings.json`, smoke test et référence `§D-HOOK-08` inclus.
+
+**Écarté :**
+- Fusionner Option B dans la section existante avec la même recommandation de timing —
+  aurait masqué que Option B n'a aucune des dépendances qui justifient le délai
+  d'Option A (formatter configuré, tests < 5s).
+- Rendre Option B bloquante (PreToolUse) — au moment où un hook PostToolUse se déclenche,
+  le commit a déjà eu lieu ; bloquer après coup n'a pas de sens, seul l'avertissement est
+  cohérent avec la sémantique PostToolUse.
+
+**Raison :** Option A suppose une stack stabilisée (sprint 1-2). Option B n'a aucune
+dépendance externe au-delà de `git` + `python3` et peut être activée dès le sprint 0.
+Regrouper les deux sous une recommandation de timing unique était trompeur pour Option B.
+La restructuration rend les deux trajectoires d'activation indépendantes et explicites,
+sans imposer l'une comme prérequis de l'autre.
+
+**Lien avec `/wrap-up` §Étape 3 :** Option B fournit un filet de sécurité non bloquant sur
+le même invariant que l'Étape 3 du wrap-up ("CHANGELOG.md à jour") — elle rattrape un
+oubli au moment du commit plutôt qu'en fin de session, sans dupliquer ni remplacer la
+vérification de wrap-up.
+
+**Impact fichiers :** `08-hooks-TEMPLATE.md` (§PostToolUse → ### Option A / ### Option B,
++~95 lignes).

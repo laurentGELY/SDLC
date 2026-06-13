@@ -3,7 +3,7 @@
 Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
-**Version courante : v1.5**
+**Version courante : v1.7**
 
 ---
 
@@ -162,3 +162,6 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v1.2 | 30/05/2026 | Hooks template · Boucle rétroaction LESSONS_LEARNED → hook · Given/When/Then PDR · Champ Interdit PDR · Vérification exécutable renforcée · Retrospective skill · Circuit remontée SDLC via [SDLC_CANDIDATE] |
 | v1.3 | 03/06/2026 | sdlc-sync skill + sprint SDLC-Sync · MODE-OPERATOIRE.html · Mémoire de sprint intra-session |
 | v1.4 | 04/06/2026 | Restructuration doc/ : SPEC.html + MODE-OPERATOIRE.html · 00-README.md → 00-CONTEXT.md |
+| v1.5 | 05/06/2026 | Init sprint : spec + mémoire + plan de développement — séquence 4a→4d (M-PROC-12) |
+| v1.6 | 11/06/2026 | Annotations sprint-memory (CONF/alternative/valide jusqu'à) · Handoff eager/lazy · §Dépendances PDR · index retrospective structuré (M-PROC-13→17, M-ARCH-07) |
+| v1.7 | 11/06/2026 | Recommandation vérification externe si CONF FAIBLE · §PostToolUse Option A/B — lint + post-commit-changelog (M-PROC-18, M-HOOKS-03) |
