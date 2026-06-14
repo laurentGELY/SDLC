@@ -1,6 +1,6 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v1.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
-<!-- SDLC version : v1.7 · aligné le JJ/MM/AAAA -->
+<!-- Template SDLC v1.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- SDLC version : v1.9 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
 > Référence technique permanente du dépôt.
@@ -50,6 +50,8 @@
 | **B — Non-régression** | Module partagé touché | Vérification des consommateurs | Comportement identique à avant |
 | **C — Intégration** | Risque élevé, changement architectural | Run complet du système | Output valide de bout en bout |
 
+**Anti-faux-positif niveau A sur pipeline :** un test A est invalide si le corpus d'entrée contient zéro items traités — vérifier le compteur de sortie, pas seulement exit 0. Définir la condition dans `**Volumétrie minimum :**` du PDR sprint si applicable.
+
 <!-- [→ ADAPTER] Ajouter des niveaux spécifiques si pertinent (ex: golden set, snapshot) -->
 
 ---
@@ -72,20 +74,28 @@
 
 ## Observabilité
 
-<!-- [→ ADAPTER] Ajuster selon la nature du système -->
+<!-- [→ ADAPTER] Adapter les questions à la nature du système -->
 
-### Règle fondamentale
-Toute nouvelle étape du système doit émettre :
-- Message d'entrée avec identifiant d'étape
-- Message de fin avec compteur et durée
-- Heartbeat si durée probable > 30s
+**Règle :** toute nouvelle étape du pipeline doit émettre une trace de début, de fin et d'erreur. Sans ces marqueurs, l'étape est invisible au diagnostic en cas de crash.
 
-Sans ces événements, l'étape est invisible au diagnostic en cas de crash.
+### Checklist Q/R — à compléter au bootstrap · zéro placeholder avant le commit initial
 
-### Format de log recommandé
-```
-YYYY-MM-DD HH:MM:SS LEVEL [run_id] module.etape message
-```
+Q: Quel marqueur de log indique qu'une étape a démarré ?
+→ R: [À REMPLIR] *(ex: "[START] nom_etape run_id=...")*
+
+Q: Quel marqueur indique qu'elle est terminée avec succès ?
+→ R: [À REMPLIR] *(ex: "[DONE] nom_etape items=N duration=Xs")*
+
+Q: Quel marqueur indique une erreur non fatale (avertissement) ?
+→ R: [À REMPLIR] *(ex: "[WARN] description item_id=...")*
+
+Q: Quelle commande affiche les N dernières lignes de log en prod ?
+→ R: [À REMPLIR] *(ex: "tail -100 logs/pipeline.log | grep RUN_ID")*
+
+Q: Comment vérifier qu'aucun item n'a été silencieusement ignoré ?
+→ R: [À REMPLIR] *(ex: "grep 'items_skipped=[^0]' logs/pipeline.log")*
+
+Grep de validation au bootstrap : `grep "\[À REMPLIR\]" STANDARDS.md` → zéro résultat attendu.
 
 ### Distinction déterministe / LLM (si applicable)
 

@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v1.6 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v1.9 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -161,6 +161,7 @@ echo "# Spec : specs/Sprints/sprint-N-slug.md" >> .claude/sprint-memory.md
 
 **Plan de test :**
 - A — Ciblé : `<commande exacte>`
+- **Volumétrie minimum :** *(optionnel — si le système traite des items)* `[minimum en dessous duquel le test A est invalide même si exit 0 — ex: ≥ 1 item traité confirmé dans les logs]`
 - B — Non-régression :
 
 ---

@@ -2,6 +2,18 @@
 
 ---
 
+## [v1.9] — 2026-06-14 · Sprint SDLC-05b · Gouvernance & observabilité : CLAUDE_PROJECT, volumétrie, observabilité actionnable
+
+- **`sdlc-project-check.sh`** (nouveau) : inventorie les fichiers de gouvernance, détecte delta vs `doc/CLAUDE_PROJECT.md`, génère le template versionné avec avis Claude
+- **`doc/CLAUDE_PROJECT.md`** (nouveau) : template référence généré par le script — source de vérité pour reconstruire le projet Claude.ai
+- **`02-STANDARDS-TEMPLATE.md` v1.9** : §Observabilité remplacé par checklist Q/R 5 questions `[À REMPLIR]` · note anti-faux-positif niveau A ajoutée dans §Niveaux de test
+- **`04-sprint-PDR-TEMPLATE.md` v1.9** : champ optionnel `Volumétrie minimum` dans §Plan de test
+- **`04b-sdlc-sync-SKILL-TEMPLATE.md` v1.9** : §Étape D4 — vérification CLAUDE_PROJECT delta au sdlc-sync
+- **`06-PDR-bootstrap.md`** : §Étape 1b `sdlc-project-check.sh` · `doc/CLAUDE_PROJECT.md` carte §Groupe 2 · critère d'acceptation 10 · §Étape 2 grep étendu à `[À REMPLIR]`
+- **`07-DECISIONS-SDLC.md`** : M-PROC-23 (volumétrie) · M-PROC-24 (CLAUDE_PROJECT) · M-ARCH-08 (observabilité Q/R)
+- **Tests** : bash -n ✓ · smoke test exit 0 ✓ · greps CA 1.1b/1.2/1.3 (5/5) tous verts ✓
+- **Corrections ajustées vs spec** — item 1.4 (`01-Claude-md-TEMPLATE.md`) déjà implémenté en 05a, skip · format `[À REMPLIR]` corrigé (format initial "—" ne matchait pas grep, détecté par CA)
+
 ## [v1.8] — 2026-06-14 · Sprint SDLC-05a · Wrap-up robustesse : §0e, signaux rétrospectifs, SESSION_BRIDGE, CLAUDE_PROJECT
 
 - **`03-wrap-up-SKILL-TEMPLATE.md` v1.3** : §0a second output signaux rétrospectifs · §Étape 1 référence §0a synthèse · §0e revue objectif (ATTEINT/PARTIEL/NON ATTEINT) · §Étape 3 grep -En enforcement + 2 conditionnels (SESSION_BRIDGE / CLAUDE_PROJECT) · §Étape 5 réécrite SESSION_BRIDGE accumulatif · §Étape 6 réécrite vérification CLAUDE_PROJECT delta

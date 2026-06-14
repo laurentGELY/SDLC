@@ -60,6 +60,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `doc/LESSONS_LEARNED.md` | *(créer from scratch)* | **Créer** : §Index vide + format entrée sprint, zéro contenu |
 | `doc/DIAGNOSTIC_CMDS.md` | *(créer from scratch)* | **Créer** : header + format, zéro entrée |
 | `doc/SESSION_BRIDGE.md` | `03-wrap-up-SKILL-TEMPLATE.md` §Étape 5 | **Créé automatiquement** au premier `/wrap-up` — format accumulatif, entrées en tête |
+| `doc/CLAUDE_PROJECT.md` | `sdlc-project-check.sh` | **Généré** par le script — compléter l'avis Claude, valider, commiter |
 
 ### Groupe 3 — Dossier `.claude/skills/`
 
@@ -105,11 +106,18 @@ cd <nouveau-projet>
 bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 ```
 
+### Étape 1b — Générer doc/CLAUDE_PROJECT.md
+
+```bash
+bash /chemin/vers/sdlc-toolkit/sdlc-project-check.sh "Nom du projet Claude.ai"
+# → affiche inventaire + avis Claude → compléter doc/CLAUDE_PROJECT.md avant de continuer
+```
+
 ### Étape 2 — Vérifier les placeholders résiduels
 
 ```bash
-grep "\[→ ADAPTER\]\|\[Nom du projet\]" Claude.md STANDARDS.md
-# → zéro résultat attendu pour les placeholders mécaniques
+grep "\[→ ADAPTER\]\|\[Nom du projet\]\|\[À REMPLIR\]" Claude.md STANDARDS.md
+# → zéro résultat attendu (mécaniques ET observabilité complétée)
 ```
 
 ### Étape 3 — Ouvrir Claude Code et compléter la gouvernance
@@ -139,16 +147,18 @@ Voir `doc/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
 
 ---
 
-## Critères d'acceptation (8)
+## Critères d'acceptation (9)
 
 1. `grep "SDLC version" Claude.md STANDARDS.md` → affiche vX.Y
 2. `grep "\[→ ADAPTER\]" Claude.md STANDARDS.md` → vide
-3. `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
-4. `CHANGELOG.md` contient une entrée Sprint 0
-5. `doc/ROADMAP.md` contient Sprint 1 en §Now
-6. `doc/DECISIONS.md` existe avec header
-7. `.claude/skills/wrap-up/SKILL.md` existe
-8. `specs/SPEC.md` existe (structure vide du domaine)
+3. `grep "\[À REMPLIR\]" STANDARDS.md` → vide (§Observabilité complétée)
+4. `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
+5. `CHANGELOG.md` contient une entrée Sprint 0
+6. `doc/ROADMAP.md` contient Sprint 1 en §Now
+7. `doc/DECISIONS.md` existe avec header
+8. `.claude/skills/wrap-up/SKILL.md` existe
+9. `specs/SPEC.md` existe (structure vide du domaine)
+10. `grep "Description\|Fichiers synchronisés" doc/CLAUDE_PROJECT.md` → présent (complété après sdlc-project-check.sh)
 
 ---
 

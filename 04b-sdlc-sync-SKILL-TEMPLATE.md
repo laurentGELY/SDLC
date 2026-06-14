@@ -1,5 +1,5 @@
 # sdlc-sync — SKILL
-<!-- Template SDLC v1.3 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.9 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Aligne la gouvernance du projet courant sur la version SDLC indiquée dans les sources.
@@ -133,6 +133,16 @@ Apposer dans `Claude.md` **et** `STANDARDS.md` :
 grep "SDLC version" Claude.md STANDARDS.md   # doit afficher vZ.W dans les deux
 git diff --stat                               # uniquement fichiers de gouvernance attendus
 ```
+
+### D4 — Vérification CLAUDE_PROJECT
+
+```bash
+bash /chemin/vers/sdlc-toolkit/sdlc-project-check.sh "Nom du projet Claude.ai"
+# → affiche delta (fichiers absents de doc/CLAUDE_PROJECT.md)
+# → si delta non vide : mettre à jour doc/CLAUDE_PROJECT.md avant de commiter
+```
+
+Si `doc/CLAUDE_PROJECT.md` absent → le créer avec `sdlc-project-check.sh` (voir `06-PDR-bootstrap.md §Étape 1b`).
 
 ---
 
