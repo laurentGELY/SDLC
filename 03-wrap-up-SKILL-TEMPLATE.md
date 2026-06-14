@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Template SDLC v1.2 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.3 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -20,6 +20,14 @@ cat .claude/sprint-memory.md 2>/dev/null || echo "— aucun fichier mémoire"
 ```
 Si le fichier existe → source de vérité prioritaire `[✓ mémoire]` pour reconstruire le bilan.
 Les entrées `EN ATTENTE [humain]` (QUESTION et BLOQUANT) deviennent des action items prioritaires.
+
+**Second output — Synthèse signaux rétrospectifs** (si sprint-memory non vide) :
+Extraire et résumer en 3 bullets maximum les entrées pertinentes :
+- `PIVOT` — tout changement de plan survenu dans le sprint
+- `BLOQUANT EN ATTENTE [humain]` — tout bloquant non résolu en fin de sprint
+- `HOOK_CANDIDATE` / `[CONF: FAIBLE]` — action risquée non bloquée ou analyse à faible confiance
+Afficher ce bloc avant les questions de §Étape 1 comme contexte — pas comme réponses suggérées.
+Si aucun signal pertinent → confirmer "✅ Aucun signal rétrospectif notable".
 
 ### 0b. Identifier la référence de session
 Chercher dans la conversation le document de référence initial (PRD uploadé,
@@ -67,9 +75,25 @@ Objectifs réalisés : X / Y
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+### 0e. Revue objectif sprint
+
+À partir de la spec sprint (§Objectif ou §Critères d'acceptation) et du git diff (`[✓ git]` ou `[~ chat]`) :
+
+```
+OBJECTIF PDR    : [objectif énoncé dans la spec sprint]
+RÉSULTAT CONSTATÉ : [état livré — croisé avec le bilan §0d et le diff git]
+VERDICT         : ATTEINT / PARTIEL / NON ATTEINT
+Justification   : [citer ≥ 1 critère d'acceptation de la spec + son état observé dans le diff git]
+```
+
+Règle : un "fait à 90%" sans critère d'acceptation coché n'est pas ATTEINT.
+Le verdict est ancré sur la spec et le diff git — pas sur une impression de session.
+
 ---
 
 ## Étape 1 — Question rétrospective
+
+*Contexte : utiliser la synthèse des signaux produite en §0a (PIVOT · BLOQUANT · HOOK_CANDIDATE / CONF FAIBLE) pour formuler l'avis éclairé ci-dessous.*
 
 Lire l'index `doc/LESSONS_LEARNED.md` §Index des patterns.
 Formuler un avis éclairé : ce sprint confirme-t-il un pattern connu ?
@@ -147,6 +171,13 @@ Vérifier que le fichier existe (créé en étape 4a du démarrage).
 Si absent : signaler l'anomalie explicitement — `⚠️ specs/Sprints/sprint-N-slug.md absent`.
 Si présent : compléter la section §Corrections ajustées vs spec si ≥ 1 divergence par rapport à la spec initiale.
 Si aucune divergence : confirmer explicitement "✅ spec sprint — aucune correction ajustée".
+Enforcement placeholders résiduels :
+```bash
+grep -En "\[À REMPLIR\]|\[ \]|\[→ ADAPTER\]" specs/Sprints/sprint-N-slug.md \
+  && echo "⚠️ placeholders résiduels — corriger avant commit" \
+  || echo "✅ spec propre"
+```
+Résultat attendu : `✅ spec propre`. Une ligne `⚠️` est une erreur bloquante.
 
 ### Nettoyage artefacts — auto-exécuté, rapporter le résultat
 
@@ -180,6 +211,8 @@ Rapporter :
 | Nouvelle décision architecturale | Nouvelle entrée dans `doc/DECISIONS.md` |
 | Comportement système modifié | Mettre à jour `specs/SPEC.md` |
 | Module partagé ajouté/supprimé/renommé | Mettre à jour `STANDARDS.md` §Modules partagés **et** `doc/DEPENDENCY_MAP.md` — même commit |
+| Entrée `[CLOS]` dans `doc/SESSION_BRIDGE.md`, ou > 5 entrées sans nettoyage | Nettoyer `doc/SESSION_BRIDGE.md` — supprimer les entrées `[CLOS]` · avertir si > 5 sans nettoyage |
+| Nouveau fichier de gouvernance créé ce sprint (`.claude/`, `doc/`, `specs/`) | Vérifier `doc/CLAUDE_PROJECT.md` — noter les fichiers manquants → §Étape 6 |
 
 <!-- [→ ADAPTER] Ajouter les déclencheurs spécifiques au projet -->
 
@@ -224,7 +257,7 @@ Supprimer *après* le commit — jamais avant. Si le commit échoue, conserver l
 
 ## Étape 5 — Amorce session suivante
 
-Générer un bloc compact à coller en début de prochaine session :
+Générer le bloc contexte session suivante et l'afficher dans le chat :
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -233,27 +266,61 @@ Générer un bloc compact à coller en début de prochaine session :
 Sprint complété : [titre]
 Commit : [hash court]
 
-À FAIRE EN PRIORITÉ
-→ [item 1 — vient de ❌ ou 📌 du bilan]
-→ [item 2]
+BLOQUANTS EN SUSPENS
+🔴 [décision attendue — de qui] *(vide si aucun)*
 
-BLOQUANTS À RÉSOUDRE
-🔴 [décision attendue — de qui]
-
-DETTE À SURVEILLER
-⚠️  [item si critique]
+FIL FONCTIONNEL
+[2 phrases max : état du système livrable après ce sprint — ce qui est opérationnel]
 
 Référence : doc/ROADMAP.md §Now
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+**Écrire dans `doc/SESSION_BRIDGE.md` (accumulatif) :**
+
+Insérer en tête du fichier (entrée la plus récente en premier) :
+
+```markdown
+## [Sprint N — slug] · [AAAA-MM-JJ]
+**Commit :** [hash court]
+**Bloquants en suspens :** [liste ou "aucun"]
+**Fil fonctionnel :** [2 phrases max — état du livrable après ce sprint]
+```
+
+Si le fichier n'existe pas → le créer avec le header puis l'entrée :
+```markdown
+# SESSION_BRIDGE — Contexte inter-session
+<!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
+
+## [Sprint N — slug] · [AAAA-MM-JJ]
+**Commit :** [hash court]
+**Bloquants en suspens :** [liste ou "aucun"]
+**Fil fonctionnel :** [2 phrases max — état du livrable après ce sprint]
+```
+
+**Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `doc/ROADMAP.md §Now`).
+
+Le contenu est versionné dans le même commit que le wrap-up du sprint.
 
 ---
 
 ## Étape 6 — Sync fichiers projet Claude.ai
 
 <!-- [→ ADAPTER] Nom du projet Claude.ai cible -->
-Reminder : "Sync now" dans les Project Files du projet Claude.ai `[Nom du projet]`.
 
+**Si `doc/CLAUDE_PROJECT.md` existe :**
+Comparer les fichiers de gouvernance présents dans le repo (`.claude/`, `doc/`, `specs/`)
+avec la liste dans `doc/CLAUDE_PROJECT.md`.
+Si delta (fichier présent dans le repo mais absent de CLAUDE_PROJECT.md) :
+```
+⚠️  SYNC CLAUDE_PROJECT requis — fichiers à ajouter dans le projet Claude.ai `[Nom du projet]` :
+  - [fichier 1]
+  - [fichier 2]
+→ Ouvrir les Project Files → "Sync now".
+```
+
+**Si `doc/CLAUDE_PROJECT.md` absent (sprint SDLC-05b non exécuté) :**
+Reminder : "Sync now" dans les Project Files du projet Claude.ai `[Nom du projet]`.
 Si des fichiers ont été modifiés dans `.claude/` ou les templates de gouvernance :
 les fichiers projet Claude.ai sont **hors repo git** — mise à jour manuelle requise.
 

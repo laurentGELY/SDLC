@@ -59,6 +59,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `doc/DECISIONS.md` | *(créer from scratch)* | **Créer** : header + conventions de préfixes, zéro entrée D-XX |
 | `doc/LESSONS_LEARNED.md` | *(créer from scratch)* | **Créer** : §Index vide + format entrée sprint, zéro contenu |
 | `doc/DIAGNOSTIC_CMDS.md` | *(créer from scratch)* | **Créer** : header + format, zéro entrée |
+| `doc/SESSION_BRIDGE.md` | `03-wrap-up-SKILL-TEMPLATE.md` §Étape 5 | **Créé automatiquement** au premier `/wrap-up` — format accumulatif, entrées en tête |
 
 ### Groupe 3 — Dossier `.claude/skills/`
 

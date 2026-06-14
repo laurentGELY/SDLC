@@ -2,6 +2,15 @@
 
 ---
 
+## [v1.8] — 2026-06-14 · Sprint SDLC-05a · Wrap-up robustesse : §0e, signaux rétrospectifs, SESSION_BRIDGE, CLAUDE_PROJECT
+
+- **`03-wrap-up-SKILL-TEMPLATE.md` v1.3** : §0a second output signaux rétrospectifs · §Étape 1 référence §0a synthèse · §0e revue objectif (ATTEINT/PARTIEL/NON ATTEINT) · §Étape 3 grep -En enforcement + 2 conditionnels (SESSION_BRIDGE / CLAUDE_PROJECT) · §Étape 5 réécrite SESSION_BRIDGE accumulatif · §Étape 6 réécrite vérification CLAUDE_PROJECT delta
+- **`01-Claude-md-TEMPLATE.md` v1.8** : §Démarrage §2 lecture SESSION_BRIDGE · §Règles absolues sprint-memory.md explicité
+- **`06-PDR-bootstrap.md`** : doc/SESSION_BRIDGE.md ajouté carte §Groupe 2
+- **`07-DECISIONS-SDLC.md`** : M-PROC-19 à M-PROC-22 (revue objectif · signaux rétrospectifs · enforcement specs · SESSION_BRIDGE + CLAUDE_PROJECT)
+- **Tests** : greps critères d'acceptation 1.1/1.5/1.6/1.7/1.8 tous verts ✓
+- **Corrections ajustées vs spec** — test `grep -c "^## Étape [1-6]"` → 8 résultats (pas 6) : Étape 2b et 3.5 préexistants, attendu de la spec incorrectement calibré · specs/Sprints/ absent dans ce repo (PDR en conversation)
+
 ## [v1.7] — 2026-06-11 · Sprint SDLC-04 · Confiance FAIBLE → vérification externe + PostToolUse Option A/B
 
 - **`01-Claude-md-TEMPLATE.md` v1.7** : §Analyse §Demande d'aval — si confiance FAIBLE, recommander explicitement une vérification externe (Oracle ou revue humaine) avant l'aval (M-PROC-18)

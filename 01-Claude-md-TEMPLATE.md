@@ -1,6 +1,6 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v1.6 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
-<!-- SDLC version : v1.6 · aligné le JJ/MM/AAAA -->
+<!-- Template SDLC v1.8 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
 > Règles permanentes d'exécution du dépôt pour Claude Code.
@@ -17,7 +17,7 @@
 - conclure sans preuves observables (logs, sorties, commandes)
 - modifier un fichier de configuration sans noter la valeur précédente
 - lancer un refactor hors périmètre sans validation explicite
-- commencer à coder sans avoir exécuté les étapes 4a/4b/4c et écrit le §Plan de développement dans le spec (4d)
+- commencer à coder sans avoir exécuté les étapes 4a/4b/4c, initialisé `.claude/sprint-memory.md` (4b) et écrit le §Plan de développement dans le spec (4d)
 
 **Si l'aval n'est pas donné → s'arrêter après l'analyse et attendre.**
 
@@ -51,11 +51,15 @@ Contient : [LISTE_DES_VARIABLES_CRITIQUES]
 # 1. Sync et état dépôt
 git pull origin main && git status && git log --oneline -5
 
-# 2. Vérification mémoire sprint
+# 2. Vérification mémoire sprint + contexte inter-session
 if [ -s .claude/sprint-memory.md ]; then
   echo "⚠️  .claude/sprint-memory.md non vide"
   cat .claude/sprint-memory.md
 fi
+
+# Contexte inter-session (entrée la plus récente en tête)
+head -15 doc/SESSION_BRIDGE.md 2>/dev/null \
+  || echo "— SESSION_BRIDGE absent (premier sprint ou 05b non exécuté)"
 
 # [→ ADAPTER] 3. État système — commandes de vérification spécifiques au projet
 [commande état composant principal]

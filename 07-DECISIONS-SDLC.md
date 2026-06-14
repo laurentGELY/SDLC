@@ -404,6 +404,10 @@ pas seulement l'auteur du modèle.
 | M-ARCH-07 | §Dépendances (inputs/outputs) dans le PDR sprint | ✓ | — |
 | M-PROC-18 | Recommandation de vérification externe (Oracle/revue humaine) si confiance FAIBLE | ✓ | — |
 | M-HOOKS-03 | §PostToolUse restructuré en Option A (lint) / Option B (changelog) | ✓ | — |
+| M-PROC-19 | Revue objectif sprint §0e — verdict ATTEINT/PARTIEL/NON ATTEINT ancré sur spec + git diff | ✓ | — |
+| M-PROC-20 | Signaux rétrospectifs — second output §0a extrait de sprint-memory avant §Étape 1 | ✓ | — |
+| M-PROC-21 | Enforcement fichier sprint — `grep -En` unique dans §Étape 3 avec résultat attendu | ✓ | — |
+| M-PROC-22 | SESSION_BRIDGE accumulatif (§Étape 5) + vérification CLAUDE_PROJECT delta (§Étape 6) | ✓ | — |
 
 ---
 
@@ -722,3 +726,100 @@ vérification de wrap-up.
 
 **Impact fichiers :** `08-hooks-TEMPLATE.md` (§PostToolUse → ### Option A / ### Option B,
 +~95 lignes).
+
+---
+
+## M-PROC-19 · Revue objectif sprint — verdict §0e · v1.8 · 14/06/2026
+
+**Contexte :** Le wrap-up produisait un bilan factuel (fait/pas fait) sans évaluer si
+l'objectif du sprint avait été atteint dans sa substance. Un sprint "fait à 90%" pouvait
+être présenté comme un succès sans jamais citer les critères d'acceptation.
+
+**Retenu :** Nouvelle sous-section §0e à la fin de §Étape 0, avant §Étape 1.
+Verdict en 4 champs : objectif PDR · résultat constaté · ATTEINT/PARTIEL/NON ATTEINT ·
+justification citant ≥ 1 critère d'acceptation de la spec et son état dans le diff git.
+Règle : un "fait à 90%" sans critère d'acceptation coché n'est pas ATTEINT.
+
+**Écarté :** Fusion avec §Étape 1 (rétrospective) — l'évaluation factuelle et le qualitatif
+sont de nature différente, les mélanger dilue les deux.
+
+**Raison :** Ferme le gap entre bilan de tâches et verdict sur l'objectif. Ancrer sur la
+spec et le git diff empêche le biais d'optimisme en fin de session.
+
+**Impact fichiers :** `03-wrap-up-SKILL-TEMPLATE.md` (§0e nouveau, ~12 lignes).
+
+---
+
+## M-PROC-20 · Signaux rétrospectifs — second output §0a · v1.8 · 14/06/2026
+
+**Contexte :** Les questions rétrospectives de §Étape 1 étaient posées à blanc, alors que
+sprint-memory contenait déjà les signaux pertinents (PIVOT, BLOQUANT non résolu,
+HOOK_CANDIDATE, CONF FAIBLE). Les réponses humaines manquaient de contexte factuel.
+
+**Retenu :** Extension de §0a : même passage sur sprint-memory (déjà chargé), second output =
+synthèse 3 bullets maximum des signaux pertinents pour la rétrospective. Présentée avant les
+questions de §Étape 1 comme contexte — pas comme réponses suggérées.
+
+**Écarté :** Relecture séparée de sprint-memory en §Étape 1 — doublon (sprint-memory est
+déjà chargé en §0a). Réponses à choix multiples — biais de confirmation documenté.
+
+**Raison :** Les signaux sont factuels et court-circuitent la reconstruction de mémoire.
+Les présenter comme contexte (pas comme pré-réponses) respecte INV-3.
+
+**Impact fichiers :** `03-wrap-up-SKILL-TEMPLATE.md` (§0a étendu, +8 lignes).
+
+---
+
+## M-PROC-21 · Enforcement fichier sprint — `grep -En` unique · v1.8 · 14/06/2026
+
+**Contexte :** §Étape 3 décrivait en prose non exécutable la vérification du fichier sprint.
+Aucune commande permettait de confirmer l'absence de placeholders résiduels avant commit.
+
+**Retenu :** Une commande consolidée dans §Étape 3, juste après le bloc prose existant :
+```bash
+grep -En "\[À REMPLIR\]|\[ \]|\[→ ADAPTER\]" specs/Sprints/sprint-N-slug.md \
+  && echo "⚠️ placeholders résiduels — corriger avant commit" \
+  || echo "✅ spec propre"
+```
+Résultat `✅ spec propre` attendu. Ligne `⚠️` = erreur bloquante.
+Deux déclencheurs conditionnels ajoutés : nettoyage SESSION_BRIDGE et delta CLAUDE_PROJECT.
+
+**Écarté :** Trois commandes distinctes (ls + grep + grep) — sur-ingénierie, une seule
+couvre les cas utiles.
+
+**Raison :** Une commande exécutable couvrant les cas d'usage réels, avec résultat attendu
+explicite. Cohérent avec INV-1 (vérification exécutable).
+
+**Impact fichiers :** `03-wrap-up-SKILL-TEMPLATE.md` (§Étape 3 + tableau conditionnels, +8 lignes).
+
+---
+
+## M-PROC-22 · SESSION_BRIDGE accumulatif + vérification CLAUDE_PROJECT delta · v1.8 · 14/06/2026
+
+**Contexte :** L'amorce session suivante (§Étape 5) était affichée dans le chat et perdue
+dès la fermeture. §Étape 6 émettait un reminder vague "Sync now" sans cibler les fichiers
+manquants.
+
+**Retenu (SESSION_BRIDGE) :** §Étape 5 réécrite : écriture de `doc/SESSION_BRIDGE.md`
+versionné, accumulatif (entrée la plus récente en tête). Format 4 champs : sprint/date ·
+commit · bloquants en suspens · fil fonctionnel (2 phrases max). Nettoyage conditionnel
+au wrap-up si entrée `[CLOS]` ou > 5 entrées sans nettoyage. Ne contient pas de liste de
+tâches (rôle du ROADMAP §Now). Affiché dans le chat ET écrit dans le fichier.
+
+**Retenu (CLAUDE_PROJECT) :** §Étape 6 réécrite : si `doc/CLAUDE_PROJECT.md` existe →
+comparer les fichiers de gouvernance du repo avec la liste et produire un reminder ciblé
+sur les fichiers manquants. Si absent (05b non exécuté) → fallback reminder vague conservé.
+
+**Écarté :** Écrasement SESSION_BRIDGE à chaque sprint — détruit le fil fonctionnel quand
+des sprints correctifs s'intercalent. `.claude/next-session.md` non versionné — perdu en
+cas de changement de machine.
+
+**Raison :** Persiste le contexte inter-session sans dépendre de la continuité du chat.
+La vérification CLAUDE_PROJECT devient structurée quand 05b est exécuté, dégradée sinon.
+
+**Interaction avec M-PROC-10 :** SESSION_BRIDGE complète sprint-memory sans se substituer.
+sprint-memory est intra-session et non versionné ; SESSION_BRIDGE est inter-session et
+versionné. La règle de destruction de sprint-memory (M-PROC-10) reste inchangée.
+
+**Impact fichiers :** `03-wrap-up-SKILL-TEMPLATE.md` (§Étape 5 réécrite + §Étape 6 réécrite) ·
+`01-Claude-md-TEMPLATE.md` (§Démarrage §2 + §Règles absolues) · `06-PDR-bootstrap.md` (carte §Groupe 2).
