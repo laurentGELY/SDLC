@@ -61,6 +61,51 @@ AUCUN PATTERN NOTABLE
 
 ---
 
+## Étape 2b — Significant Discovery Alert
+
+Après le rapport §Étape 2, vérifier systématiquement les 5 conditions ci-dessous.
+Cette checklist est indépendante du rapport — elle se déclenche sur des patterns
+observés, pas sur la mémoire spontanée de l'humain ou de l'agent.
+
+```
+□ SD-1  Run réel absent ou défaillant :
+        (a) le run réel n'a pas été obtenu avant clôture du ou des sprints couverts
+            (tests synthétiques uniquement, pas de run en conditions réelles)
+        (b) le run réel a révélé des défaillances non couvertes par les tests
+            synthétiques (ex : format LLM variable, bug SFTP, VRAM contention)
+        → si coché : quels autres modules dépendent du même mécanisme ?
+
+□ SD-2  Code ou module hérité d'un projet antérieur supposé réutilisable
+        s'est révélé invalide ou inutilisable pendant les sprints couverts
+        (artifact périmé, logique métier étrangère, interface cassée)
+
+□ SD-3  Comportement LLM ou infrastructure a divergé de ≥ 2 axes de la spec
+        sur run réel (format de sortie, timeout, paramétrage, VRAM,
+        dépendances externes) pendant les sprints couverts
+
+□ SD-4  Décision architecturale réversée ≥ 2 fois pendant un même sprint
+        → signal que l'hypothèse de départ était insuffisamment validée
+          avant le code
+
+□ SD-5  ≥ 1 action ⏳ sans déclencheur documenté présente depuis > 2 sprints
+        dans doc/LESSONS_LEARNED.md ou doc/ROADMAP.md §Later
+```
+
+**Si ≥ 1 case cochée :**
+```
+🚨 SIGNIFICANT DISCOVERY ALERT
+Sprint(s) concerné(s) : [N]
+Condition(s) : [SD-X — description courte]
+→ Ne pas démarrer le sprint suivant sans session de replanification
+→ Documenter dans doc/DECISIONS.md ce qui change et pourquoi
+→ Mettre à jour doc/ROADMAP.md §Now si le prochain sprint est remis en cause
+```
+
+**Si 0 case cochée :** confirmer explicitement :
+`✅ SD1 à SD5 — RAS · prochain sprint peut démarrer`
+
+---
+
 ## Étape 3 — Actions internes au projet
 
 Pour chaque récurrence ou aggravation identifiée, proposer une action concrète :
