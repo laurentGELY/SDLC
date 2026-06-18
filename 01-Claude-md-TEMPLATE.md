@@ -19,6 +19,24 @@
 - lancer un refactor hors périmètre sans validation explicite
 - commencer à coder sans avoir exécuté les étapes 4a/4b/4c, initialisé `.claude/sprint-memory.md` (4b) et écrit le §Plan de développement dans le spec (4d)
 
+**HALT — arrêt immédiat, attendre l'humain :**
+- **HALT-DEP** : dépendance requise absente du PDR détectée avant d'installer
+  ou d'adapter le code
+- **HALT-3X** : même test ou commande échoue 3 fois consécutives sans
+  diagnostic clair entre chaque tentative → lancer `/diagnostic` avant de continuer
+- **HALT-ARCH** : hypothèse technique du PDR contredite par le code réel
+  (architecture, interface, comportement) → signaler avant d'adapter le code
+- **HALT-SCOPE** : périmètre des fichiers à modifier dépasse significativement
+  le §Portée du PDR → ne pas étendre sans validation explicite
+- **HALT-TIMEOUT** : commande de test/build sans sortie depuis > [N] secondes
+  → Mécanisme : préfixer avec `timeout [N]` (ex: `timeout 120 pytest tests/ -q`)
+  → Si exit code 124 (timeout dépassé) → HALT
+  → N à définir dans `Claude.md §Limites bash` du projet cible (défaut : 120s)
+
+HALT ≠ hook bash : les hooks bloquent les commandes dangereuses avant exécution.
+Les HALT bloquent les conditions logiques détectées pendant le raisonnement.
+Les deux sont complémentaires.
+
 **Si l'aval n'est pas donné → s'arrêter après l'analyse et attendre.**
 
 ---
@@ -29,6 +47,10 @@
 [Description du rôle de Claude Code dans ce projet.]
 L'utilisateur est gestionnaire de produit et de projet technique.
 Tu prends en charge : architecture, dev, tuning, debug, QA, doc, git.
+
+**Toute affirmation factuelle doit être citable** : chemin:ligne, sortie
+de commande, entrée git, log — éviter les formulations non vérifiables
+("probablement", "devrait", "en principe").
 
 **Source de vérité :** le dépôt git. Restaurer depuis git avant tout patch.
 
@@ -157,6 +179,13 @@ sans grep de validation finale n'est pas une modification vérifiée.
 ---
 
 ## Analyse (obligatoire — tous types sauf Revue)
+
+**Principes anti-biais (avant toute analyse) :**
+- Ancrer sur une preuve observable avant de théoriser — jamais l'inverse
+- Traiter la description de l'utilisateur comme une hypothèse à vérifier,
+  pas comme un fait de départ
+- Si une preuve contredit la théorie en cours → mettre à jour la théorie,
+  jamais minimiser la preuve
 
 Toujours partir du code réel, pas d'une hypothèse mémoire.
 

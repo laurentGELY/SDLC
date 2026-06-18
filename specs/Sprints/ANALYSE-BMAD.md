@@ -88,7 +88,7 @@ Un skill qui sait ce qui est installé et guide l'humain sur "quoi faire mainten
 Notre `/diagnostic` est réactif (sur incident). BMad a un guide proactif.
 
 **B5 · Implementation Readiness Gate**
-Check formel PASS/CONCERNS/FAIL avant d'écrire la première ligne de code. Notre modèle
+Check formel PASS/CONCERNS/FAIL (notre vocabulaire — BMad utilise READY/NEEDS WORK/NOT READY, sémantiquement équivalent) avant d'écrire la première ligne de code. Notre modèle
 a une "Demande d'aval" dans l'analyse, mais elle n'est pas structurée comme un gate
 explicite avec résultat binaire documenté.
 
@@ -99,7 +99,7 @@ les décisions techniques à fort enjeu.
 
 **B7 · Forensic Investigation**
 Workflow dédié au débogage avec findings gradués par niveau de preuve
-(CONFIRMED/PROBABLE/POSSIBLE/SPECULATIVE). Notre `/diagnostic` liste des commandes
+(3 niveaux de preuve (Confirmed/Deduced/Hypothesized) × statut cycle de vie (Open/Confirmed/Refuted) — 2 axes orthogonaux). Notre `/diagnostic` liste des commandes
 mais n'a pas ce modèle d'inférence.
 
 **B8 · Scale-adaptive**
@@ -177,8 +177,8 @@ Notre modèle distingue eager/lazy mais sans instrumentation non plus.
 | Concept | Source BMad | Destination dans notre modèle | Taille |
 |---------|------------|------------------------------|--------|
 | **Adversarial Review** | `bmad-code-review`, ADRs, spec validation | Ajouter au §Plan de test du PDR comme étape optionnelle · intégrer en question Étape 1 du wrap-up | S |
-| **Forensic Investigation (niveaux de preuve)** | `bmad-investigate` (CONFIRMED/PROBABLE/POSSIBLE/SPECULATIVE) | Enrichir notre skill `/diagnostic` avec une taxonomie d'inférence | S |
-| **Implementation Readiness Gate** | `bmad-check-implementation-readiness` | Formaliser notre "Demande d'aval" en gate PASS/CONCERNS/FAIL dans le PDR | XS |
+| **Forensic Investigation (niveaux de preuve)** | `bmad-investigate` (3 niveaux de preuve (Confirmed/Deduced/Hypothesized) × statut cycle de vie (Open/Confirmed/Refuted) — 2 axes orthogonaux) | Enrichir notre skill `/diagnostic` avec une taxonomie d'inférence | S |
+| **Implementation Readiness Gate** | `bmad-check-implementation-readiness` | Formaliser notre "Demande d'aval" en gate PASS/CONCERNS/FAIL (notre vocabulaire — BMad utilise READY/NEEDS WORK/NOT READY, sémantiquement équivalent) dans le PDR | XS |
 | **Project Context comme "constitution"** | `project-context.md` | Notre `specs/SPEC.md` joue ce rôle mais pourrait adopter le format + l'idée de le générer depuis le code | XS |
 | **ADRs dans le document d'architecture** | `bmad-create-architecture` produit `architecture.md` avec ADRs | Ajouter convention `§ADR-XX` dans notre `doc/DECISIONS.md` pour les décisions architecturales pures | XS |
 

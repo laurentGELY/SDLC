@@ -22,7 +22,7 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 |---------|-------------------|
 | `doc/SESSION_BRIDGE.md` | Contenu éphémère inter-session — inutile dans Claude.ai |
 | `doc/EVO.md` | Notes informelles non structurées — pas de valeur contextuelle |
-| `doc/audit-exemple-vs-modele-sdlc.md` | Rapport d'audit ponctuel — obsolète après intégration |
+| `specs/Sprints/audit-exemple-vs-modele-sdlc.md` | Rapport d'audit ponctuel — obsolète après intégration (déplacé depuis `doc/` — Sprint SDLC-07) |
 | `doc/MODE-OPERATOIRE.html` | HTML — non chargeable comme Project File |
 | `doc/SPEC.html` | HTML — non chargeable comme Project File |
 | `bak/sdlc-kit-exportable.md` | Archive/backup — redondant avec les fichiers source |
