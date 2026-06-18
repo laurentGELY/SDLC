@@ -48,6 +48,16 @@
 → Documenter la décision dans `07-DECISIONS-SDLC.md`.
 → Mettre à jour le numéro de version dans l'en-tête du fichier modifié.
 
+### Co-construire un PDR SDLC-Sync (recommandé)
+→ Exécuter le script de pré-calcul depuis la machine locale :
+  `bash ~/Downloads/Sandbox/SDLC/sdlc-delta.sh <chemin-projet>`
+→ Coller le résultat dans Claude.ai avec :
+  *"Construis le PDR SDLC-Sync pour [nom-projet]"*
+→ Claude.ai produit le PDR complet avec delta pré-calculé et tuning local identifié
+→ Copier le PDR dans `specs/Sprints/` du projet cible
+→ Lancer Claude Code : `cd <projet> && claude`, puis indiquer le nom du fichier PDR
+→ Voir M-PROC-25 dans `07-DECISIONS-SDLC.md` pour la justification.
+
 ### Comprendre une décision passée
 → Lire `07-DECISIONS-SDLC.md` — registre exhaustif avec justifications.
 → Vue synthétique dans `doc/SPEC.html §Décisions`.

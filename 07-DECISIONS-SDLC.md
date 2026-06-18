@@ -15,6 +15,7 @@ Format : ID · Décision retenue · Alternative écartée · Justification · Sp
 | M-PROC  | Décisions sur les procédures (wrap-up, bootstrap, rétrospective) |
 | M-SCOPE | Périmètre du modèle (ce qui est in / out) |
 | M-HOOKS | Décisions sur les hooks Claude Code (activation, boucle de rétroaction) |
+| M-ENV   | Décisions sur l'environnement et l'infrastructure locale (chemins, outils) |
 
 ---
 
@@ -411,6 +412,8 @@ pas seulement l'auteur du modèle.
 | M-PROC-23 | Volumétrie minimum dans §Plan de test PDR + note anti-faux-positif §Niveau A (STANDARDS) | ✓ | — |
 | M-PROC-24 | CLAUDE_PROJECT versionné — script sdlc-project-check.sh + §Étape D sdlc-sync | ✓ | — |
 | M-ARCH-08 | §Observabilité STANDARDS restructuré en checklist Q/R actionnable (5 questions `[À REMPLIR]`) | ✓ | — |
+| M-ENV-01  | Emplacement toolkit SDLC local (`~/Downloads/Sandbox/SDLC/`) | ✓ (valeur locale) | — |
+| M-PROC-25 | Co-construction PDR SDLC-Sync dans Claude.ai via sdlc-delta.sh | ✓ | — |
 
 ---
 
@@ -902,3 +905,36 @@ complète la note anti-faux-positif de M-PROC-23 — les deux adressent la même
 mais à des niveaux différents (design-time vs test-time).
 
 **Impact fichiers :** `02-STANDARDS-TEMPLATE.md` (§Observabilité remplacé + note §Niveaux) · `06-PDR-bootstrap.md` (§Étape 2 grep étendu + critère 3).
+
+---
+
+## M-ENV-01 · Emplacement immuable du toolkit SDLC · 2026-06-14
+
+**Emplacement local :** `~/Downloads/Sandbox/SDLC/`
+
+Ce chemin est l'emplacement de référence du toolkit sur cette machine.
+Il est encodé dans `sdlc-delta.sh` et doit être mis à jour si le toolkit est déplacé.
+Ne pas inclure dans les repos de projets cibles — information locale uniquement.
+
+**Scripts qui dépendent de ce chemin :**
+- `sdlc-delta.sh` (variable `SDLC_SRC`)
+- `sdlc-init.sh` (référencé dans `06-PDR-bootstrap.md`)
+
+---
+
+## M-PROC-25 · Co-construction PDR SDLC-Sync dans Claude.ai · 2026-06-14
+
+**Contexte :** une migration SDLC-Sync sans pré-calcul force Claude Code à faire
+l'inventaire et le delta lui-même depuis le projet cible, sans vue d'ensemble
+validée avant l'entrée dans le projet.
+
+**Retenu :** workflow en 3 temps pour les opérations SDLC-Sync :
+1. **Pré-calcul local** : `bash ~/Downloads/Sandbox/SDLC/sdlc-delta.sh <chemin-projet>` — produit un bloc structuré (version, inventaire, git, tuning local, templates source)
+2. **Co-construction dans Claude.ai** : coller le bloc + *"Construis le PDR SDLC-Sync pour [projet]"* — Claude.ai calcule le delta, pré-remplit le tableau, identifie les tunings à préserver
+3. **Exécution dans Claude Code** : le PDR co-construit est copié dans `specs/Sprints/`, Claude Code exécute le sync depuis ce PDR
+
+**Écarté :**
+- Lancer `/sdlc-sync` directement dans Claude Code sans PDR : fonctionnel mais delta non validé avant l'entrée dans le projet
+- PDR entièrement manuel : lent et source d'oublis sur les décisions récentes
+
+**Script :** `sdlc-delta.sh` dans le toolkit (M-ENV-01).
