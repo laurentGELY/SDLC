@@ -15,3 +15,8 @@ Thumbs.db
 # pas un fichier de gouvernance. Le décommenter pour l'exclure
 # si on ne publie pas via GitHub Pages.
 # 10-OPERATIONS.html
+
+# ─── Repos clonés pour analyse (spikes) ──────────────────────────────────────
+# Clones tiers utilisés en lecture seule pour des spikes d'analyse (ex: SDLC-06).
+# Jamais versionnés — ce sont des copies de repos externes, pas du contenu du toolkit.
+/exemples/
