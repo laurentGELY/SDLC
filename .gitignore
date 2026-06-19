@@ -20,3 +20,8 @@ Thumbs.db
 # Clones tiers utilisés en lecture seule pour des spikes d'analyse (ex: SDLC-06).
 # Jamais versionnés — ce sont des copies de repos externes, pas du contenu du toolkit.
 /exemples/
+
+# ─── Mémoire de sprint (Claude.md §Mémoire de sprint, SDLC-14) ───────────────
+# Créée au démarrage de sprint, détruite après commit (/wrap-up Étape 4) —
+# jamais versionnée.
+.claude/sprint-memory.md
