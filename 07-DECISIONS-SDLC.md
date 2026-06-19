@@ -415,6 +415,7 @@ pas seulement l'auteur du modèle.
 | M-ENV-01  | Emplacement toolkit SDLC local (`~/Downloads/Sandbox/SDLC/`) | ✓ (valeur locale) | — |
 | M-PROC-25 | Co-construction PDR SDLC-Sync dans Claude.ai via sdlc-delta.sh | ✓ | — |
 | M-SCOPE-03 | Pas de modes nommés dans Claude.md §Rôle | ✓ | — |
+| M-PROC-26 | Skill /help — recap lecture seule | ✓ | — |
 
 ---
 
@@ -966,3 +967,26 @@ persona permanente.
 **Déclencheur de réouverture :** signal documenté dans un `LESSONS_LEARNED`
 de projet cible montrant un besoin de bascule de posture hors du cadre
 couvert par ces deux mécanismes.
+
+---
+
+## M-PROC-26 · Skill /help — recap lecture seule, pas un guide · v1.9+SDLC-11 · 18/06/2026
+
+**Retenu :** Skill `/help` qui agrège 3 sources existantes
+(`sprint-memory.md`, `ROADMAP.md §Now/§Next`, tableau classification
+`Claude.md`) en un recap fixe. Lecture seule, zéro suggestion, zéro
+décision.
+
+**Écarté :** `bmad-help` complet — un skill qui devine quoi faire selon
+les modules installés. Notre toolkit a 4 skills, pas 34 workflows ; la
+complexité qui justifie un moteur de guidance chez BMad n'existe pas ici.
+
+**Raison :** Le besoin observé n'est pas "je ne sais pas quoi faire", c'est
+"je dois relire 2-3 fichiers à chaque reprise de session pour me souvenir
+où j'en suis" — un problème d'agrégation, pas de décision. Un agrégateur
+pur coûte presque rien à construire (il n'invente rien) et n'a pas le
+risque de mauvaise recommandation d'un guide actif.
+
+**Déclencheur de réouverture (vers une version plus riche) :** si le
+toolkit dépasse 6-7 skills actifs, ou si `/help` en l'état s'avère
+insuffisant sur plusieurs sprints consécutifs (signal LESSONS_LEARNED).

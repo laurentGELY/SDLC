@@ -2,6 +2,18 @@
 
 ---
 
+## [v1.9+SDLC-11] — 2026-06-18 · Sprint SDLC-11 · Skill /help
+- **`11-help-SKILL-TEMPLATE.md`** (nouveau) : recap "où on en est / où on
+  s'en va / outils disponibles", lecture seule, zéro suggestion
+- **`00-CONTEXT.md`** : carte des fichiers — ligne `11` ajoutée
+- **`README.md`** : structure repo + tableau skills disponibles mis à jour
+- **`06-PDR-bootstrap.md`** : Groupe 3 — ligne `.claude/skills/help/`
+- **`07-DECISIONS-SDLC.md`** : M-PROC-26 (M-PROC-25 déjà pris par la
+  co-construction PDR SDLC-Sync)
+- **Tests** : N/A (gouvernance uniquement)
+
+---
+
 ## [v1.9+SDLC-10] — 2026-06-18 · Sprint SDLC-10 · Rangement catalogue BMad
 - **`doc/ROADMAP.md`** (créé) : 6 patterns BMad en survol migrés en §Later
   avec déclencheurs (P-08, P-15 à P-19)

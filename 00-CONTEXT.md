@@ -25,6 +25,7 @@
 | 07 | `07-DECISIONS-SDLC.md` | Registre des décisions sur le modèle | *(propre à ce projet)* |
 | 08 | `08-hooks-TEMPLATE.md` | Hook PreToolUse Bash + settings | `.claude/hooks/` |
 | 09 | `09-retrospective-SKILL-TEMPLATE.md` | Procédure de rétrospective + remontées SDLC | `.claude/skills/retrospective/SKILL.md` |
+| 11 | `11-help-SKILL-TEMPLATE.md` | Skill /help — recap contexte | `.claude/skills/help/SKILL.md` |
 
 **Fichiers humains (local uniquement, non synchronisés dans Claude.ai) :**
 

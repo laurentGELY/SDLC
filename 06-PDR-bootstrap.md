@@ -69,6 +69,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `.claude/skills/wrap-up/SKILL.md` | `03-wrap-up-SKILL-TEMPLATE.md` | **Adapter** : §Étape 0b (chemins git) · §Étape 6 (nom projet Claude.ai) · déclencheurs §Étape 3 conditionnels |
 | `.claude/skills/retrospective/SKILL.md` | `09-retrospective-SKILL-TEMPLATE.md` | **Copier** tel quel — générique, zéro adaptation |
 | `.claude/skills/diagnostic/SKILL.md` | *(créer from scratch)* | **Créer** : liste des commandes de diagnostic du nouveau système |
+| `.claude/skills/help/SKILL.md` | `11-help-SKILL-TEMPLATE.md` | **Copier** tel quel — générique, zéro adaptation |
 
 ### Groupe 4 — Dossier `specs/`
 

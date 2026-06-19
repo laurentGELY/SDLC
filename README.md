@@ -41,6 +41,7 @@ sdlc-toolkit/
 ├── 07-DECISIONS-SDLC.md             # Registre des décisions sur le modèle lui-même
 ├── 08-hooks-TEMPLATE.md             # → .claude/hooks/pre-tool-bash.sh + settings.json
 ├── 09-retrospective-SKILL-TEMPLATE.md  # → .claude/skills/retrospective/SKILL.md
+├── 11-help-SKILL-TEMPLATE.md        # → .claude/skills/help/SKILL.md
 ├── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
 └── doc/
     ├── SPEC.html                    # Spec fonctionnelle du modèle (ouvrir dans un navigateur)
@@ -129,6 +130,7 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 | `/wrap-up` | Clôture de sprint | Fin de chaque sprint |
 | `/retrospective` | Analyse de patterns sur N sprints | Toutes les ~5 sprints ou après incident |
 | `/diagnostic` | Bug ou comportement inattendu | Sur incident |
+| `/help` | Recap où on en est / où on va / outils disponibles | À la demande, en reprise de session |
 
 ### Types de sprint
 
