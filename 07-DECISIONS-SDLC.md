@@ -1051,6 +1051,34 @@ ouverte depuis SDLC-11 (voir aussi décision ci-dessous).
 
 ---
 
+## M-PROC-29 · Audit complet SDLC-07→15 — verdicts confirmés, requalification narrative · v1.9+SDLC-16 · 19/06/2026
+
+**Retenu :** Audit groupé des 9 sprints SDLC-07 à SDLC-15 par grep/ls/git
+diff (Sprint SDLC-16) — verdict **ATTEINT** confirmé pour SDLC-07 à
+SDLC-13 et SDLC-15 (8 sprints), preuve citée pour chacun. SDLC-14 scindé
+en deux volets distincts : le volet "self-bootstrap" (livrables réels —
+`Claude.md`, skills, hook, etc.) est **ATTEINT** ; le volet "rattrapage
+07/08/09" du PDR SDLC-14 original est confirmé **non fait** — mais déjà
+couvert par une décision explicite antérieure (`M-PROC-27`), pas un gap
+ouvert. 8 phrases narratives déjà présentes dans
+`doc/LESSONS_LEARNED.md` (écrites Sprint SDLC-14, portant sur le
+déroulement de sessions de conception non vérifiable depuis git) sont
+requalifiées en l'état — annotées `(non vérifiable depuis le repo —
+audit SDLC-16)` sans suppression, sur décision explicite de
+l'utilisateur (option "Requalifier non vérifiable" plutôt que retrait ou
+confirmation).
+
+**Raison :** `doc/LESSONS_LEARNED.md` contenait déjà du contenu créé en
+SDLC-14 — pas vide comme le présupposait le contexte initial du PDR
+SDLC-16. Plutôt que de retirer ou de confirmer sans preuve un contenu
+narratif invérifiable, la requalification en place préserve l'historique
+tout en marquant sa nature (Stronghold first appliqué à la documentation
+existante, pas seulement au contenu à écrire).
+
+**Déclencheur de réouverture :** aucun prévu — décision stable.
+
+---
+
 ## M-PROC-28 · Distinction taille « cœur » vs « gouvernance associée » — règle stable · v1.9+SDLC-15 · 19/06/2026
 
 **Retenu :** `Claude.md §Analyse` porte désormais une règle stable :

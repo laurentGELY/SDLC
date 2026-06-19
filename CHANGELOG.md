@@ -2,6 +2,34 @@
 
 ---
 
+## [v1.9+SDLC-16] — 2026-06-19 · Sprint SDLC-16 · Audit complet SDLC-07→15
+- **Audit** : verdicts par sprint SDLC-07→15 produits par grep/ls/git diff
+  (pas de supposition) — `ATTEINT` confirmé pour SDLC-07→13 et SDLC-15
+  (8 sprints), preuve citée pour chacun ; SDLC-14 scindé en 2 volets —
+  self-bootstrap `ATTEINT`, "rattrapage 07/08/09" du PDR original confirmé
+  non fait mais déjà couvert par `M-PROC-27` (pas un gap ouvert)
+- **`07-DECISIONS-SDLC.md`** : M-PROC-29 — audit confirmé, requalification
+  narrative actée
+- **`doc/LESSONS_LEARNED.md`** : 8 phrases narratives (Sprint SDLC-14, non
+  vérifiables depuis git) annotées `(non vérifiable depuis le repo)` en
+  place, sur décision explicite de l'utilisateur — aucun retrait, aucune
+  confirmation sans preuve · nouveau pattern `LL-T05` (garde-fou
+  démarrage 4a manquant), `HOOK_CANDIDATE`/`SDLC_CANDIDATE` notés en `⏳`,
+  aucune correction inscrite sur demande explicite de l'utilisateur
+  (réflexion prévue en Claude.ai)
+- **`specs/Sprints/sprint-SDLC-16-audit-complet.md`** (nouveau, créé
+  rétroactivement après l'exécution du sprint)
+- **Tests** : grep de validation avant chaque ajout (aucune entrée
+  dupliquée — `M-PROC-25/26/27` déjà présents, non réécrits)
+
+**Corrections ajustées vs spec** — fichier spec créé rétroactivement,
+après l'exécution du sprint plutôt qu'avant (`Claude.md §Démarrage`
+étape 4a sautée, découverte seulement au `/wrap-up`) · pattern `LL-T05`
+et candidats associés laissés en décision différée, pas de correction
+appliquée ce sprint sur demande explicite de l'utilisateur
+
+---
+
 ## [v1.9+SDLC-15] — 2026-06-19 · Sprint SDLC-15 · Première /retrospective
 - **`Claude.md`** : nouvelle règle §Analyse — distinguer explicitement la
   taille du « cœur du changement » de la taille de la « gouvernance

@@ -39,3 +39,28 @@ doublon (`00-CONTEXT.md` à `11-help-SKILL-TEMPLATE.md`).
 Conclusion : aucune incohérence de numérotation au moment du bootstrap
 self SDLC-14 — `.claude/skills/diagnostic/SKILL.md` réutilise cette même
 commande pour les audits futurs.
+
+## Symptôme : `git log --follow` signale une création de fichier à une date manifestement fausse
+Date : 19/06/2026
+Commande : `git log --follow --diff-filter=A --format="%ad %s" -- <fichier>`
+puis vérifier avec `git show --stat <commit-suspect> -- <fichier>` (chercher
+`new file mode` dans le diff)
+Résultat observé : `git log --follow` sur `doc/ROADMAP.md` indiquait une
+création à l'"Initial commit" (30/05/2026), alors que le fichier a
+réellement été créé en `new file` dans le commit `6fe4f4f` (Sprint
+SDLC-10, 19/06/2026) — faux positif de détection de renommage sur un
+fichier sans rapport.
+Conclusion : ne jamais conclure une date de création depuis `--follow`
+seul sur ce repo — toujours confirmer par `git show --stat` (présence de
+`new file mode` dans le diff du commit concerné).
+
+## Symptôme : un grep hérité d'un script d'audit ne matche rien sur un chemin attendu
+Date : 19/06/2026
+Commande : `find . -name "<nom-fichier>"` avant de conclure à une absence
+Résultat observé : `grep ... doc/ANALYSE-BMAD.md` ne matchait rien — le
+fichier avait été déplacé vers `specs/Sprints/ANALYSE-BMAD.md` dès le
+commit `28b2415` (Sprint SDLC-07), bien avant l'écriture du script
+d'audit SDLC-16 qui référençait encore l'ancien chemin.
+Conclusion : un script d'audit hérité d'un PDR antérieur peut référencer
+des chemins obsolètes après un renommage/déplacement de fichier — vérifier
+le chemin réel (`find`/`ls`) avant de conclure à une absence de contenu.
