@@ -2,6 +2,38 @@
 
 ---
 
+## [v1.9+SDLC-15] — 2026-06-19 · Sprint SDLC-15 · Première /retrospective
+- **`Claude.md`** : nouvelle règle §Analyse — distinguer explicitement la
+  taille du « cœur du changement » de la taille de la « gouvernance
+  associée » si elles diffèrent (résout l'alerte SD-5, action ⏳ ouverte
+  depuis SDLC-11)
+- **`07-DECISIONS-SDLC.md`** : M-PROC-27 — backfill historique
+  CHANGELOG/DECISIONS pour SDLC-07/08/09 explicitement écarté (`LL-T01`
+  clos sans rattrapage)
+- **`doc/LESSONS_LEARNED.md`** : index mis à jour (LL-T01 clos, décision
+  SDLC-11 actée), entrée Sprint SDLC-15 ajoutée
+- **Tests** : grep de validation (voir entrée DECISIONS + index LESSONS_LEARNED)
+
+---
+
+## [v1.9+SDLC-14] — 2026-06-19 · Sprint SDLC-14 · Self-bootstrap + rattrapage gouvernance
+- **`Claude.md`**, **`STANDARDS.md`** (nouveaux) : adaptés pour un projet
+  de gouvernance de templates (pas de code applicatif)
+- **`.claude/skills/{wrap-up,retrospective,diagnostic}/SKILL.md`** (nouveaux)
+- **`.claude/hooks/pre-tool-bash.sh`** + **`.claude/settings.json`** (nouveaux,
+  blocages universels uniquement)
+- **`doc/LESSONS_LEARNED.md`** + **`doc/DIAGNOSTIC_CMDS.md`** (nouveaux,
+  8 entrées rétroactives SDLC-07→14)
+- **`specs/sprint-template.md`** + **`specs/Sprints/sprint-SDLC-14-self-bootstrap.md`** (nouveaux)
+- **`.gitignore`** : ajout `.claude/sprint-memory.md`
+- Renuméroté depuis "SDLC-15" — le PDR présupposait un sprint SDLC-14 déjà
+  exécuté ; précondition vérifiée, gap confirmé, voir `doc/LESSONS_LEARNED.md`
+  (`LL-T04`) et `doc/DIAGNOSTIC_CMDS.md`
+- **Tests** : critères d'acceptation vérifiés par grep/diff · smoke test
+  hook exit 0 · non-régression confirmée
+
+---
+
 ## [v1.9+SDLC-13] — 2026-06-18 · Sprint SDLC-13 · specs/SPEC.md (dogfooding)
 - **`specs/SPEC.md`** (nouveau, projet toolkit) : §Vue d'ensemble,
   §Architecture (diagramme de flux), §Modules (vérifié contre l'état réel

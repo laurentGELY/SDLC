@@ -1023,3 +1023,48 @@ explicite plutôt que de prétendre qu'un gate amont pourrait se substituer
 
 **M-SCOPE-02 inchangé :** la phase amont reste optionnelle, `specs/SPEC.md`
 from scratch reste la voie par défaut sans elle.
+
+---
+
+## M-PROC-27 · Backfill CHANGELOG/DECISIONS SDLC-07-09 — clos sans rattrapage · v1.9+SDLC-15 · 19/06/2026
+
+**Retenu :** Ne pas backfiller rétroactivement les entrées `CHANGELOG.md` /
+`07-DECISIONS-SDLC.md` manquantes pour les sprints SDLC-07, 08, 09
+(`LL-T01`, `doc/LESSONS_LEARNED.md`). Le gap reste documenté tel quel
+dans `doc/LESSONS_LEARNED.md` et `doc/DIAGNOSTIC_CMDS.md` ; la discipline
+d'entrée systématique est restaurée depuis SDLC-10 et ne s'est pas
+reproduite depuis.
+
+**Écarté :** Réécrire l'historique des versions déjà publiées pour
+insérer rétroactivement 3 entrées entre `[v1.9] SDLC-05b` et
+`[v1.9+SDLC-10]` — reconstruction a posteriori sans preuve directe
+(contredit la citabilité de `Claude.md §Rôle`), pour un bénéfice
+opérationnel nul sur des sprints déjà clos.
+
+**Raison :** Le signal a rempli sa fonction — déclencher la discipline
+observée depuis SDLC-10 — sans qu'un rattrapage rétroactif soit
+nécessaire pour la suite. Décision prise lors de la première
+`/retrospective` (SDLC-15), suite à l'alerte `SD-5` sur l'action `⏳`
+ouverte depuis SDLC-11 (voir aussi décision ci-dessous).
+
+**Déclencheur de réouverture :** aucun prévu — décision stable.
+
+---
+
+## M-PROC-28 · Distinction taille « cœur » vs « gouvernance associée » — règle stable · v1.9+SDLC-15 · 19/06/2026
+
+**Retenu :** `Claude.md §Analyse` porte désormais une règle stable :
+si la taille du « cœur du changement » diffère de la taille totale une
+fois la gouvernance associée comptée (fichiers de registre/doc/specs à
+mettre à jour en plus du livrable principal), déclarer les deux
+explicitement dans la spec plutôt que sous-estimer en ne comptant que
+le cœur.
+
+**Raison :** Observé dès SDLC-11 (Skill `/help`, taille XS → S une fois
+la gouvernance comptée), laissé en décision `⏳` sans déclencheur pendant
+3 sprints (SDLC-12, 13, 14) — `Significant Discovery Alert SD-5` détecté
+lors de la première `/retrospective` (SDLC-15). Une pratique déjà
+appliquée de fait mais jamais actée se résout en règle explicite plutôt
+qu'en `⏳` indéfini.
+
+**Déclencheur de réouverture :** aucun prévu — décision stable.

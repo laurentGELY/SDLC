@@ -197,6 +197,12 @@ sans grep de validation finale n'est pas une modification vérifiée.
 
 Toujours partir du contenu réel des fichiers, pas d'une hypothèse mémoire.
 
+**Taille du sprint :** si la taille du « cœur du changement » diffère de
+la taille totale une fois la gouvernance associée comptée (fichiers de
+registre, doc, specs à mettre à jour en plus du livrable principal) —
+déclarer les deux explicitement dans la spec plutôt que sous-estimer en
+ne comptant que le cœur (SDLC-11 · `M-PROC-28`, `/retrospective` SDLC-15).
+
 ```
 ## Compréhension
 - Objectif :

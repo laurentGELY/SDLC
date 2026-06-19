@@ -1,11 +1,11 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns
+## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→15 (première /retrospective)
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
-| LL-T01 | Sprint méta sans entrée DECISIONS/CHANGELOG dédiée au commit | 3 | SDLC-07, 08, 09 | Partiellement résolu | Discipline systématique restaurée depuis SDLC-10 (vérifié : CHANGELOG reprend une entrée dédiée par sprint dès SDLC-10). Backfill historique des entrées manquantes pour SDLC-07/08/09 **non effectué** — reste une action ouverte (voir `doc/DIAGNOSTIC_CMDS.md`) |
+| LL-T01 | Sprint méta sans entrée DECISIONS/CHANGELOG dédiée au commit | 3 | SDLC-07, 08, 09 | Clos — accepté en l'état | Backfill explicitement écarté (`M-PROC-27`, `07-DECISIONS-SDLC.md`, `/retrospective` SDLC-15) — discipline restaurée depuis SDLC-10 jugée suffisante, gap historique accepté sans rattrapage |
 | LL-T02 | Vérifier qu'un mécanisme ou une précondition n'est pas déjà couvert/vrai avant de l'ajouter/le présumer | 2 | SDLC-12, SDLC-14 | Actif — principe à appliquer systématiquement | Aucune action — vigilance continue |
 | LL-T03 | Poser les sous-décisions d'architecture explicitement avant d'écrire un PDR à enjeu | 2 | SDLC-04 (HALT), SDLC-09 (Adversarial Review) | Confirmé | Pattern à reproduire pour tout sprint Taille M/L touchant l'architecture |
 | LL-T04 | Vérifier par commande exécutable toute précondition factuelle énoncée par un PDR avant de l'exécuter — y compris du contenu "rétroactif" fourni comme acquis | 1 | SDLC-14 | Nouveau | Appliqué nativement ce sprint (citabilité `Claude.md §Rôle` étendue au contenu du PDR lui-même, pas seulement au code/repo) — à reproduire systématiquement |
@@ -63,7 +63,9 @@ option de scope réduit documentée.
 **Lien pattern :** aucun nouveau
 **Action proposée :** continuer à distinguer taille du "cœur du
 changement" vs taille "gouvernance associée" dans les PDR futurs →
-décision : ⏳
+décision : ✅ acté comme règle stable dans `Claude.md §Analyse`
+(`M-PROC-28`, `/retrospective` SDLC-15 — alerte `SD-5`, action restée
+`⏳` sans déclencheur pendant 3 sprints)
 
 ### Sprint SDLC-12 — 18/06/2026 — 10-AMONT-TEMPLATE.md
 **Code :** N/A
@@ -110,15 +112,29 @@ d'un PDR par commande exécutable avant de l'exécuter, y compris le
 contenu "rétroactif" fourni comme acquis → décision : ✅ appliqué
 nativement ce sprint, à reproduire systématiquement
 
+### Sprint SDLC-15 — 19/06/2026 — Première /retrospective (SDLC-07→14)
+**Code :** N/A
+**Processus :** Première exécution de `/retrospective` — skill non encore
+chargée par la session (créée au sprint précédent) ; procédure suivie
+manuellement depuis `.claude/skills/retrospective/SKILL.md`. Significant
+Discovery Alert `SD-5` déclenché : action `⏳` de SDLC-11 ouverte depuis
+3 sprints sans déclencheur documenté. Décision utilisateur : acter la
+règle (`Claude.md`, `M-PROC-28`) et clore `LL-T01` sans backfill
+(`M-PROC-27`) plutôt que de laisser les deux indéfiniment `⏳`.
+**Lien pattern :** clôt LL-T01 · résout l'alerte SD-5 (action SDLC-11)
+**Action proposée :** aucune nouvelle — décisions actées dans
+`07-DECISIONS-SDLC.md` (`M-PROC-27`, `M-PROC-28`) et `Claude.md §Analyse`
+→ décision : ✅
+
 ---
 
-## §Métriques (au bootstrap rétroactif, Sprint SDLC-14)
-- Sprints couverts : SDLC-07 à SDLC-14 (8 sprints)
-- Dernière `/retrospective` : aucune — **seuil dépassé**, à déclencher
-  immédiatement après ce sprint (SDLC-15)
-- HOOK_CANDIDATE en attente : 0
+## §Métriques (mis à jour Sprint SDLC-15, première /retrospective)
+- Sprints couverts : SDLC-07 à SDLC-15 (9 sprints)
+- Dernière `/retrospective` : 19/06/2026 · Sprints SDLC-07→14
+- HOOK_CANDIDATE en attente : 0 · activés ce cycle : 0 · rejetés : 0
 - SDLC_CANDIDATE en attente : 0
+- Décisions invalidées détectées : 0 (M-PROC-26, M-SCOPE-03/04 vérifiées
+  toujours valides — déclencheurs de réouverture non atteints)
 - Patterns actifs : LL-T02 (vigilance continue), LL-T03 (à reproduire),
-  LL-T04 (nouveau, à reproduire)
-- Patterns partiellement résolus : LL-T01 (backfill historique
-  SDLC-07/08/09 reste une action ouverte, non traitée dans ce sprint)
+  LL-T04 (à reproduire)
+- Patterns clos ce cycle : LL-T01 (accepté en l'état, sans backfill)
