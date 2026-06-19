@@ -3,7 +3,7 @@
 Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
-**Version courante : v1.7**
+**Version courante : v1.9+SDLC-13**
 
 ---
 
@@ -174,3 +174,12 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v1.5 | 05/06/2026 | Init sprint : spec + mémoire + plan de développement — séquence 4a→4d (M-PROC-12) |
 | v1.6 | 11/06/2026 | Annotations sprint-memory (CONF/alternative/valide jusqu'à) · Handoff eager/lazy · §Dépendances PDR · index retrospective structuré (M-PROC-13→17, M-ARCH-07) |
 | v1.7 | 11/06/2026 | Recommandation vérification externe si CONF FAIBLE · §PostToolUse Option A/B — lint + post-commit-changelog (M-PROC-18, M-HOOKS-03) |
+| v1.8 | 14/06/2026 | Sprint SDLC-05a · Wrap-up robustesse : §0e revue objectif sprint, signaux rétrospectifs §0a, SESSION_BRIDGE accumulatif, vérification CLAUDE_PROJECT delta (M-PROC-19→22) |
+| v1.9 | 14/06/2026 | Sprint SDLC-05b · CLAUDE_PROJECT versionné (`sdlc-project-check.sh`) · volumétrie minimum §Plan de test · §Observabilité STANDARDS en checklist Q/R actionnable (M-PROC-23/24, M-ARCH-08) |
+| v1.9+SDLC-07 | 18/06/2026 | Import patterns BMad tactiques XS — bloc HALT (5 conditions, §Règles absolues), 3 principes anti-biais §Analyse, règle "affirmation citable" §Rôle · réorg `doc/` → `specs/Sprints/` |
+| v1.9+SDLC-08 | 18/06/2026 | Import patterns BMad qualité/continuité — modes Index-guidé + seuil délégation sous-agent §Tokens, clause anti-complaisance §Test, reconstruction `sprint-memory.md` perdue · Significant Discovery Alert SD-1→5 (§Étape 2b retrospective) |
+| v1.9+SDLC-09 | 18/06/2026 | Import patterns BMad P-04/P-05/P-03 — Adversarial Review 3 couches (§0f wrap-up, Taille M/L), verdict gate PASS/CONCERNS/FAIL (Demande d'aval), grille succès/échec optionnelle PDR taille L · clôture catalogue BMad (Spike SDLC-06) |
+| v1.9+SDLC-10 | 18/06/2026 | Rangement catalogue BMad — `doc/ROADMAP.md` créé (6 patterns en survol §Later avec déclencheurs) · M-SCOPE-03 (pas de modes nommés `Claude.md §Rôle`) |
+| v1.9+SDLC-11 | 18/06/2026 | Skill `/help` — recap lecture seule (sprint-memory, ROADMAP §Now/§Next, classification `Claude.md`), zéro suggestion (M-PROC-26) |
+| v1.9+SDLC-12 | 18/06/2026 | Phase amont — `10-AMONT-TEMPLATE.md`, Project Claude.ai dédié séparé pour idéation/PRD/architecture, zéro marqueur de provenance côté Claude Code (M-SCOPE-04) |
+| v1.9+SDLC-13 | 18/06/2026 | `specs/SPEC.md` du toolkit lui-même (dogfooding) — §Vue d'ensemble, §Architecture (diagramme de flux), §Modules vérifié contre l'état réel du repo |
