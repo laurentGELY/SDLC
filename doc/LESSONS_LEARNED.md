@@ -1,7 +1,7 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→16
+## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→17
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
@@ -12,6 +12,34 @@
 | LL-T05 | Les instructions d'init embarquées dans un PDR (§Handoff) peuvent être incomplètes par rapport à la checklist absolue de `Claude.md §Démarrage` (4a-4d) — les traiter comme suffisantes sans les confronter à `Claude.md` fait sauter une étape (ici : 4a, création du fichier spec) sans qu'aucun garde-fou ne le détecte avant le `/wrap-up` | 1 | SDLC-16 | Nouveau — décision différée | ⏳ — réflexion approfondie demandée par l'utilisateur en session Claude.ai dédiée avant toute correction (hook ou modification de procédure) |
 
 ## §Entrées par sprint
+
+### Sprint SDLC-17 — 19/06/2026 — Audit externe obra/superpowers
+**Code :** N/A — gouvernance/doc uniquement
+**Processus :** `Claude.md §Démarrage` exécuté intégralement (1→4a→4b→4c→4d)
+avant tout travail sur le livrable, contrairement à SDLC-16. La vérification
+de l'étape 4a (créer le fichier spec) a détecté une collision de
+numérotation — le PDR portait "Sprint SDLC-06", déjà utilisé par
+`sprint-SDLC-06-bmad-spike.md` — interceptée par HALT-ARCH avant création
+du fichier, signalée à l'utilisateur, renumérotée en SDLC-17 sur validation
+explicite avant de continuer.
+**Lien pattern :** confirme LL-T05 évité avec succès cette fois — la
+discipline manuelle de relecture de `Claude.md §Démarrage` en tête de
+session (plutôt que de partir des seules instructions d'init du PDR) a
+suffi à éviter la récurrence du défaut observé en SDLC-16 ; ne change pas
+le statut ⏳ de LL-T05 (toujours aucun garde-fou automatique en place)
+**Action proposée :** aucune — la vigilance manuelle reste le seul
+mécanisme actif, cohérent avec la décision différée de LL-T05
+**SDLC candidat :** [SDLC_CANDIDATE] 3 candidats préformatés dans le
+livrable `doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8` (hook `SessionStart`
+injectant automatiquement les règles absolues + HALT en contexte — répond
+directement à LL-T05 ; table de rationalisations par HALT ; fusion de la
+clause anti-complaisance avec une liste de formulations interdites) →
+fichier cible : `08-hooks-TEMPLATE.md`, `01-Claude-md-TEMPLATE.md` ·
+nature : nouveau mécanisme (hook) + renforcement de règles existantes —
+décision : en attente, à remonter manuellement dans le projet SDLC
+(Claude.ai), groupé avec la réflexion déjà prévue pour LL-T05
+
+---
 
 ### Sprint SDLC-07 — 18/06/2026 — HALT + Stronghold first + citabilité
 **Code :** N/A — gouvernance uniquement

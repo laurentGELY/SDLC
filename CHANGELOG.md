@@ -2,6 +2,33 @@
 
 ---
 
+## [v1.9+SDLC-17] — 2026-06-19 · Sprint SDLC-17 · Audit externe obra/superpowers
+- **`doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md`** (nouveau) : audit comparatif
+  statique entre le plugin agentique `obra/superpowers` (174k★, 14 skills)
+  et le modèle SDLC — tableau d'équivalence terminologique, mapping des
+  14 skills, analyse par invariant (INV-1→4), 4 forces honnêtes Superpowers,
+  3 forces SDLC absentes de Superpowers, 6 recommandations étiquetées
+  (2× IMPORTER, 1× FUSIONNER, 1× REMPLACER, 1× REJETER, 1× IDÉE NOUVELLE),
+  4 entrées "à ne pas importer", 3 candidats `[SDLC_CANDIDATE]` préformatés
+- **Recommandation principale** : hook `SessionStart` (Superpowers) qui
+  injecte automatiquement les règles absolues + HALT en contexte —
+  adresse directement `LL-T05` (garde-fou démarrage 4a manquant, identifié
+  Sprint SDLC-16) ; laissé en `[SDLC_CANDIDATE]`, pas appliqué ce sprint
+  (sprint Revue, zéro modification de gouvernance dans le périmètre)
+- **Zéro fichier de gouvernance SDLC modifié** — vérifié par
+  `git diff --stat` sur les 10 fichiers `00`-`09` (vide)
+- **Tests** : 3 commandes niveau A du PDR (nb sections ≥9 → 9, occurrences
+  étiquettes ≥5 → 9, diff gouvernance vide → confirmé)
+
+**Corrections ajustées vs spec** — PDR reçu sous le numéro "Sprint SDLC-06",
+collision avec `specs/Sprints/sprint-SDLC-06-bmad-spike.md` existant ;
+renuméroté en SDLC-17 sur validation explicite de l'utilisateur (HALT-ARCH
+détecté et signalé avant création du fichier spec, étape 4a) · chemin
+`/exemples/superpowers/` du PDR corrigé en `exemples/superpowers/Superpowers/`
+(clone nesté d'un niveau, non prévu par le PDR original)
+
+---
+
 ## [v1.9+SDLC-16] — 2026-06-19 · Sprint SDLC-16 · Audit complet SDLC-07→15
 - **Audit** : verdicts par sprint SDLC-07→15 produits par grep/ls/git diff
   (pas de supposition) — `ATTEINT` confirmé pour SDLC-07→13 et SDLC-15
