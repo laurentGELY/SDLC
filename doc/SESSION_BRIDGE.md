@@ -1,6 +1,18 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-16 — audit-complet] · 2026-06-19
+**Commit :** 9f35250
+**Bloquants en suspens :** LL-T05 (`doc/LESSONS_LEARNED.md`) — garde-fou
+manquant pour `Claude.md §Démarrage` étape 4a (création du fichier spec
+avant tout travail) ; HOOK_CANDIDATE et SDLC_CANDIDATE notés en `⏳`,
+réflexion approfondie prévue par l'utilisateur en session Claude.ai
+dédiée avant toute correction
+**Fil fonctionnel :** Les 9 sprints SDLC-07→15 sont audités et confirmés
+contre l'état réel du repo (8 ATTEINT, 1 scindé self-bootstrap/rattrapage)
+— `doc/LESSONS_LEARNED.md` ne contient plus d'affirmation narrative non
+marquée comme telle.
+
 ## [Sprint SDLC-05b — gouvernance-observabilite] · 2026-06-14
 **Commit :** b3e9f25
 **Bloquants en suspens :** aucun
