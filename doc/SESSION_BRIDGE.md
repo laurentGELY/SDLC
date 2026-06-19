@@ -1,6 +1,18 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-17 — audit-superpowers] · 2026-06-19
+**Commit :** 135eb24
+**Bloquants en suspens :** aucun — LL-T05 reste ⏳ (réflexion en Claude.ai
+toujours prévue), enrichi de 3 candidats `[SDLC_CANDIDATE]` concrets
+(hook SessionStart, tables de rationalisation, fusion clause
+anti-complaisance) dans `doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8`
+**Fil fonctionnel :** Audit comparatif statique `obra/superpowers` (174k★,
+14 skills) vs modèle SDLC produit dans `doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md`
+— mapping complet, 4 invariants analysés, recommandations étiquetées.
+Zéro fichier de gouvernance modifié ce sprint (sprint Revue, décision
+d'import différée à validation humaine).
+
 ## [Sprint SDLC-16 — audit-complet] · 2026-06-19
 **Commit :** 9f35250
 **Bloquants en suspens :** LL-T05 (`doc/LESSONS_LEARNED.md`) — garde-fou
