@@ -64,3 +64,34 @@ d'audit SDLC-16 qui référençait encore l'ancien chemin.
 Conclusion : un script d'audit hérité d'un PDR antérieur peut référencer
 des chemins obsolètes après un renommage/déplacement de fichier — vérifier
 le chemin réel (`find`/`ls`) avant de conclure à une absence de contenu.
+
+## Symptôme : besoin de connaître le schéma JSON réel d'un hook PreToolUse sans pouvoir redémarrer la session
+Date : 19/06/2026
+Commande : instrumenter temporairement un hook déjà actif (ajouter une ligne
+`echo "$INPUT" >> /tmp/capture.jsonl` après la lecture de stdin), déclencher
+l'action réelle correspondante, lire le fichier, puis retirer la ligne.
+Pour Edit/Write sans hook actif sur ces outils : `grep -o '"name":"Edit"[^}]*"input":{[^}]*}'
+<transcript_path>` (chemin fourni dans le payload `PreToolUse` lui-même).
+Résultat observé : modifier `.claude/settings.local.json` pour ajouter un
+nouveau hook `PreToolUse` en cours de session ne prend jamais effet (testé
+sur claude 2.1.183) — les hooks sont lus une seule fois au démarrage de
+session, pas relus à chaud.
+Conclusion : ne jamais supposer qu'un hook nouvellement déclaré s'applique
+sans redémarrage. Pour capturer un schéma sans redémarrer, exploiter un hook
+déjà actif (instrumentation temporaire) ou le transcript de session
+lui-même (`tool_use` réels, déjà au format API exact).
+
+## Symptôme : un hook PreToolUse Bash bloque sa propre commande de test
+Date : 19/06/2026
+Commande : écrire le payload JSON de test dans un fichier via `Write`, puis
+`cat fichier.json | bash .claude/hooks/pre-tool-bash.sh` — jamais le JSON de
+test ni le motif recherché en texte littéral dans la commande Bash elle-même
+(ni même dans un commentaire/label `echo` de la même commande composée).
+Résultat observé : une commande comme
+`echo "test git push --force" && cat test.json | bash hook.sh` est bloquée
+par le hook qu'on cherche à tester, car `$CMD` extrait correctement
+l'intégralité de la commande composée envoyée par l'outil Bash — y compris
+le texte du label, pas seulement le payload JSON visé.
+Conclusion : isoler tout texte de test contenant un motif `[UNIVERSEL]`
+(`git push --force`, `rm -rf ...`) dans un fichier séparé, jamais dans la
+commande Bash qui l'invoque.

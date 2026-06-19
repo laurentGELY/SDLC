@@ -187,6 +187,11 @@ pénible immédiatement. La valeur du PostToolUse est réelle mais dépend d'une
 Décision différée au sprint 1 ou 2, une fois que les commandes sont connues et rapides.
 Le template documente le bloc PostToolUse commenté pour faciliter l'activation consciente.
 
+→ Mise à jour 19/06/2026 (Sprint SDLC-18) : matcher `PreToolUse` élargi de `Bash` seul à
+`Bash|Edit|Write` dans ce projet, pour permettre le carve-out M-HOOKS-04 (garde-fou
+étape 4a) de s'appliquer aussi aux écritures de fichier, pas seulement aux commandes
+shell. Le `PostToolUse` reste non activé — décision M-HOOKS-01 inchangée sur ce point.
+
 ---
 
 ## M-HOOKS-02 · Sections [ACTIVER si…] vs hook vide · v1.2 · 30/05/2026
@@ -417,6 +422,8 @@ pas seulement l'auteur du modèle.
 | M-SCOPE-03 | Pas de modes nommés dans Claude.md §Rôle | ✓ | — |
 | M-PROC-26 | Skill /help — recap lecture seule | ✓ | — |
 | M-SCOPE-04 | Phase amont Project Claude.ai séparé, zéro marqueur côté Claude Code | ✓ | — |
+| M-HOOKS-04 | Carve-out anti-auto-verrouillage M-HOOKS-04 (garde-fou étape 4a) | ✓ | — |
+| M-HOOKS-05 | Extraction JSON PreToolUse corrigée (`tool_input`, pas `input`) | ✓ | — |
 
 ---
 
@@ -1096,3 +1103,176 @@ appliquée de fait mais jamais actée se résout en règle explicite plutôt
 qu'en `⏳` indéfini.
 
 **Déclencheur de réouverture :** aucun prévu — décision stable.
+
+---
+
+## M-HOOKS-04 · Carve-out anti-auto-verrouillage — garde-fou étape 4a · v1.9+SDLC-18 · 19/06/2026
+
+**Contexte :** revue critique d'un PDR conçu en Claude.ai pour ajouter un garde-fou
+mécanique sur l'omission de l'étape 4a (`Claude.md §Démarrage` — création du fichier
+spec sprint). Le PDR anticipait un bug de conception sur le matcher `Bash|Edit|Write` :
+bloquer toute commande dès que `.claude/sprint-memory.md` référence un spec absent du
+disque verrouille la session, car aucune action couverte par le matcher ne peut sortir
+de l'état bloqué — y compris le `Write` qui créerait le spec, seule recommandation du
+message d'erreur lui-même.
+
+**Retenu :** le garde-fou et son carve-out sont conçus ensemble, pas en deux temps.
+`pre-tool-bash.sh` bloque (exit 2) tout `Bash`/`Edit`/`Write` si `SPEC_PATH` (extrait de
+`sprint-memory.md`, motif `# Spec : ` recherché n'importe où dans le fichier — pas figé
+ligne 2) est non vide et absent du disque, **sauf** si l'outil est `Write`/`Edit` et que
+le `file_path` cible exactement `SPEC_PATH` ou un chemin sous `specs/Sprints/` — ce
+carve-out est exempté dès la première version, jamais ajouté après coup.
+
+**Écarté :**
+- Restreindre le matcher à `Bash` seul pour éviter le problème — aurait annulé la
+  couverture Edit/Write que l'élargissement visait précisément à apporter.
+- Script de carve-out séparé — un seul `pre-tool-bash.sh` reste plus simple à auditer.
+
+**Incident découvert pendant l'implémentation (Sprint SDLC-18) :** la première version du
+carve-out comparait `file_path` (toujours absolu, confirmé empiriquement) à `SPEC_PATH`
+(relatif) — comparaison qui ne matchait jamais. Combiné à l'absence totale de carve-out
+pour `Bash`, la session s'est retrouvée verrouillée sur Bash/Edit/Write pendant ~40
+minutes, débloquée une première fois par suppression manuelle de `sprint-memory.md` par
+l'utilisateur hors session Claude Code, puis retombée brièvement dans le même piège lors
+de la restauration avant d'être résolue seule via le carve-out corrigé (comparaison en
+suffixe absolu). Corrigé avant tout commit — 4 smoke tests (non-régression, positif,
+négatif, carve-out) exécutés avec succès sur la version corrigée.
+
+**Limite initialement actée, comblée dans le même sprint :** `Bash` n'avait aucun carve-out
+(lecture seule incluse — `git status`/`diff`/`ls`/`cat`), exclusion explicite du PDR
+d'origine ("amélioration de confort, pas un correctif"). Confirmée comme `[HOOK_CANDIDATE]`
+réel — observée deux fois en conditions réelles cette session, pas hypothétique. Scope
+élargi sur validation explicite de l'utilisateur après l'incident → voir `M-HOOKS-06`.
+
+→ Mise à jour 19/06/2026 (même sprint) : limite comblée par `M-HOOKS-06` (allowlist Bash
+lecture seule). Cette entrée M-HOOKS-04 reste la trace de l'incident d'origine.
+
+**Impact fichiers :** `.claude/hooks/pre-tool-bash.sh` (+section M-HOOKS-04, v2.0.0→2.0.1),
+`.claude/settings.json` (matcher `Bash` → `Bash|Edit|Write`).
+
+**Origine commune avec SDLC_CANDIDATE #1 :** le garde-fou que cette entrée mécanise
+(blocage de l'omission de l'étape 4a) répond au même incident que la recommandation
+hook `SessionStart` laissée en `[SDLC_CANDIDATE]` dans
+`doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8` (Sprint SDLC-17) — toutes deux tracent au
+pattern `LL-T05` (`doc/LESSONS_LEARNED.md`). M-HOOKS-04 est une mécanisation partielle et
+indépendante (blocage réactif sur l'état du disque) ; le hook `SessionStart` resterait une
+injection proactive en contexte — les deux approches ne se substituent pas l'une à
+l'autre, décision de cumul ou d'arbitrage différée à la session Claude.ai dédiée déjà
+prévue pour `LL-T05`.
+
+**Déclencheur de réouverture :** si l'allowlist Bash lecture seule (`[HOOK_CANDIDATE]`
+ci-dessus) est activée par `/retrospective` → revoir cette entrée en conséquence.
+
+---
+
+## M-HOOKS-05 · Extraction JSON PreToolUse corrigée (`tool_input`, pas `input`) · v1.9+SDLC-18 · 19/06/2026
+
+**Contexte :** root cause distincte de M-HOOKS-04, antérieure (Sprint SDLC-14,
+self-bootstrap). Le script extrayait la commande via
+`data.get('input', {}).get('command', '')`, sur la base d'un commentaire non vérifié
+(`{"tool":"bash","input":{"command":"..."}}`). Le smoke test existant ne testait qu'une
+commande inoffensive (`echo ok`) — incapable de détecter une extraction cassée.
+
+**Retenu :** capture empirique du schéma JSON réel avant toute correction (pas de
+confiance en documentation tierce — c'est exactement le mode d'échec ayant produit le
+bug initial). Réalisée sans restart de session : (1) instrumentation temporaire du hook
+`Bash` déjà actif (ajout d'une ligne de capture, retirée après usage) → confirme
+l'enveloppe `{"hook_event_name":"PreToolUse","tool_name":"...","tool_input":{...}}` ;
+(2) grep direct du transcript de session (`tool_use` réels `Edit`/`Write`) → confirme le
+paramètre `file_path`, toujours en chemin absolu. Extraction corrigée :
+`data.get('tool_input', {}).get('command', '')`.
+
+**Constat :** `data.get('input', {})` sur un payload sans clé `input` retourne toujours
+`{}` → `$CMD` était vide depuis l'origine du script. Les blocages `[UNIVERSEL]`
+(`git push --force`, `rm -rf` sur dossier critique) n'ont **jamais** pu matcher quoi que
+ce soit en conditions réelles, depuis leur introduction Sprint SDLC-14, jusqu'à cette
+correction.
+
+**Validation :** la commande de test du smoke test non-régression a, par accident,
+déclenché le blocage sur une commande Bash légitime de cette même session (le texte de
+la commande contenait littéralement le motif testé) — preuve en conditions réelles,
+non simulée, que l'extraction corrigée fonctionne.
+
+**Écarté :** auditer l'ensemble des sections `[ACTIVER si…]` commentées du template
+`08-hooks-TEMPLATE.md` pour le même défaut — hors scope (sections inactives, aucune
+n'est exécutée en l'état) ; sprint Doc séparé si le besoin se confirme.
+
+**Impact fichiers :** `.claude/hooks/pre-tool-bash.sh` (extraction CMD + nouvelles
+extractions TOOL/FILE_PATH, en-tête mis à jour avec le schéma réel documenté).
+
+**Déclencheur de réouverture :** aucun prévu — schéma confirmé empiriquement, pas une
+hypothèse.
+
+---
+
+## M-HOOKS-06 · Allowlist Bash lecture seule pendant blocage M-HOOKS-04 · v1.9+SDLC-18 · 19/06/2026
+
+**Contexte :** suite directe de l'incident `M-HOOKS-04` (auto-verrouillage réel ~40 minutes,
+ce même sprint). `Bash` n'avait aucun carve-out — un bug dans le carve-out Write/Edit a donc
+laissé la session sans aucun outil disponible pour diagnostiquer ou corriger quoi que ce soit,
+y compris des commandes en lecture pure. Scope initialement exclu par le PDR ("amélioration de
+confort, pas un correctif") — réintégré sur validation explicite de l'utilisateur après
+l'incident ("élargi le scope... implémente les solutions").
+
+**Retenu :** pendant un blocage M-HOOKS-04, `Bash` est autorisé (le blocage est court-circuité,
+mais l'exécution continue vers les blocages `[UNIVERSEL]` plus bas — pas un `exit 0` immédiat)
+si la commande matche un préfixe d'une liste fermée (`git status|diff|log|show`, `ls`, `cat`,
+`pwd`, `find`, `grep`, `head`, `tail`, `wc`, `bash -n`) **et** ne contient aucun caractère de
+chaînage/redirection/substitution (`;`, `&`, `|`, backtick, `$(`, `>`). Une commande qui matche
+le préfixe mais contient un de ces caractères reste bloquée (anti-évasion — testé explicitement :
+`ls; rm -rf <dossier>` reste bloqué malgré le préfixe `ls` autorisé).
+
+**Écarté :**
+- Allowlist par expression libre (toute commande ne contenant pas tel mot-clé interdit) — risque
+  d'angle mort bien plus large qu'une liste fermée de préfixes lecture-seule.
+- Désactiver M-HOOKS-04 entièrement en cas de doute — annulerait le garde-fou que ce sprint
+  visait à renforcer, pas seulement son carve-out.
+
+**Raison :** un carve-out d'écriture (Write/Edit) peut avoir un bug (cf. M-HOOKS-04) sans
+qu'aucune commande de diagnostic en lecture ne soit disponible pour le constater depuis la
+session elle-même. Cette allowlist est une couche de défense indépendante du carve-out
+principal — elle réduit le rayon d'impact de tout bug futur dans ce fichier, pas seulement
+celui déjà corrigé.
+
+**Impact fichiers :** `.claude/hooks/pre-tool-bash.sh` (v2.0.1 → 2.1.0).
+
+**Déclencheur de réouverture :** si un cas réel nécessite d'élargir la liste de préfixes
+autorisés → documenter le préfixe ajouté et la raison dans une mise à jour de cette entrée.
+
+---
+
+## M-PROC-30 · Test d'un hook bloquant — isolation obligatoire · v1.9+SDLC-18 · 19/06/2026
+
+**Contexte :** même incident (`M-HOOKS-04`). Le test des scénarios "doit bloquer" (négatif,
+carve-out) a été réalisé en manipulant `.claude/sprint-memory.md` **réel** — le même fichier
+qui gate la session courante. Un bug dans le mécanisme testé a donc immédiatement bloqué la
+session elle-même, sans aucune couche d'isolation entre le test et l'environnement réel.
+
+**Retenu :** `08-hooks-TEMPLATE.md` documente désormais une règle explicite (`§Test d'un hook
+bloquant — isolation obligatoire`) : tout test d'un comportement bloquant d'un hook
+`PreToolUse` s'exécute dans un répertoire temporaire isolé (copie du hook + fixtures), jamais
+contre l'état réel de la session.
+
+**Découverte additionnelle pendant la correction :** un `cd` exécuté sans sous-shell persiste
+entre les appels d'outil de la session — le hook réel (gating ces appels) peut alors résoudre
+ses chemins relatifs contre ce mauvais répertoire et déclencher un faux blocage sur la session
+réelle en lisant les fixtures de test comme si elles étaient l'état réel. Reproduit une fois en
+conditions réelles pendant ce sprint, débloqué via le carve-out désormais fonctionnel (pas
+d'intervention humaine nécessaire cette fois). Le template documente ce piège et impose
+`( cd ... && ... )` (sous-shell) plutôt que `cd` nu pour tout test d'isolation.
+
+**Limite non comblée, actée explicitement :** la résolution de chemin relatif dans
+`pre-tool-bash.sh` (`.claude/sprint-memory.md`, `$SPEC_PATH`) reste sensible au cwd du
+processus. Une résolution ancrée sur un chemin absolu fixe serait plus robuste mais n'a pas été
+implémentée ce sprint (changement plus large, hors des 3 solutions validées par l'utilisateur) —
+`[HOOK_CANDIDATE]` à consigner pour `/retrospective` si l'angle mort se reproduit hors contexte
+de test.
+
+**Écarté :** ne documenter la règle que dans `Claude.md` (spécifique à ce projet) plutôt que
+dans `08-hooks-TEMPLATE.md` — écarté car la règle concerne tout hook `PreToolUse` bloquant,
+pertinente pour tout projet cible du modèle SDLC, pas seulement celui-ci.
+
+**Impact fichiers :** `08-hooks-TEMPLATE.md` (+§Test d'un hook bloquant, ~25 lignes).
+
+**Déclencheur de réouverture :** si la résolution de chemin absolu est implémentée → mettre à
+jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.

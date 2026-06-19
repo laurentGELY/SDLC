@@ -247,6 +247,39 @@ Le hook est la conséquence d'une décision documentée, pas une précaution imp
 
 ---
 
+## §Test d'un hook bloquant — isolation obligatoire
+
+**Règle :** tout test d'un comportement *bloquant* d'un hook `PreToolUse` (un cas qui doit
+produire `exit 2`) s'exécute dans un environnement isolé — jamais en manipulant l'état réel
+de la session courante (le fichier que le hook lit pour décider de bloquer ou non).
+
+**Pourquoi :** un hook `PreToolUse` actif gate aussi bien les commandes de test délibérées que
+les vrais appels d'outil de la session. Si le mécanisme testé contient un bug, manipuler l'état
+réel pour déclencher le cas "doit bloquer" peut bloquer la session elle-même, sans aucune
+garantie qu'un outil reste disponible pour corriger le bug (cf. incident documenté,
+`07-DECISIONS-SDLC.md M-HOOKS-04`, Sprint SDLC-18 — auto-verrouillage réel de ~40 minutes,
+débloqué uniquement par intervention humaine hors session).
+
+**Méthode :**
+```bash
+mkdir -p /tmp/hook-test-isolated/.claude/hooks
+cp .claude/hooks/pre-tool-bash.sh /tmp/hook-test-isolated/.claude/hooks/
+# Construire les fixtures (sprint-memory.md, fichiers spec, etc.) dans /tmp/hook-test-isolated/
+# Invoquer le hook via un SOUS-SHELL — pas un `cd` nu, qui persiste entre appels d'outil et
+# peut faire lire au hook réel (gating la session courante) les fixtures de test au lieu de
+# l'état réel du projet :
+( cd /tmp/hook-test-isolated && cat fixture.json | bash .claude/hooks/pre-tool-bash.sh )
+# Nettoyage après usage :
+rm -rf /tmp/hook-test-isolated
+```
+
+**Piège connu :** un `cd` exécuté sans sous-shell persiste pour les appels d'outil suivants de
+la session — le hook réel (qui gate ces appels suivants) peut alors résoudre ses propres
+chemins relatifs contre ce mauvais répertoire et déclencher un faux blocage. Toujours utiliser
+`( cd ... && ... )` pour les tests d'isolation, jamais `cd ...` suivi d'une commande séparée.
+
+---
+
 ## §Critères d'acceptation bootstrap hooks
 
 - [ ] `pre-tool-bash.sh` : chmod +x, zéro section `[ACTIVER` non décidée

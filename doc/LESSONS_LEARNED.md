@@ -1,17 +1,44 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→17
+## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→18
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
 | LL-T01 | Sprint méta sans entrée DECISIONS/CHANGELOG dédiée au commit | 3 | SDLC-07, 08, 09 | Clos — accepté en l'état | Backfill explicitement écarté (`M-PROC-27`, `07-DECISIONS-SDLC.md`, `/retrospective` SDLC-15) — discipline restaurée depuis SDLC-10 jugée suffisante, gap historique accepté sans rattrapage |
-| LL-T02 | Vérifier qu'un mécanisme ou une précondition n'est pas déjà couvert/vrai avant de l'ajouter/le présumer | 2 | SDLC-12, SDLC-14 | Actif — principe à appliquer systématiquement | Aucune action — vigilance continue |
+| LL-T02 | Vérifier qu'un mécanisme ou une précondition n'est pas déjà couvert/vrai avant de l'ajouter/le présumer | 3 | SDLC-12, SDLC-14, SDLC-18 | Actif — principe à appliquer systématiquement | Aucune action — vigilance continue |
 | LL-T03 | Poser les sous-décisions d'architecture explicitement avant d'écrire un PDR à enjeu | 2 | SDLC-04 (HALT), SDLC-09 (Adversarial Review) | Confirmé | Pattern à reproduire pour tout sprint Taille M/L touchant l'architecture |
 | LL-T04 | Vérifier par commande exécutable toute précondition factuelle énoncée par un PDR avant de l'exécuter — y compris du contenu "rétroactif" fourni comme acquis | 1 | SDLC-14 | Nouveau | Appliqué nativement ce sprint (citabilité `Claude.md §Rôle` étendue au contenu du PDR lui-même, pas seulement au code/repo) — à reproduire systématiquement |
 | LL-T05 | Les instructions d'init embarquées dans un PDR (§Handoff) peuvent être incomplètes par rapport à la checklist absolue de `Claude.md §Démarrage` (4a-4d) — les traiter comme suffisantes sans les confronter à `Claude.md` fait sauter une étape (ici : 4a, création du fichier spec) sans qu'aucun garde-fou ne le détecte avant le `/wrap-up` | 1 | SDLC-16 | Nouveau — décision différée | ⏳ — réflexion approfondie demandée par l'utilisateur en session Claude.ai dédiée avant toute correction (hook ou modification de procédure) |
+| LL-T06 | Tester un mécanisme de blocage global (hook `PreToolUse`) en manipulant l'état réel de la session courante, sans isolation, transforme un bug du mécanisme testé en blocage réel de la session elle-même | 1 | SDLC-18 | Nouveau — corrigé | Règle d'isolation ajoutée à `08-hooks-TEMPLATE.md` (`M-PROC-30`) — appliquée, pas en attente |
 
 ## §Entrées par sprint
+
+### Sprint SDLC-18 — 19/06/2026 — Fix garde-fou M-HOOKS-04 + schéma JSON PreToolUse
+**Code :** Bug confirmé (`tool_input` vs `input` supposé) — les blocages `[UNIVERSEL]`
+(`git push --force`, `rm -rf`) n'avaient jamais matché quoi que ce soit depuis SDLC-14,
+corrigé. Carve-out M-HOOKS-04 implémenté avec un bug non anticipé (chemin absolu vs
+relatif) ayant verrouillé la session ~40 min, corrigé et re-testé.
+**Processus :** Auto-verrouillage réel de Bash/Edit/Write, débloqué une fois par
+intervention humaine hors session. Cause directe : une comparaison de chemin a contredit
+une preuve empirique obtenue 5 messages plus tôt dans la même conversation. Cause
+aggravante : test du scénario "doit bloquer" réalisé contre le fichier réel qui gate la
+session courante, sans isolation — répété une seconde fois sous une autre forme (`cd`
+persistant entre appels d'outil) avant correction définitive.
+**Lien pattern :** confirme **LL-T02** (deux fois : `settings.json` supposé "déjà élargi"
+par le PDR, faux ; comparaison de chemin écrite sans relire la preuve déjà obtenue) ·
+nouveau **LL-T06** (tester un mécanisme de blocage global en isolation, jamais contre
+l'état réel de la session)
+**Action proposée :** règle d'isolation des tests de hook bloquant → `08-hooks-TEMPLATE.md`
+— **appliquée ce sprint** (`M-PROC-30`), pas en attente.
+**Hook candidat :** allowlist Bash lecture seule pendant blocage M-HOOKS-04 — **appliquée
+ce sprint** (`M-HOOKS-06`), scope élargi sur validation explicite de l'utilisateur après
+l'incident. Décision : appliquée, pas en attente.
+**SDLC candidat :** [SDLC_CANDIDATE] résolution de chemin dans `pre-tool-bash.sh` ancrée
+sur un chemin absolu fixe plutôt que relative au cwd du processus (le piège `cd` persistant
+documenté en `M-PROC-30` reste possible hors contexte de test) → fichier cible :
+`08-hooks-TEMPLATE.md` (script) · nature : règle renforcée — décision : en attente, à
+remonter manuellement dans le projet SDLC (Claude.ai)
 
 ### Sprint SDLC-17 — 19/06/2026 — Audit externe obra/superpowers
 **Code :** N/A — gouvernance/doc uniquement

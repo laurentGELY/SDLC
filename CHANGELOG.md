@@ -2,6 +2,44 @@
 
 ---
 
+## [v1.9+SDLC-18] — 2026-06-19 · Sprint SDLC-18 · Fix garde-fou M-HOOKS-04 + schéma JSON PreToolUse
+- **`.claude/hooks/pre-tool-bash.sh` v2.0.0→2.0.1** : extraction JSON corrigée
+  (`tool_input.command`/`tool_input.file_path`, pas `input` — schéma confirmé
+  empiriquement, sans restart de session) ; ajout du bloc M-HOOKS-04 (garde-fou
+  étape 4a `Claude.md §Démarrage`) avec carve-out Write/Edit anti-auto-verrouillage ;
+  parsing `SPEC_PATH` tolérant (motif recherché, pas ligne 2 figée)
+- **`.claude/settings.json`** : matcher `PreToolUse` élargi `Bash` → `Bash|Edit|Write`
+  (valeur précédente notée avant modification)
+- **Bug confirmé** : l'extraction d'origine (`data.get('input', {})`) retournait
+  toujours `{}` sur le schéma réel → `$CMD` vide depuis Sprint SDLC-14 → les blocages
+  `[UNIVERSEL]` (`git push --force`, `rm -rf`) n'ont jamais matché quoi que ce soit
+  jusqu'à cette correction
+- **`07-DECISIONS-SDLC.md`** : entrées **M-HOOKS-04** (carve-out) et **M-HOOKS-05**
+  (extraction JSON) ajoutées + tableau de compatibilité mis à jour
+- **Incident en cours de sprint** : la première version du carve-out comparait un
+  `file_path` absolu à un `SPEC_PATH` relatif (jamais de match) ; combiné à l'absence
+  de carve-out sur `Bash`, la session s'est verrouillée sur Bash/Edit/Write ~40 min,
+  débloquée par suppression manuelle de `sprint-memory.md` (hors session) puis
+  corrigée et revalidée par les 4 smoke tests avant commit — détail en
+  `07-DECISIONS-SDLC.md §M-HOOKS-04`
+- **Limite comblée dans le même sprint** (scope élargi sur validation explicite utilisateur,
+  après incident) : **`.claude/hooks/pre-tool-bash.sh` v2.0.1→2.1.0** — allowlist Bash
+  lecture seule pendant un blocage M-HOOKS-04 (`git status/diff/log/show`, `ls`, `cat`,
+  `pwd`, `find`, `grep`, `head`, `tail`, `wc`, `bash -n`), rejetée si chaînage/redirection/
+  substitution (anti-évasion testé : `ls; rm -rf ...` reste bloqué)
+- **Message d'erreur M-HOOKS-04 enrichi** : liste les commandes lecture-seule disponibles +
+  procédure de secours hors session (`rm -f .claude/sprint-memory.md`)
+- **`08-hooks-TEMPLATE.md`** (nouveau `§Test d'un hook bloquant — isolation obligatoire`) :
+  règle de test en environnement isolé pour tout hook `PreToolUse` bloquant, + piège `cd`
+  persistant entre appels d'outil documenté (sous-shell `( cd ... && ... )` obligatoire)
+- **`07-DECISIONS-SDLC.md`** : entrées **M-HOOKS-06** (allowlist) et **M-PROC-30**
+  (isolation des tests) ajoutées ; `M-HOOKS-04` mise à jour (limite comblée)
+- **Tests** : 4 smoke tests niveau A (non-régression, positif, négatif, carve-out) +
+  niveau B (non-régression `[UNIVERSEL]`) + 3 tests allowlist — tous re-exécutés en
+  environnement isolé après l'élargissement de scope, tous OK
+
+---
+
 ## [v1.9+SDLC-17] — 2026-06-19 · Sprint SDLC-17 · Audit externe obra/superpowers
 - **`doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md`** (nouveau) : audit comparatif
   statique entre le plugin agentique `obra/superpowers` (174k★, 14 skills)
