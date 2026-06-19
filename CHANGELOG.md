@@ -2,6 +2,18 @@
 
 ---
 
+## [v1.9+SDLC-12] — 2026-06-18 · Sprint SDLC-12 · Phase amont
+- **`10-AMONT-TEMPLATE.md`** (nouveau) : instructions Project Claude.ai
+  dédié à l'idéation/PRD/architecture — §Brief, §Architecture amont
+  (pattern Vérification groupée), §Perspectives, §Passage à Claude Code
+- **`00-CONTEXT.md`** : carte des fichiers (ligne 10) + §2 phase amont optionnelle
+- **`README.md`** : structure repo + paragraphe découpage amont/aval
+- **`07-DECISIONS-SDLC.md`** : M-SCOPE-04 — résout Q1 stratégique, ferme
+  explicitement la piste du marqueur de provenance
+- **Tests** : N/A (gouvernance uniquement)
+
+---
+
 ## [v1.9+SDLC-11] — 2026-06-18 · Sprint SDLC-11 · Skill /help
 - **`11-help-SKILL-TEMPLATE.md`** (nouveau) : recap "où on en est / où on
   s'en va / outils disponibles", lecture seule, zéro suggestion

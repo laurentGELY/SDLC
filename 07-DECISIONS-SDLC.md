@@ -416,6 +416,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-25 | Co-construction PDR SDLC-Sync dans Claude.ai via sdlc-delta.sh | ✓ | — |
 | M-SCOPE-03 | Pas de modes nommés dans Claude.md §Rôle | ✓ | — |
 | M-PROC-26 | Skill /help — recap lecture seule | ✓ | — |
+| M-SCOPE-04 | Phase amont Project Claude.ai séparé, zéro marqueur côté Claude Code | ✓ | — |
 
 ---
 
@@ -990,3 +991,35 @@ risque de mauvaise recommandation d'un guide actif.
 **Déclencheur de réouverture (vers une version plus riche) :** si le
 toolkit dépasse 6-7 skills actifs, ou si `/help` en l'état s'avère
 insuffisant sur plusieurs sprints consécutifs (signal LESSONS_LEARNED).
+
+---
+
+## M-SCOPE-04 · Phase amont en Project Claude.ai séparé, zéro marqueur côté Claude Code · v1.9+SDLC-12 · 18/06/2026
+
+**Retenu :** `10-AMONT-TEMPLATE.md` — contenu à charger dans le Project
+Knowledge d'un Project Claude.ai dédié à l'idéation/PRD/architecture,
+hors repo, hors toolkit Claude Code. Réponse à Q1 (`doc/ANALYSE-BMAD.md §5`).
+
+**Écarté :** Étendre `01-Claude-md-TEMPLATE.md` ou créer un skill Claude
+Code pour les phases amont — le toolkit reste un méta-framework de
+gouvernance de sprint, pas un framework de product management (cohérent
+avec la conclusion de Spike SDLC-06 stratégique).
+
+**Écarté également :** marqueur de provenance (`<!-- Origine : Amont -->`
+ou équivalent) sur les PDR issus de cette phase amont, et modifications
+correspondantes de `Claude.md` / `03-wrap-up-SKILL-TEMPLATE.md`. Conçu
+puis retiré pendant ce sprint — raison : `HALT-ARCH` (P-01, SDLC-07) et
+`§Dépendances vérifiées` (M-ARCH-07) vérifient déjà toute hypothèse de
+tout PDR contre le code réel, sans condition sur son origine. Un marqueur
+aurait dupliqué un comportement déjà universel — ajout de complexité
+sans bénéfice net.
+
+**Raison du découpage amont/aval :** seul Claude Code a accès à la
+"vérité" du code et de l'architecture réelle (le repo). Claude.ai ne
+peut produire qu'un plan — aussi soigné soit-il, il reste une hypothèse
+jusqu'à confrontation avec le code. Le découpage rend cette limite
+explicite plutôt que de prétendre qu'un gate amont pourrait se substituer
+à la vérification aval.
+
+**M-SCOPE-02 inchangé :** la phase amont reste optionnelle, `specs/SPEC.md`
+from scratch reste la voie par défaut sans elle.

@@ -23,6 +23,12 @@ Un projet gouverné par ce toolkit a :
 - **INV-3 · Contexte chirurgical** — Claude charge uniquement les fichiers listés dans `§Handoff`, pas le repo entier
 - **INV-4 · Boucle de rétroaction** — toute observation terrain a un chemin vers une règle permanente
 
+**Découpage amont / aval :** l'idéation, le cadrage produit et les
+décisions d'architecture se font dans un Project Claude.ai dédié
+(`10-AMONT-TEMPLATE.md`) — Claude Code prend le relais à partir du
+Sprint 0, seul endroit où la vérité du code peut être vérifiée. Cette
+phase amont est optionnelle.
+
 ---
 
 ## Structure du repo
@@ -41,6 +47,7 @@ sdlc-toolkit/
 ├── 07-DECISIONS-SDLC.md             # Registre des décisions sur le modèle lui-même
 ├── 08-hooks-TEMPLATE.md             # → .claude/hooks/pre-tool-bash.sh + settings.json
 ├── 09-retrospective-SKILL-TEMPLATE.md  # → .claude/skills/retrospective/SKILL.md
+├── 10-AMONT-TEMPLATE.md             # → Project Knowledge Claude.ai (hors repo)
 ├── 11-help-SKILL-TEMPLATE.md        # → .claude/skills/help/SKILL.md
 ├── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
 └── doc/

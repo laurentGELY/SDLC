@@ -25,6 +25,7 @@
 | 07 | `07-DECISIONS-SDLC.md` | Registre des décisions sur le modèle | *(propre à ce projet)* |
 | 08 | `08-hooks-TEMPLATE.md` | Hook PreToolUse Bash + settings | `.claude/hooks/` |
 | 09 | `09-retrospective-SKILL-TEMPLATE.md` | Procédure de rétrospective + remontées SDLC | `.claude/skills/retrospective/SKILL.md` |
+| 10 | `10-AMONT-TEMPLATE.md` | Instructions phase amont — Project Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) |
 | 11 | `11-help-SKILL-TEMPLATE.md` | Skill /help — recap contexte | `.claude/skills/help/SKILL.md` |
 
 **Fichiers humains (local uniquement, non synchronisés dans Claude.ai) :**
@@ -39,6 +40,14 @@
 ---
 
 ## 2. Utilisation selon le contexte
+
+### Phase amont — idéation, PRD, architecture *(optionnelle)*
+→ Créer un Project Claude.ai dédié, charger `10-AMONT-TEMPLATE.md` en
+Project Knowledge.
+→ Le document produit alimente directement `specs/SPEC.md` et le premier
+PDR du Sprint 0 (voir `10-AMONT-TEMPLATE.md §Passage à Claude Code`).
+→ Optionnel : un projet sans phase amont formalisée continue de créer
+`specs/SPEC.md` from scratch au bootstrap, comme avant (M-SCOPE-02).
 
 ### Bootstrapper un nouveau projet
 → Lire `06-PDR-bootstrap.md` — guide complet avec plan d'exécution étape par étape.
