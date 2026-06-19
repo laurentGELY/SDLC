@@ -1,6 +1,18 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-18 — fix-hooks-m04] · 2026-06-19
+**Commit :** 9f6bc73
+**Bloquants en suspens :** aucun — incident d'auto-verrouillage de session survenu et
+résolu dans ce même sprint (cf. `07-DECISIONS-SDLC.md M-HOOKS-04`). Un `[SDLC_CANDIDATE]`
+différé reste ouvert : résolution de chemin absolu fixe dans `pre-tool-bash.sh` (au lieu
+de relative au cwd), à remonter en session Claude.ai dédiée.
+**Fil fonctionnel :** Le hook `PreToolUse` extrait le schéma JSON réel (les blocages
+`[UNIVERSEL]` étaient silencieusement inopérants depuis SDLC-14, corrigé) et porte
+désormais M-HOOKS-04 (garde-fou étape 4a, carve-out Write/Edit) + M-HOOKS-06 (allowlist
+Bash lecture seule). `08-hooks-TEMPLATE.md` documente la règle d'isolation des tests de
+hook bloquant.
+
 ## [Sprint SDLC-17 — audit-superpowers] · 2026-06-19
 **Commit :** 135eb24
 **Bloquants en suspens :** aucun — LL-T05 reste ⏳ (réflexion en Claude.ai
