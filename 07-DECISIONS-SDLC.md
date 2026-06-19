@@ -414,6 +414,7 @@ pas seulement l'auteur du modèle.
 | M-ARCH-08 | §Observabilité STANDARDS restructuré en checklist Q/R actionnable (5 questions `[À REMPLIR]`) | ✓ | — |
 | M-ENV-01  | Emplacement toolkit SDLC local (`~/Downloads/Sandbox/SDLC/`) | ✓ (valeur locale) | — |
 | M-PROC-25 | Co-construction PDR SDLC-Sync dans Claude.ai via sdlc-delta.sh | ✓ | — |
+| M-SCOPE-03 | Pas de modes nommés dans Claude.md §Rôle | ✓ | — |
 
 ---
 
@@ -938,3 +939,30 @@ validée avant l'entrée dans le projet.
 - PDR entièrement manuel : lent et source d'oublis sur les décisions récentes
 
 **Script :** `sdlc-delta.sh` dans le toolkit (M-ENV-01).
+
+---
+
+## M-SCOPE-03 · Pas de "modes" nommés dans Claude.md §Rôle · v1.9+SDLC-10 · 18/06/2026
+
+**Retenu :** Aucun mécanisme de modes/personas nommés (type "stratège/dev/
+reviewer") n'est ajouté à `Claude.md §Rôle`. Question fermée (Q4,
+`doc/ANALYSE-BMAD.md §5`).
+
+**Écarté :** Formaliser des modes inspirés des agents nommés BMad — même
+sans la machinerie TOML déjà écartée côté Spike SDLC-06 stratégique, le
+simple fait de nommer des postures permanentes réintroduirait une rigidité
+identitaire déjà écartée pour les named agents.
+
+**Raison :** Le besoin réel de bascule de posture est déjà couvert par deux
+mécanismes existants, contextuels et temporaires — jamais identitaires :
+(1) le tableau "Classifier le travail" (`Claude.md §Démarrage`) fait varier
+la posture selon le type de sprint (Évolution/Bug/Tuning/Revue) ;
+(2) les couches Adversarial Review (`03-wrap-up-SKILL-TEMPLATE.md §0f`,
+importées Sprint SDLC-09) font basculer la posture plusieurs fois dans une
+même session avec des règles d'accès à l'information distinctes (Blind
+Hunter / Edge Case Hunter / Acceptance Auditor), sans jamais nommer de
+persona permanente.
+
+**Déclencheur de réouverture :** signal documenté dans un `LESSONS_LEARNED`
+de projet cible montrant un besoin de bascule de posture hors du cadre
+couvert par ces deux mécanismes.

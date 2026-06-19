@@ -295,3 +295,10 @@ Classés par impact/effort (impact = bénéfice perçu pour notre modèle, effor
 
 ---
 *Spike SDLC-06 · 18/06/2026 · 19 fiches P-XX · Lecture source `exemples/bmad-method/src/` · À discuter avant tout import dans les templates*
+
+---
+**Clôture — 18/06/2026**
+13/19 patterns traités (SDLC-07, SDLC-08, SDLC-09). 6 patterns restants
+(P-08, P-15 à P-19) migrés vers `doc/ROADMAP.md §Later` avec déclencheurs —
+voir ce fichier pour leur suivi futur, pas celui-ci.
+Catalogue Spike SDLC-06 clos.

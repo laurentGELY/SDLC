@@ -2,6 +2,17 @@
 
 ---
 
+## [v1.9+SDLC-10] — 2026-06-18 · Sprint SDLC-10 · Rangement catalogue BMad
+- **`doc/ROADMAP.md`** (créé) : 6 patterns BMad en survol migrés en §Later
+  avec déclencheurs (P-08, P-15 à P-19)
+- **`specs/Sprints/ANALYSE-BMAD-TACTIQUE.md`** : note de clôture — catalogue
+  Spike SDLC-06 clos, 13/19 patterns traités
+- **`07-DECISIONS-SDLC.md`** : M-SCOPE-03 — fermeture question "modes
+  nommés" (Q4 stratégique)
+- **Tests** : N/A (gouvernance uniquement)
+
+---
+
 ## [v1.9] — 2026-06-14 · Sprint SDLC-05b · Gouvernance & observabilité : CLAUDE_PROJECT, volumétrie, observabilité actionnable
 
 - **`sdlc-project-check.sh`** (nouveau) : inventorie les fichiers de gouvernance, détecte delta vs `doc/CLAUDE_PROJECT.md`, génère le template versionné avec avis Claude
