@@ -159,6 +159,13 @@ echo "# Spec : specs/Sprints/sprint-N-slug.md" >> .claude/sprint-memory.md
 1.
 2.
 
+*(Taille L uniquement — optionnel mais recommandé : grille succès/échec
+par étape majeure du plan d'exécution ci-dessus)*
+
+| Étape | ✅ Succès si | ❌ Échec si |
+|-------|-------------|------------|
+| 1. [nom étape] | [critère observable] | [signal d'échec] |
+
 **Plan de test :**
 - A — Ciblé : `<commande exacte>`
 - **Volumétrie minimum :** *(optionnel — si le système traite des items)* `[minimum en dessous duquel le test A est invalide même si exit 0 — ex: ≥ 1 item traité confirmé dans les logs]`

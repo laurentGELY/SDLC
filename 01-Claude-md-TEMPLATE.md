@@ -239,7 +239,15 @@ Une description ("vérifier que X fonctionne") n'est pas un test.
 
 ## Demande d'aval
 Résumé 3 lignes · fichiers à modifier · tests prévus · confiance : [HAUTE/MOYENNE/FAIBLE — raison en 1 ligne]
-→ J'attends ton aval explicite avant de coder.
+
+**Verdict gate :** [PASS / CONCERNS / FAIL]
+- **PASS** : analyse complète, prêt à coder sans réserve
+- **CONCERNS** : prêt à coder, mais ≥ 1 point de vigilance signalé
+  explicitement ci-dessus (risque accepté, pas un bloquant)
+- **FAIL** : analyse incomplète ou bloquant non résolu — ne pas demander
+  l'aval, compléter l'analyse d'abord
+
+→ J'attends ton aval explicite avant de coder (sauf verdict FAIL — dans ce cas, compléter l'analyse avant de demander l'aval).
 ```
 
 ---

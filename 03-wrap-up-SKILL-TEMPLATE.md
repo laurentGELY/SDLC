@@ -91,6 +91,65 @@ Le verdict est ancré sur la spec et le diff git — pas sur une impression de s
 
 ---
 
+### 0f. Adversarial Review *(conditionnel — Taille M/L uniquement)*
+
+**Déclenchement :** vérifier la Taille du sprint dans l'en-tête du PDR
+(`specs/Sprints/sprint-N-slug.md`). Si XS ou S → confirmer explicitement
+"✅ Adversarial Review — Taille XS/S, non applicable" et passer à §Étape 1.
+
+**Si Taille M ou L → exécuter les 2-3 couches suivantes :**
+
+**Couche 1 — Blind Hunter (toujours)**
+Relire uniquement `git diff` du sprint, sans rouvrir le fil de conversation
+ni présumer du contexte déjà discuté. Chercher : bugs évidents, incohérences,
+code mort, edge cases visibles dans le diff seul.
+- Si le mode Agent (sous-agent Claude Code) est disponible → déléguer cette
+  passe à un sous-agent qui ne reçoit que `git diff` en entrée (vraie cécité,
+  cohérent avec le seuil de délégation `Claude.md §Tokens`).
+- Sinon → discipline simulée : déclarer explicitement
+  "Relecture en cécité simulée — fil de conversation ignoré pour cette passe."
+
+**Couche 2 — Edge Case Hunter (toujours)**
+Relecture du même diff avec accès complet au projet (specs, code existant,
+conventions `STANDARDS.md`). Chercher : edge cases liés au contexte projet,
+régressions potentielles sur modules existants, divergence avec les
+conventions établies.
+
+**Couche 3 — Acceptance Auditor (conditionnel — module partagé touché)**
+Même déclencheur que le niveau de test B (`STANDARDS.md §Modules partagés`).
+Si applicable : relire le diff contre la spec complète du PDR sprint —
+vérifier que chaque critère d'acceptation est *réellement* satisfait, pas
+seulement vraisemblable.
+
+**Triage — pour chaque finding des couches exécutées :**
+```
+🔴 décision_requise — ambigu, nécessite arbitrage humain avant de continuer
+🟡 patch          — fix trivial, applicable immédiatement avant commit
+🔵 différé        — valide mais hors scope de ce sprint → doc/ROADMAP §Later
+                     ou doc/LESSONS_LEARNED
+⚪ écarté         — faux positif ou non pertinent — noter pourquoi
+```
+
+**Format de sortie :**
+```
+🔍 ADVERSARIAL REVIEW — Sprint [N] · Taille [M/L]
+Couche 1 : [N findings]
+Couche 2 : [N findings]
+Couche 3 : [N findings / N/A — module partagé non touché]
+
+🔴 [finding] → bloquant avant commit
+🟡 [finding] → appliqué : [description du patch]
+🔵 [finding] → ajouté à [doc/ROADMAP §Later / doc/LESSONS_LEARNED]
+⚪ [finding] → raison : [...]
+```
+
+**Règle :** si ≥ 1 finding `🔴 décision_requise` → ne pas committer avant
+résolution ou aval explicite de l'humain sur ce point précis.
+Si zéro finding sur toutes les couches exécutées → confirmer explicitement
+"✅ Adversarial Review — RAS, [N] couches passées."
+
+---
+
 ## Étape 1 — Question rétrospective
 
 *Contexte : utiliser la synthèse des signaux produite en §0a (PIVOT · BLOQUANT · HOOK_CANDIDATE / CONF FAIBLE) pour formuler l'avis éclairé ci-dessous.*
