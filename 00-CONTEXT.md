@@ -108,4 +108,5 @@ Avant tout commit sur ce projet :
 - [ ] Entrée `M-XXXX-NN` ajoutée dans `07-DECISIONS-SDLC.md`
 - [ ] Décision ajoutée au tableau de compatibilité (universelle / conditionnelle)
 - [ ] `§Historique des versions` dans `README.md` mis à jour
+- [ ] `specs/SPEC.md §Modules` mis à jour si la carte des fichiers a changé
 - [ ] Fichiers modifiés re-synchronisés dans le projet Claude.ai

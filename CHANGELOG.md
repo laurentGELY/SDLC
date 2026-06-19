@@ -2,6 +2,15 @@
 
 ---
 
+## [v1.9+SDLC-13] — 2026-06-18 · Sprint SDLC-13 · specs/SPEC.md (dogfooding)
+- **`specs/SPEC.md`** (nouveau, projet toolkit) : §Vue d'ensemble,
+  §Architecture (diagramme de flux), §Modules (vérifié contre l'état réel
+  du repo)
+- **`00-CONTEXT.md`** : §4 checklist — maintien de `specs/SPEC.md §Modules` ajouté
+- **Tests** : N/A (gouvernance uniquement)
+
+---
+
 ## [v1.9+SDLC-12] — 2026-06-18 · Sprint SDLC-12 · Phase amont
 - **`10-AMONT-TEMPLATE.md`** (nouveau) : instructions Project Claude.ai
   dédié à l'idéation/PRD/architecture — §Brief, §Architecture amont
