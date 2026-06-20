@@ -2,6 +2,33 @@
 
 ---
 
+## [v1.9+SDLC-19] — 2026-06-19 · Sprint SDLC-19 · Import sélectif audit Superpowers
+- **`01-Claude-md-TEMPLATE.md`** : 11 paires `Pensée → Réalité` ajoutées sous les 5 HALT
+  (2 chacun, langage gouvernance générique) + 1 paire sous la règle absolue 4a/4b/4c/4d,
+  sourcée sur l'incident réel `M-HOOKS-04` (Sprint SDLC-18) ; `§Rôle`/`§Test` reliés par
+  renvoi croisé ; "ça a l'air bon" ajouté à la clause anti-complaisance ; `§Tokens` porte
+  une nouvelle règle de sélection de modèle sous-agent (mécanique→réduit,
+  jugement→standard, jamais plus capable que la session sans aval)
+- **`02-STANDARDS-TEMPLATE.md`** : ligne "Revue" ajoutée à `§Types de sprint` (utilisée
+  dans `Claude.md` depuis SDLC-16/17 mais jamais listée ici) + note de différenciation
+  vs "Spike"
+- **`07-DECISIONS-SDLC.md`** : entrées **M-PROC-31** (tables rationalisation), **M-PROC-32**
+  (fusion anti-complaisance, recalibrée à la baisse — 3/4 formulations existaient déjà),
+  **M-PROC-33** (sélection modèle sous-agent), **M-PROC-34** (taxonomie Revue)
+- **`doc/ROADMAP.md`** : **P-20** (hook SessionStart, §Next, impact reclassé Moyen) ;
+  **P-21** (revue mi-parcours, §Later, bloqué sur lecture `code-reviewer.md`) ; **P-22**
+  (`10-audit-externe-TEMPLATE.md`, §Later, décision différée)
+- **Non-régression** : texte des 5 conditions HALT et de la liste "Ne jamais" inchangé —
+  vérifié par grep ciblé sur le texte exact (le grep littéral du PDR comptait aussi les
+  nouveaux sous-titres de table, écart expliqué et documenté en `sprint-memory`)
+- **Zéro modification de `08-hooks-TEMPLATE.md`** — sprint Fix séparé (SDLC-18), hors
+  périmètre de ce sprint Doc
+- **Tests** : 5 commandes niveau A du PDR exécutées — `Pensée :` ×11, "ça a l'air bon" ×1,
+  `§Rôle\|§Test` ×2, `Revue` ×2 dans STANDARDS, non-régression HALT confirmée par grep
+  ciblé (5/5 définitions originales intactes)
+
+---
+
 ## [v1.9+SDLC-18] — 2026-06-19 · Sprint SDLC-18 · Fix garde-fou M-HOOKS-04 + schéma JSON PreToolUse
 - **`.claude/hooks/pre-tool-bash.sh` v2.0.0→2.0.1** : extraction JSON corrigée
   (`tool_input.command`/`tool_input.file_path`, pas `input` — schéma confirmé

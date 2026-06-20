@@ -32,9 +32,15 @@
 | **Fix** | Correction de bug ou régression | Code corrigé + test non-régression |
 | **Tuning** | Seuils, prompts, paramètres | Mesure avant/après + décision DECISIONS.md |
 | **Doc** | Documentation, process, SDLC | Fichiers doc mis à jour, zéro code |
+| **Revue** | Audit, backlog — lecture et recommandations sans modification du livrable audité | Recommandations étiquetées (ex: IMPORTER/REJETER) + `/wrap-up`, zéro fichier de gouvernance modifié |
 | **Spike** | Investigation bornée dans le temps | Décision dans DECISIONS.md (pas du code) |
 | **Dette** | Remboursement dette technique | Code nettoyé + test de non-régression |
 | **SDLC-Sync** | Alignement sur une version plus récente du modèle SDLC | Marqueur de version à jour + D-SYNC-XX dans DECISIONS.md |
+
+**Revue vs Spike :** une Revue audite un livrable existant et produit des recommandations
+sur celui-ci (le livrable audité n'est jamais modifié dans le même sprint) ; un Spike
+investigue une question ouverte et produit une décision sur la suite à donner (rien
+n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 
 **Spike :** output = décision documentée, jamais du code partiel. Durée bornée définie dans la spec.
 

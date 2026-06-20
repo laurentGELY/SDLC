@@ -1,7 +1,7 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→18
+## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→19
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
@@ -13,6 +13,20 @@
 | LL-T06 | Tester un mécanisme de blocage global (hook `PreToolUse`) en manipulant l'état réel de la session courante, sans isolation, transforme un bug du mécanisme testé en blocage réel de la session elle-même | 1 | SDLC-18 | Nouveau — corrigé | Règle d'isolation ajoutée à `08-hooks-TEMPLATE.md` (`M-PROC-30`) — appliquée, pas en attente |
 
 ## §Entrées par sprint
+
+### Sprint SDLC-19 — 19/06/2026 — Import sélectif audit Superpowers
+**Code :** N/A — gouvernance/doc uniquement.
+**Processus :** Import recalibré (pas traduit littéralement) de 4 recommandations d'audit
+externe — 1 candidat (anti-complaisance) recalibré à la baisse en vérifiant que 3/4 des
+formulations proposées existaient déjà, évitant une duplication. Non-régression vérifiée
+par méthode alternative quand le test littéral du PDR donnait un résultat trompeur
+(sous-titres de table comptés par le grep non ancré) mais explicable — documenté plutôt
+que dissimulé.
+**Lien pattern :** aucun nouveau — confirme la discipline déjà établie de vérifier avant
+d'importer (cf. `LL-T02`), appliquée ici à un candidat d'audit plutôt qu'à un mécanisme
+de code.
+**Action proposée :** aucune — sprint clos, rétrospective utilisateur "all good" sur les
+3 volets (déroulement, action risquée, évolution du modèle).
 
 ### Sprint SDLC-18 — 19/06/2026 — Fix garde-fou M-HOOKS-04 + schéma JSON PreToolUse
 **Code :** Bug confirmé (`tool_input` vs `input` supposé) — les blocages `[UNIVERSEL]`

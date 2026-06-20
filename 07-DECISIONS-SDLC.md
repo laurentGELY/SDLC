@@ -1276,3 +1276,69 @@ pertinente pour tout projet cible du modèle SDLC, pas seulement celui-ci.
 
 **Déclencheur de réouverture :** si la résolution de chemin absolu est implémentée → mettre à
 jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
+
+---
+
+## M-PROC-31 · Tables de rationalisation par HALT — import recalibré Superpowers · v1.9+SDLC-19 · 19/06/2026
+
+**Contexte :** audit externe `obra/superpowers` (Sprint SDLC-17, `doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §6/§8`) recommandait d'importer le pattern "table de rationalisation" (`test-driven-development/SKILL.md:256-286`) — pour chaque règle non-négociable, lister les formulations internes typiques de contournement avec leur réfutation.
+
+**Retenu :** `01-Claude-md-TEMPLATE.md` porte désormais, sous chaque HALT (HALT-DEP, HALT-3X, HALT-ARCH, HALT-SCOPE, HALT-TIMEOUT), 2 paires `**Pensée :** "…" → **Réalité :** …` en langage gouvernance générique — pas de vocabulaire test/code spécifique (contrairement à la source Superpowers, écrite pour un contexte TDD). 1 paire supplémentaire sous la règle absolue "4a/4b/4c/4d", sourcée sur l'incident réel `M-HOOKS-04` plutôt qu'adaptée — seule paire de ce sprint ancrée sur un fait documenté du repo.
+
+**Écarté :**
+- Traduction littérale des exemples Superpowers (TDD, debugging) — jargon spécifique au code qui se propagerait vers des projets doc-only via `/sdlc-sync`.
+- Sourcer les 5 HALT sur des incidents réels documentés — un seul (4a/4b/4c/4d) en a un à ce jour ; le reste reste assumé comme générique/adapté, pas présenté comme un fait vécu.
+
+**Raison :** les règles absolues et HALT étaient énoncées comme conditions logiques sans anticiper les formulations par lesquelles un agent pourrait s'en convaincre. Le format pensée→réalité rend visible le mécanisme de rationalisation lui-même, pas seulement la règle.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` (+11 paires, ~50 lignes).
+
+**Déclencheur de réouverture :** si un nouvel incident réel survient sur un HALT actuellement non sourcé → remplacer la paire générique correspondante par une paire sourcée, sur le modèle de la paire 4a/4b/4c/4d.
+
+---
+
+## M-PROC-32 · Fusion clause anti-complaisance + renvoi croisé §Rôle/§Test · v1.9+SDLC-19 · 19/06/2026
+
+**Contexte :** audit Superpowers recommandait (`SDLC_CANDIDATE` §8, source `verification-before-completion/SKILL.md:52-61`) de fusionner une liste de formulations interdites dans la clause anti-complaisance existante. Vérification a montré que 3 des 4 formulations proposées ("devrait passer", "probablement", "en principe") existaient déjà, dispersées entre `§Rôle` (citabilité) et `§Test` (anti-complaisance) — sans lien explicite entre les deux. Seule "ça a l'air bon" était un ajout net.
+
+**Retenu :** ajout de "ça a l'air bon" à la liste existante de `§Test` + 1 phrase de renvoi croisé dans chaque sens (`§Rôle` → `§Test`, `§Test` → `§Rôle`) plutôt qu'une fusion qui aurait dupliqué du contenu déjà présent.
+
+**Écarté :** fusionner intégralement les deux sections en une seule — écarté, `§Rôle` couvre la citabilité de toute affirmation factuelle (périmètre large), `§Test` couvre spécifiquement les résultats de test (périmètre étroit) ; les deux ont une raison d'être distincte, seul le lien manquait.
+
+**Raison :** le principe anti-complaisance existait déjà à deux endroits cohérents entre eux — le gap réel était l'absence de lien, pas l'absence de contenu. Recalibrage à la baisse du candidat d'audit (qui sur-estimait le delta en proposant une liste de 4 alors que 3/4 existaient).
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md §Rôle` (+1 phrase), `§Test` (+"ça a l'air bon" +1 phrase).
+
+**Déclencheur de réouverture :** aucun prévu — décision stable.
+
+---
+
+## M-PROC-33 · Sélection de modèle pour sous-agent délégué · v1.9+SDLC-19 · 19/06/2026
+
+**Contexte :** audit Superpowers (`IDÉE NOUVELLE`, source `subagent-driven-development/SKILL.md:99-130`) — `§Tokens` avait déjà un critère de délégation basé sur le volume (> 5 fichiers ou fichier > 10K tokens) mais rien sur le choix du modèle du sous-agent dispatché.
+
+**Retenu :** règle distincte du critère de volume — basée sur la nature de la tâche déléguée : tâche mécanique (lecture/extraction/synthèse factuelle) → modèle réduit ; tâche de jugement (analyse comparative, arbitrage, rédaction de recommandation) → modèle standard ; jamais déléguer à un modèle plus capable que celui de la session courante sans aval explicite.
+
+**Écarté :** lier le choix de modèle uniquement au volume déjà mesuré (fichiers/tokens) — écarté car un volume faible peut porter un jugement complexe (ex: arbitrer entre 2 fichiers contradictoires) et un volume élevé peut être une lecture purement mécanique (ex: lister 20 fichiers de logs) — la nature de la tâche est un axe orthogonal au volume, pas un raffinement du même axe.
+
+**Raison :** confirmé faisable techniquement (`Task`/`Agent` du framework Claude Code expose un paramètre `model` natif). Le critère "jamais plus capable que la session sans aval" évite qu'une délégation silencieuse engage un coût ou une capacité supérieure à ce que l'utilisateur a choisi pour la session.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md §Tokens` (+4 lignes).
+
+**Déclencheur de réouverture :** si un cas réel de mauvaise sélection de modèle (sous- ou sur-dimensionné) est observé → affiner les deux catégories avec des exemples concrets sourcés.
+
+---
+
+## M-PROC-34 · Taxonomie "Revue" dans STANDARDS §Types de sprint · v1.9+SDLC-19 · 19/06/2026
+
+**Contexte :** `Claude.md §Classifier le travail` utilise "Revue" comme type de sprint (flux : Lecture → Recommandations → `/wrap-up`) depuis plusieurs sprints (SDLC-16, SDLC-17 notamment), mais `02-STANDARDS-TEMPLATE.md §Types de sprint` ne l'a jamais listé — écart entre les deux fichiers de référence.
+
+**Retenu :** ajout d'une ligne "Revue" dans la table `§Types de sprint`, avec une note de différenciation explicite vs "Spike" (déjà présent) : une Revue audite un livrable existant sans le modifier dans le même sprint ; un Spike investigue une question ouverte sans livrable préexistant sur le sujet.
+
+**Écarté :** renommer "Spike" en fusionnant les deux types — écarté, les flux et les outputs attendus sont différents (Revue produit des recommandations étiquetées sur un objet déjà là ; Spike produit une décision sur une question encore ouverte).
+
+**Raison :** un type de sprint utilisé dans `Claude.md` mais absent de `STANDARDS.md` est un gap de cohérence interne au modèle — exactement le type d'écart que ce sprint visait à corriger par ailleurs (cf. `M-PROC-31` à `33`).
+
+**Impact fichiers :** `02-STANDARDS-TEMPLATE.md §Types de sprint` (+1 ligne, +1 note).
+
+**Déclencheur de réouverture :** aucun prévu — décision stable.

@@ -18,6 +18,11 @@
 - modifier un fichier de configuration sans noter la valeur précédente
 - lancer un refactor hors périmètre sans validation explicite
 - commencer à coder sans avoir exécuté les étapes 4a/4b/4c, initialisé `.claude/sprint-memory.md` (4b) et écrit le §Plan de développement dans le spec (4d)
+  - **Pensée :** "Les instructions d'init du PDR couvrent déjà l'essentiel, pas besoin de
+    comparer à la checklist complète." → **Réalité :** un incident réel (cf. `DECISIONS.md`
+    M-HOOKS-04) a montré qu'une étape entière (création du fichier spec) peut être omise
+    sans qu'aucun garde-fou ne le détecte avant le wrap-up si cette comparaison n'est pas
+    faite explicitement.
 
 **HALT — arrêt immédiat, attendre l'humain :**
 - **HALT-DEP** : dépendance requise absente du PDR détectée avant d'installer
@@ -32,6 +37,52 @@
   → Mécanisme : préfixer avec `timeout [N]` (ex: `timeout 120 pytest tests/ -q`)
   → Si exit code 124 (timeout dépassé) → HALT
   → N à définir dans `Claude.md §Limites bash` du projet cible (défaut : 120s)
+
+**Rationalisations à reconnaître — par HALT :** *(formulations internes typiques par
+lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutation en face)*
+
+*HALT-DEP*
+- **Pensée :** "Cette dépendance est sûrement déjà installée, je continue." →
+  **Réalité :** une dépendance non confirmée dans l'environnement réel peut faire échouer
+  silencieusement toute la suite du sprint ; le PDR doit la lister explicitement avant
+  qu'elle soit utilisée.
+- **Pensée :** "Je l'ajoute moi-même, ça ira plus vite que de demander." →
+  **Réalité :** introduire une dépendance non prévue par le PDR est une décision
+  d'architecture qui revient à l'humain, pas une optimisation de vitesse.
+
+*HALT-3X*
+- **Pensée :** "Je retente une dernière fois, ça devrait passer." →
+  **Réalité :** relancer sans changer de diagnostic après 2 échecs consomme du temps sans
+  information nouvelle — `/diagnostic` est la prochaine étape, pas une 4e tentative
+  identique.
+- **Pensée :** "L'échec est probablement un détail sans rapport, je continue sur autre
+  chose." → **Réalité :** un échec répété sur la même commande est un signal, pas du
+  bruit — le contourner sans diagnostic reporte le problème, ne le résout pas.
+
+*HALT-ARCH*
+- **Pensée :** "Le PDR a probablement raison, je m'adapte au code plutôt que de signaler
+  l'écart." → **Réalité :** si le PDR contredit l'état réel, l'écart doit être signalé
+  avant d'agir — adapter silencieusement peut valider une prémisse fausse pour tout le
+  reste du sprint.
+- **Pensée :** "C'est un détail mineur, ça ne change pas le fond du PDR." →
+  **Réalité :** une convention contredite (numérotation, structure, interface) peut
+  invalider une partie du plan d'exécution sans que ce soit visible immédiatement.
+
+*HALT-SCOPE*
+- **Pensée :** "Puisque j'y suis, je corrige aussi ce point connexe." →
+  **Réalité :** un correctif connexe non demandé déplace le risque et le temps de
+  relecture vers des fichiers que l'utilisateur n'a pas validés.
+- **Pensée :** "Le PDR ne l'exclut pas explicitement, donc c'est implicitement permis." →
+  **Réalité :** l'absence d'exclusion explicite n'est pas une validation — le §Portée
+  définit ce qui est inclus, pas l'inverse.
+
+*HALT-TIMEOUT*
+- **Pensée :** "Elle va sûrement finir, j'attends encore un peu." →
+  **Réalité :** une commande qui dépasse le seuil sans sortie doit être interrompue et
+  diagnostiquée, pas prolongée sur une intuition.
+- **Pensée :** "Le timeout est probablement trop bas pour ce cas, je l'ignore." →
+  **Réalité :** le seuil est une protection contre un blocage silencieux de session, pas
+  une estimation de durée à ajuster à la volée.
 
 HALT ≠ hook bash : les hooks bloquent les commandes dangereuses avant exécution.
 Les HALT bloquent les conditions logiques détectées pendant le raisonnement.
@@ -50,7 +101,8 @@ Tu prends en charge : architecture, dev, tuning, debug, QA, doc, git.
 
 **Toute affirmation factuelle doit être citable** : chemin:ligne, sortie
 de commande, entrée git, log — éviter les formulations non vérifiables
-("probablement", "devrait", "en principe").
+("probablement", "devrait", "en principe"). Voir aussi §Test pour la clause
+anti-complaisance sur les résultats de test spécifiquement.
 
 **Source de vérité :** le dépôt git. Restaurer depuis git avant tout patch.
 
@@ -161,6 +213,11 @@ Exception : si le header du fichier correspond au sprint spec en cours → repri
 - **Analyse en une passe** : formuler toutes les questions avant de modifier
 - **Oracle en amont** : toute question anticipable résolue avant handoff — zéro Oracle en session sauf blocage imprévu
 - **Batching XS/S** : signaler les opportunités de merger des items indépendants de même taille touchant les mêmes fichiers
+- **Sélection de modèle sous-agent** : distincte du critère de volume ci-dessus — porte sur
+  la nature de la tâche déléguée, pas sur sa taille.
+  - Tâche mécanique (lecture, extraction, synthèse factuelle sans jugement) → modèle réduit
+  - Tâche de jugement (analyse comparative, arbitrage, rédaction de recommandation) → modèle standard
+  - Jamais déléguer à un modèle plus capable que celui de la session courante sans aval explicite
 
 ---
 
@@ -312,9 +369,10 @@ Si un test échoue → `/diagnostic` avant de continuer.
 **Clause anti-complaisance :**
 Ne jamais marquer un test OK sans avoir vu la sortie réelle de la commande
 dans cette session. Un souvenir ("passait avant"), une supposition ("devrait
-passer") ou une inférence ("le code est correct donc...") ne sont pas des
-vérifications. Si la commande n'a pas été exécutée → l'exécuter avant de
-conclure.
+passer"), une inférence ("le code est correct donc...") ou une impression
+("ça a l'air bon") ne sont pas des vérifications. Si la commande n'a pas été
+exécutée → l'exécuter avant de conclure. Voir aussi §Rôle pour la règle de
+citabilité générale sur toute affirmation factuelle, pas seulement les tests.
 
 **Définition "test OK" :**
 - **A — Ciblé :** commande exacte produit le résultat attendu, pas d'erreur.
