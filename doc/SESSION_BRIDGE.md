@@ -1,6 +1,15 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-19 — import-superpowers] · 2026-06-19
+**Commit :** ce47424
+**Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).
+**Fil fonctionnel :** `01-Claude-md-TEMPLATE.md` porte désormais 11 paires de
+rationalisation sous les 5 HALT + la règle 4a/4b/4c/4d (1 sourcée sur l'incident réel
+M-HOOKS-04), un renvoi croisé §Rôle/§Test, et une règle de sélection de modèle sous-agent.
+`02-STANDARDS-TEMPLATE.md` reconnaît "Revue" comme type de sprint. SDLC_CANDIDATE #1 (hook
+SessionStart) et 2 autres items reclassés dans `doc/ROADMAP.md` (P-20/21/22).
+
 ## [Sprint SDLC-18 — fix-hooks-m04] · 2026-06-19
 **Commit :** 9f6bc73
 **Bloquants en suspens :** aucun — incident d'auto-verrouillage de session survenu et
