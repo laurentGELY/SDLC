@@ -1,6 +1,17 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-20 — étiquette HYPOTHÈSE sur tables HALT] · 2026-06-20
+**Commit :** 51e29bb
+**Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).
+**Fil fonctionnel :** Les 5 tables de rationalisation HALT (`01-Claude-md-TEMPLATE.md`)
+portent désormais l'étiquette `[HYPOTHÈSE — non confirmée, adaptée de Superpowers]`
+(contenu inchangé), sauf la table 4a/4b/4c/4d (sourcée M-HOOKS-04) qui reste sans
+étiquette. `M-PROC-35` clôt un aller-retour à 3 passages sur ce sujet (contenu sans
+étiquette SDLC-19 → squelette vide envisagé et abandonné → étiquette retenue).
+`[HOOK_CANDIDATE]` ouvert (`LL-T07`) : élargir le carve-out M-HOOKS-04 à
+`sprint-memory.md` lui-même.
+
 ## [Sprint SDLC-19 — import-superpowers] · 2026-06-19
 **Commit :** ce47424
 **Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).
