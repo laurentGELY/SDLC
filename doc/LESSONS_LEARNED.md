@@ -1,18 +1,37 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 19/06/2026 · Sprints SDLC-07→19
+## §Index des patterns · mis à jour 20/06/2026 · Sprints SDLC-07→20
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
 | LL-T01 | Sprint méta sans entrée DECISIONS/CHANGELOG dédiée au commit | 3 | SDLC-07, 08, 09 | Clos — accepté en l'état | Backfill explicitement écarté (`M-PROC-27`, `07-DECISIONS-SDLC.md`, `/retrospective` SDLC-15) — discipline restaurée depuis SDLC-10 jugée suffisante, gap historique accepté sans rattrapage |
-| LL-T02 | Vérifier qu'un mécanisme ou une précondition n'est pas déjà couvert/vrai avant de l'ajouter/le présumer | 3 | SDLC-12, SDLC-14, SDLC-18 | Actif — principe à appliquer systématiquement | Aucune action — vigilance continue |
+| LL-T02 | Vérifier qu'un mécanisme ou une précondition n'est pas déjà couvert/vrai avant de l'ajouter/le présumer | 4 | SDLC-12, SDLC-14, SDLC-18, SDLC-20 | Actif — principe à appliquer systématiquement | Aucune action — vigilance continue |
 | LL-T03 | Poser les sous-décisions d'architecture explicitement avant d'écrire un PDR à enjeu | 2 | SDLC-04 (HALT), SDLC-09 (Adversarial Review) | Confirmé | Pattern à reproduire pour tout sprint Taille M/L touchant l'architecture |
 | LL-T04 | Vérifier par commande exécutable toute précondition factuelle énoncée par un PDR avant de l'exécuter — y compris du contenu "rétroactif" fourni comme acquis | 1 | SDLC-14 | Nouveau | Appliqué nativement ce sprint (citabilité `Claude.md §Rôle` étendue au contenu du PDR lui-même, pas seulement au code/repo) — à reproduire systématiquement |
 | LL-T05 | Les instructions d'init embarquées dans un PDR (§Handoff) peuvent être incomplètes par rapport à la checklist absolue de `Claude.md §Démarrage` (4a-4d) — les traiter comme suffisantes sans les confronter à `Claude.md` fait sauter une étape (ici : 4a, création du fichier spec) sans qu'aucun garde-fou ne le détecte avant le `/wrap-up` | 1 | SDLC-16 | Nouveau — décision différée | ⏳ — réflexion approfondie demandée par l'utilisateur en session Claude.ai dédiée avant toute correction (hook ou modification de procédure) |
 | LL-T06 | Tester un mécanisme de blocage global (hook `PreToolUse`) en manipulant l'état réel de la session courante, sans isolation, transforme un bug du mécanisme testé en blocage réel de la session elle-même | 1 | SDLC-18 | Nouveau — corrigé | Règle d'isolation ajoutée à `08-hooks-TEMPLATE.md` (`M-PROC-30`) — appliquée, pas en attente |
+| LL-T07 | Le carve-out anti-auto-verrouillage M-HOOKS-04 (`pre-tool-bash.sh`) n'autorise l'écriture que sous `specs/Sprints/*` — il ne couvre pas une correction légitime de `.claude/sprint-memory.md` lui-même (ex: renommage du spec référencé), qui reste bloquée même quand l'action est exactement celle que le carve-out visait à débloquer | 1 | SDLC-20 | Nouveau — décision différée | ⏳ — `[HOOK_CANDIDATE]` à trancher en `/retrospective` : élargir le carve-out pour inclure `sprint-memory.md` lui-même |
 
 ## §Entrées par sprint
+
+### Sprint SDLC-20 — 20/06/2026 — Étiquette [HYPOTHÈSE] sur tables HALT (3e révision)
+**Code :** N/A — gouvernance/doc uniquement.
+**Processus :** PDR reçu en 3e révision d'une même intention de sprint (1e exécutée SDLC-19,
+2e rédigée mais jamais committée, mise en pause par l'utilisateur). Avant exécution, vérifié
+par grep que la majorité des items du PDR (écrit en partant d'un état greenfield) était déjà
+livrée par SDLC-19 — delta réel réduit à l'ajout de 5 étiquettes, évitant une réexécution
+intégrale inutile. Incident de session : le garde-fou `M-HOOKS-04` a bloqué la correction de
+`sprint-memory.md` après renommage du spec — carve-out trop étroit, contourné par un
+placeholder temporaire.
+**Lien pattern :** confirme `LL-T02` (4e occurrence) · nouveau `LL-T07` (gap du carve-out
+M-HOOKS-04).
+**Action proposée :** aucune sur le modèle lui-même — rétrospective utilisateur "all good"
+sur les 3 volets.
+**Hook candidat :** [HOOK_CANDIDATE] élargir le carve-out M-HOOKS-04 (`pre-tool-bash.sh`) pour
+autoriser aussi l'édition directe de `.claude/sprint-memory.md` → ligne bash :
+`[[ "$FILE_PATH" == */.claude/sprint-memory.md ]]` (à ajouter à la condition existante,
+ligne 51) — décision : en attente, 1 occurrence à ce jour, pas encore récurrent.
 
 ### Sprint SDLC-19 — 19/06/2026 — Import sélectif audit Superpowers
 **Code :** N/A — gouvernance/doc uniquement.

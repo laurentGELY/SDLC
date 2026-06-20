@@ -42,6 +42,7 @@
 lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutation en face)*
 
 *HALT-DEP*
+*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
 - **Pensée :** "Cette dépendance est sûrement déjà installée, je continue." →
   **Réalité :** une dépendance non confirmée dans l'environnement réel peut faire échouer
   silencieusement toute la suite du sprint ; le PDR doit la lister explicitement avant
@@ -51,6 +52,7 @@ lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutatio
   d'architecture qui revient à l'humain, pas une optimisation de vitesse.
 
 *HALT-3X*
+*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
 - **Pensée :** "Je retente une dernière fois, ça devrait passer." →
   **Réalité :** relancer sans changer de diagnostic après 2 échecs consomme du temps sans
   information nouvelle — `/diagnostic` est la prochaine étape, pas une 4e tentative
@@ -60,6 +62,7 @@ lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutatio
   bruit — le contourner sans diagnostic reporte le problème, ne le résout pas.
 
 *HALT-ARCH*
+*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
 - **Pensée :** "Le PDR a probablement raison, je m'adapte au code plutôt que de signaler
   l'écart." → **Réalité :** si le PDR contredit l'état réel, l'écart doit être signalé
   avant d'agir — adapter silencieusement peut valider une prémisse fausse pour tout le
@@ -69,6 +72,7 @@ lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutatio
   invalider une partie du plan d'exécution sans que ce soit visible immédiatement.
 
 *HALT-SCOPE*
+*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
 - **Pensée :** "Puisque j'y suis, je corrige aussi ce point connexe." →
   **Réalité :** un correctif connexe non demandé déplace le risque et le temps de
   relecture vers des fichiers que l'utilisateur n'a pas validés.
@@ -77,6 +81,7 @@ lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutatio
   définit ce qui est inclus, pas l'inverse.
 
 *HALT-TIMEOUT*
+*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
 - **Pensée :** "Elle va sûrement finir, j'attends encore un peu." →
   **Réalité :** une commande qui dépasse le seuil sans sortie doit être interrompue et
   diagnostiquée, pas prolongée sur une intuition.

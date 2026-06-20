@@ -1295,6 +1295,8 @@ jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
 
 **Déclencheur de réouverture :** si un nouvel incident réel survient sur un HALT actuellement non sourcé → remplacer la paire générique correspondante par une paire sourcée, sur le modèle de la paire 4a/4b/4c/4d.
 
+→ Mise à jour 20/06/2026 (Sprint SDLC-20) : cette décision a fait l'objet de 2 revues critiques supplémentaires après sa mise en œuvre — voir `M-PROC-35` pour le détail des 3 passages et l'état final retenu (étiquette `[HYPOTHÈSE]`, contenu des paires inchangé).
+
 ---
 
 ## M-PROC-32 · Fusion clause anti-complaisance + renvoi croisé §Rôle/§Test · v1.9+SDLC-19 · 19/06/2026
@@ -1342,3 +1344,47 @@ jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
 **Impact fichiers :** `02-STANDARDS-TEMPLATE.md §Types de sprint` (+1 ligne, +1 note).
 
 **Déclencheur de réouverture :** aucun prévu — décision stable.
+
+---
+
+## M-PROC-35 · Tables de rationalisation HALT — 3e passage, étiquette `[HYPOTHÈSE]` retenue · v1.9+SDLC-20 · 20/06/2026
+
+**Contexte :** suite directe de `M-PROC-31`. Après la mise en œuvre initiale (Sprint SDLC-19 :
+2 paires par HALT, sans étiquette de provenance), une 1ère revue critique a proposé de vider
+les 4 HALT sans incident réel en squelette, au nom d'`INV-4` (`00-CONTEXT.md`). Cette révision a
+été rédigée (spec `sprint-SDLC-20-halt-squelettes.md`) mais **jamais committée** — l'utilisateur
+a mis le sprint en pause avant exécution pour une 2e revue.
+
+**Écarté (1er passage de révision — squelette vide) :** citait `INV-4` à tort. `INV-4` garantit
+qu'une observation terrain a un chemin vers une règle ("incident → LESSONS_LEARNED →
+retrospective → règle") — elle n'interdit pas qu'une règle naisse d'un apport externe sans
+incident préalable. Incohérent avec le fait que le bloc HALT lui-même (les 5 conditions)
+provient de l'import BMad (Sprint SDLC-07) sans incident préalable. Coût réel sous-estimé : 4/5
+HALT se retrouveraient sans aucune garde anti-rationalisation le temps qu'un incident survienne
+— possiblement jamais pour certains (ex : HALT-TIMEOUT, condition mécanique peu sujette à
+rationalisation complexe).
+
+**Retenu (3e passage, ce sprint) :** ni squelette vide, ni contenu silencieusement présenté
+comme équivalent à du vécu (état SDLC-19 d'origine). Les 2 paires existantes par HALT sont
+conservées telles quelles (contenu inchangé) mais précédées d'une étiquette unique
+`[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]`. La table sous la règle
+absolue "4a/4b/4c/4d" reste la seule sans étiquette, sourcée sur l'incident réel `M-HOOKS-04`.
+L'étiquette se retire et se remplace par un renvoi `M-XXX` si un incident réel vient un jour
+confirmer ou corriger une paire donnée — sur le modèle de la table 4a/4b/4c/4d.
+
+**Écarté :**
+- Squelette vide — cf. ci-dessus, argument INV-4 invalide et coût de couverture sous-estimé.
+- Contenu complet sans étiquette (état SDLC-19 d'origine) — recalibré : risque de donner une
+  fausse impression de couverture, du contenu générique jamais confronté à la réalité de ce
+  projet présenté avec la même autorité qu'une règle sourcée sur incident.
+
+**Raison :** l'étiquette rend visible la nature provisoire du contenu (donc lisible comme tel
+par un lecteur attentif) sans sacrifier la valeur immédiate du pattern (anticiper les
+rationalisations typiques) pour les HALT sans incident documenté à ce jour.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` (+5 lignes d'étiquette, contenu des paires
+inchangé), `M-PROC-31` (amendée avec renvoi).
+
+**Déclencheur de réouverture :** si un incident réel survient sur un HALT actuellement étiqueté
+`[HYPOTHÈSE]` → remplacer l'étiquette par un renvoi `M-XXX` sourcé, sur le modèle de la table
+4a/4b/4c/4d (cf. `M-PROC-31`).

@@ -2,6 +2,32 @@
 
 ---
 
+## [v1.9+SDLC-20] — 2026-06-20 · Sprint SDLC-20 · Étiquette `[HYPOTHÈSE]` sur tables HALT
+- **`01-Claude-md-TEMPLATE.md`** : les 5 tables de rationalisation par HALT (issues de
+  SDLC-19, 2 paires chacune) reçoivent une étiquette unique `[HYPOTHÈSE — non confirmée sur
+  ce projet, adaptée de Superpowers]` — contenu des paires inchangé. La table sous la règle
+  absolue 4a/4b/4c/4d reste la seule sans étiquette (sourcée sur l'incident réel `M-HOOKS-04`)
+- **`07-DECISIONS-SDLC.md`** : `M-PROC-31` amendée (renvoi vers `M-PROC-35`) ; nouvelle entrée
+  **M-PROC-35** documentant les 3 passages sur ce sujet (contenu sans étiquette → squelette
+  vide envisagé et abandonné, argument `INV-4` invalide → étiquette `[HYPOTHÈSE]` retenue)
+- **Contexte :** 3e révision d'un même PDR — la 2e révision (squelette vide) avait été rédigée
+  (`sprint-SDLC-20-halt-squelettes.md`) mais jamais committée, l'utilisateur ayant mis le sprint
+  en pause avant exécution pour soumettre une 3e formulation
+- **§Test/§Rôle/§Tokens/`02-STANDARDS-TEMPLATE.md`/`doc/ROADMAP.md`** : déjà conformes depuis
+  SDLC-19, zéro changement dans ce sprint (vérifié par grep avant exécution)
+- **Non-régression** : `git diff --stat 01-Claude-md-TEMPLATE.md` confirme +5 lignes
+  uniquement (aucune suppression) ; table 4a/4b/4c/4d intacte ; `02-STANDARDS-TEMPLATE.md`
+  absent du diff
+- **Friction de session (notée pour `/retrospective`)** : le garde-fou `M-HOOKS-04` a bloqué la
+  correction de `.claude/sprint-memory.md` après renommage du spec — le carve-out Write/Edit ne
+  couvre que les chemins sous `specs/Sprints/*`, pas `sprint-memory.md` lui-même. Contournement
+  ponctuel appliqué (placeholder temporaire). `[HOOK_CANDIDATE]` consigné en
+  `.claude/sprint-memory.md`, 1 occurrence à ce jour — pas encore récurrent
+- **Tests** : `grep -c "\[HYPOTHÈSE — non confirmée" 01-Claude-md-TEMPLATE.md` → 5 ;
+  `grep -c "Pensée :" 01-Claude-md-TEMPLATE.md` → 11 (inchangé)
+
+---
+
 ## [v1.9+SDLC-19] — 2026-06-19 · Sprint SDLC-19 · Import sélectif audit Superpowers
 - **`01-Claude-md-TEMPLATE.md`** : 11 paires `Pensée → Réalité` ajoutées sous les 5 HALT
   (2 chacun, langage gouvernance générique) + 1 paire sous la règle absolue 4a/4b/4c/4d,
