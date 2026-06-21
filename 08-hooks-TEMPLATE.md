@@ -1,5 +1,5 @@
 # Hooks Claude Code — Template Python · v1.0
-<!-- Template SDLC v1.2 · Destination : .claude/hooks/ dans le repo cible -->
+<!-- Template SDLC v1.3 · Destination : .claude/hooks/ dans le repo cible -->
 <!-- Généré au bootstrap · Complété au fil des sprints via boucle LESSONS_LEARNED -->
 
 > Les hooks rendent certaines règles non-négociables — indépendamment de la mémoire du modèle.
@@ -223,6 +223,97 @@ Si activé → ajouter dans `settings.json` :
 ```
 
 → Documenter la décision dans `doc/DECISIONS.md` §D-HOOK-07.
+
+---
+
+## §PreCompact — optionnel, à activer consciemment
+
+Un hook `PreCompact` est rentable si le projet utilise `sprint-memory.md`
+(`M-PROC-10/13`) et veut que la reprise après une pause forcée (tranche
+horaire) ou une compaction automatique suive le même chemin que la reprise
+après crash, sans discipline manuelle pour amorcer la trace.
+
+**Schéma JSON reçu sur stdin** (confirmé verbatim `code.claude.com/docs/en/hooks`,
+Sprint SDLC-23 — **PAS** un champ `trigger` comme une première lecture rapide
+de la doc le suggère) :
+```json
+{"session_id":"...","transcript_path":"...","cwd":"...","hook_event_name":"PreCompact",
+ "permission_mode":"...","compaction_reason":"manual"|"auto","context_used_tokens":N,
+ "context_limit_tokens":N,"estimated_tokens_freed":N}
+```
+`matcher` filtre sur `compaction_reason` (`manual`/`auto`) — pas de valeur par
+défaut documentée pour un hook sans matcher : enregistrer explicitement les
+deux plutôt que de supposer qu'omettre `matcher` couvre les deux cas.
+
+Copier `.claude/hooks/pre-compact.sh` — toujours `exit 0`, ce hook n'est pas un
+gate (pas de sémantique allow/block utilisée ici, même si `PreCompact`
+supporte techniquement `{"decision":"block"}`). Référence : projet toolkit
+SDLC, `07-DECISIONS-SDLC.md M-HOOKS-08`.
+
+```bash
+#!/bin/bash
+# Hook pre-compact — adapter le nom de projet en commentaire si besoin
+# Déclenché par Claude Code avant toute compaction (manuelle ou automatique).
+# Écrit un checkpoint dans .claude/sprint-memory.md pour que la reprise après
+# une pause forcée par tranche horaire suive le même chemin que la reprise
+# après crash (M-PROC-13).
+#
+# Schéma JSON réel reçu sur stdin (PreCompact) — confirmé verbatim
+# code.claude.com/docs/en/hooks (PAS un champ "trigger" comme une lecture
+# rapide de la doc le suggère) :
+#   {"session_id":"...","transcript_path":"...","cwd":"...","hook_event_name":"PreCompact",
+#    "permission_mode":"...","compaction_reason":"manual"|"auto","context_used_tokens":N,
+#    "context_limit_tokens":N,"estimated_tokens_freed":N}
+#
+# PreCompact peut bloquer via {"decision":"block"} mais ce script ne l'utilise jamais —
+# toujours exit 0, y compris en cas d'échec de parsing JSON ou d'écriture fichier.
+
+set -uo pipefail  # pas -e : un échec partiel ne doit jamais empêcher le exit 0 final
+
+INPUT=$(cat)
+read -r REASON USED LIMIT FREED TRANSCRIPT <<< "$(echo "$INPUT" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+print(data.get('compaction_reason', 'unknown'),
+      data.get('context_used_tokens', '?'),
+      data.get('context_limit_tokens', '?'),
+      data.get('estimated_tokens_freed', '?'),
+      data.get('transcript_path', '-'))
+" 2>/dev/null || echo "unknown ? ? ? -")"
+
+MEMORY_FILE=".claude/sprint-memory.md"
+
+# Rien à checkpointer si aucun sprint actif (fichier absent) — ne pas en créer un.
+if [ -f "$MEMORY_FILE" ]; then
+  TIMESTAMP=$(date +%H:%M)
+  ENTRY="[$TIMESTAMP] CHECKPOINT — compaction reason=$REASON — tokens ${USED}/${LIMIT} (≈${FREED} libérés) — transcript : \`$TRANSCRIPT\`"
+  # Entrée la plus récente en tête, juste sous le header 2 lignes (cohérent
+  # avec le format accumulatif déjà utilisé pour SESSION_BRIDGE.md, M-PROC-22).
+  HEADER=$(head -2 "$MEMORY_FILE" 2>/dev/null)
+  REST=$(tail -n +3 "$MEMORY_FILE" 2>/dev/null)
+  { printf '%s\n' "$HEADER" "$ENTRY" "$REST"; } > "${MEMORY_FILE}.tmp" 2>/dev/null \
+    && mv "${MEMORY_FILE}.tmp" "$MEMORY_FILE" 2>/dev/null
+fi
+
+exit 0
+```
+
+Si activé → ajouter dans `settings.json` :
+
+```json
+"PreCompact": [
+  {
+    "matcher": "manual",
+    "hooks": [{ "type": "command", "command": ".claude/hooks/pre-compact.sh" }]
+  },
+  {
+    "matcher": "auto",
+    "hooks": [{ "type": "command", "command": ".claude/hooks/pre-compact.sh" }]
+  }
+]
+```
+
+→ Documenter la décision dans `doc/DECISIONS.md` §D-HOOK-XX.
 
 ---
 

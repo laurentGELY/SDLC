@@ -6,7 +6,7 @@
 
 | Item | Type | Taille | Statut |
 |------|------|--------|--------|
-| — | — | — | — En attente |
+| P-30 — Hook PreCompact × sprint-memory.md (Sprint SDLC-23) | Feature | S | En cours |
 
 **Règle :** un seul item actif à la fois dans §Now.
 

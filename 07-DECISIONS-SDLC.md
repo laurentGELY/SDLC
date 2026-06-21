@@ -436,6 +436,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-35 | Tables de rationalisation HALT — 3e passage, étiquette [HYPOTHÈSE] retenue | ✓ | — |
 | M-HOOKS-07 | Confinement natif sandbox OS (bubblewrap/Seatbelt) + permissions dontAsk | ✓ (template) | Si sandboxing natif disponible sur la machine (bwrap/socat installés, profil AppArmor sur Ubuntu 24.04+) |
 | M-PROC-36 | Instrumentation conso token réelle — `sdlc-token-usage.sh` + suppression collage manuel §0c wrap-up | ✓ | — |
+| M-HOOKS-08 | Hook PreCompact × sprint-memory.md (checkpoint automatique avant compaction) | ✓ | — |
 
 ---
 
@@ -1554,3 +1555,76 @@ v1.7 (§Étape 7) + `.claude/skills/retrospective/SKILL.md` (synchronisé) ·
 **Déclencheur de réouverture :** si un sprint s'étale sur plusieurs jours
 calendaires (la bucketisation `HH:MM` deviendrait ambiguë), ou si le schéma
 `usage` du transcript JSONL change de structure côté Claude Code.
+
+---
+
+## M-HOOKS-08 · Hook PreCompact × sprint-memory.md · v1.9+SDLC-23 · 21/06/2026
+
+**Contexte :** `sprint-memory.md` (`M-PROC-10/13`) gère déjà la reprise après
+session tronquée (crash), mais rien ne le déclenchait automatiquement avant
+une compaction — la compaction et la pause forcée par tranche horaire sont
+structurellement le même moment à risque (contexte qui sature avant la fin
+d'une étape).
+
+**Retenu :** `.claude/hooks/pre-compact.sh`, déclenché par le hook natif
+`PreCompact`, ajoute une entrée `CHECKPOINT` en tête de `sprint-memory.md`
+(sous le header 2 lignes, format accumulatif cohérent avec `SESSION_BRIDGE.md`
+— `M-PROC-22`) avant toute compaction, manuelle ou automatique. Le script
+n'est jamais un gate : toujours `exit 0`, y compris sur JSON malformé ou
+fichier absent (pas de sprint actif → rien à checkpointer, le hook ne crée
+pas le fichier). `sprint-memory.md` gagne un 7e type d'entrée, `CHECKPOINT`
+— seul type non écrit par Claude, généré mécaniquement par le hook.
+`.claude/settings.json` enregistre **deux** entrées `PreCompact` (`matcher:
+"manual"` et `matcher: "auto"`) plutôt que de supposer qu'un hook sans
+matcher couvre les deux déclencheurs — aucun défaut documenté pour ce cas.
+
+**Écarté :**
+- Fichier de backup séparé (`/tmp/claude-context-backup.md` ou équivalent) —
+  créerait un deuxième réceptacle à maintenir alors que `sprint-memory.md`
+  couvre déjà ce rôle.
+- Hook `SessionStart` matcher `compact` en complément — l'injection au
+  redémarrage est déjà couverte par la lecture manuelle existante en
+  `§Démarrage`, pas besoin de la dupliquer.
+- Réglage de seuil de compaction (`contextThreshold` ou équivalent) — non
+  confirmé comme réglage réel, hors scope de ce sprint.
+- Champ `async: false` dans la config `settings.json` (proposé par le PDR
+  initial) — non corroboré par la documentation officielle vérifiée en
+  session (voir ci-dessous), omis plutôt que deviné.
+
+**Raison :** réutiliser le format déjà gouverné de `sprint-memory.md` au lieu
+d'un nouveau mécanisme de sauvegarde évite un deuxième réceptacle à
+maintenir ; le principe "le script fait le mécanique, Claude fait le sens"
+(`M-PROC-24`) s'applique : le hook pose un checkpoint horodaté, il ne
+reconstruit pas un résumé sémantique du contexte perdu.
+
+**Schéma du PDR initial invalidé par vérification — corrigé avant code, pas après :**
+Le PDR reçu affirmait le schéma `PreCompact` "vérifié... zéro Oracle
+nécessaire en session", avec un champ `trigger: "manual"|"auto"`. Vérification
+directe (`WebFetch code.claude.com/docs/en/hooks`, citation verbatim de la
+section `PreCompact`) a montré que le champ réel est `compaction_reason`, pas
+`trigger` — et que le payload porte aussi `context_used_tokens`,
+`context_limit_tokens`, `estimated_tokens_freed` (non mentionnés par le PDR,
+intégrés au format de l'entrée `CHECKPOINT` car gratuits et pertinents avec
+le thème mesure-tokens du sprint précédent, `M-PROC-36`). Un premier `WebFetch`
+sur la même page avait par ailleurs donné une réponse contradictoire
+(« PreCompact ne supporte pas `matcher` ») — invalidée par la citation
+verbatim qui suit (table `matcher` confirmant `manual`/`auto`). Le script
+aurait silencieusement lu `trigger` (toujours absent) et produit
+`reason=unknown` sur 100% des compactions réelles si le smoke test n'avait
+validé que le schéma du PDR — précédent direct de `M-HOOKS-05` (champ JSON
+mal nommé, hook silencieusement inopérant pendant plusieurs sprints).
+
+**Limite de validation acceptée :** le smoke test simule le payload JSON en
+stdin — il valide le script lui-même, pas le déclenchement réel par la
+plateforme au moment d'une vraie compaction (non observable en session sans
+en déclencher une). Cf. `doc/DIAGNOSTIC_CMDS.md`.
+
+**Impact fichiers :** `.claude/hooks/pre-compact.sh` (nouveau) ·
+`.claude/settings.json` (2 entrées `PreCompact`) · `01-Claude-md-TEMPLATE.md` +
+`Claude.md` (7e type `CHECKPOINT` + note d'extension `M-PROC-13`) ·
+`08-hooks-TEMPLATE.md` v1.3 (nouvelle `§PreCompact`) · `doc/ROADMAP.md`
+(P-30 déplacé `§Next` → `§Now` → `§Historique`).
+
+**Déclencheur de réouverture :** si le schéma `PreCompact` documenté change à
+nouveau, ou si un déclenchement réel en session révèle un comportement non
+couvert par le smoke test (cf. limite de validation ci-dessus).

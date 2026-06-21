@@ -128,3 +128,26 @@ confondre avec l'objet imbriqué `.message.usage.cache_creation.*`).
 Conclusion : toujours retirer la fraction de seconde avant parsing —
 `sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601` — utilisé par `sdlc-token-usage.sh`
 (Sprint SDLC-22, M-PROC-36).
+
+## Symptôme : PDR affirme un schéma JSON de hook "déjà vérifié" — faux, contredit par lecture directe de la doc
+Date : 21/06/2026
+Commande : `WebFetch https://code.claude.com/docs/en/hooks` avec un prompt demandant
+une citation **verbatim** de la section concernée (pas un résumé) — répété 2-3 fois
+avec des prompts de plus en plus ciblés ("quote verbatim", "everything from heading X
+to next heading") jusqu'à obtenir une réponse stable et complète.
+Résultat observé : le PDR du Sprint SDLC-23 affirmait le payload `PreCompact` "vérifié
+... zéro Oracle nécessaire" avec un champ `trigger: "manual"|"auto"`. Un premier
+`WebFetch` (prompt généraliste) a répondu que `PreCompact` ne supporte pas de `matcher`
+— **faux**. Un second `WebFetch` (prompt "quote verbatim") a cité une table confirmant
+que `matcher` existe bien. Un troisième `WebFetch` (prompt "tout depuis le heading X
+jusqu'au heading suivant, verbatim") a enfin donné le schéma exact : le champ réel est
+`compaction_reason`, pas `trigger` ; le payload porte aussi `context_used_tokens`,
+`context_limit_tokens`, `estimated_tokens_freed`.
+Conclusion : un `WebFetch` avec un prompt de résumé/synthèse sur une page technique peut
+halluciner ou contredire un autre `WebFetch` sur la **même URL** — ne jamais accepter un
+premier résultat de synthèse comme confirmation d'un schéma technique précis (champ,
+type, exemple JSON). Toujours redemander une citation verbatim, et répéter avec un
+périmètre plus étroit si la première citation verbatim semble incomplète ou tronquée.
+Ne jamais traiter une affirmation "vérifié" dans un PDR reçu comme acquise sans
+revérification — même règle que `LL-T04`, étendue ici à un schéma de plateforme externe
+documenté publiquement (pas seulement au contenu du repo).

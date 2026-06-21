@@ -2,6 +2,40 @@
 
 ---
 
+## [v1.9+SDLC-23] — 2026-06-21 · Sprint SDLC-23 · Hook PreCompact × sprint-memory.md
+- **`.claude/hooks/pre-compact.sh`** (nouveau) : avant toute compaction (manuelle ou
+  automatique), ajoute une entrée `CHECKPOINT` en tête de `.claude/sprint-memory.md`
+  (reason, tokens used/limit/freed, transcript) — toujours `exit 0`, jamais un gate
+  (`M-HOOKS-08`)
+- **`.claude/settings.json`** : 2 entrées `PreCompact` (`matcher: "manual"` et
+  `matcher: "auto"`) — pas de défaut documenté pour un hook sans matcher, donc
+  enregistrement explicite des deux
+- **`01-Claude-md-TEMPLATE.md`** + **`Claude.md`** : `sprint-memory.md` gagne un 7e
+  type d'entrée `CHECKPOINT` (seul type non écrit par Claude, généré par le hook) +
+  note d'extension `M-PROC-13` (pause tranche horaire = même chemin de reprise que crash)
+- **`08-hooks-TEMPLATE.md` v1.3** : nouvelle `§PreCompact — optionnel, à activer
+  consciemment` (schéma JSON, script complet, snippet `settings.json`)
+- **`doc/DIAGNOSTIC_CMDS.md`** : nouveau symptôme — un PDR affirmait le schéma
+  `PreCompact` "déjà vérifié" (champ `trigger`) ; vérification directe
+  (`WebFetch` verbatim sur la doc officielle) a montré le champ réel
+  (`compaction_reason`) et invalidé un premier `WebFetch` contradictoire sur la
+  même page — corrigé avant code, pas après
+- **`07-DECISIONS-SDLC.md`** : entrée **M-HOOKS-08** ajoutée
+- **Corrections ajustées vs spec** — le PDR initial assumait un champ payload
+  `trigger: manual/auto` ; le schéma réel (`compaction_reason` +
+  `context_used_tokens`/`context_limit_tokens`/`estimated_tokens_freed`) a été
+  vérifié par `WebFetch` avant d'écrire le script, et le format de l'entrée
+  `CHECKPOINT` a été enrichi avec les champs token (gratuits, pertinents avec
+  `M-PROC-36`). Le champ `async: false` proposé par le PDR a été omis, non
+  corroboré par la doc vérifiée
+- **Tests** : `bash -n` ✓ · smoke test `trigger=manual`/`auto` (schéma réel) ✓ ·
+  JSON malformé → `exit 0`, `reason=unknown` ✓ · fichier `sprint-memory.md` absent
+  → aucune création, `exit 0` ✓ · non-régression entrées existantes intactes ✓ ·
+  limite acceptée : déclenchement réel par la plateforme non testable en session
+  (smoke test simule uniquement le payload stdin)
+
+---
+
 ## [v1.9+SDLC-22] — 2026-06-21 · Sprint SDLC-22 · Instrumentation conso token réelle
 - **`sdlc-token-usage.sh`** (nouveau) : script bash+jq lisant les transcripts JSONL
   du projet (`~/.claude/projects/<slug-cwd>/*.jsonl`), affiche les totaux bruts
