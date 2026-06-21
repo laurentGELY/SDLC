@@ -25,3 +25,8 @@ Thumbs.db
 # Créée au démarrage de sprint, détruite après commit (/wrap-up Étape 4) —
 # jamais versionnée.
 .claude/sprint-memory.md
+
+# ─── Notes personnelles de réflexion ─────────────────────────────────────────
+# Brouillon de pistes/évolutions à chaud, pas un livrable de gouvernance —
+# jamais versionné.
+doc/EVO.md
