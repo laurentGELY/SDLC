@@ -15,6 +15,24 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-22 — 21/06/2026 — Instrumentation conso token réelle (sdlc-token-usage.sh)
+**Code :** Bug confirmé et corrigé avant livraison — `jq fromdateiso8601` rejette
+100% des timestamps de transcript JSONL (`"2026-06-21T13:49:42.450Z"`, fraction de
+seconde non gérée par le format attendu). Détecté en testant le filtre `jq` contre un
+transcript réel avant de finaliser le script, pas après coup — corrigé par
+`sub("\\.[0-9]+Z$"; "Z")` avant parsing (documenté `doc/DIAGNOSTIC_CMDS.md`).
+**Processus :** Structure réelle du JSONL (champ `.timestamp`, emplacement de
+`.message.usage.*`) vérifiée par inspection directe d'un transcript avant d'écrire
+le parsing, plutôt que supposée depuis la documentation publique (non garantie
+stable). Synchronisation des skills locaux (`.claude/skills/wrap-up`,
+`.claude/skills/retrospective`) en plus des templates numérotés — dogfooding
+immédiat du changement plutôt que limité aux futurs projets bootstrappés.
+**Lien pattern :** confirme `LL-T04` (vérifier toute précondition factuelle par
+commande exécutable avant d'agir, ici étendu au schéma d'un format de données
+externe non documenté officiellement).
+**Action proposée :** aucune — rétrospective utilisateur "all good" sur les
+3 volets.
+
 ### Sprint SDLC-20 — 20/06/2026 — Étiquette [HYPOTHÈSE] sur tables HALT (3e révision)
 **Code :** N/A — gouvernance/doc uniquement.
 **Processus :** PDR reçu en 3e révision d'une même intention de sprint (1e exécutée SDLC-19,

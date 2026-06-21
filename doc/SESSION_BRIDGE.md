@@ -1,6 +1,20 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-22 — instrumentation conso token réelle] · 2026-06-21
+**Commit :** 6dcc1f0
+**Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).
+**Fil fonctionnel :** `sdlc-token-usage.sh` (nouveau, racine) mesure les totaux
+input/output/cache depuis les transcripts JSONL et les bucketise par étape via
+`.claude/sprint-memory.md`. `03-wrap-up-SKILL-TEMPLATE.md §0c` exécute désormais
+`git diff`/`status` directement (fallback testé si échec). `09-retrospective-SKILL-TEMPLATE.md`
+porte une `§Étape 7 — Métriques tokens` (M1/M2 statique + appel script). Les deux
+skills locaux (`.claude/skills/wrap-up`, `.claude/skills/retrospective`) sont
+synchronisés avec les templates dans le même commit (`M-PROC-36`).
+**Note de continuité :** `doc/CLAUDE_PROJECT.md` n'a pas de ligne pour
+`sdlc-token-usage.sh` (ni pour `sdlc-delta.sh`, gap antérieur) — flag levé à ce
+wrap-up, décision de classification (synced/exclu) laissée à l'utilisateur.
+
 ## [Sprint SDLC-20 — étiquette HYPOTHÈSE sur tables HALT] · 2026-06-20
 **Commit :** 51e29bb
 **Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).
