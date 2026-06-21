@@ -6,7 +6,7 @@
 
 | Item | Type | Taille | Statut |
 |------|------|--------|--------|
-| P-30 — Hook PreCompact × sprint-memory.md (Sprint SDLC-23) | Feature | S | En cours |
+| — | — | — | — En attente |
 
 **Règle :** un seul item actif à la fois dans §Now.
 
@@ -20,7 +20,7 @@
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur |
 |------|------|--------|----------|------------|-------------|
 | P-20 — Hook SessionStart (injection auto Règles absolues + HALT) | Doc | M | LL-T05 (garde-fou démarrage) | — | Aucun — prêt à démarrer dès qu'une session le priorise. Impact reclassé **Moyen** (initialement Élevé en audit SDLC-17) : `M-HOOKS-04` (Sprint SDLC-18) couvre déjà le pire cas observé (omission étape 4a) par un mécanisme indépendant. **Note de séquencement :** ne pas dupliquer les tables de rationalisation HALT écrites Sprint SDLC-19 (`01-Claude-md-TEMPLATE.md`, déjà chargées en permanence) — réinjecter seulement les noms de règles/HALT et leur condition de déclenchement |
-| P-30 — Hook PreCompact × sprint-memory.md (`specs/Sprints/sprint-SDLC-precompact-sprint-memory.md`) | Feature | S | P-28 | — | PDR rédigé, prêt à exécuter — voir fichier joint |
+| P-27 — sprint-memory.md documenté explicitement comme mécanisme de reprise après pause tranche horaire | Doc | XS | — | — | Débloqué — Sprint SDLC-23 (P-30, hook PreCompact) exécuté |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
@@ -44,7 +44,6 @@
 | P-24 — Taille XS/S/M/L recalibrée avec coût token empirique + signal d'anomalie douce en /retrospective | Tuning | M | — | ≥ 5 sprints mesurés | sdlc-token-usage.sh actif sur ≥ 5 sprints | — |
 | P-25 — Dry-run syntaxique de la commande de test avant §Plan d'exécution (4d) | Tuning | XS | — | — | Exécutable directement | — |
 | P-26 — Aval unique par sprint (pas par sous-étape) + vérification batching active en §4a | Doc | XS | — | — | Durcissement direct de règle existante | — |
-| P-27 — sprint-memory.md documenté explicitement comme mécanisme de reprise après pause tranche horaire | Doc | XS | — | P-30 (PreCompact) | Après exécution du sprint PreCompact | — |
 | P-28 — Détection cache_creation anormal en milieu de session (signal expiration TTL liée au délai humain) | Feature | S | — | P-36 (script étendu) | Script de base en place | — |
 | P-29 — Ligne de pacing informative en wrap-up §0d ("≈X% d'une tranche typique") — non bloquant | Tuning | S | — | Baseline tranche horaire | Plusieurs sessions mesurées | — |
 | P-31 — Évaluer le Mode Plan natif (Shift+Tab) comme remplacement de §4d manuel | Spike | S | — | Vérification doc Claude Code | Interaction avec règle "aval explicite" confirmée | — |
@@ -94,4 +93,6 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 <!-- Déplacer ici les sprints terminés depuis §Now, avec leur tableau de livrables -->
 
-*(vide au bootstrap du toolkit)*
+| Item | Type | Taille | Sprint | Livrables |
+|------|------|--------|--------|-----------|
+| P-30 — Hook PreCompact × sprint-memory.md | Feature | S | SDLC-23 (21/06/2026) | `.claude/hooks/pre-compact.sh` · 2 entrées `settings.json` (matcher manual/auto) · 7e type `CHECKPOINT` (`Claude.md`, `01-Claude-md-TEMPLATE.md`) · `08-hooks-TEMPLATE.md` v1.3 §PreCompact · `M-HOOKS-08` |

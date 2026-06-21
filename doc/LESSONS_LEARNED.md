@@ -15,6 +15,24 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-23 — 21/06/2026 — Hook PreCompact × sprint-memory.md
+**Code :** Bug du PDR initial confirmé et corrigé avant livraison — le PDR affirmait
+le payload `PreCompact` "vérifié... zéro Oracle nécessaire" avec un champ `trigger`,
+qui n'existe pas. Champ réel `compaction_reason` (+ `context_used_tokens`/
+`context_limit_tokens`/`estimated_tokens_freed`, absents du PDR) confirmé par
+`WebFetch` verbatim sur la doc officielle avant tout code — script écrit directement
+contre le schéma réel, aucun commit contre le schéma erroné.
+**Processus :** Un premier `WebFetch` sur la même URL a donné une réponse
+contradictoire ("`PreCompact` ne supporte pas `matcher`" — faux) ; une 2e puis 3e
+requête avec prompt "citation verbatim" a résolu la contradiction. Leçon outillage :
+un résumé de `WebFetch` sur un schéma technique précis n'est pas fiable au premier
+passage, recommander verbatim avant d'agir dessus.
+**Lien pattern :** confirme `LL-T04` (2e confirmation ce cycle après SDLC-22 — étendu
+ici à un schéma de plateforme externe documentée publiquement, pas seulement au
+contenu du repo ou d'un PDR).
+**Action proposée :** aucune nouvelle — rétrospective utilisateur "all good" sur les
+3 volets.
+
 ### Sprint SDLC-22 — 21/06/2026 — Instrumentation conso token réelle (sdlc-token-usage.sh)
 **Code :** Bug confirmé et corrigé avant livraison — `jq fromdateiso8601` rejette
 100% des timestamps de transcript JSONL (`"2026-06-21T13:49:42.450Z"`, fraction de
