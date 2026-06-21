@@ -287,3 +287,104 @@ chemins relatifs contre ce mauvais répertoire et déclencher un faux blocage. T
 - [ ] `settings.local.json` : fichier créé (vide ou avec premières permissions)
 - [ ] Grep de validation : `grep "\[ACTIVER" .claude/hooks/pre-tool-bash.sh` → zéro résultat
 - [ ] Test smoke : `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
+
+---
+
+## 4. Confinement natif — sandbox OS (bubblewrap/Seatbelt)
+
+À activer quand le besoin dépasse la portée de `pre-tool-bash.sh` : confiner
+*toutes* les opérations (Bash **et** outils natifs `Read`/`Edit`/`Write`) à un
+périmètre filesystem précis, avec garantie au niveau OS plutôt qu'un
+pattern-matching contournable. Référence : `07-DECISIONS-SDLC.md §M-HOOKS-07`.
+
+**Ne remplace pas `pre-tool-bash.sh`** — complémentaire. Le hook reste la
+couche sémantique (règles métier sur le *contenu* d'une commande, ex :
+`git push --force`), le sandbox devient la couche de confinement (règles sur
+les *chemins/domaines* atteignables). Le sandbox ne comprend pas la
+sémantique d'une commande ; le hook ne garantit rien au niveau OS.
+
+### Prérequis machine — à vérifier avant d'activer
+
+```bash
+which bwrap socat
+sysctl kernel.apparmor_restrict_unprivileged_userns 2>/dev/null
+```
+
+Si le `sysctl` renvoie `1` (Ubuntu 24.04+/25.10), bubblewrap échoue au
+démarrage avec `bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted`
+— bug connu, pas une erreur de config. Fix, **dans un terminal hors session
+Claude Code** (le préfixe `!` du CLI repasse par le sandbox, ne sert pas de
+voie de diagnostic) :
+
+```bash
+sudo tee /etc/apparmor.d/bwrap > /dev/null <<'EOF'
+abi <abi/4.0>,
+include <tunables/global>
+
+profile bwrap /usr/bin/bwrap flags=(unconfined) {
+  userns,
+  include if exists <local/bwrap>
+}
+EOF
+sudo systemctl reload apparmor
+```
+
+### Config — `.claude/settings.json` (ou `settings.local.json` si chemin machine-personnel)
+
+```json
+{
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "allowWrite": ["[→ ADAPTER] chemin absolu du périmètre"],
+      "denyRead": ["~/.ssh", "~/.aws"]
+    },
+    "network": {
+      "allowedDomains": ["[→ ADAPTER] domaines requis"]
+    }
+  },
+  "permissions": {
+    "defaultMode": "dontAsk",
+    "allow": [
+      "Bash",
+      "Read(//[→ ADAPTER] chemin absolu/**)",
+      "Edit(//[→ ADAPTER] chemin absolu/**)",
+      "Write(//[→ ADAPTER] chemin absolu/**)"
+    ]
+  }
+}
+```
+
+**Piège de syntaxe** : `//chemin` = absolu, `/chemin` seul = relatif à la
+racine du *projet* pour les règles `Read`/`Edit`/`Write` (différent des règles
+`sandbox.filesystem.*`, où `/chemin` seul est bien absolu). Un slash unique
+sur un chemin censé être absolu ne lève aucune erreur — la règle ne matche
+juste jamais rien, silencieusement.
+
+**Portée de la config** : `~/.claude/settings.json` si le confinement doit
+s'appliquer à toute session sur la machine · `.claude/settings.json` ou
+`settings.local.json` si limité à un projet. Ne jamais committer un chemin
+absolu personnel dans `settings.json` versionné (cf. `M-ENV-01`).
+
+### Protocole de test — obligatoire avant de faire confiance à la config
+
+Ne jamais committer sur la base de la doc seule. Avant de figer :
+
+1. Écriture Bash hors périmètre → doit échouer (`Read-only file system`)
+2. Écriture *dans* le périmètre → doit réussir (élimine un faux positif si
+   bubblewrap échoue à l'initialisation — message `RTM_NEWADDR` différent
+   d'un refus de sandbox, à ne pas confondre)
+3. `Write`/`Read` natifs (pas Bash) hors périmètre → doivent échouer
+   silencieusement sous `dontAsk`, sans prompt contournable
+4. Domaine réseau non listé → comportement à vérifier (`dontAsk` bloque net,
+   `default` prompte)
+5. Écriture dans `.claude/settings.json` *à l'intérieur* du périmètre →
+   doit échouer (auto-protection de la politique)
+
+Détail complet du protocole et des résultats de référence :
+`07-DECISIONS-SDLC.md §M-HOOKS-07`.
+
+---

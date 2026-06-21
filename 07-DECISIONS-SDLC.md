@@ -424,6 +424,17 @@ pas seulement l'auteur du modèle.
 | M-SCOPE-04 | Phase amont Project Claude.ai séparé, zéro marqueur côté Claude Code | ✓ | — |
 | M-HOOKS-04 | Carve-out anti-auto-verrouillage M-HOOKS-04 (garde-fou étape 4a) | ✓ | — |
 | M-HOOKS-05 | Extraction JSON PreToolUse corrigée (`tool_input`, pas `input`) | ✓ | — |
+| M-HOOKS-06 | Allowlist Bash lecture seule pendant blocage M-HOOKS-04 | — | Si M-HOOKS-04 rétro-porté vers 08-hooks-TEMPLATE.md |
+| M-PROC-27 | Backfill CHANGELOG/DECISIONS SDLC-07-09 — clos sans rattrapage | — (résolution historique propre à ce repo, hors cadre du tableau) | — |
+| M-PROC-28 | Distinction taille « cœur » vs « gouvernance associée » — règle stable | — (jamais rétro-porté — confirmé : grep "cœur du changement" 01-Claude-md-TEMPLATE.md → vide) | Si rétro-porté vers 01-Claude-md-TEMPLATE.md |
+| M-PROC-29 | Audit complet SDLC-07→15 — verdicts confirmés, requalification narrative | — (audit propre à ce repo, hors cadre du tableau) | — |
+| M-PROC-30 | Test d'un hook bloquant — isolation obligatoire | ✓ | — |
+| M-PROC-31 | Tables de rationalisation par HALT — import recalibré Superpowers | ✓ | — |
+| M-PROC-32 | Fusion clause anti-complaisance + renvoi croisé §Rôle/§Test | ✓ | — |
+| M-PROC-33 | Sélection de modèle pour sous-agent délégué | ✓ | — |
+| M-PROC-34 | Taxonomie "Revue" dans STANDARDS §Types de sprint | ✓ | — |
+| M-PROC-35 | Tables de rationalisation HALT — 3e passage, étiquette [HYPOTHÈSE] retenue | ✓ | — |
+| M-HOOKS-07 | Confinement natif sandbox OS (bubblewrap/Seatbelt) + permissions dontAsk | ✓ (template) | Si sandboxing natif disponible sur la machine (bwrap/socat installés, profil AppArmor sur Ubuntu 24.04+) |
 
 ---
 
@@ -1388,3 +1399,94 @@ inchangé), `M-PROC-31` (amendée avec renvoi).
 **Déclencheur de réouverture :** si un incident réel survient sur un HALT actuellement étiqueté
 `[HYPOTHÈSE]` → remplacer l'étiquette par un renvoi `M-XXX` sourcé, sur le modèle de la table
 4a/4b/4c/4d (cf. `M-PROC-31`).
+
+---
+
+## M-HOOKS-07 · Confinement natif sandbox OS (bubblewrap/Seatbelt) en complément du hook · v1.9+SDLC-21 · 21/06/2026
+
+**Contexte :** Besoin de confiner Claude Code à un répertoire unique (`/sandbox`) et de
+réduire la friction de validation à l'intérieur de ce périmètre, plutôt que des
+confirmations au cas par cas. `pre-tool-bash.sh` (M-HOOKS-02) est un filtre par
+pattern-matching sur la commande — contournable par construction et sans portée sur
+les outils natifs `Read`/`Edit`/`Write`. 9 tests empiriques exécutés en conditions
+réelles (Ubuntu 24.04, Claude Code sandboxé) avant toute décision, conformément à
+`M-PROC-30` (isolation des tests — ici appliquée à un mécanisme natif, pas au hook
+custom).
+
+**Retenu :** Deux couches complémentaires, aucune ne remplaçant l'autre :
+
+- **`sandbox.*`** (niveau OS, bubblewrap/Seatbelt) — confine les processus enfants
+  de `Bash` uniquement. `filesystem.allowWrite` pour le périmètre d'écriture,
+  `filesystem.denyRead` pour les chemins sensibles explicitement exclus
+  (`~/.ssh`, `~/.aws`), `network.allowedDomains` pour le réseau.
+- **`permissions.defaultMode: dontAsk` + `permissions.allow` scopé** — couvre
+  `Read`/`Edit`/`Write`/`Bash`, qui ne passent pas par le sandbox OS. `dontAsk`
+  auto-refuse tout ce qui n'est pas explicitement listé, sans ouvrir de prompt
+  contournable — validé empiriquement (Test 4, Test 5) et confirmé sur un outil
+  non testé initialement (`AskUserQuestion`, bloqué identiquement en session réelle).
+- **`failIfUnavailable: true`** + **`allowUnsandboxedCommands: false`** —
+  fail-closed : pas de démarrage en dégradé si bubblewrap est absent, pas
+  d'échappatoire `dangerouslyDisableSandbox`. Même principe que `M-HOOKS-04`
+  (pas de dégradation silencieuse d'un garde-fou).
+- Chemins en dur dans la config — `${VAR}` non confirmé comme supporté pour les
+  chemins `sandbox.*`/`permissions.*` (seulement pour `.mcp.json` et certaines
+  valeurs de `hooks`/`env`).
+
+**Écarté :**
+- `pre-tool-bash.sh` seul comme mécanisme de confinement — pattern-matching sur
+  la commande, bypassable, et structurellement aveugle aux outils natifs
+  `Read`/`Edit`/`Write` (n'interceptent jamais `Bash`).
+- `permissions.deny` large (`Read(//**)`) combiné à un `allow` scopé sur le
+  périmètre — une règle `deny` ne porte pas d'exceptions allowlist (priorité
+  deny > ask > allow indépendante de la spécificité), le `deny` large aurait
+  avalé l'`allow` plus étroit. Piège identifié avant tout test, pas découvert
+  en échouant en production.
+- `defaultMode: default` (comportement du draft initial) — hors périmètre,
+  les opérations natives passent par un prompt humain contournable plutôt
+  qu'un refus net, contraire à l'objectif de confinement strict.
+
+**Raison :** Les deux couches répondent à des outils disjoints (sandbox = `Bash`
+et sous-processus · permissions = `Read`/`Edit`/`Write`/`Bash`), confirmé par
+la doc officielle et par les Tests 1/4/5. Aucune des deux seules ne couvre le
+besoin "interdire toute opération hors `/sandbox`" — seule la combinaison le
+fait, et seulement avec `dontAsk` plutôt que `default`.
+
+**Prérequis machine — bug bwrap rencontré et résolu pendant le test :**
+`bwrap: loopback: Failed RTM_NEWADDR: Operation not permitted` sur Ubuntu
+24.04+/25.10 — `kernel.apparmor_restrict_unprivileged_userns` bloque la
+configuration du network namespace par bubblewrap. Corrigé par un profil
+AppArmor dédié (`/etc/apparmor.d/bwrap` + `systemctl reload apparmor`) :
+bug connu, pas une erreur de configuration Claude Code. Vérification à faire
+*avant* tout test en se plaçant hors session Claude Code (le `!` du CLI
+repasse par le sandbox — confirmé empiriquement, pas une voie de contournement
+pour le diagnostic).
+
+**Comportement observé non documenté officiellement :** sous `dontAsk`, un
+domaine réseau non listé dans `allowedDomains` est bloqué net (`403`,
+`X-Proxy-Error: blocked-by-allowlist`) — pas de prompt, contrairement au
+comportement par défaut documenté pour le mode `default`.
+
+**9 tests exécutés (résumé, détail dans la conversation Claude.ai source) :**
+dépendances OK · Bash write hors périmètre bloqué (`Read-only file system`)
+· Bash read libre par défaut, `denyRead` confirmé nécessaire · lecture
+`~/.ssh` masquée (liste vide, pas de refus explicite) · Write natif hors
+périmètre bloqué (`dontAsk` explicite, message verbatim) · Read natif hors
+périmètre bloqué (comportemental, 2 fichiers) · Bash auto-allow fonctionne
+sous `dontAsk` · domaine réseau non listé bloqué net · auto-protection de
+`settings.json` confirmée même dans le périmètre autorisé.
+
+**Limite non tranchée :** le masquage de `~/.ssh` (liste vide plutôt que
+`Permission denied`) n'a pas été distingué entre comportement `denyRead`
+volontaire et effet de bord du montage bwrap — sans conséquence sur la
+décision, à noter si un usage futur en dépend (ex : code qui teste
+`os.path.exists()` avant lecture obtiendrait un faux négatif silencieux).
+
+**Impact fichiers :** `08-hooks-TEMPLATE.md` (nouvelle `§4 Confinement natif —
+sandbox OS`) · `06-PDR-bootstrap.md` (prérequis machine + Groupe 6 étendu +
+critère d'acceptation) · `07-DECISIONS-SDLC.md` (tableau de compatibilité
+rattrapé — 10 lignes manquantes M-HOOKS-06/M-PROC-27→35 réintégrées dans le
+même commit, traitement mécanique pas une décision distincte).
+
+**Déclencheur de réouverture :** si l'interaction `dontAsk` × `autoAllowBashIfSandboxed`
+se comporte différemment dans un cas non testé ici, ou si le fix AppArmor
+s'avère insuffisant sur une distribution/version kernel non couverte par ce test.

@@ -92,12 +92,23 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `.claude/hooks/pre-tool-bash.sh` | `08-hooks-TEMPLATE.md` §1 | **Adapter** : activer les sections `[ACTIVER si…]` pertinentes · chmod +x |
 | `.claude/settings.json` | `08-hooks-TEMPLATE.md` §2 | **Copier** tel quel |
 | `.claude/settings.local.json` | `08-hooks-TEMPLATE.md` §3 | **Créer** vide · ne pas versionner si chemins absolus personnels |
+| `.claude/settings.json` (sandbox) | `08-hooks-TEMPLATE.md` §4 | **Optionnel** : si confinement filesystem strict requis · adapter chemins · vérifier prérequis Étape 0 |
 
 **Règle :** chaque section activée dans `pre-tool-bash.sh` → entrée `doc/DECISIONS.md` §D-HOOK-XX dans le même commit.
 
 ---
 
 ## Plan d'exécution — 9 étapes
+
+### Étape 0 — Prérequis machine sandbox *(optionnel, si confinement natif activé)*
+
+```bash
+which bwrap socat
+sysctl kernel.apparmor_restrict_unprivileged_userns 2>/dev/null
+```
+
+Si le second renvoie `1` → appliquer le fix AppArmor avant de continuer.
+Détail : `08-hooks-TEMPLATE.md §4`.
 
 ### Étape 1 — Cloner et préparer
 

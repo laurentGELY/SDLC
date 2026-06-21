@@ -2,6 +2,22 @@
 
 ---
 
+## [v1.9+SDLC-21] — 2026-06-21 · Sprint SDLC-21 · Confinement natif sandbox OS (bubblewrap/Seatbelt)
+- **`08-hooks-TEMPLATE.md`** : nouvelle `§4 Confinement natif — sandbox OS` — config
+  `sandbox.*` + `permissions.dontAsk`, prérequis machine AppArmor (bug bwrap
+  `RTM_NEWADDR` documenté), protocole de test 5 points (M-HOOKS-07)
+- **`06-PDR-bootstrap.md`** : nouvelle `Étape 0 — Prérequis machine sandbox`
+  (optionnel) + ligne Groupe 6
+- **`07-DECISIONS-SDLC.md`** : entrée **M-HOOKS-07** ajoutée · tableau de
+  compatibilité rattrapé (10 lignes manquantes `M-HOOKS-06`/`M-PROC-27→35`,
+  traitement mécanique dans le même commit, pas une décision distincte —
+  `M-PROC-27`/`29` notées hors cadre du tableau, `M-HOOKS-06`/`28` confirmées
+  non rétro-portées au template par grep direct)
+- **Tests** : 9 tests empiriques en conditions réelles (Ubuntu 24.04, Claude
+  Code sandboxé), détail en `07-DECISIONS-SDLC.md §M-HOOKS-07`
+
+---
+
 ## [v1.9+SDLC-20] — 2026-06-20 · Sprint SDLC-20 · Étiquette `[HYPOTHÈSE]` sur tables HALT
 - **`01-Claude-md-TEMPLATE.md`** : les 5 tables de rationalisation par HALT (issues de
   SDLC-19, 2 paires chacune) reçoivent une étiquette unique `[HYPOTHÈSE — non confirmée sur
