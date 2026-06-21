@@ -114,3 +114,17 @@ rm specs/Sprints/<ancien-nom-placeholder>.md
 Conclusion : ne pas contourner via `rm -f .claude/sprint-memory.md` (recours en dernier
 ressort documenté par le hook) si le fichier contient des entrées de mémoire utiles — la
 recréation du fichier référencé est non destructive et préserve le contenu.
+
+## Symptôme : `jq fromdateiso8601` échoue sur tous les timestamps des transcripts JSONL Claude Code
+Date : 21/06/2026
+Commande : `jq -r '.timestamp | fromdateiso8601' <transcript>.jsonl`
+Résultat observé : `jq: error ... date "2026-06-21T13:49:42.450Z" does not match
+format "%Y-%m-%dT%H:%M:%SZ"` sur 100% des entrées — `fromdateiso8601` ne gère pas
+les fractions de seconde, alors que tous les timestamps de transcript en portent.
+Structure confirmée par ailleurs : chaque entrée `type=="assistant"` porte `.timestamp`
+(ISO 8601 UTC, millisecondes) et `.message.usage.{input_tokens,output_tokens,
+cache_read_input_tokens,cache_creation_input_tokens}` (scalaires top-level, à ne pas
+confondre avec l'objet imbriqué `.message.usage.cache_creation.*`).
+Conclusion : toujours retirer la fraction de seconde avant parsing —
+`sub("\\.[0-9]+Z$"; "Z") | fromdateiso8601` — utilisé par `sdlc-token-usage.sh`
+(Sprint SDLC-22, M-PROC-36).

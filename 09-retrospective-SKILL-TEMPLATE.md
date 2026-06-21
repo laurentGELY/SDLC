@@ -1,5 +1,5 @@
 # retrospective — SKILL
-<!-- Template SDLC v1.6 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.7 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
 
 Analyse de patterns sur l'ensemble des sprints complétés.
 Déclencher toutes les ~5 sprints, ou immédiatement après un incident grave.
@@ -192,6 +192,40 @@ Pour chaque `[HOOK_CANDIDATE]` ou `[SDLC_CANDIDATE]` traité, mettre à jour le 
 ```
 
 Ne jamais réécrire l'entrée source — modifier uniquement le champ décision.
+
+---
+
+## Étape 7 — Métriques tokens (optionnel)
+
+Mesure réelle de la conso token, en complément des patterns qualitatifs des
+étapes précédentes. Déclencher tous les ~5 sprints, en même temps que le
+reste de la rétro.
+
+### Baseline statique — M1 / M2
+
+```bash
+# M1 — plancher de contexte permanent (Claude.md + STANDARDS.md)
+wc -w Claude.md STANDARDS.md
+
+# M2 — coût de la procédure wrap-up
+wc -w .claude/skills/wrap-up/SKILL.md
+```
+
+Comparer M1/M2 au sprint précédent ainsi mesuré (chercher dans
+`doc/LESSONS_LEARNED.md §Métriques de rétro` ou `git log -p` sur ces fichiers)
+— une variation notable est un signal pour les pistes d'allègement (§Étape 3).
+
+### Mesure dynamique — sdlc-token-usage.sh
+
+```bash
+bash sdlc-token-usage.sh 2>/dev/null || echo "— script absent ou en échec, mesure dynamique ignorée"
+```
+
+Si le script est absent ou échoue → dégrader proprement, ne jamais bloquer la
+rétro sur cette étape (même principe que le fallback CLAUDE_PROJECT existant,
+M-PROC-22). Si présent → reporter les totaux bruts et, si disponible, la
+bucketisation par étape dans le rapport §Étape 2 comme donnée d'appui (pas
+comme nouveau pattern à elle seule).
 
 ---
 

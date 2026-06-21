@@ -183,3 +183,4 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v1.9+SDLC-11 | 18/06/2026 | Skill `/help` — recap lecture seule (sprint-memory, ROADMAP §Now/§Next, classification `Claude.md`), zéro suggestion (M-PROC-26) |
 | v1.9+SDLC-12 | 18/06/2026 | Phase amont — `10-AMONT-TEMPLATE.md`, Project Claude.ai dédié séparé pour idéation/PRD/architecture, zéro marqueur de provenance côté Claude Code (M-SCOPE-04) |
 | v1.9+SDLC-13 | 18/06/2026 | `specs/SPEC.md` du toolkit lui-même (dogfooding) — §Vue d'ensemble, §Architecture (diagramme de flux), §Modules vérifié contre l'état réel du repo |
+| v1.9+SDLC-22 | 21/06/2026 | Instrumentation conso token réelle — `sdlc-token-usage.sh` (totaux + bucketisation sprint-memory) · §0c wrap-up sans collage manuel · §Métriques tokens M1/M2 dans retrospective (M-PROC-36) |

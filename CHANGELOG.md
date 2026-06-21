@@ -2,6 +2,33 @@
 
 ---
 
+## [v1.9+SDLC-22] — 2026-06-21 · Sprint SDLC-22 · Instrumentation conso token réelle
+- **`sdlc-token-usage.sh`** (nouveau) : script bash+jq lisant les transcripts JSONL
+  du projet (`~/.claude/projects/<slug-cwd>/*.jsonl`), affiche les totaux bruts
+  `input_tokens`/`output_tokens`/`cache_read_input_tokens`/`cache_creation_input_tokens`,
+  et bucketise par étape si `.claude/sprint-memory.md` contient des entrées
+  horodatées `[HH:MM] TYPE` (M-PROC-36)
+- **`03-wrap-up-SKILL-TEMPLATE.md` v1.4** + `.claude/skills/wrap-up/SKILL.md` :
+  §0c exécute désormais `git diff --stat HEAD` / `git status` directement en
+  bash — plus de copier-coller demandé à l'utilisateur ; fallback explicite sur
+  l'ancien comportement si la commande échoue (repo non-git, environnement
+  restreint)
+- **`09-retrospective-SKILL-TEMPLATE.md` v1.7** + `.claude/skills/retrospective/SKILL.md` :
+  nouvelle `§Étape 7 — Métriques tokens (optionnel)` — baseline statique
+  M1 (`Claude.md`+`STANDARDS.md`, mots) / M2 (`wrap-up SKILL.md`, mots) +
+  appel optionnel de `sdlc-token-usage.sh` pour la mesure dynamique
+- **`doc/DIAGNOSTIC_CMDS.md`** : nouveau symptôme — `jq fromdateiso8601` rejette
+  les timestamps de transcript (fractions de seconde non gérées), corrigé par
+  `sub("\\.[0-9]+Z$"; "Z")` avant parsing
+- **`07-DECISIONS-SDLC.md`** : entrée **M-PROC-36** ajoutée
+- **Tests** : `bash -n sdlc-token-usage.sh` ✓ · exécution réelle sur cette
+  session (totaux + bucketisation testée avec entrées synthétiques) ✓ ·
+  fallback `§0c` confirmé (`git status` hors repo → exit 128, sans hang) ✓ ·
+  M1/M2 exécutés sur ce repo (`wc -w` Claude.md+STANDARDS.md = 2946 mots,
+  wrap-up SKILL.md = 2411 mots) ✓
+
+---
+
 ## [v1.9+SDLC-21] — 2026-06-21 · Sprint SDLC-21 · Confinement natif sandbox OS (bubblewrap/Seatbelt)
 - **`08-hooks-TEMPLATE.md`** : nouvelle `§4 Confinement natif — sandbox OS` — config
   `sandbox.*` + `permissions.dontAsk`, prérequis machine AppArmor (bug bwrap

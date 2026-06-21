@@ -435,6 +435,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-34 | Taxonomie "Revue" dans STANDARDS §Types de sprint | ✓ | — |
 | M-PROC-35 | Tables de rationalisation HALT — 3e passage, étiquette [HYPOTHÈSE] retenue | ✓ | — |
 | M-HOOKS-07 | Confinement natif sandbox OS (bubblewrap/Seatbelt) + permissions dontAsk | ✓ (template) | Si sandboxing natif disponible sur la machine (bwrap/socat installés, profil AppArmor sur Ubuntu 24.04+) |
+| M-PROC-36 | Instrumentation conso token réelle — `sdlc-token-usage.sh` + suppression collage manuel §0c wrap-up | ✓ | — |
 
 ---
 
@@ -1490,3 +1491,66 @@ même commit, traitement mécanique pas une décision distincte).
 **Déclencheur de réouverture :** si l'interaction `dontAsk` × `autoAllowBashIfSandboxed`
 se comporte différemment dans un cas non testé ici, ou si le fix AppArmor
 s'avère insuffisant sur une distribution/version kernel non couverte par ce test.
+
+---
+
+## M-PROC-36 · Instrumentation conso token réelle — `sdlc-token-usage.sh` · v1.9+SDLC-22 · 21/06/2026
+
+**Contexte :** le Sprint Lean précédent (bilan + avis Oracle) avait identifié des
+pistes d'allègement token sans mesure réelle pour les arbitrer — seulement des
+proxys statiques (`wc -w` sur les fichiers gouvernance). Les transcripts JSONL
+Claude Code portent déjà un bloc `usage` horodaté par message assistant ;
+`sprint-memory.md` horodate déjà chaque étape — la corrélation des deux
+existait en germe sans être exploitée.
+
+**Retenu :** script bash autonome `sdlc-token-usage.sh` (bash+jq, cohérent avec
+`sdlc-project-check.sh`) lisant les transcripts JSONL locaux
+(`~/.claude/projects/<slug-cwd>/*.jsonl`) et calculant les totaux bruts
+`input_tokens`/`output_tokens`/`cache_read_input_tokens`/`cache_creation_input_tokens`.
+Si `.claude/sprint-memory.md` est présent et contient des entrées horodatées
+`[HH:MM] TYPE`, bucketisation des totaux par étape (intervalle entre deux
+horodatages consécutifs). En parallèle, `03-wrap-up-SKILL-TEMPLATE.md §0c`
+exécute désormais `git diff --stat HEAD` / `git status` directement en bash au
+lieu de demander à l'utilisateur de coller le résultat — avec fallback explicite
+sur l'ancien comportement si la commande échoue (repo non-git, environnement
+restreint). `09-retrospective-SKILL-TEMPLATE.md` reçoit une nouvelle `§Étape 7
+— Métriques tokens (optionnel)` : baseline statique M1 (`wc -w Claude.md
+STANDARDS.md`) / M2 (`wc -w .claude/skills/wrap-up/SKILL.md`), plus appel
+optionnel du script pour la mesure dynamique.
+
+**Écarté :**
+- Dashboard temps réel ou par agent — disproportionné pour la fréquence de
+  sprint actuelle (pas un usage continu multi-agents), rejeté en avis Oracle.
+- Instrumentation via hook `PreToolUse` — le payload hook ne porte pas le bloc
+  `usage`, seul le transcript JSONL le contient.
+- Nouveau skill `/token-audit` dédié — sur-ingénierie pour un script appelé
+  toutes les ~5 sprints (même raisonnement que `M-PROC-24` pour
+  `sdlc-project-check.sh`).
+- Bloquer `/retrospective` ou `/wrap-up` sur l'absence/échec du script ou de
+  `git` — dégradation systématique vers l'ancien comportement à la place
+  (même principe que le fallback CLAUDE_PROJECT, `M-PROC-22`).
+
+**Raison :** la mesure réelle remplace un proxy statique par une donnée
+directement actionnable pour juger l'effet des pistes d'allègement déjà
+identifiées, sans complexifier l'outillage au-delà du besoin (script, pas
+skill ; lecture seule, pas de nouvel état à maintenir).
+
+**Bug rencontré et corrigé pendant l'implémentation :** `jq fromdateiso8601`
+rejette tous les timestamps de transcript (`"2026-06-21T13:49:42.450Z"`) car le
+format ne tolère pas les fractions de seconde — corrigé par
+`sub("\\.[0-9]+Z$"; "Z")` avant parsing. Détail et commande de reproduction en
+`doc/DIAGNOSTIC_CMDS.md`.
+
+**Limite connue acceptée :** la bucketisation par étape compare des `HH:MM`
+sans date — suppose un sprint mono-journée locale (cas réel actuel). Le
+chemin `~/.claude/projects/` n'est pas garanti stable inter-OS (même nature de
+contrainte que `M-ENV-01`), rendu configurable via `CLAUDE_PROJECTS_DIR`.
+
+**Impact fichiers :** `sdlc-token-usage.sh` (nouveau) · `03-wrap-up-SKILL-TEMPLATE.md`
+v1.4 (§0c) + `.claude/skills/wrap-up/SKILL.md` (synchronisé) · `09-retrospective-SKILL-TEMPLATE.md`
+v1.7 (§Étape 7) + `.claude/skills/retrospective/SKILL.md` (synchronisé) ·
+`doc/DIAGNOSTIC_CMDS.md` (+1 symptôme).
+
+**Déclencheur de réouverture :** si un sprint s'étale sur plusieurs jours
+calendaires (la bucketisation `HH:MM` deviendrait ambiguë), ou si le schéma
+`usage` du transcript JSONL change de structure côté Claude Code.

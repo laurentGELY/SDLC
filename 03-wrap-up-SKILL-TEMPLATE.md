@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Template SDLC v1.3 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.4 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -34,15 +34,16 @@ Chercher dans la conversation le document de référence initial (PRD uploadé,
 objectifs énoncés, liste de tâches du sprint). Si absent, utiliser `doc/ROADMAP.md §Now`.
 
 ### 0c. Ancrer sur git
-Demander à l'utilisateur de coller le résultat de :
+Exécuter directement (pas de copier-coller demandé à l'utilisateur) :
 ```bash
 git diff --stat HEAD
 git status
 ```
-Si collé → source de vérité primaire `[✓ git]`.
-Si absent → inférer depuis la conversation `[~ chat]` avec avertissement explicite.
-
-<!-- [→ ADAPTER] Remplacer les chemins git par les chemins du projet cible -->
+Si la commande réussit → source de vérité primaire `[✓ git]`.
+Si elle échoue (repo non-git, environnement restreint) → fallback : demander
+à l'utilisateur de coller le résultat manuellement ; si toujours absent →
+inférer depuis la conversation `[~ chat]` avec avertissement explicite.
+Ne jamais bloquer le wrap-up sur cette étape.
 
 ### 0d. Produire le bilan structuré
 
