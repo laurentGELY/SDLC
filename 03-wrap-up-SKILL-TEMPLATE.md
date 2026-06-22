@@ -397,4 +397,5 @@ Sprint Doc                      → CHANGELOG uniquement (zéro code)
 Incident / rollback             → LESSONS_LEARNED §Action proposée prioritaire
 [HOOK_CANDIDATE] en Étape 1     → LESSONS_LEARNED champ Hook candidat → décision différée à /retrospective
 [SDLC_CANDIDATE] en Étape 1     → LESSONS_LEARNED champ SDLC candidat → remontée manuelle projet SDLC
+Sprint Fix hook                 → 08-hooks-TEMPLATE.md §1 à synchroniser (schéma, extractions, smoke test)
 ```

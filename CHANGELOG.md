@@ -2,6 +2,18 @@
 
 ---
 
+## [v1.9+SDLC-24] — 2026-06-22 · Sprint SDLC-24 · Fix schéma JSON erroné dans 08-hooks-TEMPLATE.md
+- **`08-hooks-TEMPLATE.md` §1** : extraction `data.get('input', {})` → `data.get('tool_input', {})`,
+  ajout de l'extraction `TOOL_NAME`, en-tête mis à jour avec le schéma JSON réel
+  (`hook_event_name`/`tool_name`/`tool_input`, confirmé `M-HOOKS-05`) (`M-TMPL-04`)
+- **`08-hooks-TEMPLATE.md` §Critères d'acceptation bootstrap hooks** : payload smoke test
+  aligné sur le schéma réel
+- **`03-wrap-up-SKILL-TEMPLATE.md` §Référence rapide** : nouveau déclencheur `Sprint Fix hook
+  → 08-hooks-TEMPLATE.md §1 à synchroniser` (`M-PROC-37`)
+- **`07-DECISIONS-SDLC.md`** : entrées `M-TMPL-04` et `M-PROC-37`
+- **Tests** : 5 greps de validation passés (`data.get('input'` → 0, `tool_input` → 5,
+  `hooks-TEMPLATE` dans wrap-up → 1, `M-TMPL-04` → présent, `M-PROC-37` → présent)
+
 ## [v1.9+SDLC-23] — 2026-06-21 · Sprint SDLC-23 · Hook PreCompact × sprint-memory.md
 - **`.claude/hooks/pre-compact.sh`** (nouveau) : avant toute compaction (manuelle ou
   automatique), ajoute une entrée `CHECKPOINT` en tête de `.claude/sprint-memory.md`

@@ -40,7 +40,8 @@ Grep de validation post-adaptation : `grep "\[ACTIVER" .claude/hooks/pre-tool-ba
 #   exit 1  = bloquer (silencieux)
 #   exit 2  = bloquer avec message d'erreur affiché dans Claude Code
 #
-# Le JSON d'entrée arrive sur stdin : {"tool":"bash","input":{"command":"..."}}
+# Le JSON d'entrée arrive sur stdin (schéma réel confirmé Sprint SDLC-18, M-HOOKS-05) :
+#   {"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"..."}}
 # Historique des règles : doc/DECISIONS.md §D-HOOK-XX
 
 set -euo pipefail
@@ -50,7 +51,12 @@ INPUT=$(cat)
 CMD=$(echo "$INPUT" | python3 -c "
 import sys, json
 data = json.load(sys.stdin)
-print(data.get('input', {}).get('command', ''))
+print(data.get('tool_input', {}).get('command', ''))
+" 2>/dev/null || echo "")
+TOOL_NAME=$(echo "$INPUT" | python3 -c "
+import sys, json
+data = json.load(sys.stdin)
+print(data.get('tool_name', ''))
 " 2>/dev/null || echo "")
 
 # ─── BLOCAGES STRICTS ────────────────────────────────────────────────────────
@@ -377,7 +383,7 @@ chemins relatifs contre ce mauvais répertoire et déclencher un faux blocage. T
 - [ ] `settings.json` : hook PreToolUse Bash déclaré
 - [ ] `settings.local.json` : fichier créé (vide ou avec premières permissions)
 - [ ] Grep de validation : `grep "\[ACTIVER" .claude/hooks/pre-tool-bash.sh` → zéro résultat
-- [ ] Test smoke : `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
+- [ ] Test smoke : `echo '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
 
 ---
 

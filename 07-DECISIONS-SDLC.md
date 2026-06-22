@@ -258,6 +258,64 @@ Complémentaire aux critères en checkbox, pas un remplacement.
 
 ---
 
+## M-TMPL-04 · Template hook synchronisé avec le schéma du hook actif · v1.9+SDLC-24 · 22/06/2026
+
+**Contexte :** `M-HOOKS-05` (Sprint SDLC-18) a corrigé l'extraction JSON du hook actif
+(`pre-tool-bash.sh`, `data.get('input', {})` → `data.get('tool_input', {})`) sans
+synchroniser `08-hooks-TEMPLATE.md`, qui a conservé le schéma erroné. Premier projet
+bootstrappé depuis SDLC-18 → bug reproduit immédiatement (`$CMD` vide, blocages
+`[UNIVERSEL]` inopérants depuis le premier commit).
+
+**Retenu :** `08-hooks-TEMPLATE.md` doit être resynchronisé avec le schéma JSON réel du
+hook actif après chaque sprint corrigeant `pre-tool-bash.sh` — extraction CMD/TOOL_NAME,
+commentaire d'en-tête, smoke test §Critères d'acceptation. Le déclencheur est inscrit
+dans le process via `M-PROC-37`, pas laissé à la mémoire seule.
+
+**Écarté :** mise à jour différée au prochain audit général — produit des bootstraps
+silencieusement cassés entre-temps, exactement le mode d'échec observé.
+
+**Raison :** le bug SDLC-18 s'est reproduit immédiatement faute d'une règle imposant
+cette vérification — la correction du hook actif seule ne suffit pas tant que le
+template source des futurs bootstraps reste désynchronisé.
+
+**Sacrifice délibéré, acté explicitement :** `08-hooks-TEMPLATE.md` reste en dessous de
+la v2.1.0 du hook actif sur `FILE_PATH` (`M-HOOKS-05`) et les blocs avancés
+(`M-HOOKS-04`/`M-HOOKS-06`) — resynchronisation complète hors scope de ce sprint, sprint
+séparé si nécessaire.
+
+**Impact fichiers :** `08-hooks-TEMPLATE.md` (§1 extraction CMD/TOOL_NAME, en-tête,
+§Critères d'acceptation bootstrap hooks).
+
+**Déclencheur de réouverture :** si un nouvel écart schéma/template est détecté →
+vérifier d'abord que `M-PROC-37` a bien été suivi lors du sprint qui a corrigé le hook.
+
+---
+
+## M-PROC-37 · Déclencheur wrap-up — Sprint Fix hook → vérifier 08-hooks-TEMPLATE.md · v1.9+SDLC-24 · 22/06/2026
+
+**Contexte :** suite directe de `M-TMPL-04` — aucune règle de process n'imposait de
+vérifier `08-hooks-TEMPLATE.md` quand un sprint corrige `pre-tool-bash.sh`. La correction
+du hook actif (`M-HOOKS-05`) est passée sans déclencher cette vérification.
+
+**Retenu :** ligne ajoutée dans `03-wrap-up-SKILL-TEMPLATE.md §Référence rapide —
+Déclencheurs étape 3` : `Sprint Fix hook → 08-hooks-TEMPLATE.md §1 à synchroniser
+(schéma, extractions, smoke test)`. Le wrap-up est le point de contrôle naturel de
+clôture d'un sprint Fix hook — pas une règle permanente dans `Claude.md`.
+
+**Écarté :** règle dans `Claude.md` directement — `Claude.md` énonce des principes
+généraux de gouvernance, pas des déclencheurs conditionnels par type de sprint ; ce rôle
+est déjà celui du tableau `§Référence rapide` du wrap-up.
+
+**Raison :** sans déclencheur explicite au point de clôture du sprint, la synchronisation
+template/hook reste une discipline manuelle non garantie — exactement ce qui a produit
+le gap `M-TMPL-04`.
+
+**Impact fichiers :** `03-wrap-up-SKILL-TEMPLATE.md` (§Référence rapide, +1 ligne).
+
+**Déclencheur de réouverture :** aucun prévu — décision stable.
+
+---
+
 ## M-PROC-07 · Vérification exécutable renforcée dans PDR et Claude.md · v1.2 · 30/05/2026
 
 **Retenu :** Deux renforcements : (1) ligne "Tests niveau A" dans PDR avec syntaxe backtick
@@ -437,6 +495,8 @@ pas seulement l'auteur du modèle.
 | M-HOOKS-07 | Confinement natif sandbox OS (bubblewrap/Seatbelt) + permissions dontAsk | ✓ (template) | Si sandboxing natif disponible sur la machine (bwrap/socat installés, profil AppArmor sur Ubuntu 24.04+) |
 | M-PROC-36 | Instrumentation conso token réelle — `sdlc-token-usage.sh` + suppression collage manuel §0c wrap-up | ✓ | — |
 | M-HOOKS-08 | Hook PreCompact × sprint-memory.md (checkpoint automatique avant compaction) | ✓ | — |
+| M-TMPL-04 | Template hook synchronisé avec le schéma du hook actif après chaque sprint Fix hook | ✓ | — |
+| M-PROC-37 | Déclencheur wrap-up — Sprint Fix hook → vérifier 08-hooks-TEMPLATE.md | ✓ | — |
 
 ---
 
