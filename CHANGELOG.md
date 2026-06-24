@@ -2,6 +2,30 @@
 
 ---
 
+## [v1.9+SDLC-GSD-V1] — 2026-06-24 · Sprint Doc M · Import GSD Vague 1 — 6 patterns friction nulle
+- **`03-wrap-up-SKILL-TEMPLATE.md` v1.5** : critère STATELESS HANDOFF dans §Étape 5 (Prop L — GSD-lite Journalism Standard)
+- **`04-sprint-PDR-TEMPLATE.md` v2.0** : guidance goal-backward dans §Critères d'acceptation (Prop F) · tableau SPIDR dans §Portée (Prop J) · section §Signaux de dégradation Taille L avec 3 signaux comportementaux (Prop G)
+- **`05-ROADMAP-TEMPLATE.md` v1.1** : type `Seed` + colonne `Déclencheur/Condition` dans §Later (Prop I)
+- **`01-Claude-md-TEMPLATE.md` v1.9** : permission /fast dans §Classifier le travail (Prop E2)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-PROC-38` (6 propositions GSD Vague 1)
+- **Propositions différées :** H (Graduation), K (hot/cold SESSION_BRIDGE), D (Journalism Standard complet), A (sous-agents), E1 (/quick), B (commits atomiques) — Vague 2/3
+
+## [v1.9+SDLC-Audit-GSD-lite] — 2026-06-24 · Sprint Spike · Audit GSD-lite + Synthèse audits GSD
+- **`doc/AUDIT-EXTERNE-gsd-vs-sdlc.md`** (nouveau) : audit GSD-full (v1.42.1) vs SDLC —
+  cartographie, analyse comparative, propositions A-G, verdict synthétique, réponses aux 4
+  questions ouvertes (clone local `exemples/get-shit-done/` exploré)
+- **`doc/AUDIT-EXTERNE-gsd-lite-vs-sdlc.md`** (nouveau) : audit GSD-lite (v2.1.0,
+  `@luutuankiet/gsd-lite`) vs SDLC — cartographie Driver/Navigator, concepts remarquables
+  (Journalism Standard, Constitutional Behaviors, Challenge Tone Protocol, STATELESS HANDOFF),
+  impact sur propositions A-F, concepts exportables vers SDLC
+- **`doc/SYNTHESE-AUDITS-GSD.md`** (nouveau) : tableau consolidé statut A-F, ordre
+  d'implémentation recommandé (C→D→G→B→E2→A→E1→F), plan de sprints proposé,
+  questions ouvertes pour décision
+- **`specs/Sprints/sprint-audit-gsd-lite.md`** : PDR du sprint Spike S
+- **Verdict :** GSD-lite ≠ GSD-full simplifié — c'est un framework orthogonal (gouvernance
+  d'interaction vs gouvernance de processus). Concept le plus exportable : Journalism Standard
+  pour enrichir SESSION_BRIDGE (Proposition D enrichie)
+
 ## [v1.9+SDLC-24] — 2026-06-22 · Sprint SDLC-24 · Fix schéma JSON erroné dans 08-hooks-TEMPLATE.md
 - **`08-hooks-TEMPLATE.md` §1** : extraction `data.get('input', {})` → `data.get('tool_input', {})`,
   ajout de l'extraction `TOOL_NAME`, en-tête mis à jour avec le schéma JSON réel

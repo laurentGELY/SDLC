@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v1.9 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.0 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -39,6 +39,18 @@ Ex : "Le composant Z accepte les formats A et B sans erreur"]
 
 **Exclu (explicitement) :**
 - [item hors scope — être précis pour éviter le scope creep]
+
+<!-- Si ce sprint semble trop large pour une Taille L raisonnable, découper
+     via SPIDR — un seul axe par split, happy path et scope minimum en premier :
+
+| Axe        | Question de découpe                                              |
+|------------|------------------------------------------------------------------|
+| Spike      | Y a-t-il une inconnue qui nécessite recherche avant de coder ?  |
+| Paths      | Y a-t-il un happy path et des edge paths séparables ?           |
+| Interfaces | Cette feature doit-elle fonctionner sur plusieurs interfaces ?   |
+| Data       | Y a-t-il plusieurs scopes de données (1 item vs beaucoup) ?     |
+| Rules      | Y a-t-il des business rules ajoutables progressivement ?        |
+-->
 
 ---
 
@@ -97,6 +109,29 @@ Scénario : [nom du comportement]
   Alors [résultat observable attendu]
   Et [effet de bord attendu si applicable]
 ```
+
+<!-- Guidance goal-backward (GSD audit) :
+     Formuler chaque critère comme un comportement observable ou un état vérifiable,
+     pas comme une tâche accomplie.
+     ✗ "le module est créé"
+     ✓ "la commande X retourne Y dans le cas Z"
+     ✗ "l'erreur est gérée"
+     ✓ "curl localhost:8000/endpoint avec payload invalide retourne HTTP 422 + {error: string}"
+-->
+
+---
+
+## Signaux de dégradation *(Taille L uniquement — supprimer pour XS/S/M)*
+
+Si l'un de ces signaux apparaît pendant l'exécution, checkpoint immédiat dans
+`sprint-memory.md` et signaler avant de continuer :
+
+- **Silent partial completion** — Claude rapporte "fait" mais l'implémentation est incomplète
+  (ex : "la fonction gère les erreurs" sans que le catch soit présent dans le diff)
+- **Increasing vagueness** — apparition de formulations comme "appropriate handling",
+  "standard approach", "as needed" au lieu de code ou valeurs spécifiques
+- **Skipped steps** — Claude rapporte N critères d'acceptation sur M (N < M) comme couverts
+  sans mentionner les manquants
 
 ---
 

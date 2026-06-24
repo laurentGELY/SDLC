@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v1.8 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v1.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
@@ -199,6 +199,11 @@ Exception : si le header du fichier correspond au sprint spec en cours → repri
 | **Bug** | Régression, comportement inattendu | `/diagnostic` → Fix → Test → `/wrap-up` |
 | **Tuning** | Seuils, prompts, paramètres | Mesure avant → Patch → Mesure après → `/wrap-up` |
 | **Revue** | Audit, backlog | Lecture → Recommandations → `/wrap-up` |
+
+**Mode /fast (correction < 2 min) :** pour une correction formulable en une seule phrase
+et exécutable en moins de 2 minutes (typo, rename, config line), pas de PDR requis.
+Commit direct avec message conventionnel. Ne pas utiliser si la correction touche
+un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test non-trivial.
 
 ---
 

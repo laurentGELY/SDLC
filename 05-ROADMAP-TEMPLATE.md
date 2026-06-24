@@ -1,5 +1,5 @@
 # ROADMAP — [Nom du projet] · v1.0
-<!-- Template SDLC v1.0 · Copier dans doc/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
+<!-- Template SDLC v1.1 · Copier dans doc/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
 
 ---
 
@@ -30,9 +30,16 @@
 
 > Items identifiés mais non prioritaires ou bloqués.
 
-| Item | Type | Taille | Débloque | Bloqué par | Déclencheur | Expiration |
-|------|------|--------|----------|------------|-------------|------------|
-| — | — | — | — | — | — | — |
+| Item | Catégorie | Taille | Débloque | Bloqué par | Déclencheur/Condition | Expiration |
+|------|-----------|--------|----------|------------|----------------------|------------|
+| — | Standard | — | — | — | — | — |
+
+**Catégories §Later :**
+- `Standard` — backlog ordinaire, déclencheur optionnel
+- `Seed` — idée à déclenchement conditionnel : la colonne Déclencheur/Condition
+  doit être une condition mesurable (ex : "si latence DB > 100ms sur 3 runs consécutifs"),
+  pas une intention vague ("quand on aura le temps"). Un Seed n'est pas planifié avant
+  que sa condition soit atteinte.
 
 **Règle de passage Later → Next :** déclencheur atteint OU décision humaine explicite.
 

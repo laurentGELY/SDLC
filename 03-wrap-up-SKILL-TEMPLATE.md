@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Template SDLC v1.4 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.5 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -357,6 +357,12 @@ Si le fichier n'existe pas → le créer avec le header puis l'entrée :
 **Bloquants en suspens :** [liste ou "aucun"]
 **Fil fonctionnel :** [2 phrases max — état du livrable après ce sprint]
 ```
+
+**Critère de qualité — test STATELESS :**
+Avant de valider l'entrée SESSION_BRIDGE, vérifier mentalement :
+"La session suivante peut-elle reprendre uniquement depuis ce fichier,
+sans accès à la conversation précédente ?"
+Si non → enrichir les champs "bloquants" ou "fil fonctionnel" jusqu'à ce que la réponse soit oui.
 
 **Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `doc/ROADMAP.md §Now`).
 

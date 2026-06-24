@@ -316,6 +316,30 @@ le gap `M-TMPL-04`.
 
 ---
 
+## M-PROC-38 · Import GSD Vague 1 — 6 patterns friction nulle · v1.9+SDLC-GSD-V1 · 24/06/2026
+
+**Contexte :** audits externes GSD-full (v1.42.1) et GSD-lite (v2.1.0) ont produit 8+ propositions
+d'enrichissement du SDLC. La Vague 1 regroupe les 6 propositions à friction nulle (additions
+ciblées, zéro réécriture, zéro nouveau fichier).
+
+**Retenu :** 6 additions dans 4 templates :
+- **Prop L** — critère STATELESS HANDOFF dans `03-wrap-up-SKILL-TEMPLATE.md §Étape 5` (source : GSD-lite Journalism Standard)
+- **Prop F** — guidance goal-backward dans `04-sprint-PDR-TEMPLATE.md §Critères d'acceptation` (source : GSD-full must_haves.truths)
+- **Prop G** — 3 signaux précoces context rot dans `04-sprint-PDR-TEMPLATE.md §Signaux de dégradation` (source : GSD-full context-budget tiers comportementaux)
+- **Prop I** — type `Seed` + colonne `Déclencheur/Condition` dans `05-ROADMAP-TEMPLATE.md §Later` (source : GSD-full capture-seed)
+- **Prop J** — tableau SPIDR dans `04-sprint-PDR-TEMPLATE.md §Portée` (source : GSD-full planner-antipatterns)
+- **Prop E2** — permission /fast dans `01-Claude-md-TEMPLATE.md §Classifier le travail` (source : GSD-full /gsd:fast)
+
+**Écarté :** Propositions H, K, D, A, E1, B, M, N, O — renvoyées en Vague 2/3 ou hors planning (friction ou dépendances plus élevées).
+
+**Raison :** les 6 patterns adressent des gaps réels identifiés par deux frameworks indépendants convergents. La friction nulle (commentaires HTML, notes texte) garantit zéro régression sur les templates existants.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` v1.9 · `03-wrap-up-SKILL-TEMPLATE.md` v1.5 · `04-sprint-PDR-TEMPLATE.md` v2.0 · `05-ROADMAP-TEMPLATE.md` v1.1
+
+**Déclencheur de réouverture :** Vague 2 (Prop H + K) à planifier après ≥ 2 sprints utilisant les templates enrichis.
+
+---
+
 ## M-PROC-07 · Vérification exécutable renforcée dans PDR et Claude.md · v1.2 · 30/05/2026
 
 **Retenu :** Deux renforcements : (1) ligne "Tests niveau A" dans PDR avec syntaxe backtick
@@ -497,6 +521,7 @@ pas seulement l'auteur du modèle.
 | M-HOOKS-08 | Hook PreCompact × sprint-memory.md (checkpoint automatique avant compaction) | ✓ | — |
 | M-TMPL-04 | Template hook synchronisé avec le schéma du hook actif après chaque sprint Fix hook | ✓ | — |
 | M-PROC-37 | Déclencheur wrap-up — Sprint Fix hook → vérifier 08-hooks-TEMPLATE.md | ✓ | — |
+| M-PROC-38 | Import GSD Vague 1 — 6 patterns friction nulle dans 4 templates (L, F, G, I, J, E2) | ✓ | — |
 
 ---
 
