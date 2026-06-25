@@ -2,6 +2,11 @@
 
 ---
 
+## [v2.0+SDLC-Audit-GSTACK] — 2026-06-25 · Sprint Revue M · Audit externe GSTACK vs modèle SDLC
+- **`doc/AUDIT-EXTERNE-gstack-vs-sdlc.md`** (nouveau) : audit GSTACK v1.58.4.0 (59 skills, 1 191 fichiers, Garry Tan / YC) vs SDLC — cartographie complète, tableau comparatif 6 axes, 20 recommandations étiquetées (4 IMPORTER / 7 INVESTIGUER / 2 MERGER / 7 REJETER), 5 nouvelles idées, verdict synthétique, conclusion sur P-22
+- **`doc/ROADMAP.md`** : P-22 déplacé §Later → §Next (scope réduit : checklist 7 sections + format verdict) · 5 nouveaux items §Later (P-40 à P-44 : lecture code obligatoire PDR, état technique SESSION_BRIDGE, résurgence décisions, rôles spécialisés §0f, revue cross-modèle) · 3 signaux faibles ajoutés (pipeline templates, Diataxis, timeline)
+- **Verdict :** adoption sélective de concepts (pas du framework). Les 4 IMPORTER prioritaires (§Lecture code PDR, §État technique SESSION_BRIDGE, résurgence décisions, philosophie ETHOS) sont tous XS/S et applicables sans infrastructure. GSTACK incompatible en entier avec la philosophie zero-npm SDLC.
+
 ## [v2.0+SDLC-GSD-V2] — 2026-06-25 · Sprint Doc M · Import GSD Vague 2 — graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking
 - **`09-retrospective-SKILL-TEMPLATE.md` v1.8** : bloc GRADUATION automatique dans §Étape 2 — scan §Index patterns, proposition de promotion si ≥ 3 occurrences sur 5 derniers sprints, 4 destinations possibles (Claude.md / STANDARDS.md / hooks / LESSONS_LEARNED §Règles) (Prop H)
 - **`03-wrap-up-SKILL-TEMPLATE.md` v1.6** : §Étape 5 — structure hot/cold SESSION_BRIDGE (§Actif ≤ 3 entrées / §Archive), archivage conditionnel automatique si > 3 entrées, rétrocompat via `grep -q "## §Actif"` (Prop K) · hypothesis tracking conditionnel si sprint Diagnostic/BUG/BLOQUANT (Prop D)

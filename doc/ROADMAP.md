@@ -21,6 +21,7 @@
 |------|------|--------|----------|------------|-------------|
 | P-20 — Hook SessionStart (injection auto Règles absolues + HALT) | Doc | M | LL-T05 (garde-fou démarrage) | — | Aucun — prêt à démarrer dès qu'une session le priorise. Impact reclassé **Moyen** (initialement Élevé en audit SDLC-17) : `M-HOOKS-04` (Sprint SDLC-18) couvre déjà le pire cas observé (omission étape 4a) par un mécanisme indépendant. **Note de séquencement :** ne pas dupliquer les tables de rationalisation HALT écrites Sprint SDLC-19 (`01-Claude-md-TEMPLATE.md`, déjà chargées en permanence) — réinjecter seulement les noms de règles/HALT et leur condition de déclenchement |
 | P-39 — Sync `.claude/skills/wrap-up` v1.3 + `.claude/skills/retrospective` avec templates v1.6/v1.8 après GSD-V2 | Fix | XS | — | — | Exécutable directement — templates GSD-V1+V2 non répercutés sur les skills installés |
+| P-22 — `10-audit-externe-TEMPLATE.md` (checklist 7 sections + bloc verdict IMPORTER/REJETER/INVESTIGUER/MERGER) | Doc | XS | Cohérence inter-audits | — | Débloqué — Sprint SDLC-Audit-GSTACK confirme : template XS justifié si ≥ 2 audits futurs. Scope réduit : 7 sections obligatoires + format étiqueté standardisé. |
 | P-27 — sprint-memory.md documenté explicitement comme mécanisme de reprise après pause tranche horaire | Doc | XS | — | — | Débloqué — Sprint SDLC-23 (P-30, hook PreCompact) exécuté |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
@@ -40,7 +41,11 @@
 | P-18 — Sharding `specs/SPEC.md` | Doc | XS | — | Taille SPEC.md | Si `specs/SPEC.md` d'un projet cible dépasse un seuil mesuré (ex : > 500 lignes) | — |
 | P-19 — Séparation résumé/détail (roster-like) | Spike | S | — | Q4 stratégique (modes) | Si des "modes" sont formalisés dans `Claude.md §Rôle` (Q4) | — |
 | P-21 — Revue mi-parcours par sous-agent dédié (sprints L) | Doc | S | — | Lecture de `code-reviewer.md` (Superpowers, non lu) | Si `code-reviewer.md` est consulté et confirme la pertinence du pattern pour `03-wrap-up-SKILL-TEMPLATE.md §Adversarial Review` | — |
-| P-22 — `10-audit-externe-TEMPLATE.md` (gabarit générique de revue) | Doc | XS | — | Décision différée Sprint SDLC-19 | Si un 3e audit externe est commandé — évaluer alors si un gabarit générique apporte de la valeur vs un PDR ad-hoc par audit | — |
+| P-40 — §Lecture code obligatoire dans PDR Feature/Refactor (GSTACK /spec Technical gate — lire ≥ 3 fichiers, citer lignes avant §Plan) | Doc | XS | PDR qualité réelle | — | Exécutable directement — audit GSTACK, Idée 2 | — |
+| P-41 — §État technique structuré dans SESSION_BRIDGE §Actif (3 champs : Fichiers modifiés / Décisions lockées / Prochaine action) | Doc | XS | Récupération session | — | Sprint suivant avec rupture de session mid-sprint | — |
+| P-42 — Résurgence décisions récentes en début de session (lecture 5 dernières entrées DECISIONS-SDLC.md avant démarrage sprint) | Doc | XS | Cohérence décisions | — | Exécutable directement — audit GSTACK, Idée 1 | — |
+| P-43 — Rôles spécialisés distincts dans §0f wrap-up (split Blind Hunter / Edge Case Hunter / Acceptance Auditor en skills séparés) | Spike | S | §0f qualité | — | Si sprint M disponible pour test — audit GSTACK §Rôles spécialisés | — |
+| P-44 — Revue cross-modèle optionnelle dans §0f (couche Codex CLI si disponible — vraie indépendance vs simulation) | Doc | S | §0f indépendance | — | Si Codex CLI disponible en session — audit GSTACK §/codex | — |
 | P-23 — Résumé compressé auto-généré pour DECISIONS-SDLC.md (texte complet conservé, vue par défaut allégée) | Tuning | S | — | Mesure M3 réelle | ≥ 1 mesure M3 disponible | — |
 | P-24 — Taille XS/S/M/L recalibrée avec coût token empirique + signal d'anomalie douce en /retrospective | Tuning | M | — | ≥ 5 sprints mesurés | sdlc-token-usage.sh actif sur ≥ 5 sprints | — |
 | P-25 — Dry-run syntaxique de la commande de test avant §Plan d'exécution (4d) | Tuning | XS | — | — | Exécutable directement | — |
@@ -78,6 +83,10 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 > Canal informel pour idées non matures. Max 5 lignes.
 > Critère de passage vers §Later : idée assez concrète pour écrire un contexte de 3 phrases.
 
+- **Pipeline génération templates** (GSTACK .tmpl→.md) — si templates SDLC commencent à diverger entre versions ou projets, envisager un système de génération (template source → document final). Pas urgent, signal de déclenchement : dérive détectée dans ≥ 2 templates entre deux projets.
+- **Diataxis pour documentation externe SDLC** — si le SDLC Toolkit est documenté pour d'autres équipes, structurer en tutorial/how-to/reference/explanation (GSTACK /document-generate). Déclencheur : décision de publication externe.
+- **Timeline SDLC (events structurés)** — journal `sdlc-timeline.jsonl` pour trending retro longitudinal (sessions, durée, taille sprint). Déclencheur : cadence > 1 sprint/semaine ou ≥ 10 sprints mesurés.
+
 ---
 
 ## Tailles de référence
@@ -97,6 +106,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| SDLC-Audit-GSTACK — Audit externe GSTACK v1.58.4.0 vs modèle SDLC | Revue | M | SDLC-Audit-GSTACK (25/06/2026) | `doc/AUDIT-EXTERNE-gstack-vs-sdlc.md` (20 recommandations : 4 IMPORTER/7 INVESTIGUER/2 MERGER/7 REJETER) · P-22 §Later→§Next · P-40–P-44 §Later · 3 signaux faibles |
 | SDLC-GSD-V2 — Import GSD Vague 2 (graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking) | Doc | M | SDLC-GSD-V2 (25/06/2026) | `09-retrospective-SKILL-TEMPLATE.md` v1.8 (+GRADUATION auto) · `03-wrap-up-SKILL-TEMPLATE.md` v1.6 (+§Actif/§Archive +archivage conditionnel +hypothesis tracking) · `01-Claude-md-TEMPLATE.md` v2.0 (+awk §Actif) · `M-PROC-39` |
 | SDLC-GSD-V1 — Import GSD Vague 1 (6 patterns) | Doc | M | SDLC-GSD-V1 (24/06/2026) | `01-Claude-md-TEMPLATE.md` v1.9 (+/fast) · `03-wrap-up-SKILL-TEMPLATE.md` v1.5 (+STATELESS) · `04-sprint-PDR-TEMPLATE.md` v2.0 (+goal-backward +SPIDR +Signaux L) · `05-ROADMAP-TEMPLATE.md` v1.1 (+Seed) · `M-PROC-38` |
 | P-30 — Hook PreCompact × sprint-memory.md | Feature | S | SDLC-23 (21/06/2026) | `.claude/hooks/pre-compact.sh` · 2 entrées `settings.json` (matcher manual/auto) · 7e type `CHECKPOINT` (`Claude.md`, `01-Claude-md-TEMPLATE.md`) · `08-hooks-TEMPLATE.md` v1.3 §PreCompact · `M-HOOKS-08` |
