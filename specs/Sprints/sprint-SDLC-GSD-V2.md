@@ -89,11 +89,11 @@ BLOQUANT non résolu → ajouter une table `§Hypothèses` au SESSION_BRIDGE de 
 - [x] `01-Claude-md-TEMPLATE.md §Démarrage §2` — règle lecture SESSION_BRIDGE
 
 **Outputs produits :**
-- [ ] `09-retrospective-SKILL-TEMPLATE.md` vX.Y+1 — §Étape 2 + bloc GRADUATION
-- [ ] `03-wrap-up-SKILL-TEMPLATE.md` vX.Y+1 — §Étape 5 hot/cold + hypothesis tracking conditionnel
-- [ ] `01-Claude-md-TEMPLATE.md` vX.Y+1 — §Démarrage §2 lecture §Actif uniquement
-- [ ] `07-DECISIONS-SDLC.md` — entrée M-PROC-39 (3 props Vague 2)
-- [ ] CHANGELOG entrée `Sprint SDLC-GSD-V2`
+- [x] `09-retrospective-SKILL-TEMPLATE.md` vX.Y+1 — §Étape 2 + bloc GRADUATION
+- [x] `03-wrap-up-SKILL-TEMPLATE.md` vX.Y+1 — §Étape 5 hot/cold + hypothesis tracking conditionnel
+- [x] `01-Claude-md-TEMPLATE.md` vX.Y+1 — §Démarrage §2 lecture §Actif uniquement
+- [x] `07-DECISIONS-SDLC.md` — entrée M-PROC-39 (3 props Vague 2)
+- [x] CHANGELOG entrée `Sprint SDLC-GSD-V2`
 
 **Non-output (intentionnel) :**
 `doc/SESSION_BRIDGE.md` n'est pas un template dans le repo SDLC — c'est un fichier versionné
@@ -214,25 +214,25 @@ Remplacer la règle de lecture SESSION_BRIDGE par :
 ## Critères d'acceptation
 
 ### Prop H
-- [ ] `grep -n "GRADUATION\|graduation\|Graduation" 09-retrospective-SKILL-TEMPLATE.md` → ≥ 3 résultats
-- [ ] `grep -n "≥ 3\|Occurrences ≥" 09-retrospective-SKILL-TEMPLATE.md` → ≥ 1 résultat
-- [ ] `grep -n "Destinations possibles\|différer\|promu" 09-retrospective-SKILL-TEMPLATE.md` → ≥ 2 résultats
+- [x] `grep -n "GRADUATION\|graduation\|Graduation" 09-retrospective-SKILL-TEMPLATE.md` → ≥ 3 résultats
+- [x] `grep -n "≥ 3\|Occurrences ≥" 09-retrospective-SKILL-TEMPLATE.md` → ≥ 1 résultat
+- [x] `grep -n "Destinations possibles\|différer\|promu" 09-retrospective-SKILL-TEMPLATE.md` → ≥ 2 résultats
 
 ### Prop K
-- [ ] `grep -n "§Actif\|§Archive" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 2 résultats dans §Étape 5
-- [ ] `grep -n "§Actif\|§Archive" 01-Claude-md-TEMPLATE.md` → ≥ 1 résultat dans §Démarrage
-- [ ] `grep -n "> 3 entrées\|archivage conditionnel\|Archivage conditionnel" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 1 résultat
+- [x] `grep -n "§Actif\|§Archive" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 2 résultats dans §Étape 5
+- [x] `grep -n "§Actif\|§Archive" 01-Claude-md-TEMPLATE.md` → ≥ 1 résultat dans §Démarrage
+- [x] `grep -n "> 3 entrées\|archivage conditionnel\|Archivage conditionnel" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 1 résultat
 
 ### Prop D
-- [ ] `grep -n "Hypothèses\|hypothesis\|CONFIRMÉE\|REJETÉE" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 3 résultats
-- [ ] `grep -n "Diagnostic\|BUG\|BLOQUANT non résolu" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 1 résultat (déclencheur conditionnel)
+- [x] `grep -n "Hypothèses\|hypothesis\|CONFIRMÉE\|REJETÉE" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 3 résultats
+- [x] `grep -n "Diagnostic\|BUG\|BLOQUANT non résolu" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 1 résultat (déclencheur conditionnel)
 
 ### Non-régression
-- [ ] `grep -c "## Étape" 03-wrap-up-SKILL-TEMPLATE.md` — avant/après identique (zéro étape supprimée)
-- [ ] `grep -c "## Étape" 09-retrospective-SKILL-TEMPLATE.md` — avant/après identique
-- [ ] `grep -n "STATELESS" 03-wrap-up-SKILL-TEMPLATE.md` → toujours présent (Prop L Vague 1 conservée)
-- [ ] `grep -n "SESSION_BRIDGE" 01-Claude-md-TEMPLATE.md` → ≥ 1 résultat (règle de lecture non supprimée)
-- [ ] `grep -n "M-PROC-39" 07-DECISIONS-SDLC.md` → 1 résultat (entrée créée)
+- [x] `grep -c "## Étape" 03-wrap-up-SKILL-TEMPLATE.md` — avant/après identique (zéro étape supprimée)
+- [x] `grep -c "## Étape" 09-retrospective-SKILL-TEMPLATE.md` — avant/après identique
+- [x] `grep -n "STATELESS" 03-wrap-up-SKILL-TEMPLATE.md` → toujours présent (Prop L Vague 1 conservée)
+- [x] `grep -n "SESSION_BRIDGE" 01-Claude-md-TEMPLATE.md` → ≥ 1 résultat (règle de lecture non supprimée)
+- [x] `grep -n "M-PROC-39" 07-DECISIONS-SDLC.md` → 1 résultat (entrée créée)
 
 ---
 
@@ -315,10 +315,10 @@ echo "# Spec : specs/Sprints/sprint-SDLC-GSD-V2.md" >> .claude/sprint-memory.md
 *(à compléter par Claude Code après localisation des ancres)*
 
 **Dépendances vérifiées :**
-- [ ] `09-retrospective-SKILL-TEMPLATE.md` — §Étape 2 localisée + fin du bloc rapport localisée
-- [ ] `03-wrap-up-SKILL-TEMPLATE.md` — §Étape 5 complète localisée, STATELESS confirmé présent
-- [ ] `01-Claude-md-TEMPLATE.md` — règle lecture SESSION_BRIDGE §Démarrage §2 localisée
-- [ ] `doc/SYNTHESE-AUDITS-GSD.md` — §4 Vague 2 accessible (différé)
+- [x] `09-retrospective-SKILL-TEMPLATE.md` — §Étape 2 localisée + fin du bloc rapport localisée
+- [x] `03-wrap-up-SKILL-TEMPLATE.md` — §Étape 5 complète localisée, STATELESS confirmé présent
+- [x] `01-Claude-md-TEMPLATE.md` — règle lecture SESSION_BRIDGE §Démarrage §2 localisée
+- [x] `doc/SYNTHESE-AUDITS-GSD.md` — §4 Vague 2 accessible (différé)
 
 **Plan d'exécution (ordre strict) :**
 1. Capturer comptes non-régression (bash — avant modification)
@@ -345,3 +345,8 @@ echo "# Spec : specs/Sprints/sprint-SDLC-GSD-V2.md" >> .claude/sprint-memory.md
 
 ## Corrections ajustées vs spec
 *(complété au wrap-up)*
+
+- **Prop H** — ajout de `[liste — voir §Graduation automatique ci-dessous]` comme placeholder dans le bloc rapport (non prévu dans la spec, ajouté pour clarté)
+- **Prop K Claude.md** — utilisation de `awk` (extraction §Actif→§Archive) au lieu d'une règle textuelle : la section §Démarrage étant un bash block, une commande exécutable est cohérente avec le reste du template
+- **Prop D** — label "Extension hypothesis tracking (conditionnel)" plutôt que "Prop D — conditionnel" : évite la référence à un ID de prop dans un fichier de production
+- **Versions** : 09-retro v1.7→v1.8, 03-wrap-up v1.5→v1.6, 01-Claude-md v1.9→v2.0

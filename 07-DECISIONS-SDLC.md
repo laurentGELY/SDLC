@@ -338,6 +338,8 @@ ciblées, zéro réécriture, zéro nouveau fichier).
 
 **Déclencheur de réouverture :** Vague 2 (Prop H + K) à planifier après ≥ 2 sprints utilisant les templates enrichis.
 
+→ Mise à jour 25/06/2026 (Sprint SDLC-GSD-V2) : Vague 2 réalisée — Prop H + K + D livrées dans `M-PROC-39`.
+
 ---
 
 ## M-PROC-39 · Import GSD Vague 2 — graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking · v2.0+SDLC-GSD-V2 · 25/06/2026

@@ -15,6 +15,12 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-GSD-V2 — 25/06/2026 — Import GSD Vague 2 (graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking)
+**Code :** N/A — sprint Doc pur, zéro code métier.
+**Processus :** PDR prescrit ligne par ligne, exécution séquentielle propre. Hook PreToolUse a bloqué au démarrage (sprint-memory créé avant le fichier spec) — déblocage immédiat par création du fichier spec. Signal utile : le hook fonctionne correctement, la séquence §Démarrage reste critique.
+**Lien pattern :** confirme LL-T03 (4e occurrence — PDR à contenu prescrit = exécution fluide sans aller-retour).
+**Action proposée :** aucune — pattern déjà capturé (LL-T03).
+
 ### Sprint SDLC-GSD-V1 — 24/06/2026 — Import GSD Vague 1 (6 patterns friction nulle)
 **Code :** N/A — sprint Doc pur, zéro code métier.
 **Processus :** PDR pré-rempli avec contenu exact ligne par ligne (texte verbatim à insérer,

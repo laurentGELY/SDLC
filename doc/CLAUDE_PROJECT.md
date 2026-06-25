@@ -34,4 +34,4 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 | `09-retrospective-SKILL-TEMPLATE.md` | Skill secondaire — consulté ponctuellement |
 | `README.md` | Redondant avec 00-CONTEXT.md pour Claude.ai |
 
-## Dernière vérification : 14/06/2026 · sdlc-project-check.sh
+## Dernière vérification : 25/06/2026 · Sprint SDLC-GSD-V2 wrap-up
