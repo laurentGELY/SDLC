@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v1.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.0 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
 
@@ -136,9 +136,11 @@ if [ -s .claude/sprint-memory.md ]; then
   cat .claude/sprint-memory.md
 fi
 
-# Contexte inter-session (entrée la plus récente en tête)
-head -15 doc/SESSION_BRIDGE.md 2>/dev/null \
+# Contexte inter-session — §Actif uniquement (§Archive sur demande explicite)
+awk '/^## §Actif/{f=1;next} /^## §Archive/{f=0} f' doc/SESSION_BRIDGE.md 2>/dev/null \
   || echo "— SESSION_BRIDGE absent (premier sprint ou 05b non exécuté)"
+# §Archive : charger seulement si l'humain demande "remonte un sprint ancien"
+# ou référence un sprint précédent par son nom.
 
 # [→ ADAPTER] 3. État système — commandes de vérification spécifiques au projet
 [commande état composant principal]

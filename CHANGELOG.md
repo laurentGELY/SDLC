@@ -2,6 +2,13 @@
 
 ---
 
+## [v2.0+SDLC-GSD-V2] — 2026-06-25 · Sprint Doc M · Import GSD Vague 2 — graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking
+- **`09-retrospective-SKILL-TEMPLATE.md` v1.8** : bloc GRADUATION automatique dans §Étape 2 — scan §Index patterns, proposition de promotion si ≥ 3 occurrences sur 5 derniers sprints, 4 destinations possibles (Claude.md / STANDARDS.md / hooks / LESSONS_LEARNED §Règles) (Prop H)
+- **`03-wrap-up-SKILL-TEMPLATE.md` v1.6** : §Étape 5 — structure hot/cold SESSION_BRIDGE (§Actif ≤ 3 entrées / §Archive), archivage conditionnel automatique si > 3 entrées, rétrocompat via `grep -q "## §Actif"` (Prop K) · hypothesis tracking conditionnel si sprint Diagnostic/BUG/BLOQUANT (Prop D)
+- **`01-Claude-md-TEMPLATE.md` v2.0** : §Démarrage §2 — lecture SESSION_BRIDGE limitée à §Actif uniquement via `awk`, §Archive sur demande explicite (Prop K)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-PROC-39` (3 propositions GSD Vague 2)
+- **Propositions différées :** A (sous-agents Taille L), E1 (/quick), B (commits atomiques) — Vague 3
+
 ## [v1.9+SDLC-GSD-V1] — 2026-06-24 · Sprint Doc M · Import GSD Vague 1 — 6 patterns friction nulle
 - **`03-wrap-up-SKILL-TEMPLATE.md` v1.5** : critère STATELESS HANDOFF dans §Étape 5 (Prop L — GSD-lite Journalism Standard)
 - **`04-sprint-PDR-TEMPLATE.md` v2.0** : guidance goal-backward dans §Critères d'acceptation (Prop F) · tableau SPIDR dans §Portée (Prop J) · section §Signaux de dégradation Taille L avec 3 signaux comportementaux (Prop G)

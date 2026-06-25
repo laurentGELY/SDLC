@@ -340,6 +340,25 @@ ciblées, zéro réécriture, zéro nouveau fichier).
 
 ---
 
+## M-PROC-39 · Import GSD Vague 2 — graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking · v2.0+SDLC-GSD-V2 · 25/06/2026
+
+**Contexte :** suite directe de M-PROC-38 (Vague 1). Trois propositions à impact fort retenues de l'audit GSD :
+
+**Retenu :** 3 additions dans 3 templates :
+- **Prop H** — graduation semi-automatique des patterns dans `09-retrospective-SKILL-TEMPLATE.md §Étape 2` : scan de l'§Index à chaque rétro, proposition de promotion si pattern ≥ 3 occurrences sur 5 derniers sprints (destinations : Claude.md / STANDARDS.md / hooks / LESSONS_LEARNED §Règles)
+- **Prop K** — séparation hot/cold dans `doc/SESSION_BRIDGE.md` : sections `## §Actif` (≤ 3 entrées, chargé au §Démarrage) / `## §Archive` (chargé sur demande) — rétrocompat automatique via `grep -q "## §Actif"` au wrap-up · `01-Claude-md-TEMPLATE.md §Démarrage` lit uniquement §Actif (`awk` extraction)
+- **Prop D** — hypothesis tracking conditionnel dans `03-wrap-up-SKILL-TEMPLATE.md §Étape 5` : table `§Hypothèses` ajoutée à l'entrée SESSION_BRIDGE si sprint de type Diagnostic/BUG/BLOQUANT non résolu uniquement
+
+**Écarté :** Prop A (sous-agents Taille L), Prop E1 (skill /quick), Prop B (commits atomiques) — renvoyées en Vague 3.
+
+**Raison :** les 3 patterns adressent des coûts mesurés : graduation manuelle → perte de patterns (H), SESSION_BRIDGE trop lourd au §Démarrage (K), hypothèses diagnostics non tracées → retracing coûteux (D). Conditionnalité de D évite l'overhead sur les sprints standards.
+
+**Impact fichiers :** `09-retrospective-SKILL-TEMPLATE.md` v1.8 · `03-wrap-up-SKILL-TEMPLATE.md` v1.6 · `01-Claude-md-TEMPLATE.md` v2.0
+
+**Déclencheur de réouverture :** Vague 3 après ≥ 2 sprints utilisant les templates v2.0.
+
+---
+
 ## M-PROC-07 · Vérification exécutable renforcée dans PDR et Claude.md · v1.2 · 30/05/2026
 
 **Retenu :** Deux renforcements : (1) ligne "Tests niveau A" dans PDR avec syntaxe backtick
@@ -522,6 +541,7 @@ pas seulement l'auteur du modèle.
 | M-TMPL-04 | Template hook synchronisé avec le schéma du hook actif après chaque sprint Fix hook | ✓ | — |
 | M-PROC-37 | Déclencheur wrap-up — Sprint Fix hook → vérifier 08-hooks-TEMPLATE.md | ✓ | — |
 | M-PROC-38 | Import GSD Vague 1 — 6 patterns friction nulle dans 4 templates (L, F, G, I, J, E2) | ✓ | — |
+| M-PROC-39 | Import GSD Vague 2 — graduation auto (H), hot/cold SESSION_BRIDGE (K), hypothesis tracking (D) | ✓ | — |
 
 ---
 
