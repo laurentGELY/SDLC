@@ -1,5 +1,5 @@
 # retrospective — SKILL
-<!-- Template SDLC v1.7 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.8 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
 
 Analyse de patterns sur l'ensemble des sprints complétés.
 Déclencher toutes les ~5 sprints, ou immédiatement après un incident grave.
@@ -56,8 +56,43 @@ DÉCISIONS POTENTIELLEMENT INVALIDÉES
 
 AUCUN PATTERN NOTABLE
 — RAS sur [N] sprints
+
+GRADUATION — patterns candidats à promotion
+[liste — voir §Graduation automatique ci-dessous]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+**Graduation automatique :**
+Après le rapport, scanner l'§Index des patterns (`doc/LESSONS_LEARNED.md`) :
+- Identifier tout pattern avec `Occurrences ≥ 3` ET `Statut: actif`
+- Vérifier que les occurrences se trouvent dans les 5 derniers sprints
+  (grep les IDs sprint dans les colonnes Sprints de l'§Index)
+- Si `grep -q "§Index des patterns" doc/LESSONS_LEARNED.md` échoue → confirmer "§Index absent, graduation non disponible."
+- Si condition remplie → produire le bloc suivant pour chaque candidat :
+
+```
+---
+🎓 GRADUATION CANDIDATE — [ID Pattern] · [Nom]
+Occurrences : [N] sur [liste sprints]
+Résumé : [description du pattern en 1 phrase]
+
+Destinations possibles :
+  A) Claude.md §[section pertinente] — règle permanente de comportement
+  B) STANDARDS.md §[section] — standard projet à appliquer à tous les sprints
+  C) .claude/hooks/ — garde-fou automatique (nécessite M-PROC-X dans DECISIONS)
+  D) doc/LESSONS_LEARNED.md §Règles — règle documentée, pas encore hookée
+
+→ Décision demandée : quelle destination ? (A / B / C / D / différer)
+---
+```
+
+Si l'humain valide une destination :
+- Pour A ou B : appliquer dans ce sprint si trivial, sinon créer un sprint Fix dédié
+- Pour C : créer un HOOK_CANDIDATE avec ligne bash proposée, décision dans DECISIONS.md
+- Pour D : ajouter sous §Règles dans LESSONS_LEARNED, modifier Statut → "promu (D)"
+- Pour "différer" : marquer Statut → "surveillé" dans l'§Index, réévaluer à la prochaine rétro
+
+Si aucun candidat → confirmer explicitement "✅ Graduation — aucun pattern ≥ 3 occurrences actif."
 
 ---
 

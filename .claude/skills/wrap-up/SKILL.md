@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Adapté depuis 03-wrap-up-SKILL-TEMPLATE.md (SDLC v1.3) · Sprint SDLC-14 (self-bootstrap) -->
+<!-- Adapté depuis 03-wrap-up-SKILL-TEMPLATE.md (SDLC v1.6) · Sprint SDLC-14 (self-bootstrap) · GSD-V1+V2 appliqués Sprint SDLC-GSD-V2 -->
 <!-- Projet toolkit SDLC — pas de code applicatif, gouvernance de templates -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -339,27 +339,59 @@ Référence : doc/ROADMAP.md §Now
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Écrire dans `doc/SESSION_BRIDGE.md` (accumulatif) :**
+**Écriture dans `doc/SESSION_BRIDGE.md` :**
 
-Insérer en tête du fichier (entrée la plus récente en premier) :
+Structure cible du fichier (créer si absent, sinon respecter les sections existantes) :
 
-```markdown
-## [Sprint N — slug] · [AAAA-MM-JJ]
-**Commit :** [hash court]
-**Bloquants en suspens :** [liste ou "aucun"]
-**Fil fonctionnel :** [2 phrases max — état du livrable après ce sprint]
-```
-
-Si le fichier n'existe pas → le créer avec le header puis l'entrée :
 ```markdown
 # SESSION_BRIDGE — Contexte inter-session
-<!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
+<!-- §Actif : ≤ 3 entrées récentes — chargé automatiquement au §Démarrage -->
+<!-- §Archive : entrées plus anciennes — chargé sur demande explicite uniquement -->
 
-## [Sprint N — slug] · [AAAA-MM-JJ]
+## §Actif
+
+## §Archive
+```
+
+Vérification rétrocompat avant écriture :
+```bash
+grep -q "## §Actif" doc/SESSION_BRIDGE.md 2>/dev/null \
+  || [créer le fichier avec la structure §Actif / §Archive ci-dessus]
+```
+
+**Écriture de la nouvelle entrée :**
+Insérer en tête de `## §Actif` (entrée la plus récente en premier) :
+
+```markdown
+### [Sprint N — slug] · [AAAA-MM-JJ]
 **Commit :** [hash court]
 **Bloquants en suspens :** [liste ou "aucun"]
 **Fil fonctionnel :** [2 phrases max — état du livrable après ce sprint]
 ```
+
+**Extension hypothesis tracking (conditionnel) :**
+Si le sprint était de type Diagnostic, BUG, ou BLOQUANT non résolu → ajouter
+après le bloc standard de l'entrée §Actif :
+
+```markdown
+**§Hypothèses :**
+| Hypothèse | Probabilité | Test | Statut |
+|-----------|-------------|------|--------|
+| [hypothèse] | Haute / Moyenne / Basse | [commande ou observation] | CONFIRMÉE / REJETÉE / EN ATTENTE |
+```
+
+Ne pas inclure la table si le sprint n'est pas de type diagnostic — overhead inutile.
+
+**Archivage conditionnel :**
+Compter les entrées `### ` dans `## §Actif` après l'ajout.
+Si > 3 entrées → déplacer la plus ancienne (dernière entrée `###` de §Actif)
+dans `## §Archive` (en tête de §Archive, même format).
+
+**Critère de qualité — test STATELESS :**
+Avant de valider l'entrée SESSION_BRIDGE, vérifier mentalement :
+"La session suivante peut-elle reprendre uniquement depuis ce fichier,
+sans accès à la conversation précédente ?"
+Si non → enrichir les champs "bloquants" ou "fil fonctionnel" jusqu'à ce que la réponse soit oui.
 
 **Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `doc/ROADMAP.md §Now`).
 
