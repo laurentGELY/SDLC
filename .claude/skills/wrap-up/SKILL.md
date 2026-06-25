@@ -278,6 +278,7 @@ Rapporter :
 | Fichier registre ajouté/supprimé/renommé (`07-DECISIONS-SDLC.md`, `00-CONTEXT.md`) | Mettre à jour `STANDARDS.md §Modules partagés` — même commit |
 | Entrée `[CLOS]` dans `doc/SESSION_BRIDGE.md`, ou > 5 entrées sans nettoyage | Nettoyer `doc/SESSION_BRIDGE.md` — supprimer les entrées `[CLOS]` · avertir si > 5 sans nettoyage |
 | Nouveau fichier de gouvernance créé ce sprint (`.claude/`, `doc/`, `specs/`) | Vérifier `doc/CLAUDE_PROJECT.md` — noter les fichiers manquants → §Étape 6 |
+| Template de skill modifié ce sprint (`03-wrap-up`, `09-retrospective`, etc.) | Répercuter les mêmes changements dans `.claude/skills/<skill>/SKILL.md` — même commit |
 
 ---
 
