@@ -4,22 +4,27 @@
 
 ## §Actif
 
+### [Sprint SDLC-Audit-GSTACK — Audit externe GSTACK] · 2026-06-25
+**Commit :** d857b22
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** Audit GSTACK v1.58.4.0 (Garry Tan / YC) — 20 recommandations (4 IMPORTER / 7 INVESTIGUER / 2 MERGER / 7 REJETER). Verdict : adoption sélective, pas d'intégration globale. P-22 déplacé §Later→§Next. Nouveaux items ROADMAP : P-40–P-44 (§Lecture code PDR, §État technique SESSION_BRIDGE, résurgence décisions, rôles §0f, cross-modèle). Prochaine action : P-39 (sync skills) ou P-22 (template audit) ou P-40/P-42 (XS immédiats).
+
 ### [Sprint SDLC-GSD-V2 — Import GSD Vague 2] · 2026-06-25
 **Commit :** 0a3f300
 **Bloquants en suspens :** aucun
-**Fil fonctionnel :** Trois mécanismes Vague 2 livrés : graduation semi-automatique dans /retrospective (scan §Index, ≥ 3 occurrences/5 sprints → 4 destinations), SESSION_BRIDGE hot/cold (§Actif ≤ 3 / §Archive), hypothesis tracking conditionnel Diagnostic/BUG. Templates SDLC à v2.0 — prochaine action P-39 : sync skills installés (.claude/skills/).
+**Fil fonctionnel :** Trois mécanismes Vague 2 livrés : graduation semi-automatique dans /retrospective (scan §Index, ≥ 3 occurrences/5 sprints → 4 destinations), SESSION_BRIDGE hot/cold (§Actif ≤ 3 / §Archive), hypothesis tracking conditionnel Diagnostic/BUG. Templates SDLC à v2.0.
 
 ### [Sprint SDLC-GSD-V1 — Import GSD Vague 1] · 2026-06-24
 **Commit :** c3abfc1
 **Bloquants en suspens :** aucun — 6 props livrées, "all good" rétrospective.
 **Fil fonctionnel :** 4 templates SDLC enrichis avec patterns GSD (STATELESS HANDOFF dans wrap-up, guidance goal-backward + SPIDR + signaux Taille L dans PDR, Seeds dans ROADMAP, /fast dans Claude.md). Adversarial Review : 0 finding critique, 1 item cosmétique ajouté en P-38 §Later.
 
+## §Archive
+
 ### [Sprint SDLC-22 — instrumentation conso token réelle] · 2026-06-21
 **Commit :** 6dcc1f0
 **Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).
 **Fil fonctionnel :** `sdlc-token-usage.sh` (nouveau, racine) mesure les totaux input/output/cache depuis les transcripts JSONL. `09-retrospective-SKILL-TEMPLATE.md` porte une `§Étape 7 — Métriques tokens`. Les deux skills locaux synchronisés avec les templates dans le même commit (`M-PROC-36`).
-
-## §Archive
 
 ### [Sprint SDLC-20 — étiquette HYPOTHÈSE sur tables HALT] · 2026-06-20
 **Commit :** 51e29bb
