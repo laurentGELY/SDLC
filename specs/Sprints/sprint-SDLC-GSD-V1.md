@@ -57,10 +57,10 @@ tous vérifiables par grep, zéro régression sur les sections existantes.
 - [x] Templates existants dans le projet SDLC (chargés en contexte)
 
 **Outputs produits :**
-- [ ] `01-Claude-md-TEMPLATE.md` vX.Y+1 — §Démarrage +note /fast
-- [ ] `03-wrap-up-SKILL-TEMPLATE.md` vX.Y+1 — §Étape 5 +STATELESS
-- [ ] `04-sprint-PDR-TEMPLATE.md` vX.Y+1 — §CA +goal-backward · §Portée +SPIDR · nouvelle section §Signaux Taille L
-- [ ] `05-ROADMAP-TEMPLATE.md` vX.Y+1 — §Later +type Seed +colonne Condition
+- [x] `01-Claude-md-TEMPLATE.md` v1.9 — §Démarrage +note /fast
+- [x] `03-wrap-up-SKILL-TEMPLATE.md` v1.5 — §Étape 5 +STATELESS
+- [x] `04-sprint-PDR-TEMPLATE.md` v2.0 — §CA +goal-backward · §Portée +SPIDR · nouvelle section §Signaux Taille L
+- [x] `05-ROADMAP-TEMPLATE.md` v1.1 — §Later +type Seed +colonne Condition
 
 ---
 
@@ -180,29 +180,29 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
 ## Critères d'acceptation
 
 ### Prop L
-- [ ] `grep -n "STATELESS" 03-wrap-up-SKILL-TEMPLATE.md` → ≥ 1 résultat dans §Étape 5
+- [x] `grep -n "STATELESS" 03-wrap-up-SKILL-TEMPLATE.md` → 1 résultat ligne 361 ✓
 
 ### Prop F
-- [ ] `grep -n "goal-backward\|observable\|vérifiable" 04-sprint-PDR-TEMPLATE.md` → ≥ 1 résultat dans §Critères d'acceptation
+- [x] `grep -n "goal-backward\|observable\|vérifiable" 04-sprint-PDR-TEMPLATE.md` → 4 résultats ✓
 
 ### Prop G
-- [ ] `grep -n "Signaux de dégradation\|Silent partial\|Increasing vagueness\|Skipped steps" 04-sprint-PDR-TEMPLATE.md` → 4 résultats
+- [x] `grep -n "Signaux de dégradation\|Silent partial\|Increasing vagueness\|Skipped steps" 04-sprint-PDR-TEMPLATE.md` → 4 résultats ✓
 
 ### Prop I
-- [ ] `grep -n "Seed\|Condition mesurable\|déclenchement conditionnel" 05-ROADMAP-TEMPLATE.md` → ≥ 2 résultats
-- [ ] `grep -n "Catégorie\|Standard\|Seed" 05-ROADMAP-TEMPLATE.md` → ≥ 3 résultats
+- [x] `grep -n "Seed\|Condition mesurable\|déclenchement conditionnel" 05-ROADMAP-TEMPLATE.md` → 2 résultats ✓
+- [x] `grep -n "Catégorie\|Standard\|Seed" 05-ROADMAP-TEMPLATE.md` → 6 résultats ✓
 
 ### Prop J
-- [ ] `grep -n "SPIDR\|Spike\|Paths\|Interfaces\|Data\|Rules" 04-sprint-PDR-TEMPLATE.md` → ≥ 5 résultats dans §Portée
+- [x] `grep -n "SPIDR\|Spike\|Paths\|Interfaces\|Data\|Rules" 04-sprint-PDR-TEMPLATE.md` → 6 résultats ✓
 
 ### Prop E2
-- [ ] `grep -n "fast\|< 2 min\|une phrase" 01-Claude-md-TEMPLATE.md` → ≥ 1 résultat dans §Démarrage
+- [x] `grep -n "fast\|< 2 min\|une phrase" 01-Claude-md-TEMPLATE.md` → 1 résultat ligne 203 ✓
 
 ### Non-régression (toutes props)
-- [ ] `grep -c "\[→ ADAPTER\]" 04-sprint-PDR-TEMPLATE.md` — comparer avant/après : même nombre ou plus (zéro perte de marqueur existant)
-- [ ] `grep -c "## Étape" 03-wrap-up-SKILL-TEMPLATE.md` — comparer avant/après : même nombre (zéro étape supprimée)
-- [ ] CHANGELOG mis à jour avec entrée `Sprint SDLC-GSD-V1`
-- [ ] `07-DECISIONS-SDLC.md` — entrée M-PROC-38 (ou prochain ID libre) documentant les 6 propositions importées
+- [x] `grep -c "\[→ ADAPTER\]" 04-sprint-PDR-TEMPLATE.md` → 0 avant / 0 après ✓
+- [x] `grep -c "## Étape" 03-wrap-up-SKILL-TEMPLATE.md` → 9 avant / 9 après ✓
+- [x] CHANGELOG mis à jour avec entrée `Sprint SDLC-GSD-V1` ✓
+- [x] `07-DECISIONS-SDLC.md` — entrée M-PROC-38 créée ✓
 
 ---
 
@@ -268,10 +268,10 @@ echo "# Spec : specs/Sprints/sprint-SDLC-GSD-V1.md" >> .claude/sprint-memory.md
 *(à compléter par Claude Code après lecture des ancres textuels)*
 
 **Dépendances vérifiées :**
-- [ ] `03-wrap-up-SKILL-TEMPLATE.md` — §Étape 5 localisée
-- [ ] `04-sprint-PDR-TEMPLATE.md` — §Critères d'acceptation, §Portée, §Risques localisés
-- [ ] `05-ROADMAP-TEMPLATE.md` — §Later + colonnes tableau localisées
-- [ ] `01-Claude-md-TEMPLATE.md` — §Démarrage localisé
+- [x] `03-wrap-up-SKILL-TEMPLATE.md` — §Étape 5 localisée (ligne 318)
+- [x] `04-sprint-PDR-TEMPLATE.md` — §Critères d'acceptation, §Portée, §Risques localisés
+- [x] `05-ROADMAP-TEMPLATE.md` — §Later + colonnes tableau localisées (ligne 33)
+- [x] `01-Claude-md-TEMPLATE.md` — §Démarrage localisé (ligne 127)
 
 **Plan d'exécution :**
 1. Collecter comptes de référence (grep non-régression)

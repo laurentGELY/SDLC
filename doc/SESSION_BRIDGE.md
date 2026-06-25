@@ -1,6 +1,11 @@
 # SESSION_BRIDGE — Contexte inter-session
 <!-- Accumulatif · entrée la plus récente en tête · nettoyage conditionnel au wrap-up -->
 
+## [Sprint SDLC-GSD-V1 — Import GSD Vague 1] · 2026-06-24
+**Commit :** c3abfc1
+**Bloquants en suspens :** aucun — 6 props livrées, "all good" rétrospective.
+**Fil fonctionnel :** 4 templates SDLC enrichis avec patterns GSD (STATELESS HANDOFF dans wrap-up, guidance goal-backward + SPIDR + signaux Taille L dans PDR, Seeds dans ROADMAP, /fast dans Claude.md). Adversarial Review : 0 finding critique, 1 item cosmétique ajouté en P-38 §Later. Vague 2 (Prop H + K) à planifier après ≥ 2 sprints utilisant les templates enrichis.
+
 ## [Sprint SDLC-22 — instrumentation conso token réelle] · 2026-06-21
 **Commit :** 6dcc1f0
 **Bloquants en suspens :** aucun — rétrospective utilisateur "all good" (3 volets).

@@ -53,6 +53,7 @@
 | P-35 — Réordonnancement Claude.md pour maximiser cache hit (stable en tête, volatile en fin) | Tuning | S | — | Mesure cache_read réelle | sdlc-token-usage.sh disponible sur ≥ 3 sprints | — |
 | P-36 — Extension sdlc-token-usage.sh → package figé (diff + critères) pour Adversarial Review Couche 1 | Feature | S | — | Script de base validé | Sur un sprint Taille M/L réel | — |
 | P-37 — 00-CONTEXT.md déclaré Index-guidé formellement (résorbe duplication invariants + carte fichiers) | Doc | S | — | — | Exécutable directement | — |
+| P-38 — Déplacer commentaire goal-backward (Prop F) avant le bloc BDD optionnel dans 04-PDR §CA | Doc | XS | — | — | Exécutable directement | — |
 
 **Règle de passage Later → Next :** déclencheur atteint OU décision humaine explicite.
 **Renumérotation au merge (wrap-up SDLC-22) :** les items "Sprint Lean" reçus sous P-20/P-21/P-22
@@ -95,4 +96,5 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| SDLC-GSD-V1 — Import GSD Vague 1 (6 patterns) | Doc | M | SDLC-GSD-V1 (24/06/2026) | `01-Claude-md-TEMPLATE.md` v1.9 (+/fast) · `03-wrap-up-SKILL-TEMPLATE.md` v1.5 (+STATELESS) · `04-sprint-PDR-TEMPLATE.md` v2.0 (+goal-backward +SPIDR +Signaux L) · `05-ROADMAP-TEMPLATE.md` v1.1 (+Seed) · `M-PROC-38` |
 | P-30 — Hook PreCompact × sprint-memory.md | Feature | S | SDLC-23 (21/06/2026) | `.claude/hooks/pre-compact.sh` · 2 entrées `settings.json` (matcher manual/auto) · 7e type `CHECKPOINT` (`Claude.md`, `01-Claude-md-TEMPLATE.md`) · `08-hooks-TEMPLATE.md` v1.3 §PreCompact · `M-HOOKS-08` |

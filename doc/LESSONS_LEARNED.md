@@ -15,6 +15,15 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-GSD-V1 — 24/06/2026 — Import GSD Vague 1 (6 patterns friction nulle)
+**Code :** N/A — sprint Doc pur, zéro code métier.
+**Processus :** PDR pré-rempli avec contenu exact ligne par ligne (texte verbatim à insérer,
+ancres textuels précis, ordre d'exécution) → zéro ambiguïté d'implémentation, zéro aller-retour
+de clarification. Les 6 props ont été appliquées séquentiellement sans bloquer.
+Confirme que le modèle "Driver prescrit, Navigator exécute" est le mode optimal pour les sprints Doc.
+**Lien pattern :** confirme LL-T03 (3e occurrence — PDR à contenu prescrit = sous-décisions résolues avant exécution).
+**Action proposée :** aucune — pattern déjà capturé.
+
 ### Sprint SDLC-23 — 21/06/2026 — Hook PreCompact × sprint-memory.md
 **Code :** Bug du PDR initial confirmé et corrigé avant livraison — le PDR affirmait
 le payload `PreCompact` "vérifié... zéro Oracle nécessaire" avec un champ `trigger`,
