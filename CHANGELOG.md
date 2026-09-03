@@ -2,6 +2,14 @@
 
 ---
 
+## [v2.0+ECO-2] — 2026-09-03 · Sprint Doc S · Rédaction des templates — description = déclenchement, forme selon type d'échec
+- **`00-CONTEXT.md` v1.7** (nouveau) : §5 « Rédaction des templates et skills » — §5.1 la description/en-tête d'une skill énonce le déclenchement, jamais la séquence d'étapes (`E-08`) ; §5.2 tableau à 4 lignes faisant correspondre le type d'échec visé à la forme de règle qui le prévient (interdiction+rationalisation / recette positive / champ structurel / conditionnel), reformulé avec des exemples SDLC réels (`M-PROC-31`, gabarit Bilan §0d, champs `07-DECISIONS-SDLC.md`, `HALT`) (`E-09`) · §4 : +1 ligne checklist rappelant de maintenir `11-help-SKILL-TEMPLATE.md` à jour (`E-17`)
+- **`04b-sdlc-sync-SKILL-TEMPLATE.md` v2.0** : en-tête réécrit — résumé séquentiel des 4 étapes retiré (cas confirmé du défaut `E-08`), « Principe d'exécution » conservé avec son contenu non séquentiel (validation humaine obligatoire, primauté du tuning local)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-TMPL-05` (4 champs), tableau de compatibilité
+- **`docs/ROADMAP.md`** : item `ECO-2b` ajouté §Later (`E-16` différé — conflit vérifié avec C2 de `sdlc-validate.sh`, frontmatter YAML nécessitant `---` en 1ère ligne)
+- **Corrections ajustées vs spec** — un critère d'acceptation mal spécifié (`grep -c "Principe d'exécution" → 0` aurait supprimé le libellé lui-même, pas seulement le résumé séquentiel), corrigé en cours d'exécution. Détail : `specs/Sprints/sprint-ECO-2-redaction-templates.md §Corrections ajustées vs spec`.
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0, non-régression confirmée (aucun mécanisme exécutable touché ; C2 et C4, les plus proches de la surface modifiée, restent verts)
+
 ## [v2.0+ECO-1] — 2026-09-02 · Sprint Feature M · `sdlc-validate.sh` — vérification exécutable du modèle
 - **`sdlc-validate.sh`** (nouveau) : 8 contrôles structurels tier 1 (`E-01`), registre extensible (`CHECKS=(check_c1…check_c8)`), lecture seule. C1 version README↔CHANGELOG · C2 en-tête de version par template · C3 placeholders hors fichiers de référence · C4 parité structurelle template↔skill vivant · C5 parité schéma JSON hook template↔hooks actifs · C6 carte des fichiers ↔ disque ↔ `00-CONTEXT.md` · C7 unicité des IDs de décision · C8 syntaxe de tous les scripts shell
 - **`03-wrap-up-SKILL-TEMPLATE.md`** et **`.claude/skills/wrap-up/SKILL.md`** : appel `sdlc-validate.sh` intégré à l'Étape 3.5, dégradation gracieuse dans le template générique (absent dans un projet cible)

@@ -1,12 +1,11 @@
 # sdlc-sync — SKILL
-<!-- Template SDLC v1.9 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.0 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Aligne la gouvernance du projet courant sur la version SDLC indiquée dans les sources.
 Exécuter quand le modèle SDLC a évolué depuis le dernier alignement, ou à la demande.
 
-**Principe d'exécution** : Claude fait l'inventaire et le tri, propose la liste de décisions,
-attend l'aval humain, puis applique. Aucune modification de fichier sans validation explicite.
+**Principe d'exécution** : aucune modification de fichier sans validation humaine explicite.
 Le tuning local du projet prime toujours sur le modèle générique.
 
 ---

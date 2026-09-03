@@ -566,6 +566,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-39 | Import GSD Vague 2 — graduation auto (H), hot/cold SESSION_BRIDGE (K), hypothesis tracking (D) | ✓ | — |
 | M-ARCH-09 | Convention `doc/` → `docs/` (documentation publique GitHub Pages) | ✓ | — |
 | M-PROC-40 | `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) | ✓ | — |
+| M-TMPL-05 | Rédaction des templates/skills — description = déclenchement, forme selon type d'échec | ✓ | — |
 
 ---
 
@@ -1869,3 +1870,62 @@ modèle auto-déclenchées, `E-16`), ou si `.claude/skills/sdlc-sync/`/`help/`
 sont un jour installées dans ce repo (C4 repasse alors en comparaison
 structurelle normale sur ces 2 paires), ou si le bloc `README.md §Structure
 du repo` est normalisé (C6 repasse à 3 listes).
+
+---
+
+## M-TMPL-05 · Rédaction des templates/skills — description = déclenchement, forme selon type d'échec · v2.0+ECO-2 · 03/09/2026
+
+**Contexte :** `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-08/§E-09` a documenté deux
+manques : (a) une description/en-tête de skill qui résume son propre *workflow* crée un
+raccourci qu'un agent peut suivre au lieu de lire le corps détaillé — cas confirmé dans
+`04b-sdlc-sync-SKILL-TEMPLATE.md`, dont l'en-tête résumait 4 étapes avant leur détail dans
+les Étapes A→E ; (b) le modèle choisit la forme d'une règle (interdiction, recette,
+structurel, conditionnel) à l'instinct, sans grille de décision liée au type d'échec visé.
+
+**Retenu :** nouvelle `00-CONTEXT.md §5. Rédaction des templates et skills`, avec deux
+règles : §5.1 — la description/en-tête d'une skill énonce uniquement les conditions de
+déclenchement, jamais la séquence d'étapes (le corps est la seule autorité procédurale) ;
+§5.2 — un tableau à 4 lignes faisant correspondre le type d'échec visé à la forme de
+règle qui le prévient réellement, reformulé avec des exemples SDLC réels (`M-PROC-31`
+pour l'interdiction+rationalisation, gabarit du Bilan §0d pour la recette positive, les
+4 champs d'une entrée `07-DECISIONS-SDLC.md` pour le structurel, un `HALT` pour le
+conditionnel) plutôt que le vocabulaire générique de la source. En-tête de
+`04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit en conséquence : le résumé de séquence retiré,
+seules les deux consignes non séquentielles (validation humaine obligatoire, primauté du
+tuning local) conservées comme « Principe d'exécution ».
+
+**Écarté :**
+- **Relire et réécrire les en-têtes de `03`/`09`/`11`** — vérifié avant d'agir (grep +
+  lecture) qu'aucun des trois ne résume une séquence d'étapes comme `04b` le faisait ;
+  chacun énonce une philosophie générale (« fait le travail et rapporte », « lit, analyse
+  et propose », « agréger 3 sources, ne rien inventer »). Réécrire sans défaut constaté
+  aurait été une modification sans preuve, contraire à `Claude.md §Rôle`.
+- **Fusionner `§5` dans `§3. Invariants`** — catégories différentes : `§3` définit les
+  principes de conception du modèle entier, `§5` une règle d'écriture locale aux
+  templates/skills.
+- **`E-16`** (frontmatter YAML + `disable-model-invocation`, même catalogue) — vérifié
+  factuellement que Claude Code exige `---` en toute première ligne du fichier pour
+  reconnaître un frontmatter, ce qui repousserait le marqueur de version des templates
+  (`<!-- Template SDLC vX.Y -->`, actuellement dans les 3 premières lignes) hors de la
+  fenêtre vérifiée par C2 de `sdlc-validate.sh`. Différé en `ECO-2b`
+  (`docs/ROADMAP.md §Later`), qui devra traiter ce conflit dans le même sprint que le
+  frontmatter — pas après.
+- **Contrôle mécanique C9/C10 dans `sdlc-validate.sh` pour §5.1/§5.2** — prévu par
+  `ECO-1 §Annexe` pour une vague ultérieure (« les règles arrivent avec leurs contrôles »),
+  pas ce sprint : poser la règle et l'automatiser dans le même commit aurait élargi la
+  taille du sprint sans bénéfice immédiat (aucun défaut de forme constaté à corriger
+  aujourd'hui, contrairement à `E-08`).
+
+**Raison :** le coût de ces deux règles est nul (prose + un en-tête réécrit), et elles
+ferment un mode d'échec réel déjà observé dans le repo (`04b`). Le choix de ne réécrire
+que ce qui est confirmé, et de différer `E-16` plutôt que de risquer une régression sur
+`sdlc-validate.sh` livré la veille, suit le même principe que `M-PROC-30` : ne jamais
+dégrader un mécanisme déjà validé pour gagner du temps sur un sprint sans rapport direct.
+
+**Impact fichiers :** `00-CONTEXT.md` v1.7 (+§5, +1 ligne checklist §4) ·
+`04b-sdlc-sync-SKILL-TEMPLATE.md` v2.0 (en-tête réécrit) · `docs/ROADMAP.md` (item
+`ECO-2b` ajouté §Later).
+
+**Déclencheur de réouverture :** si `E-16` (`ECO-2b`) est un jour traité et introduit un
+contrôle C9/C10 vérifiant §5.1/§5.2 mécaniquement, mettre à jour cette entrée avec le
+renvoi vers ce contrôle plutôt que d'en créer une nouvelle pour la même règle.

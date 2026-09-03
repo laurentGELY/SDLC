@@ -23,7 +23,6 @@
 | P-39 — Sync `.claude/skills/wrap-up` v1.3 + `.claude/skills/retrospective` avec templates v1.6/v1.8 après GSD-V2 | Fix | XS | — | — | Exécutable directement — templates GSD-V1+V2 non répercutés sur les skills installés |
 | P-22 — `10-audit-externe-TEMPLATE.md` (checklist 7 sections + bloc verdict IMPORTER/REJETER/INVESTIGUER/MERGER) | Doc | XS | Cohérence inter-audits | — | Débloqué — Sprint SDLC-Audit-GSTACK confirme : template XS justifié si ≥ 2 audits futurs. Scope réduit : 7 sections obligatoires + format étiqueté standardisé. |
 | P-27 — sprint-memory.md documenté explicitement comme mécanisme de reprise après pause tranche horaire | Doc | XS | — | — | Débloqué — Sprint SDLC-23 (P-30, hook PreCompact) exécuté |
-| ECO-2 — Rédaction des templates (`E-08`+`E-09`+`E-16`+`E-17`, §Rédaction dans `00-CONTEXT.md`) | Doc | S | — | — | Débloqué — ECO-1 livré. `E-16` peut révéler un gain de contexte gratuit (`disable-model-invocation`). |
 | ECO-3 — Barre qualité + Definition of Done (`E-03`+`E-04`+`E-11`, `02-STANDARDS-TEMPLATE.md`) | Doc | M | — | — | Débloqué — ECO-1 livré (contrôle C9 arrivera avec la règle qu'il fait respecter). |
 | ECO-4 — Durcissement PDR (`E-13(b)`+`E-14`+`E-06`+`E-07`) | Doc | S | — | — | Indépendant — peut passer avant ECO-3 si un sprint court est préférable. |
 
@@ -64,6 +63,7 @@
 | P-37 — 00-CONTEXT.md déclaré Index-guidé formellement (résorbe duplication invariants + carte fichiers) | Doc | S | — | — | Exécutable directement | — |
 | P-38 — Déplacer commentaire goal-backward (Prop F) avant le bloc BDD optionnel dans 04-PDR §CA | Doc | XS | — | — | Exécutable directement | — |
 | ECO-6 — Lexique ubiquitaire versionné (`E-05`, `specs/SPEC.md §Lexique`) | Doc | S | — | — | Moins urgent qu'ECO-2→4 — pas de déclencheur numérique, priorité éditoriale | — |
+| ECO-2b — Frontmatter YAML + `disable-model-invocation: true` sur les 4 templates de skill (`E-16`) | Doc | S | — | Conflit avec C2 de `sdlc-validate.sh` | Différé au wrap-up ECO-2 (03/09/2026) : `---` doit être la 1ère ligne du fichier pour être reconnu par Claude Code, ce qui pousse le marqueur de version (`<!-- Template SDLC vX.Y -->`, actuellement lignes 1-3) au-delà de la fenêtre vérifiée par C2. Nécessite d'ajuster C2 (chercher le marqueur après un éventuel bloc frontmatter) dans le même sprint que le frontmatter — sinon régression sciemment introduite. | — |
 | [SDLC_CANDIDATE] Normalisation `README.md §Structure du repo` — bloc non exhaustif (scripts `sdlc-delta.sh`/`sdlc-project-check.sh`/`sdlc-token-usage.sh` absents, contenu réel de `docs/` absent), C6 de `sdlc-validate.sh` dégradé à 2 listes en attendant | Doc | XS | C6 complet (3 listes) | — | Si un 3e écart README↔disque est constaté, ou avant ECO-2/3 | — |
 
 **Règle de passage Later → Next :** déclencheur atteint OU décision humaine explicite.
@@ -111,6 +111,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| ECO-2 — Rédaction des templates (description = déclenchement, forme selon type d'échec) | Doc | S | ECO-2 (03/09/2026) | `00-CONTEXT.md` v1.7 §5 (E-08 + E-09, exemples SDLC) · en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit · `M-TMPL-05` · ligne `/help` §4 (E-17) · `E-16` écarté après vérification factuelle → `ECO-2b` §Later |
 | ECO-1 — `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles tier 1) | Feature | M | ECO-1 (02/09/2026) | `sdlc-validate.sh` (nouveau, registre extensible) · Étape 3.5 wrap-up (template + skill vivant) · `00-CONTEXT.md` v1.6 · `README.md` (défaut C1 corrigé) · `M-PROC-40` · `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md` (26 patterns) · ECO-2→4 débloqués §Next, ECO-6 §Later |
 | SDLC-25 — Migration `doc/` → `docs/` + publication du site de documentation (GitHub Pages) | Feature | M | SDLC-25 (02/07/2026) | `docs/` (renommage `git mv` + site statique multi-pages) · `M-ARCH-09` · `00-CONTEXT.md` v1.5 · `specs/SPEC.md §Modules` · Adversarial Review wrap-up : 6 défauts corrigés (fidélité historique README, compte fichiers M-ARCH-09, numérotation nav.json, version/historique site) |
 | SDLC-Audit-GSTACK — Audit externe GSTACK v1.58.4.0 vs modèle SDLC | Revue | M | SDLC-Audit-GSTACK (25/06/2026) | `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md` (20 recommandations : 4 IMPORTER/7 INVESTIGUER/2 MERGER/7 REJETER) · P-22 §Later→§Next · P-40–P-44 §Later · 3 signaux faibles |

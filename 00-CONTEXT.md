@@ -1,4 +1,4 @@
-# Modèle de gouvernance SDLC — Claude Code · v1.6
+# Modèle de gouvernance SDLC — Claude Code · v1.7
 <!-- Contexte Claude.ai · Premier fichier lu · Ne pas copier dans les projets cibles -->
 <!-- Mis à jour à chaque évolution structurelle du modèle -->
 
@@ -123,4 +123,47 @@ Avant tout commit sur ce projet :
       modèle (version, en-têtes, placeholders, parité template↔skill, schéma
       JSON hooks, carte des fichiers, unicité des IDs, syntaxe shell),
       auparavant vérifiés à l'œil un par un
+- [ ] `11-help-SKILL-TEMPLATE.md` mis à jour si une skill a été ajoutée, renommée
+      ou retirée dans `.claude/skills/` (`M-TMPL-05`) — un routeur qui omet une
+      skill vivante ou route vers une skill morte ment
 - [ ] Fichiers modifiés re-synchronisés dans le projet Claude.ai
+
+---
+
+## 5. Rédaction des templates et skills
+
+Ces deux règles guident la rédaction, pas la lecture — elles s'appliquent quand on
+écrit ou modifie un template ou une skill, pas à chaque session qui l'exécute.
+
+### 5.1 · Description = déclenchement, corps = procédure
+
+L'en-tête ou la description d'une skill énonce **quand** s'en servir (les conditions
+de déclenchement), jamais **comment** — les étapes vivent uniquement dans le corps du
+document, et le corps est la seule autorité. Un en-tête qui résume la séquence
+d'étapes crée un raccourci qu'un agent peut suivre à la place de la lire — le corps
+devient alors une documentation qu'on saute, pas une procédure qu'on exécute.
+
+*(Sprint ECO-2, `M-TMPL-05` — cas confirmé : l'en-tête de `04b-sdlc-sync-SKILL-TEMPLATE.md`
+résumait ses 4 étapes avant qu'elles ne soient détaillées plus loin, corrigé.)*
+
+### 5.2 · La forme d'une règle dépend du type d'échec qu'elle vise
+
+Choisir la forme d'une règle par le défaut qu'elle doit prévenir, pas à l'instinct :
+
+| Échec visé | Forme qui marche (exemple SDLC) | Forme qui échoue |
+|---|---|---|
+| Viole une règle sciemment sous pression | Règle absolue + table de rationalisation Pensée → Réalité (`01-Claude-md-TEMPLATE.md`, `M-PROC-31`) | Consigne molle (« préférer… », « envisager… ») |
+| Se conforme, mais la sortie a la mauvaise forme (verbeux, verdict enterré) | Recette positive — dire ce que la sortie EST, dans l'ordre (ex : gabarit du Bilan §0d du wrap-up) | Liste d'interdictions (« ne pas recopier », « ne jamais narrer ») |
+| Omet un élément requis d'un livrable qu'il produit déjà | Champ structurel obligatoire dans le gabarit (ex : les 4 champs Retenu/Écarté/Raison/Déclencheur de réouverture d'une entrée `07-DECISIONS-SDLC.md`) | Rappel en prose à côté du gabarit |
+| Le comportement doit dépendre d'une condition observable | Conditionnel sur un prédicat vérifiable (ex : un `HALT`, `Claude.md §Règles absolues`) | Règle inconditionnelle + clauses d'exemption |
+
+Deux règles annexes, quelle que soit la forme retenue :
+- **Pas de clause de nuance** — « sauf si ça compte » rouvre la négociation qu'une
+  recette ferme. Une vraie exception s'exprime comme son propre conditionnel sur un
+  prédicat observable, pas comme un assouplissement de la règle générale.
+- **Une clause d'exemption ne cadre pas** — « cette limite ne s'applique pas à X »
+  laisse quand même de la place à l'erreur. Si une partie doit être exemptée,
+  restructurer pour que la règle ne puisse pas l'atteindre du tout.
+
+*(Sprint ECO-2, `M-TMPL-05`, adapté de `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-09`.
+Contrôle mécanique différé à une vague ultérieure de `sdlc-validate.sh`.)*
