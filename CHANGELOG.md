@@ -2,6 +2,16 @@
 
 ---
 
+## [v2.0+ECO-1] — 2026-09-02 · Sprint Feature M · `sdlc-validate.sh` — vérification exécutable du modèle
+- **`sdlc-validate.sh`** (nouveau) : 8 contrôles structurels tier 1 (`E-01`), registre extensible (`CHECKS=(check_c1…check_c8)`), lecture seule. C1 version README↔CHANGELOG · C2 en-tête de version par template · C3 placeholders hors fichiers de référence · C4 parité structurelle template↔skill vivant · C5 parité schéma JSON hook template↔hooks actifs · C6 carte des fichiers ↔ disque ↔ `00-CONTEXT.md` · C7 unicité des IDs de décision · C8 syntaxe de tous les scripts shell
+- **`03-wrap-up-SKILL-TEMPLATE.md`** et **`.claude/skills/wrap-up/SKILL.md`** : appel `sdlc-validate.sh` intégré à l'Étape 3.5, dégradation gracieuse dans le template générique (absent dans un projet cible)
+- **`00-CONTEXT.md` v1.6** : +1 ligne checklist §4 (`bash sdlc-validate.sh` → 8/8)
+- **`README.md`** : ligne de version corrigée (`v1.9+SDLC-13` → `v2.0+ECO-1`, en 2 temps : d'abord `v2.0+SDLC-25` pour suivre C1 après l'ajout de cette entrée, puis `v2.0+ECO-1`) — défaut C1 déjà connu au moment de la rédaction du PDR, observé rouge avant chaque correction ; `§Historique des versions` complété (gap SDLC-24→SDLC-25 non backfillé, même précédent que `M-PROC-27`)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-PROC-40` (4 champs : Retenu · Écarté · Raison · Déclencheur de réouverture), tableau de compatibilité
+- **`specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md`** (nouveau) : dépendance du PDR, absente au démarrage, fournie en session — 26 patterns catalogués (audit de 10 dépôts Agent Skills)
+- **Corrections ajustées vs spec** — 3 écarts trouvés au dry-run manuel des 8 commandes sur le repo réel avant codage, tous arbitrés puis corrigés dans le script : bug de regex C1 (capture des `**` markdown) · 3 faux positifs C3 (citations de la convention `M-TMPL-01` elle-même) · 2 des 4 paires C4 sans skill installée (`sdlc-sync`, `help` jamais ajoutées au self-bootstrap `SDLC-14`) — traité par un état `⚠️ non applicable` non bloquant plutôt qu'un échec. Détail : `specs/Sprints/sprint-ECO-1-sdlc-validate.md §Corrections ajustées vs spec`.
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0, sur le repo corrigé ; chacun des 8 contrôles observé en ❌ au moins une fois via fixture isolée (`/tmp/eco1-fixture/`, sous-shell) avant d'être validé, jamais en dégradant le repo réel ; C1 observé rouge sur le repo réel avant correction, vert après · niveau B — `bash sdlc-init.sh` dans un repo git temporaire isolé, exit 0, structure identique à SDLC-25 (non-régression confirmée)
+
 ## [v2.0+SDLC-25] — 2026-07-02 · Sprint Feature M · Migration `doc/` → `docs/` + publication du site de documentation (GitHub Pages)
 - **`doc/` → `docs/`** (renommage `git mv`, historique préservé) : convention universelle attendue par GitHub Pages, `M-ARCH-09`
 - **`docs/{index.html,nav.json,meta.json,.nojekyll,README.md,pages/*.md}`** (nouveau) : site statique multi-pages (HTML + JS vanilla, `fetch` runtime des `.md`, `nav.json`/`meta.json` comme manifeste), livré tel quel — publiable sur `https://laurentgely.github.io/SDLC/` via `main` → `/docs`

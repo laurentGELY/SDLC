@@ -565,6 +565,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-38 | Import GSD Vague 1 — 6 patterns friction nulle dans 4 templates (L, F, G, I, J, E2) | ✓ | — |
 | M-PROC-39 | Import GSD Vague 2 — graduation auto (H), hot/cold SESSION_BRIDGE (K), hypothesis tracking (D) | ✓ | — |
 | M-ARCH-09 | Convention `doc/` → `docs/` (documentation publique GitHub Pages) | ✓ | — |
+| M-PROC-40 | `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) | ✓ | — |
 
 ---
 
@@ -1795,3 +1796,76 @@ en déclencher une). Cf. `docs/DIAGNOSTIC_CMDS.md`.
 **Déclencheur de réouverture :** si le schéma `PreCompact` documenté change à
 nouveau, ou si un déclenchement réel en session révèle un comportement non
 couvert par le smoke test (cf. limite de validation ci-dessus).
+
+---
+
+## M-PROC-40 · `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) · v2.0+ECO-1 · 02/09/2026
+
+**Contexte :** `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §2` a constaté que
+`INV-1` (vérification exécutable) s'applique au code des projets cibles et aux
+critères d'acceptation de chaque PDR, mais à aucun des 12 fichiers du modèle
+lui-même — d'où la ligne `**Tests** : N/A (gouvernance uniquement)` répétée
+dans presque toutes les entrées du `CHANGELOG.md`. Deux incidents déjà
+documentés (`M-HOOKS-05`, `M-TMPL-04`) sont exactement ce qu'un contrôle
+structurel attrape. Un troisième défaut, connu et non corrigé au moment de la
+rédaction du PDR (`README.md` à `v1.9+SDLC-13` alors que `CHANGELOG.md`
+portait `v2.0+SDLC-GSD-V2`), a servi de cas de test rouge réel avant la
+première ligne de script.
+
+**Retenu :** `sdlc-validate.sh`, script bash unique à la racine du repo,
+lecture seule, structuré en registre de contrôles (`CHECKS=(check_c1 …
+check_c8)`, une fonction par contrôle). 8 contrôles tier 1 uniquement (`E-01`
+du catalogue) : C1 version README↔CHANGELOG, C2 en-tête de version par
+template, C3 placeholders hors fichiers de référence, C4 parité structurelle
+template↔skill vivant, C5 parité schéma JSON hook template↔hooks actifs, C6
+carte des fichiers ↔ disque ↔ `00-CONTEXT.md`, C7 unicité des IDs de décision,
+C8 syntaxe de tous les scripts shell. Intégré à l'Étape 3.5 du wrap-up, dans
+le template `03-wrap-up-SKILL-TEMPLATE.md` et dans le skill vivant. Trois
+listes d'exceptions (C3/C4/C6), initialisées avec les cas légitimes trouvés
+au premier lancement, chacune renvoyant ici :
+- **C3** — `06-PDR-bootstrap.md`, `CHANGELOG.md`, `07-DECISIONS-SDLC.md`
+  citent `[→ ADAPTER]`/`[À REMPLIR]`/`[Nom du projet]` pour *documenter* la
+  convention `M-TMPL-01` elle-même, pas en résidu réel.
+- **C4** — `.claude/skills/sdlc-sync/` et `.claude/skills/help/` n'ont jamais
+  été installées dans ce repo (self-bootstrap `SDLC-14` : `/sdlc-sync` n'a pas
+  d'objet appliqué au modèle sur lui-même, `/help` n'a jamais été ajouté ici).
+  Signalé `⚠️ non applicable`, jamais `❌`.
+- **C6** — aucune, la liste est vide (voir Écarté ci-dessous).
+
+**Écarté :**
+- **Tier 2/3 de `E-01`** (routage TF-IDF, evals comportementaux `claude -p`)
+  — sans objet tant que les skills du modèle ne sont pas auto-déclenchées
+  (`E-16`) ; le tier 3 est un sprint à part entière.
+- **Mode `--fix`** — créerait une classe de modifications non tracées dans ce
+  registre, contraire à `INV-2`. Le script constate, il ne corrige pas.
+- **C6 en 3 listes (disque ↔ `00-CONTEXT.md` ↔ `README.md §Structure`)** —
+  dégradé à 2 listes : le bloc `README.md §Structure du repo` n'est pas
+  normalisé (absence de `sdlc-delta.sh`, `sdlc-project-check.sh`,
+  `sdlc-token-usage.sh`, du contenu réel de `docs/`), exactement le cas prévu
+  par le PDR (§Risques) pour dégrader C6. `[SDLC_CANDIDATE]` ouvert pour la
+  normalisation du bloc, hors périmètre de ce sprint.
+- **Élargir C2 à tout titre H1 contenant une version** — testé et rejeté :
+  chaque template `0X-*.md` porte un `v1.0` générique dans son titre (version
+  du futur projet cible, pas du template SDLC), qui aurait rendu C2 aveugle à
+  un vrai en-tête manquant (confirmé par fixture, cf. `sprint-ECO-1
+  §Corrections ajustées vs spec`). Seul `00-CONTEXT.md` bénéficie du motif H1.
+
+**Raison :** le tier 1 est réalisable en un sprint et rentable immédiatement
+— aurait attrapé `M-HOOKS-05` (C5) et `M-TMPL-04` (C5) avant qu'ils ne se
+reproduisent en bootstrap. Un script explicite, appelé au wrap-up plutôt qu'un
+hook `PreToolUse`/`PostToolUse`, ne peut pas verrouiller une session
+(`M-HOOKS-01`, `M-HOOKS-04`/`M-PROC-30` sur le coût réel d'un hook bloquant
+mal calibré). Le registre de contrôles rend les vagues suivantes (`ECO-2`,
+`ECO-3`) marginales : ajouter une règle = ajouter une fonction `check_cN` +
+une ligne dans `CHECKS=(…)`.
+
+**Impact fichiers :** `sdlc-validate.sh` (nouveau) ·
+`03-wrap-up-SKILL-TEMPLATE.md` §3.5 · `.claude/skills/wrap-up/SKILL.md` §3.5
+· `00-CONTEXT.md` v1.6 (+1 ligne checklist §4) · `README.md` (ligne de
+version corrigée, défaut C1 connu) · `CHANGELOG.md` (format `**Tests**`).
+
+**Déclencheur de réouverture :** si le tier 2 devient pertinent (skills du
+modèle auto-déclenchées, `E-16`), ou si `.claude/skills/sdlc-sync/`/`help/`
+sont un jour installées dans ce repo (C4 repasse alors en comparaison
+structurelle normale sur ces 2 paires), ou si le bloc `README.md §Structure
+du repo` est normalisé (C6 repasse à 3 listes).

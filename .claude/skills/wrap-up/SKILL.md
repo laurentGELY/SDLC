@@ -285,9 +285,14 @@ Rapporter :
 ## Étape 3.5 — Vérification pré-commit
 
 ```bash
+bash sdlc-validate.sh    # 8 contrôles structurels du modèle
 git diff --stat          # uniquement les fichiers attendus
 git status               # rien d'oublié, rien d'en trop
 ```
+
+Son résultat (N/8, code de sortie) remplace la ligne `**Tests**` du
+`CHANGELOG.md` — `N/A (gouvernance uniquement)` n'est plus une réponse valide
+pour un sprint touchant les fichiers du modèle (`M-PROC-40`).
 
 Checklist :
 - [ ] CHANGELOG : version +0.1 cohérente avec la précédente

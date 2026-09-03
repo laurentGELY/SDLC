@@ -28,6 +28,7 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 | `bak/sdlc-kit-exportable.md` | Archive/backup — redondant avec les fichiers source |
 | `sdlc-init.sh` | Script bash — contexte limité dans Claude.ai, 453 lignes |
 | `sdlc-project-check.sh` | Script bash — contenu dans 06-PDR-bootstrap.md |
+| `sdlc-validate.sh` | Script bash — contexte limité dans Claude.ai, sa spec complète est dans `specs/Sprints/sprint-ECO-1-sdlc-validate.md` |
 | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill secondaire — consulté ponctuellement |
 | `05-ROADMAP-TEMPLATE.md` | Template simple, peu de valeur contextuelle permanente |
 | `08-hooks-TEMPLATE.md` | Référence hooks — rarement consulté en session SDLC |
@@ -36,3 +37,11 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 
 ## Dernière vérification : 02/07/2026 · Sprint SDLC-25 wrap-up
 Delta vérifié : aucun nouveau fichier de gouvernance nécessitant une entrée « Fichiers synchronisés » — les fichiers créés ce sprint (`docs/index.html`, `docs/nav.json`, `docs/meta.json`, `docs/pages/*.md`, `docs/README.md`, `docs/.nojekyll`) sont le site public, pas du Project Knowledge (même traitement que `docs/SPEC.html`/`docs/MODE-OPERATOIRE.html`, déjà exclus ci-dessus). Fichiers déjà synchronisés renommés `doc/` → `docs/` : re-synchroniser leur contenu dans Claude.ai ("Sync now").
+
+## Dernière vérification : 02/09/2026 · Sprint ECO-1 wrap-up
+Delta vérifié : `sdlc-validate.sh` (nouveau) ajouté aux fichiers exclus ci-dessus (même
+traitement que les autres scripts). `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md` et
+`specs/Sprints/sprint-ECO-1-sdlc-validate.md` non ajoutés individuellement — cohérent
+avec le fait qu'aucun fichier `specs/Sprints/*.md` individuel n'est listé ici. Fichiers
+déjà synchronisés modifiés ce sprint (`00-CONTEXT.md`, `07-DECISIONS-SDLC.md`) :
+re-synchroniser leur contenu dans Claude.ai ("Sync now").

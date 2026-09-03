@@ -286,6 +286,13 @@ git diff --stat          # uniquement les fichiers attendus
 git status               # rien d'oublié, rien d'en trop
 ```
 
+Si `sdlc-validate.sh` existe à la racine du repo (présent uniquement dans le
+repo modèle SDLC — un projet cible n'a ni le script ni les fichiers `0X-*`
+qu'il vérifie) : l'exécuter. Son résultat (N/8, code de sortie) remplace la
+ligne `**Tests**` du `CHANGELOG.md` — `N/A (gouvernance uniquement)` n'est
+plus une réponse valide pour un sprint touchant les fichiers du modèle.
+Absent dans un projet cible : ne pas bloquer, passer à la checklist.
+
 Checklist :
 - [ ] CHANGELOG : version +0.1 cohérente avec la précédente
 - [ ] ROADMAP : aucun sprint futur écrasé

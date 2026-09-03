@@ -1,4 +1,4 @@
-# Modèle de gouvernance SDLC — Claude Code · v1.5
+# Modèle de gouvernance SDLC — Claude Code · v1.6
 <!-- Contexte Claude.ai · Premier fichier lu · Ne pas copier dans les projets cibles -->
 <!-- Mis à jour à chaque évolution structurelle du modèle -->
 
@@ -119,4 +119,8 @@ Avant tout commit sur ce projet :
 - [ ] Décision ajoutée au tableau de compatibilité (universelle / conditionnelle)
 - [ ] `§Historique des versions` dans `README.md` mis à jour
 - [ ] `specs/SPEC.md §Modules` mis à jour si la carte des fichiers a changé
+- [ ] `bash sdlc-validate.sh` → 8/8 (`M-PROC-40`) — 8 contrôles structurels du
+      modèle (version, en-têtes, placeholders, parité template↔skill, schéma
+      JSON hooks, carte des fichiers, unicité des IDs, syntaxe shell),
+      auparavant vérifiés à l'œil un par un
 - [ ] Fichiers modifiés re-synchronisés dans le projet Claude.ai
