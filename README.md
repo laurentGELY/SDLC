@@ -3,7 +3,7 @@
 Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
-**Version courante : v2.0+ECO-2**
+**Version courante : v2.0+SDLC-26**
 
 ---
 
@@ -187,3 +187,4 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v1.9+SDLC-23 | 21/06/2026 | Hook `PreCompact` × `sprint-memory.md` — checkpoint automatique avant compaction (7e type `CHECKPOINT`), schéma réel `compaction_reason` vérifié et corrigé vs PDR initial (M-HOOKS-08) |
 | v2.0+ECO-1 | 02/09/2026 | `sdlc-validate.sh` — vérification exécutable du modèle, 8 contrôles tier 1 (M-PROC-40). *Gap non backfillé entre SDLC-23 et ici (SDLC-24, GSD-V1/V2, Audit-GSTACK, SDLC-25) — même précédent que `M-PROC-27` : discipline restaurée à partir d'ici, historique accepté tel quel.* |
 | v2.0+ECO-2 | 03/09/2026 | Rédaction des templates — `00-CONTEXT.md §5` (description = déclenchement, forme de règle selon type d'échec), en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit (M-TMPL-05) |
+| v2.0+SDLC-26 | 03/09/2026 | `/retrospective` (SDLC-21→ECO-2) — graduation `LL-T04` en règle permanente `Claude.md §Analyse` (M-PROC-41), index `LESSONS_LEARNED` recompté |

@@ -567,6 +567,7 @@ pas seulement l'auteur du modèle.
 | M-ARCH-09 | Convention `doc/` → `docs/` (documentation publique GitHub Pages) | ✓ | — |
 | M-PROC-40 | `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) | ✓ | — |
 | M-TMPL-05 | Rédaction des templates/skills — description = déclenchement, forme selon type d'échec | ✓ | — |
+| M-PROC-41 | Graduation LL-T04 — vérification factuelle avant analyse/PDR (`Claude.md §Analyse`) | ✓ | — |
 
 ---
 
@@ -1929,3 +1930,54 @@ dégrader un mécanisme déjà validé pour gagner du temps sur un sprint sans r
 **Déclencheur de réouverture :** si `E-16` (`ECO-2b`) est un jour traité et introduit un
 contrôle C9/C10 vérifiant §5.1/§5.2 mécaniquement, mettre à jour cette entrée avec le
 renvoi vers ce contrôle plutôt que d'en créer une nouvelle pour la même règle.
+
+---
+
+## M-PROC-41 · Graduation LL-T04 — vérification factuelle avant analyse/PDR · v2.0+SDLC-26 · 03/09/2026
+
+**Contexte :** `/retrospective` (03/09/2026, sprints SDLC-21→ECO-2, 8 sprints d'écart
+avec la précédente rétro du 20/06/2026) a constaté que `docs/LESSONS_LEARNED.md
+§Index des patterns` sous-comptait `LL-T04` (« vérifier par commande exécutable toute
+précondition factuelle avant de l'exécuter ») à 1 occurrence (`SDLC-14`) alors que le
+pattern s'était confirmé 6 fois de plus depuis (`SDLC-16`, `SDLC-22`, `SDLC-23`, et —
+mal classées « nouveau » à l'exécution — `SDLC-25`, `ECO-1`, `ECO-2`), dont 3
+confirmations consécutives sur les 3 derniers sprints. Seuil de graduation
+(`≥ 3 occurrences sur 5 derniers sprints`, `M-PROC-XX` GSD-V2) largement dépassé.
+
+**Retenu :** nouveau bloc `## Vérification factuelle` dans `Claude.md §Analyse` (juste
+avant `§Demande d'aval`) et son pendant générique dans `01-Claude-md-TEMPLATE.md` : toute
+précondition factuelle non vérifiable par simple lecture du repo (schéma d'une
+plateforme externe, comportement d'un produit tiers, contenu d'un document fourni comme
+acquis) est confirmée par une commande exécutable ou une recherche dédiée avant d'être
+écrite dans l'analyse ou demandée en aval — jamais présumée depuis une doc tierce ou une
+mémoire de session.
+
+**Écarté :**
+- **Hook `.claude/hooks/`** — écarté : la vérification est sémantique (une affirmation
+  factuelle non vérifiable par simple grep), pas un pattern détectable mécaniquement.
+- **Rester documenté en `docs/LESSONS_LEARNED.md §Règles` sans promotion** — écarté :
+  3 confirmations consécutives sur les 3 derniers sprints, décision utilisateur explicite
+  de graduer plutôt que différer une nouvelle fois.
+- **`04-sprint-PDR-TEMPLATE.md`** — écarté comme destination unique : ce template est
+  rempli par l'auteur du PDR (souvent en amont, Claude.ai), pas par Claude Code au moment
+  de l'analyse. Le bloc va dans `Claude.md §Analyse`, exécuté par Claude Code à chaque
+  sprint, où le contrôle a réellement lieu.
+
+**Raison :** les 3 dernières confirmations (`SDLC-25` : fidélité historique avant `sed`
+de masse ; `ECO-1` : dry-run manuel des 8 commandes de `sdlc-validate.sh` avant codage ;
+`ECO-2` : vérification de `disable-model-invocation` contre la doc officielle avant
+rédaction du PDR) ont chacune évité une régression ou un aller-retour coûteux. Le coût
+d'ajout est nul (2 lignes de checklist + 1 paragraphe), le bénéfice mesuré sur 3 sprints
+consécutifs.
+
+**Impact fichiers :** `Claude.md` (+§Vérification factuelle, avant §Demande d'aval) ·
+`01-Claude-md-TEMPLATE.md` v2.1 (même bloc, générique) · `docs/LESSONS_LEARNED.md`
+(§Index des patterns corrigé — `LL-T03` 2→4 occurrences, `LL-T04` 1→7 occurrences et
+statut « Gradué », 3 nouveaux patterns `LL-T08`/`09`/`10`, `§Métriques de rétro` ajoutée)
+· `07-DECISIONS-SDLC.md §M-PROC-40` inchangée (SDLC_CANDIDATE associé marqué traité dans
+`LESSONS_LEARNED` uniquement, pas de sous-bloc ici — décision distincte).
+
+**Déclencheur de réouverture :** si le bloc `Vérification factuelle` produit des faux
+positifs (analyses bloquées sur des vérifications disproportionnées pour des faits
+mineurs) sur plusieurs sprints, réévaluer son champ d'application ou le reformuler en
+recommandation plutôt qu'en checklist obligatoire.

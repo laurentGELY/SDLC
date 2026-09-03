@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.0 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.1 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -305,6 +305,16 @@ Une description ("vérifier que X fonctionne") n'est pas un test.
 - Pattern détectable : [ex : `pip install [^-]` sans VIRTUAL_ENV]
 - Fréquence estimée : [ponctuelle / récurrente]
 → À soumettre à l'Étape 1 du wrap-up pour décision.
+
+## Vérification factuelle *(obligatoire si l'analyse cite un mécanisme non vérifiable par simple lecture du repo)*
+Toute précondition factuelle qui ne se lit pas directement dans les fichiers du
+projet — schéma d'une plateforme externe, comportement d'un produit tiers,
+contenu d'un document fourni comme acquis — est confirmée par une commande
+exécutable ou une recherche dédiée **avant** d'être écrite dans l'analyse ou
+demandée en aval, jamais présumée depuis une doc tierce ou une mémoire de
+session.
+- [ ] Chaque affirmation factuelle non vérifiable par lecture du repo → source citée
+- [ ] Si non vérifiable en session → signalé comme hypothèse explicite, pas comme fait
 
 ## Demande d'aval
 Résumé 3 lignes · fichiers à modifier · tests prévus · confiance : [HAUTE/MOYENNE/FAIBLE — raison en 1 ligne]

@@ -2,6 +2,15 @@
 
 ---
 
+## [v2.0+SDLC-26] — 2026-09-03 · Sprint /retrospective · Sprints SDLC-21→ECO-2 (8 sprints d'écart)
+- **`docs/LESSONS_LEARNED.md`** : `§Index des patterns` recompté et corrigé — `LL-T03` 2→4 occurrences (GSD-V1/V2 confirmées), `LL-T04` 1→7 occurrences (`SDLC-25`/`ECO-1` reclassées de "nouveau" à "confirme" sans réécrire leurs entrées sources) et statut « Gradué » ; 3 nouveaux patterns `LL-T08` (sprint-memory minimal, 2 occ.), `LL-T09` (règle non généralisée, 1 occ.), `LL-T10` (Blind Hunter faux positifs, 1 occ.) ; `§Métriques de rétro` ajoutée (M1 3028 mots +2,8%, M2 2650 mots +9,9% vs SDLC-22) ; décision `SDLC_CANDIDATE` de `SDLC-25` marquée traitée (`ECO-1` livré)
+- **`Claude.md` §Analyse** (nouveau) : bloc « Vérification factuelle » avant `§Demande d'aval` — toute précondition factuelle non vérifiable par lecture du repo confirmée par commande/recherche avant d'être écrite dans l'analyse
+- **`01-Claude-md-TEMPLATE.md` v2.1** : même bloc, générique (pendant du bloc `Claude.md`)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-PROC-41` (graduation `LL-T04`, 4 champs), tableau de compatibilité
+- **`LL-T05`/`LL-T07`** : différés une fois de plus (2e/3e report), chacun avec un déclencheur de réouverture nommé cette fois (`P-20`/`ECO-5` pour `LL-T05`, prochaine récurrence ou `ECO-4` pour `LL-T07`) plutôt qu'un « en attente » sans horizon
+- **Significant Discovery Alert (§2b)** : SD-5 coché (3 décisions `⏳` sans déclencheur > 2 sprints — `LL-T05`, `LL-T07`, `SDLC-18 SDLC_CANDIDATE`), sans gravité bloquante — traité par cette rétro elle-même (déclencheurs nommés) plutôt qu'une replanification
+- **Tests** : N/A (rétrospective — analyse et gouvernance uniquement) · `bash sdlc-validate.sh` → 8/8 ✅ vérifié après les modifications de `Claude.md`/`01-Claude-md-TEMPLATE.md`/`07-DECISIONS-SDLC.md`
+
 ## [v2.0+ECO-2] — 2026-09-03 · Sprint Doc S · Rédaction des templates — description = déclenchement, forme selon type d'échec
 - **`00-CONTEXT.md` v1.7** (nouveau) : §5 « Rédaction des templates et skills » — §5.1 la description/en-tête d'une skill énonce le déclenchement, jamais la séquence d'étapes (`E-08`) ; §5.2 tableau à 4 lignes faisant correspondre le type d'échec visé à la forme de règle qui le prévient (interdiction+rationalisation / recette positive / champ structurel / conditionnel), reformulé avec des exemples SDLC réels (`M-PROC-31`, gabarit Bilan §0d, champs `07-DECISIONS-SDLC.md`, `HALT`) (`E-09`) · §4 : +1 ligne checklist rappelant de maintenir `11-help-SKILL-TEMPLATE.md` à jour (`E-17`)
 - **`04b-sdlc-sync-SKILL-TEMPLATE.md` v2.0** : en-tête réécrit — résumé séquentiel des 4 étapes retiré (cas confirmé du défaut `E-08`), « Principe d'exécution » conservé avec son contenu non séquentiel (validation humaine obligatoire, primauté du tuning local)
