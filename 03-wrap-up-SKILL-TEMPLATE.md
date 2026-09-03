@@ -31,7 +31,7 @@ Si aucun signal pertinent → confirmer "✅ Aucun signal rétrospectif notable"
 
 ### 0b. Identifier la référence de session
 Chercher dans la conversation le document de référence initial (PRD uploadé,
-objectifs énoncés, liste de tâches du sprint). Si absent, utiliser `doc/ROADMAP.md §Now`.
+objectifs énoncés, liste de tâches du sprint). Si absent, utiliser `docs/ROADMAP.md §Now`.
 
 ### 0c. Ancrer sur git
 Exécuter directement (pas de copier-coller demandé à l'utilisateur) :
@@ -126,8 +126,8 @@ seulement vraisemblable.
 ```
 🔴 décision_requise — ambigu, nécessite arbitrage humain avant de continuer
 🟡 patch          — fix trivial, applicable immédiatement avant commit
-🔵 différé        — valide mais hors scope de ce sprint → doc/ROADMAP §Later
-                     ou doc/LESSONS_LEARNED
+🔵 différé        — valide mais hors scope de ce sprint → docs/ROADMAP §Later
+                     ou docs/LESSONS_LEARNED
 ⚪ écarté         — faux positif ou non pertinent — noter pourquoi
 ```
 
@@ -140,7 +140,7 @@ Couche 3 : [N findings / N/A — module partagé non touché]
 
 🔴 [finding] → bloquant avant commit
 🟡 [finding] → appliqué : [description du patch]
-🔵 [finding] → ajouté à [doc/ROADMAP §Later / doc/LESSONS_LEARNED]
+🔵 [finding] → ajouté à [docs/ROADMAP §Later / docs/LESSONS_LEARNED]
 ⚪ [finding] → raison : [...]
 ```
 
@@ -155,7 +155,7 @@ Si zéro finding sur toutes les couches exécutées → confirmer explicitement
 
 *Contexte : utiliser la synthèse des signaux produite en §0a (PIVOT · BLOQUANT · HOOK_CANDIDATE / CONF FAIBLE) pour formuler l'avis éclairé ci-dessous.*
 
-Lire l'index `doc/LESSONS_LEARNED.md` §Index des patterns.
+Lire l'index `docs/LESSONS_LEARNED.md` §Index des patterns.
 Formuler un avis éclairé : ce sprint confirme-t-il un pattern connu ?
 
 Poser les trois questions en un seul bloc — attendre la réponse humaine avant de continuer :
@@ -174,7 +174,7 @@ un template, une procédure, un invariant ?"**
 
 ## Étape 2 — Entrée Lessons Learned
 
-Ajouter une entrée dans `doc/LESSONS_LEARNED.md` §Entrées par sprint.
+Ajouter une entrée dans `docs/LESSONS_LEARNED.md` §Entrées par sprint.
 
 Format obligatoire (5 lignes max) :
 ```
@@ -217,12 +217,12 @@ Ajouter un bloc dans l'entrée CHANGELOG du sprint :
 ```
 Règles format : zéro `###` dans les entrées · bullets plats · **bold** pour noms de fichiers.
 
-**`doc/ROADMAP.md`** — mettre à jour :
+**`docs/ROADMAP.md`** — mettre à jour :
 - Sprint complété → déplacer en §Historique
 - §Now → prochain sprint ou "— En attente"
 - §Next / §Later → ajuster si nécessaire
 
-**`doc/DIAGNOSTIC_CMDS.md`** — obligatoire, auto-exécuté :
+**`docs/DIAGNOSTIC_CMDS.md`** — obligatoire, auto-exécuté :
 Relire la conversation. Extraire toute commande utilisée ou affinée ce sprint.
 Ajouter si nouvelle. Si aucune commande nouvelle : confirmer explicitement "✅ DIAGNOSTIC_CMDS — RAS".
 
@@ -253,7 +253,7 @@ Rapporter :
 ```
 
 **Décisions évoluées (Q2) :**
-Lire `doc/DECISIONS.md`. Identifier les entrées existantes liées au travail de ce sprint.
+Lire `docs/DECISIONS.md`. Identifier les entrées existantes liées au travail de ce sprint.
 Si une décision existante a évolué → ajouter un sous-bloc sous l'entrée originale :
 `→ Mise à jour [date] : [description de l'évolution]`
 Ne jamais réécrire l'entrée source — préserver l'historique.
@@ -268,11 +268,11 @@ Rapporter :
 
 | Condition | Action |
 |-----------|--------|
-| Nouvelle décision architecturale | Nouvelle entrée dans `doc/DECISIONS.md` |
+| Nouvelle décision architecturale | Nouvelle entrée dans `docs/DECISIONS.md` |
 | Comportement système modifié | Mettre à jour `specs/SPEC.md` |
-| Module partagé ajouté/supprimé/renommé | Mettre à jour `STANDARDS.md` §Modules partagés **et** `doc/DEPENDENCY_MAP.md` — même commit |
-| Entrée `[CLOS]` dans `doc/SESSION_BRIDGE.md`, ou > 5 entrées sans nettoyage | Nettoyer `doc/SESSION_BRIDGE.md` — supprimer les entrées `[CLOS]` · avertir si > 5 sans nettoyage |
-| Nouveau fichier de gouvernance créé ce sprint (`.claude/`, `doc/`, `specs/`) | Vérifier `doc/CLAUDE_PROJECT.md` — noter les fichiers manquants → §Étape 6 |
+| Module partagé ajouté/supprimé/renommé | Mettre à jour `STANDARDS.md` §Modules partagés **et** `docs/DEPENDENCY_MAP.md` — même commit |
+| Entrée `[CLOS]` dans `docs/SESSION_BRIDGE.md`, ou > 5 entrées sans nettoyage | Nettoyer `docs/SESSION_BRIDGE.md` — supprimer les entrées `[CLOS]` · avertir si > 5 sans nettoyage |
+| Nouveau fichier de gouvernance créé ce sprint (`.claude/`, `docs/`, `specs/`) | Vérifier `docs/CLAUDE_PROJECT.md` — noter les fichiers manquants → §Étape 6 |
 | Template de skill modifié ce sprint (`03-wrap-up`, `09-retrospective`, etc.) | Répercuter les mêmes changements dans `.claude/skills/<skill>/SKILL.md` — même commit |
 
 <!-- [→ ADAPTER] Ajouter les déclencheurs spécifiques au projet -->
@@ -333,11 +333,11 @@ BLOQUANTS EN SUSPENS
 FIL FONCTIONNEL
 [2 phrases max : état du système livrable après ce sprint — ce qui est opérationnel]
 
-Référence : doc/ROADMAP.md §Now
+Référence : docs/ROADMAP.md §Now
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Écriture dans `doc/SESSION_BRIDGE.md` :**
+**Écriture dans `docs/SESSION_BRIDGE.md` :**
 
 Structure cible du fichier (créer si absent, sinon respecter les sections existantes) :
 
@@ -353,7 +353,7 @@ Structure cible du fichier (créer si absent, sinon respecter les sections exist
 
 Vérification rétrocompat avant écriture :
 ```bash
-grep -q "## §Actif" doc/SESSION_BRIDGE.md 2>/dev/null \
+grep -q "## §Actif" docs/SESSION_BRIDGE.md 2>/dev/null \
   || [créer le fichier avec la structure §Actif / §Archive ci-dessus]
 ```
 
@@ -391,7 +391,7 @@ Avant de valider l'entrée SESSION_BRIDGE, vérifier mentalement :
 sans accès à la conversation précédente ?"
 Si non → enrichir les champs "bloquants" ou "fil fonctionnel" jusqu'à ce que la réponse soit oui.
 
-**Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `doc/ROADMAP.md §Now`).
+**Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `docs/ROADMAP.md §Now`).
 
 Le contenu est versionné dans le même commit que le wrap-up du sprint.
 
@@ -401,9 +401,9 @@ Le contenu est versionné dans le même commit que le wrap-up du sprint.
 
 <!-- [→ ADAPTER] Nom du projet Claude.ai cible -->
 
-**Si `doc/CLAUDE_PROJECT.md` existe :**
-Comparer les fichiers de gouvernance présents dans le repo (`.claude/`, `doc/`, `specs/`)
-avec la liste dans `doc/CLAUDE_PROJECT.md`.
+**Si `docs/CLAUDE_PROJECT.md` existe :**
+Comparer les fichiers de gouvernance présents dans le repo (`.claude/`, `docs/`, `specs/`)
+avec la liste dans `docs/CLAUDE_PROJECT.md`.
 Si delta (fichier présent dans le repo mais absent de CLAUDE_PROJECT.md) :
 ```
 ⚠️  SYNC CLAUDE_PROJECT requis — fichiers à ajouter dans le projet Claude.ai `[Nom du projet]` :
@@ -412,7 +412,7 @@ Si delta (fichier présent dans le repo mais absent de CLAUDE_PROJECT.md) :
 → Ouvrir les Project Files → "Sync now".
 ```
 
-**Si `doc/CLAUDE_PROJECT.md` absent (sprint SDLC-05b non exécuté) :**
+**Si `docs/CLAUDE_PROJECT.md` absent (sprint SDLC-05b non exécuté) :**
 Reminder : "Sync now" dans les Project Files du projet Claude.ai `[Nom du projet]`.
 Si des fichiers ont été modifiés dans `.claude/` ou les templates de gouvernance :
 les fichiers projet Claude.ai sont **hors repo git** — mise à jour manuelle requise.

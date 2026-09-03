@@ -13,10 +13,10 @@ Aucune modification de fichier sans validation explicite.
 
 ```bash
 # Lire l'index des patterns
-grep -A 3 "§Index des patterns" doc/LESSONS_LEARNED.md
+grep -A 3 "§Index des patterns" docs/LESSONS_LEARNED.md
 
 # Lire les N dernières entrées (adapter N selon le nombre de sprints depuis la dernière rétro)
-tail -150 doc/LESSONS_LEARNED.md
+tail -150 docs/LESSONS_LEARNED.md
 ```
 
 Identifier :
@@ -63,11 +63,11 @@ GRADUATION — patterns candidats à promotion
 ```
 
 **Graduation automatique :**
-Après le rapport, scanner l'§Index des patterns (`doc/LESSONS_LEARNED.md`) :
+Après le rapport, scanner l'§Index des patterns (`docs/LESSONS_LEARNED.md`) :
 - Identifier tout pattern avec `Occurrences ≥ 3` ET `Statut: actif`
 - Vérifier que les occurrences se trouvent dans les 5 derniers sprints
   (grep les IDs sprint dans les colonnes Sprints de l'§Index)
-- Si `grep -q "§Index des patterns" doc/LESSONS_LEARNED.md` échoue → confirmer "§Index absent, graduation non disponible."
+- Si `grep -q "§Index des patterns" docs/LESSONS_LEARNED.md` échoue → confirmer "§Index absent, graduation non disponible."
 - Si condition remplie → produire le bloc suivant pour chaque candidat :
 
 ```
@@ -80,7 +80,7 @@ Destinations possibles :
   A) Claude.md §[section pertinente] — règle permanente de comportement
   B) STANDARDS.md §[section] — standard projet à appliquer à tous les sprints
   C) .claude/hooks/ — garde-fou automatique (nécessite M-PROC-X dans DECISIONS)
-  D) doc/LESSONS_LEARNED.md §Règles — règle documentée, pas encore hookée
+  D) docs/LESSONS_LEARNED.md §Règles — règle documentée, pas encore hookée
 
 → Décision demandée : quelle destination ? (A / B / C / D / différer)
 ---
@@ -123,7 +123,7 @@ observés, pas sur la mémoire spontanée de l'humain ou de l'agent.
           avant le code
 
 □ SD-5  ≥ 1 action ⏳ sans déclencheur documenté présente depuis > 2 sprints
-        dans doc/LESSONS_LEARNED.md ou doc/ROADMAP.md §Later
+        dans docs/LESSONS_LEARNED.md ou docs/ROADMAP.md §Later
 ```
 
 **Si ≥ 1 case cochée :**
@@ -132,8 +132,8 @@ observés, pas sur la mémoire spontanée de l'humain ou de l'agent.
 Sprint(s) concerné(s) : [N]
 Condition(s) : [SD-X — description courte]
 → Ne pas démarrer le sprint suivant sans session de replanification
-→ Documenter dans doc/DECISIONS.md ce qui change et pourquoi
-→ Mettre à jour doc/ROADMAP.md §Now si le prochain sprint est remis en cause
+→ Documenter dans docs/DECISIONS.md ce qui change et pourquoi
+→ Mettre à jour docs/ROADMAP.md §Now si le prochain sprint est remis en cause
 ```
 
 **Si 0 case cochée :** confirmer explicitement :
@@ -160,7 +160,7 @@ Attendre la validation humaine avant tout commit.
 
 ## Étape 4 — Remontées modèle SDLC
 
-Scanner tous les `[SDLC_CANDIDATE]` non résolus dans `doc/LESSONS_LEARNED.md`.
+Scanner tous les `[SDLC_CANDIDATE]` non résolus dans `docs/LESSONS_LEARNED.md`.
 
 Produire un bloc de synthèse :
 
@@ -189,7 +189,7 @@ AUCUN SDLC_CANDIDATE EN ATTENTE
 
 ## Étape 5 — Index structuré des patterns
 
-Mettre à jour `doc/LESSONS_LEARNED.md` §Index des patterns avec les données
+Mettre à jour `docs/LESSONS_LEARNED.md` §Index des patterns avec les données
 structurées de cette rétro. Format machine-lisible pour permettre des requêtes
 ultérieures sans relire toutes les entrées.
 
@@ -220,7 +220,7 @@ ajouter les nouvelles lignes P-XX en fin de tableau.
 ## Étape 6 — Mise à jour champs décision
 
 Pour chaque `[HOOK_CANDIDATE]` ou `[SDLC_CANDIDATE]` traité, mettre à jour le champ
-`décision :` dans `doc/LESSONS_LEARNED.md` :
+`décision :` dans `docs/LESSONS_LEARNED.md` :
 
 ```
 → décision : [activé sprint N / reporté / rejeté — raison]
@@ -247,7 +247,7 @@ wc -w .claude/skills/wrap-up/SKILL.md
 ```
 
 Comparer M1/M2 au sprint précédent ainsi mesuré (chercher dans
-`doc/LESSONS_LEARNED.md §Métriques de rétro` ou `git log -p` sur ces fichiers)
+`docs/LESSONS_LEARNED.md §Métriques de rétro` ou `git log -p` sur ces fichiers)
 — une variation notable est un signal pour les pistes d'allègement (§Étape 3).
 
 ### Mesure dynamique — sdlc-token-usage.sh
@@ -282,14 +282,14 @@ sans relire tout le fichier :
 
 ```bash
 # Patterns actifs non résolus
-grep "actif" doc/LESSONS_LEARNED.md | grep -v "résolu"
+grep "actif" docs/LESSONS_LEARNED.md | grep -v "résolu"
 
 # HOOK_CANDIDATE en attente depuis plus d'un cycle
-grep "HOOK_CANDIDATE" doc/LESSONS_LEARNED.md | grep "en attente"
+grep "HOOK_CANDIDATE" docs/LESSONS_LEARNED.md | grep "en attente"
 
 # Décisions potentiellement invalidées
-grep "valide jusqu'à" doc/LESSONS_LEARNED.md | grep -v "stable"
+grep "valide jusqu'à" docs/LESSONS_LEARNED.md | grep -v "stable"
 
 # Métriques de la dernière rétro
-grep -A 8 "§Métriques de rétro" doc/LESSONS_LEARNED.md | tail -8
+grep -A 8 "§Métriques de rétro" docs/LESSONS_LEARNED.md | tail -8
 ```

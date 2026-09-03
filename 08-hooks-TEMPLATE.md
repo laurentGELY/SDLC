@@ -42,7 +42,7 @@ Grep de validation post-adaptation : `grep "\[ACTIVER" .claude/hooks/pre-tool-ba
 #
 # Le JSON d'entrée arrive sur stdin (schéma réel confirmé Sprint SDLC-18, M-HOOKS-05) :
 #   {"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"..."}}
-# Historique des règles : doc/DECISIONS.md §D-HOOK-XX
+# Historique des règles : docs/DECISIONS.md §D-HOOK-XX
 
 set -euo pipefail
 
@@ -60,7 +60,7 @@ print(data.get('tool_name', ''))
 " 2>/dev/null || echo "")
 
 # ─── BLOCAGES STRICTS ────────────────────────────────────────────────────────
-# Chaque blocage doit avoir une entrée dans doc/DECISIONS.md (préfixe D-HOOK-XX)
+# Chaque blocage doit avoir une entrée dans docs/DECISIONS.md (préfixe D-HOOK-XX)
 
 # [UNIVERSEL] git push --force — destructif sur l'historique partagé
 if echo "$CMD" | grep -qE 'git\s+push.*(--force|-f)\s'; then
@@ -228,7 +228,7 @@ Si activé → ajouter dans `settings.json` :
 ]
 ```
 
-→ Documenter la décision dans `doc/DECISIONS.md` §D-HOOK-07.
+→ Documenter la décision dans `docs/DECISIONS.md` §D-HOOK-07.
 
 ---
 
@@ -319,7 +319,7 @@ Si activé → ajouter dans `settings.json` :
 ]
 ```
 
-→ Documenter la décision dans `doc/DECISIONS.md` §D-HOOK-XX.
+→ Documenter la décision dans `docs/DECISIONS.md` §D-HOOK-XX.
 
 ---
 
@@ -336,7 +336,7 @@ Entrée LESSONS_LEARNED avec tag [HOOK_CANDIDATE] + ligne bash proposée
          ↓
 Décision humaine explicite → décommenter/ajouter section dans pre-tool-bash.sh
          ↓
-Entrée doc/DECISIONS.md §D-HOOK-XX + commit
+Entrée docs/DECISIONS.md §D-HOOK-XX + commit
 ```
 
 **Règle** : ne jamais ajouter une règle dans le hook sans entrée DECISIONS.md correspondante.

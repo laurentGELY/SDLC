@@ -1,5 +1,5 @@
 #!/bin/bash
-# sdlc-project-check.sh — Génère/met à jour doc/CLAUDE_PROJECT.md
+# sdlc-project-check.sh — Génère/met à jour docs/CLAUDE_PROJECT.md
 # Usage : bash /chemin/vers/sdlc-toolkit/sdlc-project-check.sh "Nom du projet Claude.ai"
 # Prérequis : répertoire courant = racine du projet cible
 
@@ -12,7 +12,7 @@ fi
 
 PROJECT_NAME="$1"
 DATE_TODAY=$(date +%d/%m/%Y)
-TARGET="doc/CLAUDE_PROJECT.md"
+TARGET="docs/CLAUDE_PROJECT.md"
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -50,7 +50,7 @@ echo "  • Gaps : placeholders résiduels, sections manquantes, incohérences"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-# ─── GÉNÉRATION doc/CLAUDE_PROJECT.md ────────────────────────────────────────
+# ─── GÉNÉRATION docs/CLAUDE_PROJECT.md ────────────────────────────────────────
 
 mkdir -p doc
 cat > "$TARGET" << HEREDOC
@@ -70,7 +70,7 @@ cat > "$TARGET" << HEREDOC
 ## Fichiers exclus (et raison)
 | Fichier | Raison d'exclusion |
 |---------|-------------------|
-| doc/SESSION_BRIDGE.md | Contenu éphémère — inutile dans Claude.ai |
+| docs/SESSION_BRIDGE.md | Contenu éphémère — inutile dans Claude.ai |
 | [À REMPLIR] | [À REMPLIR] |
 
 ## Dernière vérification : ${DATE_TODAY} · sdlc-project-check.sh

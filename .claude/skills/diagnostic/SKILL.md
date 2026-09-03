@@ -25,4 +25,4 @@ git log --oneline -10
 ```
 
 Si l'incident révèle un gap de process (comme SDLC-14) → consigner dans
-`doc/LESSONS_LEARNED.md`, pas seulement corriger silencieusement.
+`docs/LESSONS_LEARNED.md`, pas seulement corriger silencieusement.

@@ -13,7 +13,7 @@ Conclusion : précondition explicitement demandée par le PDR (§Handoff) a
 été vérifiée avant de démarrer plutôt que présumée — gap confirmé.
 Décision utilisateur : renumeroter ce sprint en SDLC-14 réel (audit +
 rattrapage + bootstrap fusionnés) plutôt que d'écrire une entrée fictive
-dans `doc/LESSONS_LEARNED.md`.
+dans `docs/LESSONS_LEARNED.md`.
 
 ## Symptôme : gap de traçabilité (entrées CHANGELOG/DECISIONS manquantes pour des sprints passés)
 Date : 19/06/2026
@@ -25,7 +25,7 @@ par convention §Types de sprint, mais mentionné en bullet dans l'entrée
 SDLC-10). `07-DECISIONS-SDLC.md` ne contient aucune entrée dédiée pour
 SDLC-07/08/09 (seulement des mentions en passant dans d'autres entrées,
 ex. "P-01, SDLC-07").
-Conclusion : confirme le pattern `LL-T01` (`doc/LESSONS_LEARNED.md`) — 3
+Conclusion : confirme le pattern `LL-T01` (`docs/LESSONS_LEARNED.md`) — 3
 sprints méta sans entrée CHANGELOG/DECISIONS dédiée. Backfill historique
 non effectué dans ce sprint (réécrire une séquence de versions déjà
 publiée est risqué et hors portée d'un sprint Doc) — reste une action
@@ -45,7 +45,7 @@ Date : 19/06/2026
 Commande : `git log --follow --diff-filter=A --format="%ad %s" -- <fichier>`
 puis vérifier avec `git show --stat <commit-suspect> -- <fichier>` (chercher
 `new file mode` dans le diff)
-Résultat observé : `git log --follow` sur `doc/ROADMAP.md` indiquait une
+Résultat observé : `git log --follow` sur `docs/ROADMAP.md` indiquait une
 création à l'"Initial commit" (30/05/2026), alors que le fichier a
 réellement été créé en `new file` dans le commit `6fe4f4f` (Sprint
 SDLC-10, 19/06/2026) — faux positif de détection de renommage sur un
@@ -57,7 +57,7 @@ seul sur ce repo — toujours confirmer par `git show --stat` (présence de
 ## Symptôme : un grep hérité d'un script d'audit ne matche rien sur un chemin attendu
 Date : 19/06/2026
 Commande : `find . -name "<nom-fichier>"` avant de conclure à une absence
-Résultat observé : `grep ... doc/ANALYSE-BMAD.md` ne matchait rien — le
+Résultat observé : `grep ... docs/ANALYSE-BMAD.md` ne matchait rien — le
 fichier avait été déplacé vers `specs/Sprints/ANALYSE-BMAD.md` dès le
 commit `28b2415` (Sprint SDLC-07), bien avant l'écriture du script
 d'audit SDLC-16 qui référençait encore l'ancien chemin.
@@ -103,7 +103,7 @@ l'écriture Write/Edit que sur des chemins sous `specs/Sprints/*` — pas sur
 `.claude/sprint-memory.md` lui-même, même quand c'est exactement ce fichier qu'il faut
 corriger (ex: la référence `# Spec : ...` pointe vers un nom de fichier renommé/supprimé).
 Commande de contournement (en attendant l'élargissement du carve-out — `[HOOK_CANDIDATE]`,
-`doc/LESSONS_LEARNED.md` `LL-T07`) :
+`docs/LESSONS_LEARNED.md` `LL-T07`) :
 ```bash
 # 1. Recréer un placeholder sous specs/Sprints/* avec l'ancien nom référencé (carve-out OK)
 #    → débloque le hook car SPEC_PATH existe à nouveau sur disque
@@ -151,3 +151,21 @@ périmètre plus étroit si la première citation verbatim semble incomplète ou
 Ne jamais traiter une affirmation "vérifié" dans un PDR reçu comme acquise sans
 revérification — même règle que `LL-T04`, étendue ici à un schéma de plateforme externe
 documenté publiquement (pas seulement au contenu du repo).
+
+## Symptôme : un `sed` de substitution en masse (renommage de convention) corrompt un bloc de récit historique daté
+Date : 02/07/2026 (Sprint SDLC-25, détecté au wrap-up)
+Commande : `grep -n "docs\?/" README.md | sed -n '/Historique des versions/,/^---/p'` puis comparaison manuelle des dates de chaque ligne avec la date du renommage effectif (`git log -1 --format=%ad -- <fichier renommé>` ou l'entrée `M-ARCH-NN` correspondante)
+Résultat observé : la substitution `\bdoc/` → `docs/` avait explicitement exclu `CHANGELOG.md` et `specs/Sprints/*.md` (fidélité historique actée dans `M-ARCH-09`), mais pas le bloc `README.md §Historique des versions` — de même nature (un fait daté). 3 lignes rendues fausses (le nom `docs/` substitué à un moment où le dossier s'appelait encore `doc/`).
+Conclusion : avant toute substitution `sed` de masse sur un renommage de convention, chercher explicitement tout bloc `§Historique`/`§Changelog`/journal daté dans les fichiers de la surface touchée — pas seulement les fichiers nommément connus pour ce rôle (`CHANGELOG.md`). Un `grep -rln "Historique des versions\|^## \["` sur la surface avant d'appliquer le `sed` aurait trouvé le bloc concerné.
+
+## Symptôme : compteur affirmé dans une décision (`07-DECISIONS-SDLC.md`) non recompté après rédaction
+Date : 02/07/2026 (Sprint SDLC-25, détecté au wrap-up)
+Commande : `git status --porcelain | grep -c '^R '` (nombre réel de renommages détectés par git) comparé au chiffre écrit en toutes lettres dans l'entrée de décision correspondante
+Résultat observé : l'entrée `M-ARCH-09` affirmait "9 fichiers" renommés, le diff réel en contenait 12.
+Conclusion : tout chiffre écrit dans une entrée `07-DECISIONS-SDLC.md` doit être recompté par une commande au moment de la rédaction (`git status --porcelain | grep -c`, `wc -l`, etc.), jamais estimé de mémoire — même principe que la clause anti-complaisance `Claude.md §Test`, appliqué ici au contenu d'une décision plutôt qu'à un test.
+
+## Symptôme : `sed -e "s/.../.../"` échoue avec `unknown option to 's'` quand le texte de remplacement contient le même caractère que le délimiteur
+Date : 02/07/2026 (Sprint SDLC-25, test niveau B `sdlc-init.sh`)
+Commande de repro isolée : `DATE_TODAY=$(date +%d/%m/%Y) ; echo test | sed -e "s/JJ\/MM\/AAAA/${DATE_TODAY}/g"`
+Résultat observé : `sed: -e expression #1, char 21: unknown option to 's'` — le texte de remplacement (`02/09/2026`, format `%d/%m/%Y`) contient des `/`, qui collisionnent avec le délimiteur `/` de la commande `s///`. `git log -p` a confirmé que cette ligne existait ainsi depuis le tout premier commit de `sdlc-init.sh` — **le bootstrap n'avait jamais fonctionné**, une variable de date au format `JJ/MM/AAAA` déclenchant systématiquement l'échec.
+Conclusion : dès qu'un `sed -e "s/…/${VAR}/g"` utilise une variable de contenu non contrôlé (date formatée, chemin, nom libre) comme texte de remplacement, choisir un délimiteur qui ne peut pas apparaître dans cette variable (`s#…#${VAR}#g` pour une date `JJ/MM/AAAA`, par exemple) — ne jamais supposer que `/` est un délimiteur sûr par défaut. Un script de bootstrap doit être testé par exécution réelle dans un répertoire isolé (`Claude.md §Modifications spot`), pas seulement par `bash -n` (qui ne détecte que les erreurs de syntaxe bash, pas les échecs `sed` runtime).

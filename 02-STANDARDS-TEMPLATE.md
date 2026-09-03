@@ -1,7 +1,7 @@
 # STANDARDS.md — [Nom du projet] · v1.0
 <!-- Template SDLC v1.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.9 · aligné le JJ/MM/AAAA -->
-<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
+<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
 > Référence technique permanente du dépôt.
 > Complémentaire à `Claude.md` — ne contient pas de workflow de sprint.
@@ -44,7 +44,7 @@ n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 
 **Spike :** output = décision documentée, jamais du code partiel. Durée bornée définie dans la spec.
 
-**SDLC-Sync :** output = gouvernance alignée sur la version SDLC courante. Tests : N/A (zéro code métier). Exécuter via le skill `/sdlc-sync` dans Claude Code. Voir `doc/MODE-OPERATOIRE.html` §Mettre à jour un projet existant.
+**SDLC-Sync :** output = gouvernance alignée sur la version SDLC courante. Tests : N/A (zéro code métier). Exécuter via le skill `/sdlc-sync` dans Claude Code. Voir `docs/MODE-OPERATOIRE.html` §Mettre à jour un projet existant.
 
 ---
 
@@ -74,7 +74,7 @@ n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 
 **Règle :** toute modification d'un module partagé → niveau B obligatoire + mise à jour de cette table dans le même commit.
 
-**Déclencheur DEPENDENCY_MAP :** si un module partagé est ajouté, supprimé ou renommé → régénérer `doc/DEPENDENCY_MAP.md` dans le même commit.
+**Déclencheur DEPENDENCY_MAP :** si un module partagé est ajouté, supprimé ou renommé → régénérer `docs/DEPENDENCY_MAP.md` dans le même commit.
 
 ---
 
@@ -127,7 +127,7 @@ Grep de validation au bootstrap : `grep "\[À REMPLIR\]" STANDARDS.md` → zéro
 
 ## Règles d'archivage
 
-### doc/DIAGNOSTIC_CMDS.md
+### docs/DIAGNOSTIC_CMDS.md
 Toute commande `grep / tail / python3 / etc.` ayant localisé ou résolu un problème
 → archivée avant le wrap-up.
 
@@ -143,4 +143,4 @@ Conclusion : <ce que ça a confirmé ou infirmé>
 ### Fichiers de configuration
 Toute modification d'un fichier de config :
 - Valeur précédente notée dans le commit
-- Entrée dans `doc/DECISIONS.md` si décision non triviale
+- Entrée dans `docs/DECISIONS.md` si décision non triviale

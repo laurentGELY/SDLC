@@ -1,5 +1,5 @@
 # ROADMAP — [Nom du projet] · v1.0
-<!-- Template SDLC v1.1 · Copier dans doc/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
+<!-- Template SDLC v1.1 · Copier dans docs/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
 
 ---
 

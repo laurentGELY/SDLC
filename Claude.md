@@ -47,7 +47,7 @@ pour exécution. Chaque sprint modifie un ou plusieurs fichiers
 `0X-*-TEMPLATE.md`/`1X-*-TEMPLATE.md`, ou les fichiers de gouvernance
 propres à ce projet (`07-DECISIONS-SDLC.md`, `CHANGELOG.md`, `README.md`).
 Source de vérité : `07-DECISIONS-SDLC.md` pour les décisions sur le modèle —
-`doc/DECISIONS.md` générique n'existe pas pour ce projet, ne pas le créer.
+`docs/DECISIONS.md` générique n'existe pas pour ce projet, ne pas le créer.
 
 **Toute affirmation factuelle doit être citable** : chemin:ligne, sortie
 de commande, entrée git, log — éviter les formulations non vérifiables
@@ -79,11 +79,11 @@ if [ -s .claude/sprint-memory.md ]; then
 fi
 
 # Contexte inter-session (entrée la plus récente en tête)
-head -15 doc/SESSION_BRIDGE.md 2>/dev/null \
+head -15 docs/SESSION_BRIDGE.md 2>/dev/null \
   || echo "— SESSION_BRIDGE absent (premier sprint ou 05b non exécuté)"
 
 # 3. Référence — sprint actif et architecture du modèle
-sed -n '/^## ▶ Now/,/^## ⏭ Next/p' doc/ROADMAP.md
+sed -n '/^## ▶ Now/,/^## ⏭ Next/p' docs/ROADMAP.md
 grep -n "^##" specs/SPEC.md | head -20
 
 # 4a. Créer le fichier spec du sprint dans le repo
@@ -151,7 +151,7 @@ Exception : si le header du fichier correspond au sprint spec en cours → repri
 - **Index-guidé** : si un fichier différé dépasse ~200 lignes et dispose
   d'une table des matières ou d'un §Index en tête → grep dans l'index d'abord,
   charger uniquement les sections pertinentes. Cas typique : `specs/SPEC.md`
-  ou `doc/LESSONS_LEARNED.md` brownfield.
+  ou `docs/LESSONS_LEARNED.md` brownfield.
 - **Délégation sous-agent** : si une étape nécessite > 5 fichiers à lire
   simultanément ou qu'un fichier dépasse ~10K tokens → déléguer à un sous-agent
   (outil Agent de Claude Code) qui retourne un résumé structuré (JSON ou bullets

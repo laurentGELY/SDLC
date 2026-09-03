@@ -60,9 +60,9 @@ deploy_template() {
   dir="$(dirname "${dst}")"
   mkdir -p "${dir}"
   sed \
-    -e "s/\[Nom du projet\]/${PROJECT_NAME}/g" \
-    -e "s/JJ\/MM\/AAAA/${DATE_TODAY}/g" \
-    -e "s/AAAA-MM-JJ/${DATE_ISO}/g" \
+    -e "s#\[Nom du projet\]#${PROJECT_NAME}#g" \
+    -e "s#JJ/MM/AAAA#${DATE_TODAY}#g" \
+    -e "s#AAAA-MM-JJ#${DATE_ISO}#g" \
     "${src}" > "${dst}"
   echo "  ✅ ${dst}"
 }
@@ -81,7 +81,7 @@ deploy_copy() {
 
 echo "📁 Création de la structure..."
 mkdir -p \
-  "${TARGET_DIR}/doc" \
+  "${TARGET_DIR}/docs" \
   "${TARGET_DIR}/specs/Sprints" \
   "${TARGET_DIR}/.claude/skills/wrap-up" \
   "${TARGET_DIR}/.claude/skills/retrospective" \
@@ -118,25 +118,25 @@ Format : Semantic Versioning adapté aux sprints.
 - **\`.claude/skills/retrospective/SKILL.md\` v1.0** : procédure rétrospective
 - **\`.claude/hooks/pre-tool-bash.sh\` v1.0** : hook PreToolUse Bash
 - **\`.claude/settings.json\`** : configuration hooks Claude Code
-- **\`doc/ROADMAP.md\` v1.0** : structure Now/Next/Later
-- **\`doc/DECISIONS.md\` v1.0** : registre décisions architecturales
-- **\`doc/LESSONS_LEARNED.md\`** : registre apprentissages
-- **\`doc/DIAGNOSTIC_CMDS.md\`** : archive commandes diagnostic
+- **\`docs/ROADMAP.md\` v1.0** : structure Now/Next/Later
+- **\`docs/DECISIONS.md\` v1.0** : registre décisions architecturales
+- **\`docs/LESSONS_LEARNED.md\`** : registre apprentissages
+- **\`docs/DIAGNOSTIC_CMDS.md\`** : archive commandes diagnostic
 - **\`specs/SPEC.md\`** : structure architecture — à compléter par Claude Code
 - **Tests** : N/A (bootstrap doc)
 CHANGELOG
 echo "  ✅ CHANGELOG.md"
 echo ""
 
-# ─── ÉTAPE 3 : DOSSIER doc/ ──────────────────────────────────────────────────
+# ─── ÉTAPE 3 : DOSSIER docs/ ──────────────────────────────────────────────────
 
-echo "📄 Dossier doc/..."
+echo "📄 Dossier docs/..."
 
 # ROADMAP depuis template
-deploy_template "${SCRIPT_DIR}/05-ROADMAP-TEMPLATE.md" "${TARGET_DIR}/doc/ROADMAP.md"
+deploy_template "${SCRIPT_DIR}/05-ROADMAP-TEMPLATE.md" "${TARGET_DIR}/docs/ROADMAP.md"
 
 # DECISIONS from scratch
-cat > "${TARGET_DIR}/doc/DECISIONS.md" << DECISIONS
+cat > "${TARGET_DIR}/docs/DECISIONS.md" << DECISIONS
 <!-- VERSION : 1.0 | ${DATE_TODAY} | ${PROJECT_NAME} -->
 
 # DECISIONS
@@ -156,10 +156,10 @@ Format : ID · Décision retenue · Alternative écartée · Justification
 | D-HOOK  | Hooks Claude Code |
 | D-SYNC  | Alignements SDLC-Sync |
 DECISIONS
-echo "  ✅ doc/DECISIONS.md"
+echo "  ✅ docs/DECISIONS.md"
 
 # LESSONS_LEARNED from scratch
-cat > "${TARGET_DIR}/doc/LESSONS_LEARNED.md" << LESSONS
+cat > "${TARGET_DIR}/docs/LESSONS_LEARNED.md" << LESSONS
 <!-- VERSION : 1.0 | ${DATE_TODAY} | ${PROJECT_NAME} -->
 
 # LESSONS LEARNED
@@ -191,10 +191,10 @@ Dernière /retrospective : —
 
 *Vide au bootstrap.*
 LESSONS
-echo "  ✅ doc/LESSONS_LEARNED.md"
+echo "  ✅ docs/LESSONS_LEARNED.md"
 
 # DIAGNOSTIC_CMDS from scratch
-cat > "${TARGET_DIR}/doc/DIAGNOSTIC_CMDS.md" << DIAG
+cat > "${TARGET_DIR}/docs/DIAGNOSTIC_CMDS.md" << DIAG
 <!-- VERSION : 1.0 | ${DATE_TODAY} | ${PROJECT_NAME} -->
 
 # DIAGNOSTIC_CMDS
@@ -218,7 +218,7 @@ Conclusion : <ce que ça a confirmé ou infirmé>
 
 *Vide au bootstrap.*
 DIAG
-echo "  ✅ doc/DIAGNOSTIC_CMDS.md"
+echo "  ✅ docs/DIAGNOSTIC_CMDS.md"
 echo ""
 
 # ─── ÉTAPE 4 : DOSSIER specs/ ────────────────────────────────────────────────
@@ -301,7 +301,7 @@ Procédure de diagnostic pour bugs et comportements inattendus.
 2. Lire les logs (commandes ci-dessus)
 3. Isoler le module concerné
 4. Formuler hypothèse + commande de validation
-5. Si résolu → archiver dans \`doc/DIAGNOSTIC_CMDS.md\`
+5. Si résolu → archiver dans \`docs/DIAGNOSTIC_CMDS.md\`
 6. Si non résolu → escalader avec contexte complet
 DIAG_SKILL
 echo "  ✅ .claude/skills/diagnostic/SKILL.md (squelette — à compléter Sprint 1)"
@@ -322,7 +322,7 @@ cat > "${TARGET_DIR}/.claude/hooks/pre-tool-bash.sh" << 'HOOK'
 # Hook pre-tool-bash — [À ADAPTER : remplacer par le nom du projet]
 # Version : 1.0.0 | [date bootstrap]
 # Sections activées : blocages universels uniquement
-# Pour activer d'autres sections → lire hooks-reference.md · documenter dans doc/DECISIONS.md §D-HOOK-XX
+# Pour activer d'autres sections → lire hooks-reference.md · documenter dans docs/DECISIONS.md §D-HOOK-XX
 #
 # Protocole : exit 0 = autoriser · exit 1 = bloquer silencieux · exit 2 = bloquer avec message
 
@@ -400,7 +400,7 @@ echo "🔍 Vérifications..."
 # Placeholders résiduels
 RESIDUAL=$(grep -rl "\[→ ADAPTER\]\|\[Nom du projet\]" \
   "${TARGET_DIR}/STANDARDS.md" \
-  "${TARGET_DIR}/doc/ROADMAP.md" \
+  "${TARGET_DIR}/docs/ROADMAP.md" \
   2>/dev/null || true)
 
 if [ -n "${RESIDUAL}" ]; then
@@ -444,7 +444,7 @@ echo "  - specs/SPEC.md : structure du domaine"
 echo "  - .claude/skills/diagnostic/SKILL.md : commandes de diagnostic"
 echo "  - Sections [ACTIVER si…] dans .claude/hooks/hooks-reference.md"
 echo "    → décider lesquelles activer dans pre-tool-bash.sh"
-echo "    → documenter chaque choix dans doc/DECISIONS.md §D-HOOK-XX"
+echo "    → documenter chaque choix dans docs/DECISIONS.md §D-HOOK-XX"
 echo ""
 echo "  Grep de validation final :"
 echo "  grep '\[→ ADAPTER\]' Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh"

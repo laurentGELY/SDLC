@@ -1,6 +1,6 @@
 # Synthèse consolidée — Audits GSD-full et GSD-lite vs Modèle SDLC
 <!-- Produit sprint SDLC-Audit-GSD-lite · 24/06/2026 -->
-<!-- Basé sur : doc/AUDIT-EXTERNE-gsd-vs-sdlc.md + doc/AUDIT-EXTERNE-gsd-lite-vs-sdlc.md -->
+<!-- Basé sur : docs/AUDIT-EXTERNE-gsd-vs-sdlc.md + docs/AUDIT-EXTERNE-gsd-lite-vs-sdlc.md -->
 
 ---
 

@@ -1,0 +1,63 @@
+{
+  "brand": {
+    "title": "SDLC Toolkit",
+    "subtitle": "Harnais de gouvernance · Claude Code",
+    "repo": "https://github.com/laurentGELY/SDLC"
+  },
+  "home": "intro",
+  "groups": [
+    {
+      "title": "Introduction",
+      "num": "01",
+      "level": 1,
+      "items": [
+        { "id": "intro", "title": "Vue d'ensemble" },
+        { "id": "invariants", "title": "Les quatre invariants" },
+        { "id": "demarrage", "title": "Démarrage rapide" }
+      ]
+    },
+    {
+      "title": "Concepts clés",
+      "num": "02",
+      "level": 2,
+      "items": [
+        { "id": "deux-surfaces", "title": "Amont / aval : deux surfaces" },
+        { "id": "boucle", "title": "La boucle de rétroaction" },
+        { "id": "cycle-sprint", "title": "Le cycle de sprint" },
+        { "id": "contexte", "title": "Contexte chirurgical & tokens" }
+      ]
+    },
+    {
+      "title": "Architecture",
+      "num": "03",
+      "level": 2,
+      "items": [
+        { "id": "flux", "title": "Flux complet" },
+        { "id": "modules", "title": "Carte des fichiers" },
+        { "id": "garde-fous", "title": "Garde-fous : HALT & verdicts" }
+      ]
+    },
+    {
+      "title": "Skills",
+      "num": "04",
+      "level": 3,
+      "items": [
+        { "id": "skill-wrapup", "title": "/wrap-up" },
+        { "id": "skill-retro", "title": "/retrospective" },
+        { "id": "skill-autres", "title": "/sdlc-sync · /diagnostic · /help" },
+        { "id": "hooks", "title": "Hooks bash & PreCompact" }
+      ]
+    },
+    {
+      "title": "Référence",
+      "num": "05",
+      "level": 3,
+      "items": [
+        { "id": "templates", "title": "Catalogue des templates" },
+        { "id": "standards", "title": "Standards : DoD, types, tests" },
+        { "id": "decisions", "title": "Registre des décisions" },
+        { "id": "versions", "title": "Historique des versions" }
+      ]
+    }
+  ]
+}

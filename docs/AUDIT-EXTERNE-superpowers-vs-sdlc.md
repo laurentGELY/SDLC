@@ -125,7 +125,7 @@ Constat : l'agent dépend entièrement de la relecture manuelle de Claude.md §D
 de session ; aucun garde-fou mécanique ne force cette relecture. Incident déclencheur :
 omission de l'étape 4a (création du fichier spec) lors d'un sprint précédent, faute de
 confrontation entre les instructions d'init embarquées dans un PDR et la checklist réelle
-de Claude.md (cf. LL-T05, doc/SESSION_BRIDGE.md entrée Sprint SDLC-16).
+de Claude.md (cf. LL-T05, docs/SESSION_BRIDGE.md entrée Sprint SDLC-16).
 Proposition : hook SessionStart (matcher startup|clear|compact) qui extrait et réinjecte
 en contexte additionnel le contenu de Claude.md §Règles absolues + §HALT.
 Fichier cible : 08-hooks-TEMPLATE.md (nouvelle section)

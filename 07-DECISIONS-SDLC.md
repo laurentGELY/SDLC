@@ -162,7 +162,7 @@ toujours ajouter `→ Mise à jour [date] : [évolution]` sous l'entrée origina
 
 ## M-PROC-05 · DIAGNOSTIC_CMDS.md obligatoire · v1.1 · 30/05/2026
 
-**Retenu :** `doc/DIAGNOSTIC_CMDS.md` devient obligatoire à chaque sprint.
+**Retenu :** `docs/DIAGNOSTIC_CMDS.md` devient obligatoire à chaque sprint.
 Claude relit la conversation, extrait les commandes utilisées, ajoute si nouvelle.
 Si aucune commande nouvelle : confirmer "✅ DIAGNOSTIC_CMDS — RAS" explicitement.
 
@@ -226,7 +226,7 @@ pas prévisibles avant le sprint 1. Le circuit via LESSONS_LEARNED garantit que 
 ajoutée est fondée sur un incident ou une hésitation réelle, documentée et validée.
 Coût marginal faible (une question de plus en Étape 1, un champ optionnel en Étape 2).
 
-**Invariant :** toute règle dans `pre-tool-bash.sh` doit avoir une entrée `doc/DECISIONS.md §D-HOOK-XX`.
+**Invariant :** toute règle dans `pre-tool-bash.sh` doit avoir une entrée `docs/DECISIONS.md §D-HOOK-XX`.
 Un hook sans décision documentée est une règle implicite — interdit par le modèle.
 
 ---
@@ -348,7 +348,7 @@ ciblées, zéro réécriture, zéro nouveau fichier).
 
 **Retenu :** 3 additions dans 3 templates :
 - **Prop H** — graduation semi-automatique des patterns dans `09-retrospective-SKILL-TEMPLATE.md §Étape 2` : scan de l'§Index à chaque rétro, proposition de promotion si pattern ≥ 3 occurrences sur 5 derniers sprints (destinations : Claude.md / STANDARDS.md / hooks / LESSONS_LEARNED §Règles)
-- **Prop K** — séparation hot/cold dans `doc/SESSION_BRIDGE.md` : sections `## §Actif` (≤ 3 entrées, chargé au §Démarrage) / `## §Archive` (chargé sur demande) — rétrocompat automatique via `grep -q "## §Actif"` au wrap-up · `01-Claude-md-TEMPLATE.md §Démarrage` lit uniquement §Actif (`awk` extraction)
+- **Prop K** — séparation hot/cold dans `docs/SESSION_BRIDGE.md` : sections `## §Actif` (≤ 3 entrées, chargé au §Démarrage) / `## §Archive` (chargé sur demande) — rétrocompat automatique via `grep -q "## §Actif"` au wrap-up · `01-Claude-md-TEMPLATE.md §Démarrage` lit uniquement §Actif (`awk` extraction)
 - **Prop D** — hypothesis tracking conditionnel dans `03-wrap-up-SKILL-TEMPLATE.md §Étape 5` : table `§Hypothèses` ajoutée à l'entrée SESSION_BRIDGE si sprint de type Diagnostic/BUG/BLOQUANT non résolu uniquement
 
 **Écarté :** Prop A (sous-agents Taille L), Prop E1 (skill /quick), Prop B (commits atomiques) — renvoyées en Vague 3.
@@ -435,7 +435,7 @@ Chercher `<!-- SDLC version` dans `Claude.md` et `STANDARDS.md`.
 Si absent → projet antérieur au modèle générique. Même règle de tri, delta complet.
 À la fin du SDLC-Sync, apposer le marqueur de version courante dans les deux fichiers.
 
-**Traçabilité :** entrée `D-SYNC-XX` obligatoire dans `doc/DECISIONS.md` du projet cible.
+**Traçabilité :** entrée `D-SYNC-XX` obligatoire dans `docs/DECISIONS.md` du projet cible.
 
 ---
 
@@ -453,6 +453,26 @@ avant d'exister dans le repo. Un script shell n'a pas cette contrainte :
 il est exécuté depuis n'importe où, lit les templates du repo SDLC,
 et les copie dans le repo cible. Division claire : script = mécanique + structure,
 Claude Code = sens + adaptation domaine.
+
+→ **Mise à jour 02/07/2026 (Sprint SDLC-25, découverte incidente au wrap-up) :**
+deux défauts trouvés en exécutant réellement le script (test niveau B, jamais fait
+en conditions réelles depuis l'origine — le self-bootstrap SDLC-14 avait adapté des
+fichiers existants en place, sans passer par ce script) :
+1. **Bug préexistant, sans rapport avec SDLC-25** — `deploy_template()` substituait
+   `DATE_TODAY`/`DATE_ISO` (format `JJ/MM/AAAA`, contient des `/`) dans un `sed` dont
+   le délimiteur était lui-même `/` → `sed: unknown option to 's'`, script interrompu
+   après `Claude.md`, avant même `STANDARDS.md`. `git log -p` confirme cette ligne
+   inchangée depuis le tout premier commit du script — **`sdlc-init.sh` n'a jamais pu
+   bootstrapper un projet avec succès**. Corrigé : délimiteur `#` au lieu de `/` dans
+   les 3 substitutions de `deploy_template()`.
+2. **Introduit par SDLC-25** — `mkdir -p "${TARGET_DIR}/doc"` (ligne du bloc structure)
+   non couvert par le grep de non-régression `\bdoc/` de `M-ARCH-09` (littéral suivi
+   d'un guillemet, pas d'un `/`) → un dossier `doc/` vide et inutile subsistait dans
+   chaque projet bootstrappé, à côté du `docs/` réellement peuplé par les appels
+   `deploy_template`/`cat` (eux corrects). Corrigé : `mkdir` cible `docs/`.
+Validé par ré-exécution complète du script dans un repo git temporaire isolé
+(`( cd /tmp/... && bash sdlc-init.sh "Projet Test" )`) : exit 0, structure complète,
+zéro dossier `doc/` résiduel.
 
 ---
 
@@ -544,6 +564,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-37 | Déclencheur wrap-up — Sprint Fix hook → vérifier 08-hooks-TEMPLATE.md | ✓ | — |
 | M-PROC-38 | Import GSD Vague 1 — 6 patterns friction nulle dans 4 templates (L, F, G, I, J, E2) | ✓ | — |
 | M-PROC-39 | Import GSD Vague 2 — graduation auto (H), hot/cold SESSION_BRIDGE (K), hypothesis tracking (D) | ✓ | — |
+| M-ARCH-09 | Convention `doc/` → `docs/` (documentation publique GitHub Pages) | ✓ | — |
 
 ---
 
@@ -669,7 +690,7 @@ echo "BLOQUÉ : X interdit." >&2
 echo "Alternative : Y." >&2  # ← ajouter quand pertinent
 exit 2
 ```
-Documenter l'alternative dans l'entrée `doc/DECISIONS.md §D-HOOK-XX` correspondante.
+Documenter l'alternative dans l'entrée `docs/DECISIONS.md §D-HOOK-XX` correspondante.
 
 ---
 
@@ -770,7 +791,7 @@ tout le fichier.
 
 **Écarté :**
 - Format JSON dans LESSONS_LEARNED (lisible par machine mais pas par humain sans outil)
-- Fichier séparé `doc/RETRO_INDEX.md` (un fichier de plus à maintenir, risque de
+- Fichier séparé `docs/RETRO_INDEX.md` (un fichier de plus à maintenir, risque de
   désynchronisation avec LESSONS_LEARNED)
 - Compteurs seulement sans tableau de patterns (perd la traçabilité par pattern)
 
@@ -936,13 +957,13 @@ explicite. Cohérent avec INV-1 (vérification exécutable).
 dès la fermeture. §Étape 6 émettait un reminder vague "Sync now" sans cibler les fichiers
 manquants.
 
-**Retenu (SESSION_BRIDGE) :** §Étape 5 réécrite : écriture de `doc/SESSION_BRIDGE.md`
+**Retenu (SESSION_BRIDGE) :** §Étape 5 réécrite : écriture de `docs/SESSION_BRIDGE.md`
 versionné, accumulatif (entrée la plus récente en tête). Format 4 champs : sprint/date ·
 commit · bloquants en suspens · fil fonctionnel (2 phrases max). Nettoyage conditionnel
 au wrap-up si entrée `[CLOS]` ou > 5 entrées sans nettoyage. Ne contient pas de liste de
 tâches (rôle du ROADMAP §Now). Affiché dans le chat ET écrit dans le fichier.
 
-**Retenu (CLAUDE_PROJECT) :** §Étape 6 réécrite : si `doc/CLAUDE_PROJECT.md` existe →
+**Retenu (CLAUDE_PROJECT) :** §Étape 6 réécrite : si `docs/CLAUDE_PROJECT.md` existe →
 comparer les fichiers de gouvernance du repo avec la liste et produire un reminder ciblé
 sur les fichiers manquants. Si absent (05b non exécuté) → fallback reminder vague conservé.
 
@@ -994,7 +1015,7 @@ le fichier puisse être créé.
 
 **Retenu :** Script shell `sdlc-project-check.sh` (bash pur, < 60 lignes, zéro dépendance).
 Il inventorie les fichiers de gouvernance, détecte les deltas vs CLAUDE_PROJECT.md existant,
-affiche une liste de directives pour Claude Code (avis), et génère `doc/CLAUDE_PROJECT.md`
+affiche une liste de directives pour Claude Code (avis), et génère `docs/CLAUDE_PROJECT.md`
 avec sections standardisées. Intégré dans `06-PDR-bootstrap.md §Étape 1b` et dans
 `04b-sdlc-sync-SKILL-TEMPLATE.md §Étape D4`.
 
@@ -1002,7 +1023,7 @@ avec sections standardisées. Intégré dans `06-PDR-bootstrap.md §Étape 1b` e
 Grep automatique systématique au wrap-up — fragile et trop fréquent (CLAUDE_PROJECT.md
 n'évolue pas à chaque sprint).
 
-**Raison :** `doc/CLAUDE_PROJECT.md` versionné → reconstructible après suppression accidentelle.
+**Raison :** `docs/CLAUDE_PROJECT.md` versionné → reconstructible après suppression accidentelle.
 L'intelligence reste chez Claude (lecture des fichiers + formulation), le script fait le
 travail mécanique (inventaire + génération template).
 
@@ -1035,6 +1056,45 @@ complète la note anti-faux-positif de M-PROC-23 — les deux adressent la même
 mais à des niveaux différents (design-time vs test-time).
 
 **Impact fichiers :** `02-STANDARDS-TEMPLATE.md` (§Observabilité remplacé + note §Niveaux) · `06-PDR-bootstrap.md` (§Étape 2 grep étendu + critère 3).
+
+---
+
+## M-ARCH-09 · Convention `doc/` → `docs/` (documentation publique GitHub Pages) · v2.0 · 02/07/2026
+
+**Contexte :** le dépôt exposait sa documentation dans `doc/` (singulier), un nom non
+reconnu par GitHub Pages (qui publie nativement depuis `docs/`). Un site statique
+multi-pages (HTML + JS vanilla, `nav.json`/`meta.json` comme manifeste, `fetch` runtime
+des `.md`) a été produit en amont et devait être déposé pour publication.
+
+**Retenu :** `git mv doc docs` (historique git préservé) + dépôt du bundle site dans
+`docs/` (`index.html`, `nav.json`, `meta.json`, `.nojekyll`, `pages/*.md`, `README.md`)
++ substitution `sed -i 's|\bdoc/|docs/|g'` sur tous les fichiers versionnés actifs
+(templates `0X`/`1X`, `Claude.md`, `STANDARDS.md`, skills installés, scripts
+`sdlc-*.sh`, `.gitignore`, registres) + grep de non-régression final.
+
+**Écarté :**
+- Garder `doc/` + GitHub Actions/`upload-pages-artifact` — évite le renommage mais
+  conserve un nom non universel et ajoute une dépendance CI pour un besoin que la
+  publication native `/docs` couvre déjà.
+- Branche `gh-pages` dédiée — sépare le site du code mais déplace la source de vérité
+  hors `main`, complique l'édition et le workflow `/wrap-up`.
+
+**Exclusions du sed (fidélité historique — même principe que `CHANGELOG.md`) :**
+`specs/Sprints/*.md` (récits de sprints déjà exécutés où `doc/` était le nom réel au
+moment des faits — les réécrire romprait la fidélité du PDR historique) et
+`bak/sdlc-kit-exportable.md` (extrait figé d'un autre projet, hors périmètre
+fonctionnel). Un faux positif a été détecté et corrigé manuellement :
+`07-DECISIONS-SDLC.md` §M-PROC-28 contenait `registre/doc/specs` — une énumération,
+pas un chemin — que le sed aurait transformé à tort en `registre/docs/specs`.
+
+**Raison :** convention universelle (GitHub Pages, lecteurs externes) sans
+infrastructure supplémentaire ; `git mv` préserve `git log --follow` ; substitution
+bornée par mot (`\bdoc/`) pour ne jamais toucher `docs/` déjà correct.
+
+**Impact fichiers :** renommage complet `doc/` → `docs/` (12 fichiers + historique) ·
+dépôt de 6 nouveaux fichiers/dossiers site (`docs/{index.html,nav.json,meta.json,
+.nojekyll,README.md,pages/}`) · ~30 fichiers versionnés mis à jour par sed ·
+`00-CONTEXT.md` v1.5 (nouvelle section site) · `specs/SPEC.md §Modules` (ligne site).
 
 ---
 
@@ -1075,7 +1135,7 @@ validée avant l'entrée dans le projet.
 
 **Retenu :** Aucun mécanisme de modes/personas nommés (type "stratège/dev/
 reviewer") n'est ajouté à `Claude.md §Rôle`. Question fermée (Q4,
-`doc/ANALYSE-BMAD.md §5`).
+`docs/ANALYSE-BMAD.md §5`).
 
 **Écarté :** Formaliser des modes inspirés des agents nommés BMad — même
 sans la machinerie TOML déjà écartée côté Spike SDLC-06 stratégique, le
@@ -1125,7 +1185,7 @@ insuffisant sur plusieurs sprints consécutifs (signal LESSONS_LEARNED).
 
 **Retenu :** `10-AMONT-TEMPLATE.md` — contenu à charger dans le Project
 Knowledge d'un Project Claude.ai dédié à l'idéation/PRD/architecture,
-hors repo, hors toolkit Claude Code. Réponse à Q1 (`doc/ANALYSE-BMAD.md §5`).
+hors repo, hors toolkit Claude Code. Réponse à Q1 (`docs/ANALYSE-BMAD.md §5`).
 
 **Écarté :** Étendre `01-Claude-md-TEMPLATE.md` ou créer un skill Claude
 Code pour les phases amont — le toolkit reste un méta-framework de
@@ -1157,8 +1217,8 @@ from scratch reste la voie par défaut sans elle.
 
 **Retenu :** Ne pas backfiller rétroactivement les entrées `CHANGELOG.md` /
 `07-DECISIONS-SDLC.md` manquantes pour les sprints SDLC-07, 08, 09
-(`LL-T01`, `doc/LESSONS_LEARNED.md`). Le gap reste documenté tel quel
-dans `doc/LESSONS_LEARNED.md` et `doc/DIAGNOSTIC_CMDS.md` ; la discipline
+(`LL-T01`, `docs/LESSONS_LEARNED.md`). Le gap reste documenté tel quel
+dans `docs/LESSONS_LEARNED.md` et `docs/DIAGNOSTIC_CMDS.md` ; la discipline
 d'entrée systématique est restaurée depuis SDLC-10 et ne s'est pas
 reproduite depuis.
 
@@ -1188,14 +1248,14 @@ en deux volets distincts : le volet "self-bootstrap" (livrables réels —
 07/08/09" du PDR SDLC-14 original est confirmé **non fait** — mais déjà
 couvert par une décision explicite antérieure (`M-PROC-27`), pas un gap
 ouvert. 8 phrases narratives déjà présentes dans
-`doc/LESSONS_LEARNED.md` (écrites Sprint SDLC-14, portant sur le
+`docs/LESSONS_LEARNED.md` (écrites Sprint SDLC-14, portant sur le
 déroulement de sessions de conception non vérifiable depuis git) sont
 requalifiées en l'état — annotées `(non vérifiable depuis le repo —
 audit SDLC-16)` sans suppression, sur décision explicite de
 l'utilisateur (option "Requalifier non vérifiable" plutôt que retrait ou
 confirmation).
 
-**Raison :** `doc/LESSONS_LEARNED.md` contenait déjà du contenu créé en
+**Raison :** `docs/LESSONS_LEARNED.md` contenait déjà du contenu créé en
 SDLC-14 — pas vide comme le présupposait le contexte initial du PDR
 SDLC-16. Plutôt que de retirer ou de confirmer sans preuve un contenu
 narratif invérifiable, la requalification en place préserve l'historique
@@ -1273,8 +1333,8 @@ lecture seule). Cette entrée M-HOOKS-04 reste la trace de l'incident d'origine.
 **Origine commune avec SDLC_CANDIDATE #1 :** le garde-fou que cette entrée mécanise
 (blocage de l'omission de l'étape 4a) répond au même incident que la recommandation
 hook `SessionStart` laissée en `[SDLC_CANDIDATE]` dans
-`doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8` (Sprint SDLC-17) — toutes deux tracent au
-pattern `LL-T05` (`doc/LESSONS_LEARNED.md`). M-HOOKS-04 est une mécanisation partielle et
+`docs/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8` (Sprint SDLC-17) — toutes deux tracent au
+pattern `LL-T05` (`docs/LESSONS_LEARNED.md`). M-HOOKS-04 est une mécanisation partielle et
 indépendante (blocage réactif sur l'état du disque) ; le hook `SessionStart` resterait une
 injection proactive en contexte — les deux approches ne se substituent pas l'une à
 l'autre, décision de cumul ou d'arbitrage différée à la session Claude.ai dédiée déjà
@@ -1401,7 +1461,7 @@ jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
 
 ## M-PROC-31 · Tables de rationalisation par HALT — import recalibré Superpowers · v1.9+SDLC-19 · 19/06/2026
 
-**Contexte :** audit externe `obra/superpowers` (Sprint SDLC-17, `doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §6/§8`) recommandait d'importer le pattern "table de rationalisation" (`test-driven-development/SKILL.md:256-286`) — pour chaque règle non-négociable, lister les formulations internes typiques de contournement avec leur réfutation.
+**Contexte :** audit externe `obra/superpowers` (Sprint SDLC-17, `docs/AUDIT-EXTERNE-superpowers-vs-sdlc.md §6/§8`) recommandait d'importer le pattern "table de rationalisation" (`test-driven-development/SKILL.md:256-286`) — pour chaque règle non-négociable, lister les formulations internes typiques de contournement avec leur réfutation.
 
 **Retenu :** `01-Claude-md-TEMPLATE.md` porte désormais, sous chaque HALT (HALT-DEP, HALT-3X, HALT-ARCH, HALT-SCOPE, HALT-TIMEOUT), 2 paires `**Pensée :** "…" → **Réalité :** …` en langage gouvernance générique — pas de vocabulaire test/code spécifique (contrairement à la source Superpowers, écrite pour un contexte TDD). 1 paire supplémentaire sous la règle absolue "4a/4b/4c/4d", sourcée sur l'incident réel `M-HOOKS-04` plutôt qu'adaptée — seule paire de ce sprint ancrée sur un fait documenté du repo.
 
@@ -1647,7 +1707,7 @@ skill ; lecture seule, pas de nouvel état à maintenir).
 rejette tous les timestamps de transcript (`"2026-06-21T13:49:42.450Z"`) car le
 format ne tolère pas les fractions de seconde — corrigé par
 `sub("\\.[0-9]+Z$"; "Z")` avant parsing. Détail et commande de reproduction en
-`doc/DIAGNOSTIC_CMDS.md`.
+`docs/DIAGNOSTIC_CMDS.md`.
 
 **Limite connue acceptée :** la bucketisation par étape compare des `HH:MM`
 sans date — suppose un sprint mono-journée locale (cas réel actuel). Le
@@ -1657,7 +1717,7 @@ contrainte que `M-ENV-01`), rendu configurable via `CLAUDE_PROJECTS_DIR`.
 **Impact fichiers :** `sdlc-token-usage.sh` (nouveau) · `03-wrap-up-SKILL-TEMPLATE.md`
 v1.4 (§0c) + `.claude/skills/wrap-up/SKILL.md` (synchronisé) · `09-retrospective-SKILL-TEMPLATE.md`
 v1.7 (§Étape 7) + `.claude/skills/retrospective/SKILL.md` (synchronisé) ·
-`doc/DIAGNOSTIC_CMDS.md` (+1 symptôme).
+`docs/DIAGNOSTIC_CMDS.md` (+1 symptôme).
 
 **Déclencheur de réouverture :** si un sprint s'étale sur plusieurs jours
 calendaires (la bucketisation `HH:MM` deviendrait ambiguë), ou si le schéma
@@ -1724,12 +1784,12 @@ mal nommé, hook silencieusement inopérant pendant plusieurs sprints).
 **Limite de validation acceptée :** le smoke test simule le payload JSON en
 stdin — il valide le script lui-même, pas le déclenchement réel par la
 plateforme au moment d'une vraie compaction (non observable en session sans
-en déclencher une). Cf. `doc/DIAGNOSTIC_CMDS.md`.
+en déclencher une). Cf. `docs/DIAGNOSTIC_CMDS.md`.
 
 **Impact fichiers :** `.claude/hooks/pre-compact.sh` (nouveau) ·
 `.claude/settings.json` (2 entrées `PreCompact`) · `01-Claude-md-TEMPLATE.md` +
 `Claude.md` (7e type `CHECKPOINT` + note d'extension `M-PROC-13`) ·
-`08-hooks-TEMPLATE.md` v1.3 (nouvelle `§PreCompact`) · `doc/ROADMAP.md`
+`08-hooks-TEMPLATE.md` v1.3 (nouvelle `§PreCompact`) · `docs/ROADMAP.md`
 (P-30 déplacé `§Next` → `§Now` → `§Historique`).
 
 **Déclencheur de réouverture :** si le schéma `PreCompact` documenté change à

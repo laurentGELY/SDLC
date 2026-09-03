@@ -84,12 +84,13 @@ prévu au PDR de ce sprint.
 | `06-PDR-bootstrap.md` | Guide Sprint 0 | `10` (référencé si phase amont) | Bootstrap initial uniquement |
 | `07-DECISIONS-SDLC.md` | Registre décisions sur le modèle | — | *(propre au projet toolkit, jamais copié)* |
 | `08-hooks-TEMPLATE.md` | Hooks bash PreToolUse | — | Chaque commande bash en session |
-| `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `doc/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
+| `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `docs/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
 | `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | — | Project Claude.ai dédié, optionnel |
-| `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/sprint-memory.md`, `doc/ROADMAP.md`, `Claude.md` | À la demande |
+| `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `Claude.md` | À la demande |
 | `00-CONTEXT.md` | Contexte Claude.ai — invariants + carte des fichiers | — | Toute évolution du modèle (lu en premier) |
 | `README.md` | Pitch + démarrage rapide | — | Première lecture humaine du toolkit |
 | `CHANGELOG.md` | Historique des sprints du toolkit lui-même | — | `/wrap-up` (propre au toolkit) |
+| `docs/index.html` + `docs/nav.json` + `docs/meta.json` | Site de documentation publique (GitHub Pages `main` → `/docs`, M-ARCH-09) | `docs/pages/*.md` (fetch runtime) | Publication publique, lecture externe |
 
 **Fichiers humains hors Claude.ai** (non listés ci-dessus, non synchronisés —
-`doc/SPEC.html`, `doc/MODE-OPERATOIRE.html`, voir `00-CONTEXT.md §1`).
+`docs/SPEC.html`, `docs/MODE-OPERATOIRE.html`, voir `00-CONTEXT.md §1`).

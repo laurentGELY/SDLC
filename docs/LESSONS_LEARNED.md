@@ -15,6 +15,13 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-25 — 02/07/2026 — Migration `doc/` → `docs/` + publication du site de documentation
+**Code :** N/A — sprint de gouvernance, zéro code applicatif.
+**Processus :** Exécution mécanique propre (renommage + substitution `sed` + décision `M-ARCH-09`), mais `.claude/sprint-memory.md` ne contenait qu'une seule entrée pour un diff de 60 fichiers / 1804 insertions — traçabilité intra-sprint minimale. Wrap-up réalisé un mois après l'exécution (sprint-memory resté non vidé, commit non fait), déclenché par le démarrage du sprint suivant (`Claude.md` a correctement bloqué sur la règle "mémoire non vide, header différent du sprint en cours"). L'Adversarial Review du wrap-up (Taille M, 3 couches) a trouvé 6 défauts réels invisibles en session d'exécution : `README.md §Historique des versions` avec 3 lignes de faits datés falsifiées par le `sed` (le principe "fidélité historique" était explicitement acté pour `CHANGELOG.md`/`specs/Sprints/*.md` dans `M-ARCH-09` mais pas appliqué au bloc historique équivalent de `README.md`) ; un compte de fichiers erroné dans l'entrée `M-ARCH-09` elle-même (9 au lieu de 12) ; un bug de numérotation de sidebar dans `docs/nav.json` (deux fois "02", deux fois "03", jamais "04") ; un bandeau de version et une page d'historique du site désynchronisés de `meta.json`/`CHANGELOG.md` ; un tableau présentant `sdlc-init.sh` comme un skill. Tous corrigés avant commit, sur décision explicite de l'utilisateur de dépasser le §Portée initial ("bundle livré tel quel").
+**Lien pattern :** nouveau — volumétrie `sprint-memory.md` sans rapport avec l'ampleur du diff (1 entrée pour 60 fichiers/1804 insertions), distinct de LL-T05 (ici la spec et la mémoire ont bien été créées en §Démarrage — c'est leur contenu qui est resté minimal pendant l'exécution) · nouveau pattern également : une règle de fidélité historique actée pour un fichier nommément désigné (`CHANGELOG.md`) n'est pas généralisée aux blocs de même nature ailleurs dans le repo (`README.md §Historique des versions`) — le principe existe mais sa portée n'est pas explicite.
+**Action proposée :** généraliser la règle "fidélité historique" (`Claude.md §Modifications spot sur fichiers existants` ou `00-CONTEXT.md §Invariants`) à tout bloc de récit daté, pas seulement à `CHANGELOG.md` nommément → décision : en attente.
+**SDLC candidat :** [SDLC_CANDIDATE] les défauts trouvés ici (versions désynchronisées entre README/CHANGELOG/site, comptage erroné dans une décision, données de structure incohérentes) sont exactement la classe de problème que `sdlc-validate.sh` (sprint ECO-1, déjà planifié au moment de ce wrap-up) vise à détecter mécaniquement — renforce la justification du sprint · fichier cible : `sdlc-validate.sh` (nouveau contrôle) · nature : nouveau contrôle — décision : en attente, sera traité nativement par ECO-1.
+
 ### Sprint SDLC-Audit-GSTACK — 25/06/2026 — Audit externe GSTACK v1.58.4.0 vs modèle SDLC
 **Code :** N/A — sprint Revue pur, zéro code métier.
 **Processus :** Sprint Revue M sans étape de démarrage formelle — PDR fourni directement dans le message utilisateur. Spec sprint non créée en §4a, créée lors du wrap-up en Adversarial Review Couche 2. 2e occurrence de LL-T05. RAS par l'utilisateur en rétrospective.
@@ -59,7 +66,7 @@ contenu du repo ou d'un PDR).
 100% des timestamps de transcript JSONL (`"2026-06-21T13:49:42.450Z"`, fraction de
 seconde non gérée par le format attendu). Détecté en testant le filtre `jq` contre un
 transcript réel avant de finaliser le script, pas après coup — corrigé par
-`sub("\\.[0-9]+Z$"; "Z")` avant parsing (documenté `doc/DIAGNOSTIC_CMDS.md`).
+`sub("\\.[0-9]+Z$"; "Z")` avant parsing (documenté `docs/DIAGNOSTIC_CMDS.md`).
 **Processus :** Structure réelle du JSONL (champ `.timestamp`, emplacement de
 `.message.usage.*`) vérifiée par inspection directe d'un transcript avant d'écrire
 le parsing, plutôt que supposée depuis la documentation publique (non garantie
@@ -147,7 +154,7 @@ le statut ⏳ de LL-T05 (toujours aucun garde-fou automatique en place)
 **Action proposée :** aucune — la vigilance manuelle reste le seul
 mécanisme actif, cohérent avec la décision différée de LL-T05
 **SDLC candidat :** [SDLC_CANDIDATE] 3 candidats préformatés dans le
-livrable `doc/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8` (hook `SessionStart`
+livrable `docs/AUDIT-EXTERNE-superpowers-vs-sdlc.md §8` (hook `SessionStart`
 injectant automatiquement les règles absolues + HALT en contexte — répond
 directement à LL-T05 ; table de rationalisations par HALT ; fusion de la
 clause anti-complaisance avec une liste de formulations interdites) →
@@ -193,7 +200,7 @@ architectural → décision : ✅ (appliqué nativement depuis, voir SDLC-12)
 
 ### Sprint SDLC-10 — 18/06/2026 — Rangement catalogue BMad + fermeture Q4
 **Code :** N/A
-**Processus :** Création de `doc/ROADMAP.md` pour le projet toolkit
+**Processus :** Création de `docs/ROADMAP.md` pour le projet toolkit
 lui-même (dogfooding) a révélé que le projet n'appliquait pas sa propre
 structure à lui-même — point de départ de SDLC-13 et SDLC-14. Une
 manipulation `str_replace` a fait disparaître un en-tête de section par
@@ -263,7 +270,7 @@ fictive dans ce fichier.
 **Lien pattern :** nouveau LL-T04 (citabilité étendue au contenu du PDR
 lui-même, pas seulement au code/repo) · confirme LL-T02 (vérifier avant
 de présumer) · caractérise LL-T01 comme partiellement résolu (discipline
-oui, backfill historique non — voir `doc/DIAGNOSTIC_CMDS.md`)
+oui, backfill historique non — voir `docs/DIAGNOSTIC_CMDS.md`)
 **Action proposée :** vérifier toute précondition factuelle explicite
 d'un PDR par commande exécutable avant de l'exécuter, y compris le
 contenu "rétroactif" fourni comme acquis → décision : ✅ appliqué
@@ -297,7 +304,7 @@ le PDR lui-même (qui ne couvrent que la 4b) ont été traitées comme une
 procédure de démarrage complète, sans être confrontées à la checklist
 réelle de `Claude.md §Démarrage`. Spec créée rétroactivement sur demande
 explicite de l'utilisateur. Par ailleurs, le contexte du PDR affirmait
-`doc/LESSONS_LEARNED.md` vide (refus correct d'un contenu narratif en
+`docs/LESSONS_LEARNED.md` vide (refus correct d'un contenu narratif en
 SDLC-15) — l'audit a montré qu'il était déjà entièrement rempli depuis
 SDLC-14 ; traité comme le cas alternatif explicitement prévu par le PDR
 (audit du contenu existant, proposition à l'utilisateur plutôt qu'action

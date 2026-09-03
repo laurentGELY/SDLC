@@ -1,4 +1,4 @@
-# Modèle de gouvernance SDLC — Claude Code · v1.4
+# Modèle de gouvernance SDLC — Claude Code · v1.5
 <!-- Contexte Claude.ai · Premier fichier lu · Ne pas copier dans les projets cibles -->
 <!-- Mis à jour à chaque évolution structurelle du modèle -->
 
@@ -20,7 +20,7 @@
 | 03 | `03-wrap-up-SKILL-TEMPLATE.md` | Procédure de clôture de sprint | `.claude/skills/wrap-up/SKILL.md` |
 | 04 | `04-sprint-PDR-TEMPLATE.md` | Spec de sprint — copier tel quel | `specs/sprint-template.md` |
 | 04b | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill /sdlc-sync | `.claude/skills/sdlc-sync/SKILL.md` |
-| 05 | `05-ROADMAP-TEMPLATE.md` | Backlog Now/Next/Later | `doc/ROADMAP.md` |
+| 05 | `05-ROADMAP-TEMPLATE.md` | Backlog Now/Next/Later | `docs/ROADMAP.md` |
 | 06 | `06-PDR-bootstrap.md` | Guide opérationnel Sprint 0 | *(guide d'exécution, pas copié)* |
 | 07 | `07-DECISIONS-SDLC.md` | Registre des décisions sur le modèle | *(propre à ce projet)* |
 | 08 | `08-hooks-TEMPLATE.md` | Hook PreToolUse Bash + settings | `.claude/hooks/` |
@@ -32,8 +32,18 @@
 
 | Fichier | Rôle |
 |---------|------|
-| `doc/SPEC.html` | Spec fonctionnelle du modèle : circuits, invariants, décisions M-XXXX |
-| `doc/MODE-OPERATOIRE.html` | Procédures complètes : init, sync, évoluer + référence praticienne |
+| `docs/SPEC.html` | Spec fonctionnelle du modèle : circuits, invariants, décisions M-XXXX |
+| `docs/MODE-OPERATOIRE.html` | Procédures complètes : init, sync, évoluer + référence praticienne |
+
+**Site de documentation publique (`docs/`, GitHub Pages `main` → `/docs`, M-ARCH-09) :**
+
+| Fichier | Rôle |
+|---------|------|
+| `docs/index.html` | Shell du site statique (sidebar + rendu markdown runtime) |
+| `docs/nav.json` | Manifeste de navigation (groupes, ordre, titres) |
+| `docs/meta.json` | Version + date de dernière mise à jour du site |
+| `docs/.nojekyll` | Désactive Jekyll (sinon `nav.json`/`meta.json` ignorés par GitHub Pages) |
+| `docs/pages/*.md` | Sources des pages du site — livrées telles quelles, ne pas éditer via sed de renommage |
 
 **Ce fichier (`00-CONTEXT.md`)** : contexte Claude.ai — jamais copié dans les projets cibles.
 
@@ -51,7 +61,7 @@ PDR du Sprint 0 (voir `10-AMONT-TEMPLATE.md §Passage à Claude Code`).
 
 ### Bootstrapper un nouveau projet
 → Lire `06-PDR-bootstrap.md` — guide complet avec plan d'exécution étape par étape.
-→ Procédure détaillée dans `doc/MODE-OPERATOIRE.html §Initialiser`.
+→ Procédure détaillée dans `docs/MODE-OPERATOIRE.html §Initialiser`.
 
 ### Faire évoluer le modèle SDLC
 → Lire §3 (invariants) avant toute modification.
@@ -70,7 +80,7 @@ PDR du Sprint 0 (voir `10-AMONT-TEMPLATE.md §Passage à Claude Code`).
 
 ### Comprendre une décision passée
 → Lire `07-DECISIONS-SDLC.md` — registre exhaustif avec justifications.
-→ Vue synthétique dans `doc/SPEC.html §Décisions`.
+→ Vue synthétique dans `docs/SPEC.html §Décisions`.
 
 ---
 

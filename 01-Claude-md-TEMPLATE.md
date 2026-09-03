@@ -1,7 +1,7 @@
 # Claude.md — [Nom du projet] · v1.0
 <!-- Template SDLC v2.0 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
-<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et doc/MODE-OPERATOIRE.html -->
+<!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
 > Règles permanentes d'exécution du dépôt pour Claude Code.
 > Ne modifier que si une contrainte est récurrente sur plusieurs sprints.
@@ -137,7 +137,7 @@ if [ -s .claude/sprint-memory.md ]; then
 fi
 
 # Contexte inter-session — §Actif uniquement (§Archive sur demande explicite)
-awk '/^## §Actif/{f=1;next} /^## §Archive/{f=0} f' doc/SESSION_BRIDGE.md 2>/dev/null \
+awk '/^## §Actif/{f=1;next} /^## §Archive/{f=0} f' docs/SESSION_BRIDGE.md 2>/dev/null \
   || echo "— SESSION_BRIDGE absent (premier sprint ou 05b non exécuté)"
 # §Archive : charger seulement si l'humain demande "remonte un sprint ancien"
 # ou référence un sprint précédent par son nom.
@@ -216,7 +216,7 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
 - **Index-guidé** : si un fichier différé dépasse ~200 lignes et dispose
   d'une table des matières ou d'un §Index en tête → grep dans l'index d'abord,
   charger uniquement les sections pertinentes. Cas typique : `specs/SPEC.md`
-  ou `doc/LESSONS_LEARNED.md` brownfield.
+  ou `docs/LESSONS_LEARNED.md` brownfield.
 - **Délégation sous-agent** : si une étape nécessite > 5 fichiers à lire
   simultanément ou qu'un fichier dépasse ~10K tokens → déléguer à un sous-agent
   (outil Agent de Claude Code) qui retourne un résumé structuré (JSON ou bullets

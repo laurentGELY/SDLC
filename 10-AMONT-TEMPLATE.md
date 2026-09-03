@@ -57,7 +57,7 @@ Ce document devient l'input du Sprint 0. Correspondance :
 |--------------------|----------------------|
 | §Brief | Premier `specs/Sprints/sprint-1-slug.md` — alimente §Contexte, §Objectif, §Portée |
 | §Architecture amont | `specs/SPEC.md` initial (créé en Sprint 0, `06-PDR-bootstrap.md` Groupe 4) — base de §Architecture |
-| §Perspectives | Si retenu : note dans `doc/DECISIONS.md` du projet cible, alternative écartée documentée |
+| §Perspectives | Si retenu : note dans `docs/DECISIONS.md` du projet cible, alternative écartée documentée |
 
 **Aucune étape de conversion manuelle requise.** Claude Code vérifie déjà
 systématiquement toute hypothèse d'un PDR contre le code réel

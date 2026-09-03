@@ -51,16 +51,16 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `STANDARDS.md` | `02-STANDARDS-TEMPLATE.md` | **Adapter** : §Carte des étapes (vider) · §Modules partagés (vider) |
 | `CHANGELOG.md` | *(créer from scratch)* | **Créer** : header + première entrée Sprint 0 uniquement |
 
-### Groupe 2 — Dossier `doc/`
+### Groupe 2 — Dossier `docs/`
 
 | Destination | Source template | Action |
 |-------------|-----------------|--------|
-| `doc/ROADMAP.md` | `05-ROADMAP-TEMPLATE.md` | **Adapter** : placer Sprint 1 en §Now, vider §Next et §Later |
-| `doc/DECISIONS.md` | *(créer from scratch)* | **Créer** : header + conventions de préfixes, zéro entrée D-XX |
-| `doc/LESSONS_LEARNED.md` | *(créer from scratch)* | **Créer** : §Index vide + format entrée sprint, zéro contenu |
-| `doc/DIAGNOSTIC_CMDS.md` | *(créer from scratch)* | **Créer** : header + format, zéro entrée |
-| `doc/SESSION_BRIDGE.md` | `03-wrap-up-SKILL-TEMPLATE.md` §Étape 5 | **Créé automatiquement** au premier `/wrap-up` — format accumulatif, entrées en tête |
-| `doc/CLAUDE_PROJECT.md` | `sdlc-project-check.sh` | **Généré** par le script — compléter l'avis Claude, valider, commiter |
+| `docs/ROADMAP.md` | `05-ROADMAP-TEMPLATE.md` | **Adapter** : placer Sprint 1 en §Now, vider §Next et §Later |
+| `docs/DECISIONS.md` | *(créer from scratch)* | **Créer** : header + conventions de préfixes, zéro entrée D-XX |
+| `docs/LESSONS_LEARNED.md` | *(créer from scratch)* | **Créer** : §Index vide + format entrée sprint, zéro contenu |
+| `docs/DIAGNOSTIC_CMDS.md` | *(créer from scratch)* | **Créer** : header + format, zéro entrée |
+| `docs/SESSION_BRIDGE.md` | `03-wrap-up-SKILL-TEMPLATE.md` §Étape 5 | **Créé automatiquement** au premier `/wrap-up` — format accumulatif, entrées en tête |
+| `docs/CLAUDE_PROJECT.md` | `sdlc-project-check.sh` | **Généré** par le script — compléter l'avis Claude, valider, commiter |
 
 ### Groupe 3 — Dossier `.claude/skills/`
 
@@ -94,7 +94,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `.claude/settings.local.json` | `08-hooks-TEMPLATE.md` §3 | **Créer** vide · ne pas versionner si chemins absolus personnels |
 | `.claude/settings.json` (sandbox) | `08-hooks-TEMPLATE.md` §4 | **Optionnel** : si confinement filesystem strict requis · adapter chemins · vérifier prérequis Étape 0 |
 
-**Règle :** chaque section activée dans `pre-tool-bash.sh` → entrée `doc/DECISIONS.md` §D-HOOK-XX dans le même commit.
+**Règle :** chaque section activée dans `pre-tool-bash.sh` → entrée `docs/DECISIONS.md` §D-HOOK-XX dans le même commit.
 
 ---
 
@@ -118,11 +118,11 @@ cd <nouveau-projet>
 bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 ```
 
-### Étape 1b — Générer doc/CLAUDE_PROJECT.md
+### Étape 1b — Générer docs/CLAUDE_PROJECT.md
 
 ```bash
 bash /chemin/vers/sdlc-toolkit/sdlc-project-check.sh "Nom du projet Claude.ai"
-# → affiche inventaire + avis Claude → compléter doc/CLAUDE_PROJECT.md avant de continuer
+# → affiche inventaire + avis Claude → compléter docs/CLAUDE_PROJECT.md avant de continuer
 ```
 
 ### Étape 2 — Vérifier les placeholders résiduels
@@ -145,7 +145,7 @@ Le bootstrap mécanique est fait. Complète la gouvernance :
 - .claude/skills/diagnostic/SKILL.md : commandes de diagnostic
 - Sections [ACTIVER si…] dans .claude/hooks/pre-tool-bash.sh
   → décider lesquelles activer
-  → documenter chaque choix dans doc/DECISIONS.md §D-HOOK-XX
+  → documenter chaque choix dans docs/DECISIONS.md §D-HOOK-XX
 
 Grep de validation final :
 grep "\[→ ADAPTER\]" Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
@@ -154,7 +154,7 @@ grep "\[→ ADAPTER\]" Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
 
 ### Étapes 4-9 — Validation et commit
 
-Voir `doc/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
+Voir `docs/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
 (vérifications, smoke test du hook, commit final).
 
 ---
@@ -166,11 +166,11 @@ Voir `doc/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
 3. `grep "\[À REMPLIR\]" STANDARDS.md` → vide (§Observabilité complétée)
 4. `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
 5. `CHANGELOG.md` contient une entrée Sprint 0
-6. `doc/ROADMAP.md` contient Sprint 1 en §Now
-7. `doc/DECISIONS.md` existe avec header
+6. `docs/ROADMAP.md` contient Sprint 1 en §Now
+7. `docs/DECISIONS.md` existe avec header
 8. `.claude/skills/wrap-up/SKILL.md` existe
 9. `specs/SPEC.md` existe (structure vide du domaine)
-10. `grep "Description\|Fichiers synchronisés" doc/CLAUDE_PROJECT.md` → présent (complété après sdlc-project-check.sh)
+10. `grep "Description\|Fichiers synchronisés" docs/CLAUDE_PROJECT.md` → présent (complété après sdlc-project-check.sh)
 
 ---
 
@@ -195,7 +195,7 @@ Voir `doc/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
 
 > Ce guide est la référence du skill `/sdlc-sync` (`.claude/skills/sdlc-sync/SKILL.md`).
 > Pour l'exécution interactive, lancer `/sdlc-sync` dans Claude Code depuis le projet cible.
-> Pour le détail opérationnel humain, voir `doc/MODE-OPERATOIRE.html §Mettre à jour un projet existant`.
+> Pour le détail opérationnel humain, voir `docs/MODE-OPERATOIRE.html §Mettre à jour un projet existant`.
 
 ### Principe
 
@@ -226,7 +226,7 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 
 ### Traçabilité obligatoire
 
-Entrée `D-SYNC-XX` dans `doc/DECISIONS.md` du projet cible :
+Entrée `D-SYNC-XX` dans `docs/DECISIONS.md` du projet cible :
 
 ```markdown
 ## D-SYNC-01 · Alignement SDLC vX.Y (ou "antérieur") → vZ.W · [date]

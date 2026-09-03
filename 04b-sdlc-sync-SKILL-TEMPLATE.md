@@ -34,7 +34,7 @@ et `STANDARDS.md` des fichiers sources du projet SDLC.
 ```bash
 # Fichiers de gouvernance présents dans le projet
 ls Claude.md STANDARDS.md CHANGELOG.md 2>/dev/null
-ls doc/DECISIONS.md doc/ROADMAP.md doc/LESSONS_LEARNED.md doc/DIAGNOSTIC_CMDS.md 2>/dev/null
+ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md 2>/dev/null
 ls .claude/skills/wrap-up/SKILL.md \
    .claude/skills/retrospective/SKILL.md \
    .claude/skills/sdlc-sync/SKILL.md 2>/dev/null
@@ -108,7 +108,7 @@ Pour chaque fichier modifié : vérifier `git diff [fichier]` avant de continuer
 
 ### D1 — Entrée DECISIONS.md
 
-Ajouter dans `doc/DECISIONS.md` du projet :
+Ajouter dans `docs/DECISIONS.md` du projet :
 
 ```markdown
 ## D-SYNC-01 · Alignement SDLC vX.Y (ou "antérieur") → vZ.W · [date]
@@ -138,11 +138,11 @@ git diff --stat                               # uniquement fichiers de gouvernan
 
 ```bash
 bash /chemin/vers/sdlc-toolkit/sdlc-project-check.sh "Nom du projet Claude.ai"
-# → affiche delta (fichiers absents de doc/CLAUDE_PROJECT.md)
-# → si delta non vide : mettre à jour doc/CLAUDE_PROJECT.md avant de commiter
+# → affiche delta (fichiers absents de docs/CLAUDE_PROJECT.md)
+# → si delta non vide : mettre à jour docs/CLAUDE_PROJECT.md avant de commiter
 ```
 
-Si `doc/CLAUDE_PROJECT.md` absent → le créer avec `sdlc-project-check.sh` (voir `06-PDR-bootstrap.md §Étape 1b`).
+Si `docs/CLAUDE_PROJECT.md` absent → le créer avec `sdlc-project-check.sh` (voir `06-PDR-bootstrap.md §Étape 1b`).
 
 ---
 
@@ -164,6 +164,6 @@ docs(gouvernance): SDLC-Sync vX.Y → vZ.W
 - [ ] Liste de décisions validée par l'humain avant application
 - [ ] Zéro élément LAISSER modifié
 - [ ] Marqueur `<!-- SDLC version : vZ.W -->` dans `Claude.md` et `STANDARDS.md`
-- [ ] Entrée `D-SYNC-XX` dans `doc/DECISIONS.md`
+- [ ] Entrée `D-SYNC-XX` dans `docs/DECISIONS.md`
 - [ ] `git diff --stat` : uniquement fichiers de gouvernance attendus
 - [ ] Commit conforme au format ci-dessus

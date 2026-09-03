@@ -20,11 +20,11 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 ## Fichiers exclus (et raison)
 | Fichier | Raison d'exclusion |
 |---------|-------------------|
-| `doc/SESSION_BRIDGE.md` | Contenu éphémère inter-session — inutile dans Claude.ai |
-| `doc/EVO.md` | Notes informelles non structurées — pas de valeur contextuelle |
-| `specs/Sprints/audit-exemple-vs-modele-sdlc.md` | Rapport d'audit ponctuel — obsolète après intégration (déplacé depuis `doc/` — Sprint SDLC-07) |
-| `doc/MODE-OPERATOIRE.html` | HTML — non chargeable comme Project File |
-| `doc/SPEC.html` | HTML — non chargeable comme Project File |
+| `docs/SESSION_BRIDGE.md` | Contenu éphémère inter-session — inutile dans Claude.ai |
+| `docs/EVO.md` | Notes informelles non structurées — pas de valeur contextuelle |
+| `specs/Sprints/audit-exemple-vs-modele-sdlc.md` | Rapport d'audit ponctuel — obsolète après intégration (déplacé depuis `docs/` — Sprint SDLC-07) |
+| `docs/MODE-OPERATOIRE.html` | HTML — non chargeable comme Project File |
+| `docs/SPEC.html` | HTML — non chargeable comme Project File |
 | `bak/sdlc-kit-exportable.md` | Archive/backup — redondant avec les fichiers source |
 | `sdlc-init.sh` | Script bash — contexte limité dans Claude.ai, 453 lignes |
 | `sdlc-project-check.sh` | Script bash — contenu dans 06-PDR-bootstrap.md |

@@ -42,7 +42,7 @@ sdlc-toolkit/
 ├── 03-wrap-up-SKILL-TEMPLATE.md     # → .claude/skills/wrap-up/SKILL.md
 ├── 04-sprint-PDR-TEMPLATE.md        # → specs/sprint-template.md (copie tel quel)
 ├── 04b-sdlc-sync-SKILL-TEMPLATE.md  # → .claude/skills/sdlc-sync/SKILL.md
-├── 05-ROADMAP-TEMPLATE.md           # → doc/ROADMAP.md
+├── 05-ROADMAP-TEMPLATE.md           # → docs/ROADMAP.md
 ├── 06-PDR-bootstrap.md              # Guide opérationnel Sprint 0 (référence, non copié)
 ├── 07-DECISIONS-SDLC.md             # Registre des décisions sur le modèle lui-même
 ├── 08-hooks-TEMPLATE.md             # → .claude/hooks/pre-tool-bash.sh + settings.json
@@ -50,7 +50,7 @@ sdlc-toolkit/
 ├── 10-AMONT-TEMPLATE.md             # → Project Knowledge Claude.ai (hors repo)
 ├── 11-help-SKILL-TEMPLATE.md        # → .claude/skills/help/SKILL.md
 ├── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
-└── doc/
+└── docs/
     ├── SPEC.html                    # Spec fonctionnelle du modèle (ouvrir dans un navigateur)
     └── MODE-OPERATOIRE.html         # Procédures complètes (ouvrir dans un navigateur)
 ```
@@ -70,7 +70,7 @@ bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 
 # 3. Ouvrir Claude Code et compléter la gouvernance
 # (§Rôle, §Limites bash, SPEC.md, diagnostic skill)
-# → voir le prompt exact dans doc/MODE-OPERATOIRE.html §Initialiser
+# → voir le prompt exact dans docs/MODE-OPERATOIRE.html §Initialiser
 ```
 
 ### Projet existant à aligner
@@ -117,14 +117,14 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 | `03-wrap-up-SKILL-TEMPLATE.md` | `.claude/skills/wrap-up/SKILL.md` | Adapter §Étape 0b · §Étape 6 |
 | `04-sprint-PDR-TEMPLATE.md` | `specs/sprint-template.md` | Copier tel quel |
 | `04b-sdlc-sync-SKILL-TEMPLATE.md` | `.claude/skills/sdlc-sync/SKILL.md` | Copier tel quel |
-| `05-ROADMAP-TEMPLATE.md` | `doc/ROADMAP.md` | Sprint 1 en §Now |
+| `05-ROADMAP-TEMPLATE.md` | `docs/ROADMAP.md` | Sprint 1 en §Now |
 | `08-hooks-TEMPLATE.md §1` | `.claude/hooks/pre-tool-bash.sh` | Activer les sections pertinentes · `chmod +x` |
 | `08-hooks-TEMPLATE.md §2` | `.claude/settings.json` | Copier tel quel |
 | `09-retrospective-SKILL-TEMPLATE.md` | `.claude/skills/retrospective/SKILL.md` | Copier tel quel |
 | *(from scratch)* | `CHANGELOG.md` | Header + entrée Sprint 0 |
-| *(from scratch)* | `doc/DECISIONS.md` | Header + conventions préfixes |
-| *(from scratch)* | `doc/LESSONS_LEARNED.md` | §Index vide + format |
-| *(from scratch)* | `doc/DIAGNOSTIC_CMDS.md` | Header + format |
+| *(from scratch)* | `docs/DECISIONS.md` | Header + conventions préfixes |
+| *(from scratch)* | `docs/LESSONS_LEARNED.md` | §Index vide + format |
+| *(from scratch)* | `docs/DIAGNOSTIC_CMDS.md` | Header + format |
 | *(from scratch)* | `specs/SPEC.md` | Structure vide du domaine |
 | *(from scratch)* | `.claude/skills/diagnostic/SKILL.md` | Commandes de diagnostic |
 
@@ -155,8 +155,8 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 
 ## Documentation
 
-- `doc/SPEC.html` — spec fonctionnelle du modèle : circuits, invariants, décisions M-XXXX
-- `doc/MODE-OPERATOIRE.html` — procédures détaillées avec commandes copiables
+- `docs/SPEC.html` — spec fonctionnelle du modèle : circuits, invariants, décisions M-XXXX
+- `docs/MODE-OPERATOIRE.html` — procédures détaillées avec commandes copiables
 
 Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans Claude.ai).
 

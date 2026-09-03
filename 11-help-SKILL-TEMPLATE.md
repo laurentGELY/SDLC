@@ -18,8 +18,8 @@ par une inférence.
 cat .claude/sprint-memory.md 2>/dev/null || echo "— sprint-memory vide ou absent"
 
 # 2. Où on s'en va (si sprint-memory vide, §Now sert aussi de "où on en est")
-grep -A 5 "## ▶ Now" doc/ROADMAP.md 2>/dev/null
-grep -A 8 "## ⏭ Next" doc/ROADMAP.md 2>/dev/null
+grep -A 5 "## ▶ Now" docs/ROADMAP.md 2>/dev/null
+grep -A 8 "## ⏭ Next" docs/ROADMAP.md 2>/dev/null
 
 # 3. Outils disponibles — lire la table de classification
 grep -A 8 "Classifier le travail" Claude.md 2>/dev/null
@@ -36,12 +36,12 @@ Sprint actif : [titre extrait de la 1ère ligne]
 Dernière entrée : [HH:MM TYPE — résumé]
 
 [Si sprint-memory.md vide ou absent :]
-Aucun sprint actif. Dernier état connu — doc/ROADMAP.md §Now :
+Aucun sprint actif. Dernier état connu — docs/ROADMAP.md §Now :
 [contenu §Now]
 
 ➡️  OÙ ON S'EN VA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-doc/ROADMAP.md §Next :
+docs/ROADMAP.md §Next :
 [contenu §Next — ou "— vide, rien de planifié"]
 
 🛠  OUTILS DISPONIBLES
@@ -57,7 +57,7 @@ Type de travail en cours → flux correspondant :
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Si une source est absente** (ex : `doc/ROADMAP.md` n'existe pas encore) :
+**Si une source est absente** (ex : `docs/ROADMAP.md` n'existe pas encore) :
 le signaler explicitement dans le bloc correspondant — ne jamais inventer
 un état plausible à sa place.
 

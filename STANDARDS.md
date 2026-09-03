@@ -80,7 +80,7 @@ markdown versionnés dans git, dont l'état s'observe par `git diff`/`git log`.
 
 ## Règles d'archivage
 
-### doc/DIAGNOSTIC_CMDS.md
+### docs/DIAGNOSTIC_CMDS.md
 Toute commande `grep`/`diff`/`git` ayant localisé ou résolu un problème
 de cohérence du modèle → archivée avant le wrap-up.
 

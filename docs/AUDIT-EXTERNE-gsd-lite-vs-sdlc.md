@@ -1,7 +1,7 @@
 # Audit externe — GSD-lite vs Modèle SDLC
 <!-- Sprint SDLC-Audit-GSD-lite · 24/06/2026 · Mode : Plan (analyse only) -->
 <!-- Source auditée : exemples/gsd-lite/ (clone local, v2.1.0, @luutuankiet/gsd-lite) -->
-<!-- Référence : doc/AUDIT-EXTERNE-gsd-vs-sdlc.md pour les propositions A-F -->
+<!-- Référence : docs/AUDIT-EXTERNE-gsd-vs-sdlc.md pour les propositions A-F -->
 
 ---
 

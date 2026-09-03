@@ -53,7 +53,7 @@
 | P-28 — Détection cache_creation anormal en milieu de session (signal expiration TTL liée au délai humain) | Feature | S | — | P-36 (script étendu) | Script de base en place | — |
 | P-29 — Ligne de pacing informative en wrap-up §0d ("≈X% d'une tranche typique") — non bloquant | Tuning | S | — | Baseline tranche horaire | Plusieurs sessions mesurées | — |
 | P-31 — Évaluer le Mode Plan natif (Shift+Tab) comme remplacement de §4d manuel | Spike | S | — | Vérification doc Claude Code | Interaction avec règle "aval explicite" confirmée | — |
-| P-32 — Recommandation "prompt structuré" formalisée dans doc/MODE-OPERATOIRE.html | Doc | XS | — | — | Exécutable directement | — |
+| P-32 — Recommandation "prompt structuré" formalisée dans docs/MODE-OPERATOIRE.html | Doc | XS | — | — | Exécutable directement | — |
 | P-33 — Vérification .gitignore ajoutée aux critères d'acceptation du Sprint 0 (06-PDR-bootstrap.md) | Doc | XS | — | — | Pour projets cibles avec code | — |
 | P-34 — Calibrage empirique du seuil délégation sous-agent (>5 fichiers / >10K tokens) | Tuning | S | — | Données réelles | sdlc-token-usage.sh actif sur ≥ 5 sprints | — |
 | P-35 — Réordonnancement Claude.md pour maximiser cache hit (stable en tête, volatile en fin) | Tuning | S | — | Mesure cache_read réelle | sdlc-token-usage.sh disponible sur ≥ 3 sprints | — |
@@ -106,7 +106,8 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
-| SDLC-Audit-GSTACK — Audit externe GSTACK v1.58.4.0 vs modèle SDLC | Revue | M | SDLC-Audit-GSTACK (25/06/2026) | `doc/AUDIT-EXTERNE-gstack-vs-sdlc.md` (20 recommandations : 4 IMPORTER/7 INVESTIGUER/2 MERGER/7 REJETER) · P-22 §Later→§Next · P-40–P-44 §Later · 3 signaux faibles |
+| SDLC-25 — Migration `doc/` → `docs/` + publication du site de documentation (GitHub Pages) | Feature | M | SDLC-25 (02/07/2026) | `docs/` (renommage `git mv` + site statique multi-pages) · `M-ARCH-09` · `00-CONTEXT.md` v1.5 · `specs/SPEC.md §Modules` · Adversarial Review wrap-up : 6 défauts corrigés (fidélité historique README, compte fichiers M-ARCH-09, numérotation nav.json, version/historique site) |
+| SDLC-Audit-GSTACK — Audit externe GSTACK v1.58.4.0 vs modèle SDLC | Revue | M | SDLC-Audit-GSTACK (25/06/2026) | `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md` (20 recommandations : 4 IMPORTER/7 INVESTIGUER/2 MERGER/7 REJETER) · P-22 §Later→§Next · P-40–P-44 §Later · 3 signaux faibles |
 | SDLC-GSD-V2 — Import GSD Vague 2 (graduation auto, hot/cold SESSION_BRIDGE, hypothesis tracking) | Doc | M | SDLC-GSD-V2 (25/06/2026) | `09-retrospective-SKILL-TEMPLATE.md` v1.8 (+GRADUATION auto) · `03-wrap-up-SKILL-TEMPLATE.md` v1.6 (+§Actif/§Archive +archivage conditionnel +hypothesis tracking) · `01-Claude-md-TEMPLATE.md` v2.0 (+awk §Actif) · `M-PROC-39` |
 | SDLC-GSD-V1 — Import GSD Vague 1 (6 patterns) | Doc | M | SDLC-GSD-V1 (24/06/2026) | `01-Claude-md-TEMPLATE.md` v1.9 (+/fast) · `03-wrap-up-SKILL-TEMPLATE.md` v1.5 (+STATELESS) · `04-sprint-PDR-TEMPLATE.md` v2.0 (+goal-backward +SPIDR +Signaux L) · `05-ROADMAP-TEMPLATE.md` v1.1 (+Seed) · `M-PROC-38` |
 | P-30 — Hook PreCompact × sprint-memory.md | Feature | S | SDLC-23 (21/06/2026) | `.claude/hooks/pre-compact.sh` · 2 entrées `settings.json` (matcher manual/auto) · 7e type `CHECKPOINT` (`Claude.md`, `01-Claude-md-TEMPLATE.md`) · `08-hooks-TEMPLATE.md` v1.3 §PreCompact · `M-HOOKS-08` |

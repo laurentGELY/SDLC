@@ -1,7 +1,7 @@
 # Audit externe — GSTACK vs Modèle SDLC
 <!-- Sprint SDLC-Audit-GSTACK · 25/06/2026 · Mode : Revue (analyse only) -->
 <!-- Source auditée : exemples/gstack/ (clone local, v1.58.4.0) -->
-<!-- Cohérence de format : doc/AUDIT-EXTERNE-gsd-vs-sdlc.md · doc/AUDIT-EXTERNE-gsd-lite-vs-sdlc.md -->
+<!-- Cohérence de format : docs/AUDIT-EXTERNE-gsd-vs-sdlc.md · docs/AUDIT-EXTERNE-gsd-lite-vs-sdlc.md -->
 
 ---
 
@@ -170,7 +170,7 @@ connaissance), "User Sovereignty" (génération + vérification, jamais d'action
 trois principes sont directement compatibles avec les invariants SDLC et les enrichiraient.
 SDLC a STANDARDS.md (procédural) mais aucun document de philosophie de développement distinct.
 Un "ETHOS.md SDLC" ou une section §Philosophie dans STANDARDS.md serait de valeur nulle-overhead.
-**IMPACT  :** `STANDARDS.md` ou nouveau `doc/ETHOS.md` — section §Principes d'éthique builder
+**IMPACT  :** `STANDARDS.md` ou nouveau `docs/ETHOS.md` — section §Principes d'éthique builder
 
 ---
 
@@ -303,9 +303,9 @@ opérationnel absent du SDLC. Les hooks PreToolUse SDLC contrôlent le comportem
 **VERDICT : INVESTIGUER**
 **RAISON  :** Le framework Diataxis est une taxonomie documentaire reconnue et bien adaptée
 aux projets techniques. SDLC documente actuellement sans taxonomie explicite (STANDARDS.md,
-CHANGELOG, doc/). Si le SDLC Toolkit est un jour documenté pour d'autres équipes, Diataxis
-serait le bon cadre. À investiguer dans le contexte P-32 (doc/MODE-OPERATOIRE.html).
-**IMPACT  :** `doc/MODE-OPERATOIRE.html` (P-32) + tout futur effort de documentation externe
+CHANGELOG, docs/). Si le SDLC Toolkit est un jour documenté pour d'autres équipes, Diataxis
+serait le bon cadre. À investiguer dans le contexte P-32 (docs/MODE-OPERATOIRE.html).
+**IMPACT  :** `docs/MODE-OPERATOIRE.html` (P-32) + tout futur effort de documentation externe
 
 ---
 
@@ -592,7 +592,7 @@ Sa valeur cumulée est réelle si ≥ 2 audits futurs l'utilisent.
 | Context-save (WIP commits structurés) | MERGER | XS | 03-wrap-up §SESSION_BRIDGE | Prochain sprint |
 | Timeline events (retro tendances) | INVESTIGUER | S | 09-retrospective | Si cadence > 1/sem |
 | Safety freeze (/freeze concept) | INVESTIGUER | S | 08-hooks-TEMPLATE | Si besoin identifié |
-| Diataxis documentation | INVESTIGUER | S | doc/ + P-32 | Si documentation externe |
+| Diataxis documentation | INVESTIGUER | S | docs/ + P-32 | Si documentation externe |
 | Retro global | INVESTIGUER | XS | 09-retrospective | Si > 1 projet actif |
 | Conductor (sessions parallèles) | REJETER | — | — | Jamais |
 | Browser automation | REJETER | — | — | Jamais |
