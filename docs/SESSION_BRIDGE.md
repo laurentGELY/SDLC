@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ECO-2 — Rédaction des templates] · 2026-09-03
+**Commit :** 26dfb79
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `00-CONTEXT.md §5` pose 2 règles de rédaction (description=déclenchement E-08, forme selon échec E-09), en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit. `E-16` (frontmatter + `disable-model-invocation`) vérifié factuellement puis écarté — conflit réel avec C2 de `sdlc-validate.sh` (frontmatter exige `---` en 1ère ligne) — différé en `ECO-2b §Later`. `sdlc-validate.sh` 8/8, non-régression confirmée. `docs/LESSONS_LEARNED.md` note pour `/retrospective` : 3 confirmations consécutives de `LL-T04` (SDLC-25/ECO-1/ECO-2) sous-comptées dans l'index, à reclasser et évaluer pour graduation. Prochaine action : `ECO-3` (barre qualité) ou `ECO-4` (durcissement PDR) — les deux débloqués en `docs/ROADMAP.md §Next`.
+
 ### [Sprint ECO-1 — sdlc-validate.sh] · 2026-09-02
 **Commit :** 720f2be
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** activation GitHub Pages ("Deploy from branch → main → /docs") — action humaine hors Claude Code, non exécutée
 **Fil fonctionnel :** `docs/` remplace `doc/` partout (git mv + sed vérifié), site statique multi-pages prêt à publier (`docs/index.html` + `nav.json`/`meta.json` + 18 pages). Adversarial Review au wrap-up a trouvé et corrigé 6 défauts du bundle livré (historique README falsifié, compte fichiers M-ARCH-09, numérotation sidebar, version/historique du site désynchronisés) + 2 défauts dans `sdlc-init.sh` (bug sed préexistant rendant le bootstrap non fonctionnel depuis l'origine, et un dossier `doc/` résiduel introduit par ce sprint) — les deux corrigés et revalidés. Prochaine action prévue : Sprint ECO-1 (`sdlc-validate.sh`, contrôle exécutable du modèle) déjà en PDR — plusieurs défauts trouvés ici (versions désynchronisées, comptages erronés) sont exactement ceux que ce script vise à automatiser.
 
+## §Archive
+
 ### [Sprint SDLC-Audit-GSTACK — Audit externe GSTACK] · 2026-06-25
 **Commit :** d857b22
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** Audit GSTACK v1.58.4.0 (Garry Tan / YC) — 20 recommandations (4 IMPORTER / 7 INVESTIGUER / 2 MERGER / 7 REJETER). Verdict : adoption sélective, pas d'intégration globale. P-22 déplacé §Later→§Next. Nouveaux items ROADMAP : P-40–P-44 (§Lecture code PDR, §État technique SESSION_BRIDGE, résurgence décisions, rôles §0f, cross-modèle). Prochaine action : P-39 (sync skills) ou P-22 (template audit) ou P-40/P-42 (XS immédiats).
-
-## §Archive
 
 ### [Sprint SDLC-GSD-V2 — Import GSD Vague 2] · 2026-06-25
 **Commit :** 0a3f300
