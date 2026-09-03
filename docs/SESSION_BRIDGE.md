@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ECO-3 — Barre qualité et cliquet de contexte] · 2026-09-03
+**Commit :** 6670581
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `02-STANDARDS-TEMPLATE.md §Barre qualité` (seuils, plancher anti-affaiblissement, cliquet M1 10%, exceptions datées), règle absolue anti-affaiblissement, DoD référencée aux 2 points qui n'en disposaient pas. Vérification factuelle avant PDR (`M-PROC-41`) a infirmé `E-04` de l'ANALYSE (DoD déjà consolidée) — portée réduite en conséquence. Adversarial Review a trouvé et corrigé 3 défauts (doublon de phrase, confusion M1/M2 dans une justification, version affirmée sans preuve). `LL-T10` confirmé (2e occurrence). `sdlc-validate.sh` 8/8. Prochaine action : `ECO-4` (durcissement PDR) ou `ECO-5`/`P-20` (hook SessionStart) — les deux en `docs/ROADMAP.md §Next`.
+
 ### [Sprint ECO-2 — Rédaction des templates] · 2026-09-03
 **Commit :** 26dfb79
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `sdlc-validate.sh` (nouveau, racine) vérifie 8 aspects structurels du modèle en registre extensible, appelé à l'Étape 3.5 du wrap-up. 8/8 sur le repo actuel. Adversarial Review a trouvé et corrigé 2 défauts (pré-vol de commandes désaligné, phrase auto-référentielle fausse dans `00-CONTEXT.md`). ECO-2/3/4 débloqués en `docs/ROADMAP.md §Next` (rédaction templates, barre qualité, durcissement PDR — catalogue complet dans `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md`, 26 patterns). `[SDLC_CANDIDATE]` ouvert : proportion faux positifs/vrais défauts du Blind Hunter délégué à surveiller sur plusieurs sprints.
 
+## §Archive
+
 ### [Sprint SDLC-25 — Migration doc/ → docs/ + site de documentation] · 2026-07-02
 **Commit :** 831b60d
 **Bloquants en suspens :** activation GitHub Pages ("Deploy from branch → main → /docs") — action humaine hors Claude Code, non exécutée
 **Fil fonctionnel :** `docs/` remplace `doc/` partout (git mv + sed vérifié), site statique multi-pages prêt à publier (`docs/index.html` + `nav.json`/`meta.json` + 18 pages). Adversarial Review au wrap-up a trouvé et corrigé 6 défauts du bundle livré (historique README falsifié, compte fichiers M-ARCH-09, numérotation sidebar, version/historique du site désynchronisés) + 2 défauts dans `sdlc-init.sh` (bug sed préexistant rendant le bootstrap non fonctionnel depuis l'origine, et un dossier `doc/` résiduel introduit par ce sprint) — les deux corrigés et revalidés. Prochaine action prévue : Sprint ECO-1 (`sdlc-validate.sh`, contrôle exécutable du modèle) déjà en PDR — plusieurs défauts trouvés ici (versions désynchronisées, comptages erronés) sont exactement ceux que ce script vise à automatiser.
-
-## §Archive
 
 ### [Sprint SDLC-Audit-GSTACK — Audit externe GSTACK] · 2026-06-25
 **Commit :** d857b22
