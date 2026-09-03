@@ -34,4 +34,5 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 | `09-retrospective-SKILL-TEMPLATE.md` | Skill secondaire — consulté ponctuellement |
 | `README.md` | Redondant avec 00-CONTEXT.md pour Claude.ai |
 
-## Dernière vérification : 25/06/2026 · Sprint SDLC-GSD-V2 wrap-up
+## Dernière vérification : 02/07/2026 · Sprint SDLC-25 wrap-up
+Delta vérifié : aucun nouveau fichier de gouvernance nécessitant une entrée « Fichiers synchronisés » — les fichiers créés ce sprint (`docs/index.html`, `docs/nav.json`, `docs/meta.json`, `docs/pages/*.md`, `docs/README.md`, `docs/.nojekyll`) sont le site public, pas du Project Knowledge (même traitement que `docs/SPEC.html`/`docs/MODE-OPERATOIRE.html`, déjà exclus ci-dessus). Fichiers déjà synchronisés renommés `doc/` → `docs/` : re-synchroniser leur contenu dans Claude.ai ("Sync now").
