@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Template SDLC v1.6 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.7 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -297,6 +297,8 @@ Checklist :
 - [ ] CHANGELOG : version +0.1 cohérente avec la précédente
 - [ ] ROADMAP : aucun sprint futur écrasé
 - [ ] Tests : niveau A passé (obligatoire), B si module partagé touché
+- [ ] DoD : `STANDARDS.md §Definition of Done` vérifiée (en plus des critères
+      d'acceptation du sprint, jamais à leur place)
 - [ ] Zéro fichier hors portée dans le diff
 - [ ] Bilan session (Étape 0) cohérent avec le diff git
 

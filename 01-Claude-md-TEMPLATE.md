@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.1 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.2 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -23,6 +23,9 @@
     M-HOOKS-04) a montré qu'une étape entière (création du fichier spec) peut être omise
     sans qu'aucun garde-fou ne le détecte avant le wrap-up si cette comparaison n'est pas
     faite explicitement.
+- affaiblir un seuil de `STANDARDS.md §Barre qualité` (seuil baissé, suppression
+  ajoutée, test retiré) pour faire passer un changement, sans passer par la table
+  d'exceptions datées de cette section
 
 **HALT — arrêt immédiat, attendre l'humain :**
 - **HALT-DEP** : dépendance requise absente du PDR détectée avant d'installer

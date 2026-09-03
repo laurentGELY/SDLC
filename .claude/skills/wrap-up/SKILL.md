@@ -298,6 +298,8 @@ Checklist :
 - [ ] CHANGELOG : version +0.1 cohérente avec la précédente
 - [ ] ROADMAP : aucun sprint futur écrasé
 - [ ] Tests : niveau A passé (obligatoire), B si fichier registre touché
+- [ ] DoD : `STANDARDS.md §Definition of Done` vérifiée (en plus des critères
+      d'acceptation du sprint, jamais à leur place)
 - [ ] Zéro fichier hors portée dans le diff
 - [ ] Bilan session (Étape 0) cohérent avec le diff git
 

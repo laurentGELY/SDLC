@@ -247,8 +247,13 @@ wc -w .claude/skills/wrap-up/SKILL.md
 ```
 
 Comparer M1/M2 au sprint précédent ainsi mesuré (chercher dans
-`docs/LESSONS_LEARNED.md §Métriques de rétro` ou `git log -p` sur ces fichiers)
-— une variation notable est un signal pour les pistes d'allègement (§Étape 3).
+`docs/LESSONS_LEARNED.md §Métriques de rétro` ou `git log -p` sur ces fichiers).
+**Seuil (cliquet, `M-PROC-42`) :** si M1 croît de plus de 10 % depuis la dernière
+`/retrospective`, une piste d'allègement est **obligatoire** dans le rapport
+§Étape 3 — pas optionnelle. En dessous du seuil, noter la variation sans action
+requise. *(Ce projet n'a pas de section `STANDARDS.md §Barre qualité` formelle —
+c'est le modèle lui-même, pas un projet cible bootstrappé — le seuil s'applique
+tel quel.)*
 
 ### Mesure dynamique — sdlc-token-usage.sh
 

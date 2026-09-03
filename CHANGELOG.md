@@ -2,6 +2,18 @@
 
 ---
 
+## [v2.0+ECO-3] — 2026-09-03 · Sprint Doc M · Barre qualité chiffrée et cliquet de contexte
+- **`02-STANDARDS-TEMPLATE.md` v2.0** (nouveau) : §Barre qualité — même gabarit que §Observabilité (Q/R + grep + `[À REMPLIR]`) : tableau 4 colonnes (Dimension/Règle/Vérifié par/S'exécute à), plancher non négociable + ligne anti-affaiblissement, cliquet (dont M1 avec seuil 10%), table d'exceptions datées (`E-03`)
+- **`01-Claude-md-TEMPLATE.md` v2.2** (et `Claude.md`, qui ne porte pas de marqueur de version incrémenté par édition — convention établie) : +1 règle absolue — ne jamais affaiblir un seuil de `STANDARDS.md §Barre qualité` sans passer par la table d'exceptions
+- **`06-PDR-bootstrap.md`** : critère de bootstrap étendu à `§Barre qualité`
+- **`04-sprint-PDR-TEMPLATE.md` v2.1** : +1 ligne rappelant que la DoD s'applique en plus des critères d'acceptation, jamais recopiée (`E-04`)
+- **`03-wrap-up-SKILL-TEMPLATE.md` v1.7** + **`.claude/skills/wrap-up/SKILL.md`** : +1 ligne checklist §3.5 citant la DoD par son nom (`E-04`)
+- **`09-retrospective-SKILL-TEMPLATE.md` v1.9** + **`.claude/skills/retrospective/SKILL.md`** : seuil M1 explicite (10%) — un dépassement rend une piste d'allègement obligatoire au rapport, plus un simple signal (`E-11`)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-PROC-42` (4 champs), tableau de compatibilité
+- **Correction factuelle avant rédaction du PDR (`M-PROC-41` appliquée nativement)** : `E-04` de l'ANALYSE affirmait la Definition of Done « éclatée » dans le modèle — infirmé, elle est déjà consolidée dans `STANDARDS.md` et déjà référencée depuis `Claude.md` depuis l'origine du toolkit. Portée réduite à 2 renvois d'une ligne plutôt qu'une nouvelle section.
+- **Corrections ajustées vs spec** — un critère d'acceptation trop étroit (`-A40` au lieu de `-A50`) corrigé en cours d'exécution ; `§Barre qualité` non ajoutée à la `STANDARDS.md` vivante de ce repo (aurait cassé `C3` de `sdlc-validate.sh` avec des `[À REMPLIR]` non remplis). Détail : `specs/Sprints/sprint-ECO-3-barre-qualite.md §Corrections ajustées vs spec`.
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0, non-régression confirmée (paires C4 `03-wrap-up`/`09-retrospective` vérifiées après modification)
+
 ## [v2.0+SDLC-26] — 2026-09-03 · Sprint /retrospective · Sprints SDLC-21→ECO-2 (8 sprints d'écart)
 - **`docs/LESSONS_LEARNED.md`** : `§Index des patterns` recompté et corrigé — `LL-T03` 2→4 occurrences (GSD-V1/V2 confirmées), `LL-T04` 1→7 occurrences (`SDLC-25`/`ECO-1` reclassées de "nouveau" à "confirme" sans réécrire leurs entrées sources) et statut « Gradué » ; 3 nouveaux patterns `LL-T08` (sprint-memory minimal, 2 occ.), `LL-T09` (règle non généralisée, 1 occ.), `LL-T10` (Blind Hunter faux positifs, 1 occ.) ; `§Métriques de rétro` ajoutée (M1 3028 mots +2,8%, M2 2650 mots +9,9% vs SDLC-22) ; décision `SDLC_CANDIDATE` de `SDLC-25` marquée traitée (`ECO-1` livré)
 - **`Claude.md` §Analyse** (nouveau) : bloc « Vérification factuelle » avant `§Demande d'aval` — toute précondition factuelle non vérifiable par lecture du repo confirmée par commande/recherche avant d'être écrite dans l'analyse

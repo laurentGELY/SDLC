@@ -17,6 +17,7 @@
 - modifier un fichier de configuration sans noter la valeur précédente
 - lancer un refactor hors périmètre sans validation explicite
 - commencer à coder sans avoir exécuté les étapes 4a/4b/4c, initialisé `.claude/sprint-memory.md` (4b) et écrit le §Plan de développement dans le spec (4d)
+- affaiblir un seuil de `STANDARDS.md §Barre qualité` (seuil baissé, suppression ajoutée, test retiré) pour faire passer un changement, sans passer par la table d'exceptions datées de cette section
 
 **HALT — arrêt immédiat, attendre l'humain :**
 - **HALT-DEP** : dépendance requise absente du PDR détectée avant d'installer

@@ -568,6 +568,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-40 | `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) | ✓ | — |
 | M-TMPL-05 | Rédaction des templates/skills — description = déclenchement, forme selon type d'échec | ✓ | — |
 | M-PROC-41 | Graduation LL-T04 — vérification factuelle avant analyse/PDR (`Claude.md §Analyse`) | ✓ | — |
+| M-PROC-42 | Barre qualité chiffrée + cliquet de contexte (seuil M1 10%) | ✓ | — |
 
 ---
 
@@ -1981,3 +1982,61 @@ statut « Gradué », 3 nouveaux patterns `LL-T08`/`09`/`10`, `§Métriques de r
 positifs (analyses bloquées sur des vérifications disproportionnées pour des faits
 mineurs) sur plusieurs sprints, réévaluer son champ d'application ou le reformuler en
 recommandation plutôt qu'en checklist obligatoire.
+
+---
+
+## M-PROC-42 · Barre qualité chiffrée + cliquet de contexte · v2.0+ECO-3 · 03/09/2026
+
+**Contexte :** `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-03/§E-04/§E-11` documentait
+trois manques. Vérification factuelle avant rédaction du PDR (`Claude.md §Analyse`,
+`M-PROC-41`, appliquée nativement) : `E-03` et `E-11` confirmés exacts (aucune barre de
+qualité chiffrée dans `02-STANDARDS-TEMPLATE.md`, aucun seuil sur le cliquet M1) ; `E-04`
+**infirmé** — la Definition of Done n'était pas « éclatée » comme l'affirmait l'ANALYSE :
+`02-STANDARDS-TEMPLATE.md §Definition of Done` existe et est déjà référencée depuis
+`Claude.md`/`01-Claude-md-TEMPLATE.md` depuis l'origine du toolkit.
+
+**Retenu :** `02-STANDARDS-TEMPLATE.md §Barre qualité` (nouveau, même gabarit que
+`§Observabilité` : tableau 4 colonnes `[À REMPLIR]`, plancher non négociable, cliquet
+(dont la ligne M1 avec un seuil de 10 %), table d'exceptions datées). Règle
+anti-affaiblissement dans `Claude.md`/`01-Claude-md-TEMPLATE.md §Règles absolues`. Seuil
+M1 explicite (10 %) dans `09-retrospective-SKILL-TEMPLATE.md`/`.claude/skills/
+retrospective/SKILL.md §Étape 7` — un dépassement rend une piste d'allègement
+obligatoire au rapport, plus un simple signal. `E-04` traité par 2 renvois d'une ligne
+(`04-sprint-PDR-TEMPLATE.md`, `03-wrap-up-SKILL-TEMPLATE.md`/skill vivant §3.5) plutôt
+qu'une reconstruction de section.
+
+**Écarté :**
+- **`CONSTRAINTS.md` séparé** — contredirait `M-ARCH-01`/`M-ARCH-03` (limiter les
+  fichiers en contexte permanent), même raison déjà actée pour `§Observabilité`.
+- **Reconstruire la Definition of Done en 5 blocs/3 grains** (format source de `E-04`)
+  — écarté après vérification : le format actuel (Livrable/Clôture) est déjà consolidé
+  et déjà référencé, le remplacer sans défaut constaté aurait été une réécriture sans
+  preuve.
+- **Remplir `§Barre qualité` avec des valeurs réelles pour le repo SDLC lui-même** —
+  hors périmètre : ce PDR touche les templates génériques. Vérifié avant d'écarter :
+  `STANDARDS.md` (fichier vivant de ce repo) est l'un des 8 fichiers vérifiés par `C3` de
+  `sdlc-validate.sh` — y ajouter une section à `[À REMPLIR]` non remplie y aurait
+  introduit un vrai résidu de placeholder, pas juste un choix de portée.
+- **Valeur cible absolue pour M1** — écarté par la source de `E-11` elle-même : « une
+  valeur cible absolue serait arbitraire et se ferait ignorer ». Le cliquet en
+  pourcentage relatif est retenu à la place.
+
+**Raison :** le gabarit `§Observabilité` (Q/R + grep + `[À REMPLIR]`) existait déjà et
+fonctionne — répliquer la même forme pour la qualité de code évite d'introduire un
+format inédit. Le seuil de 10 % sur M1 n'est pas déduit de la propre croissance de M1
+(seulement +2,8 % entre SDLC-22 et SDLC-26, une seule mesure disponible) — il est fixé
+au-dessus de cette croissance réelle tout en restant sous celle de M2 sur la même
+période (+9,9 %, jamais jugée problématique) : un ordre de grandeur qui laisse de la
+marge sans être choisi au hasard.
+
+**Impact fichiers :** `02-STANDARDS-TEMPLATE.md` v2.0 (+§Barre qualité) ·
+`01-Claude-md-TEMPLATE.md` v2.2 + `Claude.md` (+1 règle absolue, ce dernier sans
+marqueur de version incrémenté par édition) · `06-PDR-bootstrap.md`
+(+1 mention grep) · `04-sprint-PDR-TEMPLATE.md` v2.1 (+1 ligne DoD) ·
+`03-wrap-up-SKILL-TEMPLATE.md` v1.7 + `.claude/skills/wrap-up/SKILL.md` (+1 ligne DoD)
+· `09-retrospective-SKILL-TEMPLATE.md` v1.9 + `.claude/skills/retrospective/SKILL.md`
+(+seuil M1 10%).
+
+**Déclencheur de réouverture :** si le seuil M1 (10 %) produit des faux positifs
+(pistes d'allègement exigées pour des croissances de contexte légitimes et mineures)
+sur 2 rétrospectives consécutives, recalibrer la valeur plutôt que la retirer.

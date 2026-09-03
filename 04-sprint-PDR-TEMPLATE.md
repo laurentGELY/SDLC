@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v2.0 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.1 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -94,6 +94,10 @@ Si un input manque ou a changé → signaler comme BLOQUANT avant toute analyse.
 ---
 
 ## Critères d'acceptation
+
+*(Ces critères sont propres à ce sprint. La Definition of Done — `STANDARDS.md
+§Definition of Done` — s'applique en plus, sur tout sprint, et n'est jamais recopiée
+ici.)*
 
 - [ ] [Critère 1 — vérifiable par commande ou observation]
 - [ ] [Critère 2]

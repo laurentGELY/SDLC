@@ -1,5 +1,5 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v1.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.0 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.9 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -75,6 +75,52 @@ n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 **Règle :** toute modification d'un module partagé → niveau B obligatoire + mise à jour de cette table dans le même commit.
 
 **Déclencheur DEPENDENCY_MAP :** si un module partagé est ajouté, supprimé ou renommé → régénérer `docs/DEPENDENCY_MAP.md` dans le même commit.
+
+---
+
+## Barre qualité
+
+<!-- [→ ADAPTER] Adapter les dimensions à la nature du projet -->
+
+**Règle :** une dimension avec un chiffre et sans commande dans la colonne « Vérifié
+par » est une aspiration, pas une contrainte (`INV-1`). Affaiblir un seuil ou le
+plancher ci-dessous pour faire passer un changement passe par la table d'exceptions,
+jamais par une modification silencieuse de cette section.
+
+### Seuils — à compléter au bootstrap · zéro placeholder avant le commit initial
+
+| Dimension | Règle | Vérifié par | S'exécute à |
+|-----------|-------|-------------|-------------|
+| [À REMPLIR] *(ex : couverture de test)* | [À REMPLIR] *(ex : ne descend pas sous 80%)* | [À REMPLIR] *(ex : `pytest --cov`)* | [À REMPLIR] *(ex : CI, chaque commit)* |
+| [À REMPLIR] | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] |
+| [À REMPLIR] | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] |
+
+Grep de validation au bootstrap : `grep "\[À REMPLIR\]" STANDARDS.md` → zéro résultat
+attendu (même règle que `§Observabilité`).
+
+### Plancher — non négociable, sans configuration
+
+- Aucun commentaire de suppression nouveau (`@ts-ignore`, `eslint-disable`, `# noqa`)
+- Aucun stub non implémenté livré comme fini
+- Aucun test sauté ou supprimé sans raison explicite dans le message de commit
+- Aucun secret en source
+- Ce fichier ne s'affaiblit pas pour faire passer un changement
+
+### Cliquet — mesuré, pas encore imposé
+
+Valeur du jour + direction (« ne doit pas baisser », « ne doit pas grossir ») pour
+toute dimension sans seuil a priori évident — mesurer l'existant et tenir la ligne.
+
+| Dimension | Valeur mesurée | Direction | Date de mesure |
+|-----------|----------------|-----------|-----------------|
+| Contexte permanent (M1 — `wc -w Claude.md STANDARDS.md`) | [À REMPLIR] | ne croît pas de plus de 10 % entre deux `/retrospective` | [À REMPLIR] |
+| [À REMPLIR] | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] |
+
+### Exceptions — une dérogation datée, pas un `# noqa` anonyme
+
+| ID | Règle | Chemin | Raison | Propriétaire | Expire le |
+|----|-------|--------|--------|--------------|-----------|
+| — | — | — | — | — | — |
 
 ---
 

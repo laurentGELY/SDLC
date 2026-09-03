@@ -163,7 +163,7 @@ Voir `docs/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
 
 1. `grep "SDLC version" Claude.md STANDARDS.md` → affiche vX.Y
 2. `grep "\[→ ADAPTER\]" Claude.md STANDARDS.md` → vide
-3. `grep "\[À REMPLIR\]" STANDARDS.md` → vide (§Observabilité complétée)
+3. `grep "\[À REMPLIR\]" STANDARDS.md` → vide (§Observabilité et §Barre qualité complétées)
 4. `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
 5. `CHANGELOG.md` contient une entrée Sprint 0
 6. `docs/ROADMAP.md` contient Sprint 1 en §Now
