@@ -1,6 +1,6 @@
 # Claude.md — [Nom du projet] · v1.0
 <!-- Template SDLC v2.5 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
-<!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
+<!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
 > Règles permanentes d'exécution du dépôt pour Claude Code.
@@ -420,12 +420,7 @@ Si un test échoue → `/diagnostic` avant de continuer.
 
 **Modules partagés :** toute modification → vérifier les consommateurs avant de coder.
 
-**Éviter :**
-- complexité prématurée
-- dépendances sans bénéfice net
-- logique implicite
-- duplication
-- refactor hors périmètre
+**Éviter :** voir §Priorités d'architecture en fin de fichier.
 
 ---
 

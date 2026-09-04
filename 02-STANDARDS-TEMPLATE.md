@@ -1,6 +1,6 @@
 # STANDARDS.md — [Nom du projet] · v1.0
 <!-- Template SDLC v2.0 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
-<!-- SDLC version : v1.9 · aligné le JJ/MM/AAAA -->
+<!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
 > Référence technique permanente du dépôt.
