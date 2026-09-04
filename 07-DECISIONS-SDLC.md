@@ -570,6 +570,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-41 | Graduation LL-T04 — vérification factuelle avant analyse/PDR (`Claude.md §Analyse`) | ✓ | — |
 | M-PROC-42 | Barre qualité chiffrée + cliquet de contexte (seuil M1 10%) | ✓ | — |
 | M-PROC-43 | Durcissement PDR — Pas de placeholders, auto-revue 3 passes, coût si faux, précédence ledger | ✓ | — |
+| M-TMPL-06 | Pattern `.claude/rules/` documenté pour projets cibles — hook `SessionStart` et self-split de ce repo écartés | ✓ | — |
 
 ---
 
@@ -2105,3 +2106,67 @@ précédence).
 **Déclencheur de réouverture :** si le grep étendu de `§Pas de placeholders` produit
 des faux positifs sur du texte français légitime dans une spec réelle, resserrer les
 motifs plutôt que retirer le mécanisme.
+
+---
+
+## M-TMPL-06 · Pattern `.claude/rules/` documenté pour projets cibles · v2.0+ECO-5 · 03/09/2026
+
+**Contexte :** `docs/ROADMAP.md §Next` portait `P-20 / ECO-5 — Hook SessionStart
+(injection auto Règles absolues + HALT)`, motivé par `LL-T05` (2 occurrences
+confirmées — les instructions d'init d'un PDR §Handoff sont traitées comme
+suffisantes sans être confrontées à la checklist `Claude.md §Démarrage`
+4a-4d). En session, l'utilisateur a proposé une alternative — `.claude/rules/`
+avec frontmatter `paths:` — jugée a priori supérieure (pas de duplication de
+source de vérité, mécanisme natif de la plateforme). Vérification factuelle
+des deux pistes avant écriture du plan (`Claude.md §Analyse`, `M-PROC-41`) :
+1. **Hook `SessionStart`** — `code.claude.com/docs/en/hooks` +
+   `.../memory` confirment que `Claude.md` recharge déjà nativement à
+   `startup`/`resume`/`clear`/`compact` (« Project-root CLAUDE.md survives
+   compaction: after `/compact`, Claude re-reads it from disk and re-injects
+   it into the session »), et que ni `Claude.md` ni la sortie du hook
+   (`hookSpecificOutput.additionalContext`) ne sont un mécanisme
+   d'enforcement (« there's no guarantee of strict compliance »). Le hook
+   n'ajoute donc aucune garantie de conformité que `Claude.md` n'a pas déjà.
+2. **Self-split de `Claude.md` (ce repo)** — `code.claude.com/docs/en/
+   context-window §What survives compaction` confirme qu'un fichier
+   `.claude/rules/*.md` **sans** `paths:` charge et survit à la compaction
+   exactement comme `Claude.md` (« Project-root CLAUDE.md and unscoped rules
+   → Re-injected from disk »). Cartographie des 374 lignes de `Claude.md` (9
+   sections) : aucune section n'a de frontière naturelle par chemin de
+   fichier — ce repo est un projet de gouvernance de processus (règles de
+   cycle de vie de sprint, pas de convention par répertoire de code) ; le
+   pattern chargement-à-la-demande y fonctionne déjà correctement via les
+   skills (`/wrap-up`, `/retrospective`).
+
+**Retenu :** documenter `.claude/rules/` dans `01-Claude-md-TEMPLATE.md
+§Tokens §Chargement chirurgical` (nouveau bullet, seuil ~200 lignes + condition
+de frontière `paths:` réelle) — pour les **projets cibles**, qui ont, eux, de
+vraies conventions par répertoire/type de fichier. `docs/LESSONS_LEARNED.md
+§LL-T05` **non touché** — décision utilisateur explicite (option « Template
+seulement » sur `AskUserQuestion`), reste `Actif` sans reclassement.
+
+**Écarté :**
+- **Hook `SessionStart`** (P-20 original) — aucune garantie de conformité
+  supérieure à `Claude.md` déjà rechargé nativement ; seul gain théorique
+  (rappel condensé plus saillant) jugé insuffisant pour justifier un
+  mécanisme dupliquant une source de vérité.
+- **Self-split de `Claude.md` de ce repo** — aucune frontière `paths:`
+  naturelle trouvée ; un split aurait déplacé des lignes sans réduire le
+  total chargé (règles sans `paths:` = comportement identique à `Claude.md`).
+- **Reclasser `LL-T05`** — écarté par décision utilisateur explicite ; le
+  fichier `docs/LESSONS_LEARNED.md` n'est pas modifié ce sprint.
+
+**Raison :** les deux pistes évaluées auraient soit dupliqué `Claude.md` sans
+gain de conformité (hook), soit déplacé du contenu sans réduire ce qui charge
+réellement (self-split) — documenter le pattern pour les projets cibles, où il
+a une vraie frontière d'application, ferme la moitié utile de l'idée sans
+forcer un découpage qui ne correspond pas à la forme de ce repo.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` v2.4 (+bullet `.claude/rules/`
+dans `§Tokens`) · `docs/ROADMAP.md` (`P-20` déplacé `§Next` → `§Historique`).
+
+**Déclencheur de réouverture :** si une future section de `Claude.md` (ce
+repo) acquiert une vraie frontière par chemin de fichier (ex. un sous-dossier
+`specs/Sprints/` avec des règles propres non partagées ailleurs), réévaluer un
+split scopé à cette section précise — pas une réouverture globale de la
+question.

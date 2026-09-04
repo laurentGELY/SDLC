@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.4 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -233,6 +233,21 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
   - Tâche mécanique (lecture, extraction, synthèse factuelle sans jugement) → modèle réduit
   - Tâche de jugement (analyse comparative, arbitrage, rédaction de recommandation) → modèle standard
   - Jamais déléguer à un modèle plus capable que celui de la session courante sans aval explicite
+- **Découpage `.claude/rules/`** *(mécanisme de contexte — pas un hook, aucun
+  effet d'enforcement)* : si `Claude.md` dépasse ~200 lignes (seuil d'adhérence
+  documenté par la plateforme — au-delà, les instructions sont moins
+  fidèlement suivies) **ET** qu'une partie de son contenu a une frontière
+  réelle par chemin de fichier (convention limitée à un répertoire ou un type
+  de fichier, ex. `src/api/**`, `tests/**`) → extraire cette partie dans
+  `.claude/rules/<nom>.md` avec un bloc frontmatter `paths:` scopé, plutôt que
+  la garder dans `Claude.md`. Ne jamais découper du contenu transverse au
+  processus (Règles absolues, Démarrage, Analyse) : ce contenu s'applique à
+  chaque sprint indépendamment du fichier touché, donc n'a pas de frontière
+  `paths:` naturelle — un fichier `.claude/rules/` **sans** `paths:` charge et
+  survit à la compaction exactement comme `Claude.md` (aucun gain à l'extraire
+  sans scope). Fait vérifié : seule une règle *scopée* `paths:` ne charge/ne
+  persiste après compaction que si un fichier correspondant est lu
+  (`code.claude.com/docs/en/context-window §What survives compaction`).
 
 ---
 

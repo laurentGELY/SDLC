@@ -2,6 +2,13 @@
 
 ---
 
+## [v2.0+ECO-5] — 2026-09-03 · Sprint Doc S · Pattern `.claude/rules/` documenté (rescopé depuis P-20)
+- **`01-Claude-md-TEMPLATE.md` v2.4** : `§Tokens §Chargement chirurgical` +1 bullet `.claude/rules/` — seuil ~200 lignes + condition de frontière `paths:` réelle par répertoire/type de fichier (jamais du contenu transverse au processus), fait de persistance après compaction cité en source
+- **`07-DECISIONS-SDLC.md`** : entrée `M-TMPL-06`, tableau de compatibilité
+- **`docs/ROADMAP.md`** : `P-20` déplacé `§Next` → `§Historique`, disposition rescopée documentée
+- **Rescopage en session** : `docs/ROADMAP.md §Next` portait à l'origine un hook `SessionStart` (P-20, motivé par `LL-T05`). Vérification factuelle (`code.claude.com/docs/en/hooks`, `.../memory`, `.../context-window`) : `Claude.md` recharge déjà nativement à `startup`/`resume`/`clear`/`compact`, et ni `Claude.md` ni la sortie du hook ne sont un mécanisme d'enforcement — le hook n'ajoutait aucune garantie. Alternative proposée en session (`.claude/rules/` avec `paths:`) évaluée pour ce repo : aucune frontière `paths:` naturelle dans `Claude.md` (contenu 100% transverse au processus) — un self-split n'aurait rien réduit. Les deux pistes écartées ; seule la documentation du pattern pour projets cibles retenue, sur décision utilisateur explicite (option « Template seulement »). `docs/LESSONS_LEARNED.md §LL-T05` **non touché** ce sprint.
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0
+
 ## [v2.0+ECO-4] — 2026-09-03 · Sprint Doc S · Durcissement PDR
 - **`04-sprint-PDR-TEMPLATE.md` v2.2** : `§Pas de placeholders` (nouveau) — liste fixe de motifs interdits dans un plan de sprint (« TBD », « cas limites appropriés », « similaire à la tâche N », etc.), grep de vérification cité en tête de section (`E-13(b)`)
 - **`03-wrap-up-SKILL-TEMPLATE.md` v1.8** + **`.claude/skills/wrap-up/SKILL.md`** : grep d'enforcement placeholders résiduels de l'Étape 3 étendu aux mêmes motifs — une seule commande, pas un second bloc
