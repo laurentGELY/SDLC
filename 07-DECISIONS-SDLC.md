@@ -572,6 +572,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-43 | Durcissement PDR — Pas de placeholders, auto-revue 3 passes, coût si faux, précédence ledger | ✓ | — |
 | M-TMPL-06 | Pattern `.claude/rules/` documenté pour projets cibles — hook `SessionStart` et self-split de ce repo écartés | ✓ | — |
 | M-PROC-44 | Garde-fou traçabilité `sprint-memory.md` — avertissement non bloquant en Bilan §0d du wrap-up | ✓ | — |
+| M-TMPL-07 | `12-audit-externe-TEMPLATE.md` — gabarit audit externe (7 sections, verdicts étiquetés, 6 axes), renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`) | ✓ | — |
 
 ---
 
@@ -2220,3 +2221,55 @@ wrap-up/SKILL.md` (même bloc, §0c).
 **Déclencheur de réouverture :** si l'avertissement est ignoré 2 fois de
 suite après son introduction (le bilan le signale mais aucune trace n'est
 ajoutée rétroactivement), réévaluer vers un mécanisme plus contraignant.
+
+---
+
+## M-TMPL-07 · `12-audit-externe-TEMPLATE.md` — gabarit audit externe · v2.0+SDLC-29 · 04/09/2026
+
+**Contexte :** `docs/ROADMAP.md §Next` portait `P-22` (débloqué par
+`Sprint SDLC-Audit-GSTACK` après 3 audits externes — GSD, GSD-lite,
+Superpowers — ayant chacun réinventé leur propre format). Vérification
+factuelle avant rédaction du plan : le nom prévu, `10-audit-externe-
+TEMPLATE.md` (cité tel quel dans `docs/ROADMAP.md` et 6 fichiers
+historiques), collisionne avec `10-AMONT-TEMPLATE.md` qui occupe déjà ce
+slot — jamais détecté par aucun des sprints qui l'ont mentionné. `ls *.md`
+confirme les slots 01-11 occupés, 12 libre. Par ailleurs, le contenu n'était
+pas à inventer : `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7 "Sur P-22"`
+contient déjà le squelette recommandé (le format le plus mature des 4 audits
+existants, les 2 premiers — GSD/GSD-lite — ayant utilisé une structure
+différente, moins standardisée).
+
+**Retenu :** `12-audit-externe-TEMPLATE.md` (nouveau, ~45 lignes) — repris
+quasi tel quel du squelette `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7` : 7
+sections obligatoires, tableau comparatif à 6 axes nommés (Gouvernance de
+session, Séparation des rôles, Traçabilité et documentation, Scalabilité,
+Overhead, Récupération de session), verdicts étiquetés
+`IMPORTER/REJETER/INVESTIGUER/MERGER`. Destination `*(guide toolkit — pas
+copié dans le projet cible)*`, même statut que `06-PDR-bootstrap.md` —
+un audit externe compare le modèle à un framework tiers, jamais une
+activité qu'un projet cible bootstrappé exécute.
+
+**Écarté :**
+- **Conserver le nom `10-audit-externe-TEMPLATE.md`** — écarté, collision
+  réelle avec un fichier existant.
+- **Réécrire les mentions historiques** (`CHANGELOG.md`, `specs/Sprints/*`
+  passés citant l'ancien nom) — écarté, cohérent avec la règle « ne jamais
+  réécrire l'historique » ; seules les références vivantes (`ROADMAP.md`,
+  `00-CONTEXT.md`, `specs/SPEC.md`) utilisent le nom corrigé.
+- **Enrichir le squelette au-delà des 7 sections** — écarté, l'audit source
+  lui-même prévient explicitement contre une « super-structure ».
+- **Appliquer rétroactivement le template aux 4 audits existants** — hors
+  scope, ils restent dans leur format d'origine.
+
+**Raison :** le format s'est déjà naturellement standardisé sur 3 audits
+consécutifs (GSD-lite, Superpowers, GSTACK) — formaliser ce qui existe déjà
+coûte peu et garantit la cohérence pour les audits futurs, sans réinventer
+un format qui a déjà convergé.
+
+**Impact fichiers :** `12-audit-externe-TEMPLATE.md` (nouveau) ·
+`00-CONTEXT.md §1` · `specs/SPEC.md §Modules` · `docs/ROADMAP.md` (`P-22`
+déplacé `§Next` → `§Historique`).
+
+**Déclencheur de réouverture :** si un audit futur signale en §7 du template
+qu'un axe des 6 n'est pas pertinent pour son framework, ou qu'une section
+manque — réviser après 2 signalements convergents, pas sur un seul retour.

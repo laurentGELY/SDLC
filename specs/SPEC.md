@@ -87,6 +87,7 @@ prévu au PDR de ce sprint.
 | `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `docs/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
 | `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | — | Project Claude.ai dédié, optionnel |
 | `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `Claude.md` | À la demande |
+| `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | — | Comparaison SDLC vs framework tiers, ponctuel |
 | `00-CONTEXT.md` | Contexte Claude.ai — invariants + carte des fichiers | — | Toute évolution du modèle (lu en premier) |
 | `README.md` | Pitch + démarrage rapide | — | Première lecture humaine du toolkit |
 | `CHANGELOG.md` | Historique des sprints du toolkit lui-même | — | `/wrap-up` (propre au toolkit) |

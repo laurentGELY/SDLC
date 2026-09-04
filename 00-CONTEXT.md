@@ -27,6 +27,7 @@
 | 09 | `09-retrospective-SKILL-TEMPLATE.md` | Procédure de rétrospective + remontées SDLC | `.claude/skills/retrospective/SKILL.md` |
 | 10 | `10-AMONT-TEMPLATE.md` | Instructions phase amont — Project Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) |
 | 11 | `11-help-SKILL-TEMPLATE.md` | Skill /help — recap contexte | `.claude/skills/help/SKILL.md` |
+| 12 | `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | *(guide toolkit, pas copié)* |
 
 **Fichiers humains (local uniquement, non synchronisés dans Claude.ai) :**
 

@@ -2,6 +2,13 @@
 
 ---
 
+## [v2.0+SDLC-29] — 2026-09-04 · Sprint Doc XS · `12-audit-externe-TEMPLATE.md` (P-22)
+- **`12-audit-externe-TEMPLATE.md`** (nouveau) : gabarit d'audit externe — 7 sections, tableau comparatif 6 axes (Gouvernance de session, Séparation des rôles, Traçabilité et documentation, Scalabilité, Overhead, Récupération de session), verdicts étiquetés `IMPORTER/REJETER/INVESTIGUER/MERGER` — squelette repris de `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`, le format le plus mature des 4 audits existants
+- **Renumérotation 10→12** : le nom prévu `10-audit-externe-TEMPLATE.md` collisionnait avec `10-AMONT-TEMPLATE.md` (jamais détecté par les 6 fichiers historiques qui l'ont mentionné) — mentions historiques non réécrites, seules les références vivantes (`ROADMAP.md`, `00-CONTEXT.md`, `specs/SPEC.md`) utilisent le nom corrigé
+- **`00-CONTEXT.md §1`** + **`specs/SPEC.md §Modules`** : nouvelle ligne
+- **`07-DECISIONS-SDLC.md`** : entrée `M-TMPL-07`
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0
+
 ## [v2.0+SDLC-28] — 2026-09-04 · Sprint Doc S · `sprint-memory.md` = mécanisme de reprise (P-27) + clôture P-39
 - **`Claude.md` + `01-Claude-md-TEMPLATE.md` v2.5** : correction de 2 citations fautives dans le paragraphe `CHECKPOINT` de `§Mémoire de sprint` — `M-HOOKS-XX` (placeholder jamais résolu) → `M-HOOKS-08` ; `Étend M-PROC-13` (sans rapport, c'est l'annotation `[CONF:...]`) → `Étend M-PROC-10` (origine réelle du cadrage crash-recovery)
 - **`docs/MODE-OPERATOIRE.html §Concepts clés`** : nouvelle carte « Reprise après coupure » — le mécanisme n'existait jusqu'ici que dans `Claude.md`, absent de toute doc humaine

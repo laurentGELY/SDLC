@@ -1,7 +1,7 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 04/09/2026 · Sprints SDLC-07→SDLC-28
+## §Index des patterns · mis à jour 04/09/2026 · Sprints SDLC-07→SDLC-29
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
@@ -12,7 +12,7 @@
 | LL-T05 | Les instructions d'init embarquées dans un PDR (§Handoff) peuvent être incomplètes par rapport à la checklist absolue de `Claude.md §Démarrage` (4a-4d) — les traiter comme suffisantes sans les confronter à `Claude.md` fait sauter une étape (ici : 4a, création du fichier spec) sans qu'aucun garde-fou ne le détecte avant le `/wrap-up` | 2 | SDLC-16, SDLC-Audit-GSTACK | Actif — occurrences confirmées | ⏳ — Différé une 3e fois (`/retrospective` 03/09/2026). **Déclencheur de réouverture nommé :** dès que `P-20`/`ECO-5` (hook `SessionStart`, `docs/ROADMAP.md §Next`) est livré, réévaluer si le garde-fou manuel reste nécessaire en plus ; sinon, à la 3e occurrence réelle, trancher sans nouveau report. |
 | LL-T06 | Tester un mécanisme de blocage global (hook `PreToolUse`) en manipulant l'état réel de la session courante, sans isolation, transforme un bug du mécanisme testé en blocage réel de la session elle-même | 1 | SDLC-18 | Nouveau — corrigé | Règle d'isolation ajoutée à `08-hooks-TEMPLATE.md` (`M-PROC-30`) — appliquée, pas en attente |
 | LL-T07 | Le carve-out anti-auto-verrouillage M-HOOKS-04 (`pre-tool-bash.sh`) n'autorise l'écriture que sous `specs/Sprints/*` — il ne couvre pas une correction légitime de `.claude/sprint-memory.md` lui-même (ex: renommage du spec référencé), qui reste bloquée même quand l'action est exactement celle que le carve-out visait à débloquer | 2 | SDLC-20, ECO-4 | **Clos — résolu** | Carve-out élargi à `.claude/sprint-memory.md` (`07-DECISIONS-SDLC.md M-HOOKS-04 → Mise à jour 03/09/2026`). Déclencheur nommé pour `ECO-4` manqué à la rédaction du PDR (parti de l'ANALYSE/ROADMAP, pas de ce fichier) — repéré en préparant l'Étape 2 du wrap-up, traité hors PDR sur aval explicite plutôt que différé une 3e fois. |
-| LL-T08 | `sprint-memory.md` réduit à son en-tête pour un sprint au diff substantiel, malgré des décisions réelles arbitrées en conversation et jamais tracées en DÉCISION/TEST | 4 | SDLC-25, ECO-1, ECO-4, ECO-5 | Gradué — garde-fou ajouté (`/retrospective` SDLC-27, 03/09/2026) | `M-PROC-44` — avertissement non bloquant dans le Bilan §0d du wrap-up si `sprint-memory.md` = en-tête seul et diff ≥ 3 fichiers/50 lignes. Rouvrir si ignoré 2 fois de suite. |
+| LL-T08 | `sprint-memory.md` réduit à son en-tête pour un sprint au diff substantiel, malgré des décisions réelles arbitrées en conversation et jamais tracées en DÉCISION/TEST | 6 | SDLC-25, ECO-1, ECO-4, ECO-5, SDLC-28, SDLC-29 | Gradué — garde-fou ajouté (`/retrospective` SDLC-27, 03/09/2026) | `M-PROC-44` — avertissement non bloquant dans le Bilan §0d du wrap-up si `sprint-memory.md` = en-tête seul et diff ≥ 3 fichiers/50 lignes. Déclenché 2 fois consécutives (SDLC-28, SDLC-29) — signalé les 2 fois, escalade explicitement déclinée par l'utilisateur (`RAS`) et non silencieusement ignorée. Distinction actée : le garde-fou fonctionne (surfacé + décision humaine informée), ce n'est pas le cas « ignoré » que son propre déclencheur visait. Pas de réouverture unilatérale. |
 | LL-T09 | Une règle actée pour un fichier nommément désigné (ex. fidélité historique pour `CHANGELOG.md`) n'est pas généralisée aux blocs de même nature ailleurs dans le repo (`README.md §Historique`) | 1 | SDLC-25 | Nouveau — surveillé | Aucune action — 1 occurrence, pas encore récurrent |
 | LL-T10 | Un Blind Hunter délégué à un sous-agent sans accès au repo produit des hypothèses non vérifiables à côté de vrais défauts | 2 | ECO-1 (2 faux positifs sur 4 findings), ECO-3 (3 défauts réels, 0 faux positif signalé) | Confirmé — surveillé | Aucune action — proportion à mesurer sur plusieurs sprints avant d'ajuster `03-wrap-up-SKILL-TEMPLATE.md §0f` ; correction d'index `/retrospective` SDLC-27 (2e occurrence non reportée à l'exécution ECO-3) |
 | LL-T11 | La vérification factuelle pré-PDR (`Claude.md §Analyse`, `M-PROC-41`/`LL-T04`) recoupe systématiquement l'ANALYSE source et `docs/ROADMAP.md`, mais pas `docs/LESSONS_LEARNED.md` — alors que ce fichier peut porter un déclencheur de réouverture nommant explicitement un sprint donné | 1 | ECO-4 (`LL-T07`, déclencheur manqué à la rédaction du PDR, repéré seulement au wrap-up) | Nouveau — surveillé | Aucune action — 1 occurrence, pas encore récurrent ; surveiller si une 2e survient avant de proposer d'étendre `§Vérification factuelle` |
@@ -32,6 +32,12 @@
 - Dernière `/retrospective` : 03/09/2026 · Sprints ECO-3→ECO-5 (SDLC-27)
 
 ## §Entrées par sprint
+
+### Sprint SDLC-29 — 04/09/2026 — `12-audit-externe-TEMPLATE.md` (P-22)
+**Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 8/8, exit 0.
+**Processus :** Vérification factuelle avant PDR a trouvé une collision de numérotation réelle (`10-audit-externe-TEMPLATE.md` prévu, `10-AMONT-TEMPLATE.md` déjà présent) jamais détectée par 6 fichiers historiques l'ayant mentionné — renuméroté `12-` avant tout code. Contenu non inventé : repris du squelette déjà écrit dans `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`. `sprint-memory.md` de nouveau réduit à son en-tête — `M-PROC-44` s'est déclenché pour la **2e fois consécutive** depuis son introduction hier ; signalé explicitement dans le Bilan, escalade proposée puis déclinée par l'utilisateur (RAS).
+**Lien pattern :** confirme `LL-T08` (6e occurrence) — nuance actée dans l'index : signalé + décision humaine informée n'est pas « ignoré », le garde-fou fonctionne comme prévu.
+**Action proposée :** aucune — pas de réouverture unilatérale de `M-PROC-44` sur un déclin explicite de l'utilisateur.
 
 ### Sprint SDLC-28 — 04/09/2026 — `sprint-memory.md` = mécanisme de reprise (P-27) + clôture P-39
 **Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 8/8, exit 0.

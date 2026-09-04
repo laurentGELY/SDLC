@@ -3,7 +3,7 @@
 Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
-**Version courante : v2.0+SDLC-28**
+**Version courante : v2.0+SDLC-29**
 
 ---
 
@@ -49,6 +49,7 @@ sdlc-toolkit/
 ├── 09-retrospective-SKILL-TEMPLATE.md  # → .claude/skills/retrospective/SKILL.md
 ├── 10-AMONT-TEMPLATE.md             # → Project Knowledge Claude.ai (hors repo)
 ├── 11-help-SKILL-TEMPLATE.md        # → .claude/skills/help/SKILL.md
+├── 12-audit-externe-TEMPLATE.md     # Guide toolkit — audit framework tiers vs SDLC, pas copié
 ├── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
 └── docs/
     ├── SPEC.html                    # Spec fonctionnelle du modèle (ouvrir dans un navigateur)
@@ -193,3 +194,4 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+ECO-5 | 03/09/2026 | `P-20` rescopé — hook `SessionStart` écarté (Claude.md recharge déjà nativement), pattern `.claude/rules/` documenté pour projets cibles (`§Tokens`, M-TMPL-06) |
 | v2.0+SDLC-27 | 03/09/2026 | `/retrospective` (ECO-3→ECO-5) — garde-fou traçabilité `sprint-memory.md` (M-PROC-44, `LL-T08` gradué), rappel fenêtre `grep -A` dans `04-sprint-PDR-TEMPLATE.md` (`LL-T12`), clôture de 2 vieux `SDLC_CANDIDATE` invalidés par ECO-5 |
 | v2.0+SDLC-28 | 04/09/2026 | `sprint-memory.md` = mécanisme de reprise (`P-27`) — correction de 2 citations fautives (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), carte `MODE-OPERATOIRE.html` ; `P-39` retiré, déjà résolu |
+| v2.0+SDLC-29 | 04/09/2026 | `12-audit-externe-TEMPLATE.md` (`P-22`) — gabarit 7 sections/6 axes/verdicts étiquetés, renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`), `M-TMPL-07` |
