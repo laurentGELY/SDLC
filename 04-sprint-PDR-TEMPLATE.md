@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v2.2 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.3 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -104,6 +104,11 @@ ici.)*
 - [ ] [Critère 3]
 - [ ] Tests niveau A : `[commande exacte — ex : pytest tests/test_module.py -q]`
 - [ ] CHANGELOG mis à jour
+
+*(Si un critère utilise `grep -A<N>` : dimensionner `N` en comptant les lignes
+réellement couvertes dans le fichier cible, jamais une estimation — une fenêtre
+trop courte laisse passer un contenu correct comme un faux échec. `LL-T12`,
+`/retrospective` 03/09/2026 — 2 occurrences consécutives ECO-3/ECO-4.)*
 
 *(Pour les sprints Feature — optionnel, remplacer ou compléter les critères ci-dessus)*
 ```

@@ -1,7 +1,7 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 03/09/2026 · Sprints SDLC-07→ECO-4
+## §Index des patterns · mis à jour 03/09/2026 · Sprints SDLC-07→ECO-5
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
@@ -12,22 +12,23 @@
 | LL-T05 | Les instructions d'init embarquées dans un PDR (§Handoff) peuvent être incomplètes par rapport à la checklist absolue de `Claude.md §Démarrage` (4a-4d) — les traiter comme suffisantes sans les confronter à `Claude.md` fait sauter une étape (ici : 4a, création du fichier spec) sans qu'aucun garde-fou ne le détecte avant le `/wrap-up` | 2 | SDLC-16, SDLC-Audit-GSTACK | Actif — occurrences confirmées | ⏳ — Différé une 3e fois (`/retrospective` 03/09/2026). **Déclencheur de réouverture nommé :** dès que `P-20`/`ECO-5` (hook `SessionStart`, `docs/ROADMAP.md §Next`) est livré, réévaluer si le garde-fou manuel reste nécessaire en plus ; sinon, à la 3e occurrence réelle, trancher sans nouveau report. |
 | LL-T06 | Tester un mécanisme de blocage global (hook `PreToolUse`) en manipulant l'état réel de la session courante, sans isolation, transforme un bug du mécanisme testé en blocage réel de la session elle-même | 1 | SDLC-18 | Nouveau — corrigé | Règle d'isolation ajoutée à `08-hooks-TEMPLATE.md` (`M-PROC-30`) — appliquée, pas en attente |
 | LL-T07 | Le carve-out anti-auto-verrouillage M-HOOKS-04 (`pre-tool-bash.sh`) n'autorise l'écriture que sous `specs/Sprints/*` — il ne couvre pas une correction légitime de `.claude/sprint-memory.md` lui-même (ex: renommage du spec référencé), qui reste bloquée même quand l'action est exactement celle que le carve-out visait à débloquer | 2 | SDLC-20, ECO-4 | **Clos — résolu** | Carve-out élargi à `.claude/sprint-memory.md` (`07-DECISIONS-SDLC.md M-HOOKS-04 → Mise à jour 03/09/2026`). Déclencheur nommé pour `ECO-4` manqué à la rédaction du PDR (parti de l'ANALYSE/ROADMAP, pas de ce fichier) — repéré en préparant l'Étape 2 du wrap-up, traité hors PDR sur aval explicite plutôt que différé une 3e fois. |
-| LL-T08 | `sprint-memory.md` réduit à son en-tête pour un sprint au diff substantiel, malgré des décisions réelles arbitrées en conversation et jamais tracées en DÉCISION/TEST | 4 | SDLC-25, ECO-1, ECO-4, ECO-5 | Actif — 4e occurrence, garde-fou tranché `/retrospective` 03/09/2026 | Voir `M-PROC-44` — avertissement non bloquant dans le Bilan §0d du wrap-up. |
+| LL-T08 | `sprint-memory.md` réduit à son en-tête pour un sprint au diff substantiel, malgré des décisions réelles arbitrées en conversation et jamais tracées en DÉCISION/TEST | 4 | SDLC-25, ECO-1, ECO-4, ECO-5 | Gradué — garde-fou ajouté (`/retrospective` SDLC-27, 03/09/2026) | `M-PROC-44` — avertissement non bloquant dans le Bilan §0d du wrap-up si `sprint-memory.md` = en-tête seul et diff ≥ 3 fichiers/50 lignes. Rouvrir si ignoré 2 fois de suite. |
 | LL-T09 | Une règle actée pour un fichier nommément désigné (ex. fidélité historique pour `CHANGELOG.md`) n'est pas généralisée aux blocs de même nature ailleurs dans le repo (`README.md §Historique`) | 1 | SDLC-25 | Nouveau — surveillé | Aucune action — 1 occurrence, pas encore récurrent |
-| LL-T10 | Un Blind Hunter délégué à un sous-agent sans accès au repo produit des hypothèses non vérifiables à côté de vrais défauts | 1 | ECO-1 (2 faux positifs sur 4 findings) | Nouveau — surveillé | Aucune action — proportion à mesurer sur plusieurs sprints avant d'ajuster `03-wrap-up-SKILL-TEMPLATE.md §0f` |
+| LL-T10 | Un Blind Hunter délégué à un sous-agent sans accès au repo produit des hypothèses non vérifiables à côté de vrais défauts | 2 | ECO-1 (2 faux positifs sur 4 findings), ECO-3 (3 défauts réels, 0 faux positif signalé) | Confirmé — surveillé | Aucune action — proportion à mesurer sur plusieurs sprints avant d'ajuster `03-wrap-up-SKILL-TEMPLATE.md §0f` ; correction d'index `/retrospective` SDLC-27 (2e occurrence non reportée à l'exécution ECO-3) |
 | LL-T11 | La vérification factuelle pré-PDR (`Claude.md §Analyse`, `M-PROC-41`/`LL-T04`) recoupe systématiquement l'ANALYSE source et `docs/ROADMAP.md`, mais pas `docs/LESSONS_LEARNED.md` — alors que ce fichier peut porter un déclencheur de réouverture nommant explicitement un sprint donné | 1 | ECO-4 (`LL-T07`, déclencheur manqué à la rédaction du PDR, repéré seulement au wrap-up) | Nouveau — surveillé | Aucune action — 1 occurrence, pas encore récurrent ; surveiller si une 2e survient avant de proposer d'étendre `§Vérification factuelle` |
+| LL-T12 | Un critère d'acceptation utilisant `grep -A<N>` dimensionne `N` sur une estimation plutôt que le contenu réel du fichier cible — la commande de vérification échoue alors qu'un contenu correct existe | 2 | ECO-3 (`-A40`→`-A50`), ECO-4 (`-A10`→`-A20`, `-A3`→`-A12`, 2 critères) | Nouveau — corrigé | Rappel ajouté à `04-sprint-PDR-TEMPLATE.md §Critères d'acceptation` (`/retrospective` SDLC-27, 03/09/2026) — compter les lignes réellement couvertes avant d'écrire `-A<N>` |
 
-## §Métriques de rétro · 03/09/2026
+## §Métriques de rétro · 03/09/2026 (SDLC-27)
 
-- Sprints couverts : SDLC-21 → ECO-2 (8 sprints ; dernière rétro arrêtée à SDLC-20 le 20/06/2026 — 8 sprints d'écart, au-delà du seuil de 5)
-- M1 (`wc -w Claude.md STANDARDS.md`) : 3028 mots (vs 2946 à SDLC-22, +2,8%)
-- M2 (`wc -w .claude/skills/wrap-up/SKILL.md`) : 2650 mots (vs 2411 à SDLC-22, +9,9% — attendu, Étape 0f/3.5 enrichies depuis)
-- `sdlc-token-usage.sh` : cache_read 253 583 908 · cache_creation 2 399 735 · output 635 395 (totaux bruts projet, pas de bucketisation — aucun `sprint-memory.md` actif au moment de la mesure)
-- HOOK_CANDIDATE en attente : 2 (LL-T05, LL-T07 — tous deux différés avec déclencheur de réouverture nommé cette fois) · activés ce cycle : 0 · rejetés : 0
-- SDLC_CANDIDATE en attente : 4 (SDLC-17 résolution de chemin, SDLC-18 idem, LL-T08/09/10 en surveillance) · résolus ce cycle : 1 (SDLC-25 → traité par ECO-1, champ décision mis à jour)
-- Décisions invalidées détectées : 0
-- Patterns nouveaux : 3 (LL-T08, LL-T09, LL-T10) · patterns confirmés : 2 (LL-T03, LL-T04) · patterns gradués : 1 (LL-T04 → `Claude.md §Analyse`)
-- Dernière `/retrospective` : 03/09/2026 · Sprints SDLC-07→ECO-2
+- Sprints couverts : ECO-3 → ECO-5 (3 sprints ; dernière rétro SDLC-26 le 03/09/2026 — sous le seuil de 5, déclenchée manuellement)
+- M1 (`wc -w Claude.md STANDARDS.md`) : 3171 mots (vs 3028 à SDLC-26, +4,7% — sous le seuil cliquet 10%, aucune action requise)
+- M2 (`wc -w .claude/skills/wrap-up/SKILL.md`) : 2778 mots (vs 2650 à SDLC-26, +4,8% — garde-fou traçabilité `M-PROC-44` ajouté ce cycle)
+- `sdlc-token-usage.sh` : cache_read 502 177 232 · cache_creation 4 918 031 · output 1 116 879 (totaux bruts cumulés projet, mesurés avant le commit ECO-5 — pas de bucketisation, `sprint-memory.md` sans entrée horodatée)
+- HOOK_CANDIDATE en attente : 0 (`LL-T05` SessionStart rejeté, `LL-T07`/carve-out et le `test -f spec` de SDLC-16 déjà implémentés — champs décision mis à jour) · activés ce cycle : 0 · rejetés ce cycle : 1
+- SDLC_CANDIDATE en attente : 2 (SDLC-18 résolution de chemin dans `pre-tool-bash.sh`, SDLC-16 restatement 4a-4d dans `04-sprint-PDR-TEMPLATE.md`) · résolus ce cycle : 1 (cluster hook `SessionStart` + rationalisations HALT + fusion clause anti-complaisance, ces 2 dernières déjà livrées SDLC-19)
+- Décisions invalidées détectées : 1 (SDLC-16/17 — hook `SessionStart` répond à `LL-T05` : invalidée par vérification factuelle ECO-5, `Claude.md` recharge déjà nativement)
+- Patterns nouveaux : 1 (`LL-T12`) · patterns confirmés : 1 (`LL-T10`, 2e occurrence) · patterns gradués : 1 (`LL-T08` → garde-fou `M-PROC-44`)
+- Dernière `/retrospective` : 03/09/2026 · Sprints ECO-3→ECO-5 (SDLC-27)
 
 ## §Entrées par sprint
 
@@ -142,7 +143,9 @@ sur les 3 volets.
 **Hook candidat :** [HOOK_CANDIDATE] élargir le carve-out M-HOOKS-04 (`pre-tool-bash.sh`) pour
 autoriser aussi l'édition directe de `.claude/sprint-memory.md` → ligne bash :
 `[[ "$FILE_PATH" == */.claude/sprint-memory.md ]]` (à ajouter à la condition existante,
-ligne 51) — décision : en attente, 1 occurrence à ce jour, pas encore récurrent.
+ligne 51) — décision : **implémenté** — ECO-4 (03/09/2026), carve-out élargi
+(`07-DECISIONS-SDLC.md M-HOOKS-04 → Mise à jour 03/09/2026`), champ mis à jour
+`/retrospective` SDLC-27.
 
 ### Sprint SDLC-19 — 19/06/2026 — Import sélectif audit Superpowers
 **Code :** N/A — gouvernance/doc uniquement.
@@ -207,8 +210,12 @@ directement à LL-T05 ; table de rationalisations par HALT ; fusion de la
 clause anti-complaisance avec une liste de formulations interdites) →
 fichier cible : `08-hooks-TEMPLATE.md`, `01-Claude-md-TEMPLATE.md` ·
 nature : nouveau mécanisme (hook) + renforcement de règles existantes —
-décision : en attente, à remonter manuellement dans le projet SDLC
-(Claude.ai), groupé avec la réflexion déjà prévue pour LL-T05
+décision : **tranché** `/retrospective` SDLC-27 (03/09/2026) — hook
+`SessionStart` **rejeté** (vérification factuelle ECO-5 : `Claude.md`
+recharge déjà nativement à startup/resume/clear/compact, aucune garantie de
+conformité ajoutée) ; table de rationalisations HALT et fusion de la clause
+anti-complaisance **déjà livrées** Sprint SDLC-19 (`01-Claude-md-TEMPLATE.md
+§Règles absolues`, `M-PROC-32`)
 
 ---
 
@@ -368,7 +375,10 @@ avant de formaliser une correction
 sans qu'aucun garde-fou ne le détecte avant le `/wrap-up` → ligne bash
 candidate (non validée, à discuter) : `test -f specs/Sprints/sprint-*-*.md
 || echo "BLOCK: aucun fichier spec — exécuter 4a avant de continuer"` —
-décision : en attente, à réfléchir en Claude.ai
+décision : **implémenté sous une forme équivalente** — `pre-tool-bash.sh`
+`M-HOOKS-04` (Sprint SDLC-18) bloque Bash/Edit/Write si `sprint-memory.md`
+référence un spec absent du disque, même principe que la ligne bash
+candidate ici. Champ mis à jour `/retrospective` SDLC-27.
 **SDLC candidat :** [SDLC_CANDIDATE] Le bloc "Handoff Claude Code" d'un
 PDR ne devrait peut-être pas pouvoir se substituer silencieusement à
 `Claude.md §Démarrage` — questionner si `04-sprint-PDR-TEMPLATE.md`

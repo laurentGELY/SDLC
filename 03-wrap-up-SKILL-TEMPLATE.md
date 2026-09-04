@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Template SDLC v1.8 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v1.9 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -44,6 +44,18 @@ Si elle échoue (repo non-git, environnement restreint) → fallback : demander
 à l'utilisateur de coller le résultat manuellement ; si toujours absent →
 inférer depuis la conversation `[~ chat]` avec avertissement explicite.
 Ne jamais bloquer le wrap-up sur cette étape.
+
+**Garde-fou traçabilité (`M-PROC-44`, `LL-T08`) :** comparer l'ampleur du
+diff au contenu de `.claude/sprint-memory.md` :
+```bash
+wc -l .claude/sprint-memory.md 2>/dev/null  # 2 = en-tête seul, aucune entrée
+git diff --stat HEAD | tail -1
+```
+Si `sprint-memory.md` ne contient que son en-tête (2 lignes) **et** que le
+diff touche ≥ 3 fichiers ou ≥ 50 lignes → signaler explicitement dans
+`DETTE / EFFETS DE BORD` du bilan §0d : `⚠️ sprint-memory.md réduit à son
+en-tête malgré un diff de N fichiers/M lignes — décisions probablement non
+tracées en session (LL-T08)`. Non bloquant — un rappel, pas un HALT.
 
 ### 0d. Produire le bilan structuré
 

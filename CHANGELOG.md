@@ -2,6 +2,13 @@
 
 ---
 
+## [v2.0+SDLC-27] — 2026-09-03 · Sprint Revue S · `/retrospective` (ECO-3→ECO-5)
+- **`03-wrap-up-SKILL-TEMPLATE.md` v1.9** + **`.claude/skills/wrap-up/SKILL.md`** : garde-fou traçabilité (`M-PROC-44`) — avertissement non bloquant en Bilan §0c/§0d si `sprint-memory.md` réduit à son en-tête malgré un diff ≥ 3 fichiers/50 lignes (`LL-T08`, 4e occurrence : `SDLC-25, ECO-1, ECO-4, ECO-5`)
+- **`04-sprint-PDR-TEMPLATE.md` v2.3** : rappel dans `§Critères d'acceptation` — dimensionner `grep -A<N>` sur le contenu réel, pas une estimation (`LL-T12`, nouveau pattern, 2 occurrences consécutives `ECO-3`/`ECO-4`)
+- **`07-DECISIONS-SDLC.md`** : entrée `M-PROC-44`, tableau de compatibilité
+- **`docs/LESSONS_LEARNED.md`** : index recompté (`LL-T10` 1→2 occurrences, `LL-T08` gradué, `LL-T12` créé) · **décisions invalidées** — 2 vieux `SDLC_CANDIDATE`/`HOOK_CANDIDATE` (SDLC-16/17, hook `SessionStart` répondant à `LL-T05`) clos : rejeté par vérification factuelle `ECO-5`, plus 2 items déjà livrés Sprint SDLC-19 (rationalisations HALT, fusion clause anti-complaisance) jamais reflétés dans leur champ décision · `test -f spec` (SDLC-16) reconnu déjà implémenté via `M-HOOKS-04`
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0
+
 ## [v2.0+ECO-5] — 2026-09-03 · Sprint Doc S · Pattern `.claude/rules/` documenté (rescopé depuis P-20)
 - **`01-Claude-md-TEMPLATE.md` v2.4** : `§Tokens §Chargement chirurgical` +1 bullet `.claude/rules/` — seuil ~200 lignes + condition de frontière `paths:` réelle par répertoire/type de fichier (jamais du contenu transverse au processus), fait de persistance après compaction cité en source
 - **`07-DECISIONS-SDLC.md`** : entrée `M-TMPL-06`, tableau de compatibilité

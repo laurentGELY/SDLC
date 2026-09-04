@@ -571,6 +571,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-42 | Barre qualité chiffrée + cliquet de contexte (seuil M1 10%) | ✓ | — |
 | M-PROC-43 | Durcissement PDR — Pas de placeholders, auto-revue 3 passes, coût si faux, précédence ledger | ✓ | — |
 | M-TMPL-06 | Pattern `.claude/rules/` documenté pour projets cibles — hook `SessionStart` et self-split de ce repo écartés | ✓ | — |
+| M-PROC-44 | Garde-fou traçabilité `sprint-memory.md` — avertissement non bloquant en Bilan §0d du wrap-up | ✓ | — |
 
 ---
 
@@ -2170,3 +2171,41 @@ repo) acquiert une vraie frontière par chemin de fichier (ex. un sous-dossier
 `specs/Sprints/` avec des règles propres non partagées ailleurs), réévaluer un
 split scopé à cette section précise — pas une réouverture globale de la
 question.
+
+---
+
+## M-PROC-44 · Garde-fou traçabilité `sprint-memory.md` · v2.0+SDLC-27 · 03/09/2026
+
+**Contexte :** `docs/LESSONS_LEARNED.md LL-T08` (`sprint-memory.md` réduit à
+son en-tête malgré des décisions réelles arbitrées en conversation) a atteint
+sa 4e occurrence consécutive (`SDLC-25, ECO-1, ECO-4, ECO-5`) — l'entrée
+ECO-4 différait explicitement la décision de garde-fou à la prochaine
+`/retrospective`, qui s'est tenue ce cycle.
+
+**Retenu :** avertissement non bloquant ajouté à `03-wrap-up-SKILL-TEMPLATE.md
+§0c` (juste après `git diff --stat`/`git status`) : si `sprint-memory.md` ne
+contient que son en-tête (2 lignes) et que le diff du sprint touche ≥ 3
+fichiers ou ≥ 50 lignes → signaler explicitement la ligne `⚠️` dans
+`DETTE / EFFETS DE BORD` du Bilan §0d. Un rappel visible dans le rapport de
+clôture, pas un blocage — cohérent avec le principe « Claude fait le travail
+et rapporte » du wrap-up.
+
+**Écarté :**
+- **Hook `PostToolUse` bloquant** — écarté : `sprint-memory.md` est un
+  journal de raisonnement, pas un livrable ; le bloquer aurait interrompu le
+  travail pour un défaut de traçabilité, disproportionné.
+- **HALT dédié** — écarté : les HALT existants bloquent des conditions
+  détectées *pendant* le raisonnement (dépendance manquante, périmètre
+  dépassé) ; ce défaut ne se révèle qu'a posteriori sur le diff complet, un
+  HALT en cours de sprint ne peut pas le détecter fiablement.
+
+**Raison :** un rappel visible au moment où l'humain lit le bilan (juste avant
+le commit) suffit à rendre le défaut actionnable sans ajouter de mécanisme de
+blocage pour un problème de traçabilité, pas de sécurité.
+
+**Impact fichiers :** `03-wrap-up-SKILL-TEMPLATE.md` v1.9 + `.claude/skills/
+wrap-up/SKILL.md` (même bloc, §0c).
+
+**Déclencheur de réouverture :** si l'avertissement est ignoré 2 fois de
+suite après son introduction (le bilan le signale mais aucune trace n'est
+ajoutée rétroactivement), réévaluer vers un mécanisme plus contraignant.
