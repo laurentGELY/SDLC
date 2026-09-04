@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-28 — sprint-memory.md = mécanisme de reprise] · 2026-09-04
+**Commit :** 90dc3e1
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `Claude.md`/`01-Claude-md-TEMPLATE.md §Mémoire de sprint` corrigés — 2 citations fautives introduites SDLC-23 (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), non détectées pendant 5 sprints. `docs/MODE-OPERATOIRE.html` reçoit une carte « Reprise après coupure » (mécanisme absent jusqu'ici de toute doc humaine). `P-39` vérifié déjà résolu (parité skill↔template déjà totale) et retiré sans code. Nouveau `LL-T13` (résidu `M-XXXX-NN` non détecté par `sdlc-validate.sh C3`, 1 occurrence). `M-PROC-44` (garde-fou traçabilité, créé hier) s'est déclenché pour la 1ère fois ce sprint — fonctionne comme prévu. `sdlc-validate.sh` 8/8. Prochaine action : `docs/ROADMAP.md §Next` ne porte plus que `P-22` (template audit externe, XS) — voir aussi `LL-T13` (surveiller si 2e occurrence) et les 2 `SDLC_CANDIDATE` encore ouverts (SDLC-18 résolution de chemin, SDLC-16 restatement 4a-4d PDR).
+
 ### [Sprint ECO-5 — Pattern .claude/rules/ documenté] · 2026-09-03
 **Commit :** 7a96829
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `04-sprint-PDR-TEMPLATE.md §Pas de placeholders` (6 motifs interdits + grep, repris dans l'enforcement du wrap-up), `01-Claude-md-TEMPLATE.md §Analyse §Auto-revue du plan` (3 passes avant l'aval), champ `[coût si faux]` sur `DÉCISION`, règle de précédence ledger/`git log` après compaction (`M-PROC-43`). Vérification factuelle avant PDR a infirmé `E-07` pour moitié (ligne d'identité déjà présente) — portée réduite. Miss réel repéré au wrap-up : `LL-T07` (déclencheur nommé pour ce sprint dans `LESSONS_LEARNED.md`) non lu à la rédaction du PDR — traité hors PDR sur aval explicite (carve-out `pre-tool-bash.sh` élargi à `sprint-memory.md`). `LL-T08` atteint son seuil de surveillance (3e occurrence : `sprint-memory.md` réduit à son en-tête) — décision de garde-fou différée à `/retrospective`. Nouveau `LL-T11`. `sdlc-validate.sh` 8/8. Prochaine action : `ECO-5`/`P-20` (hook SessionStart) ou `LL-T08` (garde-fou traçabilité sprint-memory) — voir `docs/ROADMAP.md §Next` et prochaine `/retrospective`.
 
+## §Archive
+
 ### [Sprint ECO-3 — Barre qualité et cliquet de contexte] · 2026-09-03
 **Commit :** 6670581
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `02-STANDARDS-TEMPLATE.md §Barre qualité` (seuils, plancher anti-affaiblissement, cliquet M1 10%, exceptions datées), règle absolue anti-affaiblissement, DoD référencée aux 2 points qui n'en disposaient pas. Vérification factuelle avant PDR (`M-PROC-41`) a infirmé `E-04` de l'ANALYSE (DoD déjà consolidée) — portée réduite en conséquence. Adversarial Review a trouvé et corrigé 3 défauts (doublon de phrase, confusion M1/M2 dans une justification, version affirmée sans preuve). `LL-T10` confirmé (2e occurrence). `sdlc-validate.sh` 8/8. Prochaine action : `ECO-4` (durcissement PDR) ou `ECO-5`/`P-20` (hook SessionStart) — les deux en `docs/ROADMAP.md §Next`.
-
-## §Archive
 
 ### [Sprint ECO-2 — Rédaction des templates] · 2026-09-03
 **Commit :** 26dfb79
