@@ -13,21 +13,19 @@
 
 ## 1. Carte des fichiers
 
-| # | Fichier | Rôle | Destination dans le projet cible |
-|---|---------|------|----------------------------------|
-| 01 | `01-Claude-md-TEMPLATE.md` | Instructions permanentes Claude Code | `Claude.md` (racine) |
-| 02 | `02-STANDARDS-TEMPLATE.md` | DoD, types de sprint, niveaux de test | `STANDARDS.md` (racine) |
-| 03 | `03-wrap-up-SKILL-TEMPLATE.md` | Procédure de clôture de sprint | `.claude/skills/wrap-up/SKILL.md` |
-| 04 | `04-sprint-PDR-TEMPLATE.md` | Spec de sprint — copier tel quel | `specs/sprint-template.md` |
-| 04b | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill /sdlc-sync | `.claude/skills/sdlc-sync/SKILL.md` |
-| 05 | `05-ROADMAP-TEMPLATE.md` | Backlog Now/Next/Later | `docs/ROADMAP.md` |
-| 06 | `06-PDR-bootstrap.md` | Guide opérationnel Sprint 0 | *(guide d'exécution, pas copié)* |
-| 07 | `07-DECISIONS-SDLC.md` | Registre des décisions sur le modèle | *(propre à ce projet)* |
-| 08 | `08-hooks-TEMPLATE.md` | Hook PreToolUse Bash + settings | `.claude/hooks/` |
-| 09 | `09-retrospective-SKILL-TEMPLATE.md` | Procédure de rétrospective + remontées SDLC | `.claude/skills/retrospective/SKILL.md` |
-| 10 | `10-AMONT-TEMPLATE.md` | Instructions phase amont — Project Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) |
-| 11 | `11-help-SKILL-TEMPLATE.md` | Skill /help — recap contexte | `.claude/skills/help/SKILL.md` |
-| 12 | `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | *(guide toolkit, pas copié)* |
+Rôle, destination projet cible, dépendances et consommateurs de chaque
+module : voir la table canonique `specs/SPEC.md §Modules` — ne pas la
+dupliquer ici (fusion sprint courant, évite le double-maintien constaté sur
+l'ajout de `12-audit-externe-TEMPLATE.md`). Index de lecture rapide (ordre
+numérique du repo) :
+
+`00-CONTEXT.md` (ce fichier) → `01-Claude-md-TEMPLATE.md` →
+`02-STANDARDS-TEMPLATE.md` → `03-wrap-up-SKILL-TEMPLATE.md` →
+`04-sprint-PDR-TEMPLATE.md` → `04b-sdlc-sync-SKILL-TEMPLATE.md` →
+`05-ROADMAP-TEMPLATE.md` → `06-PDR-bootstrap.md` → `07-DECISIONS-SDLC.md` →
+`08-hooks-TEMPLATE.md` → `09-retrospective-SKILL-TEMPLATE.md` →
+`10-AMONT-TEMPLATE.md` → `11-help-SKILL-TEMPLATE.md` →
+`12-audit-externe-TEMPLATE.md`.
 
 **Fichiers humains (local uniquement, non synchronisés dans Claude.ai) :**
 

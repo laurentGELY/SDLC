@@ -73,25 +73,30 @@ Construit depuis `ls *.md` réel à la racine du repo toolkit
 (Sprint SDLC-13, 18/06/2026) — aucune divergence trouvée avec le squelette
 prévu au PDR de ce sprint.
 
-| Module | Rôle | Dépend de | Utilisé par |
-|--------|------|-----------|-------------|
-| `01-Claude-md-TEMPLATE.md` | Règles permanentes d'exécution | `02-STANDARDS-TEMPLATE.md` (DoD référencée) | Chaque session Claude Code |
-| `02-STANDARDS-TEMPLATE.md` | DoD, types de sprint, niveaux de test | — | `03-wrap-up`, `04-sprint-PDR-TEMPLATE.md` |
-| `03-wrap-up-SKILL-TEMPLATE.md` | Clôture de sprint | `02` (DoD), `09` (index patterns) | Fin de chaque sprint |
-| `04-sprint-PDR-TEMPLATE.md` | Spec de sprint | `10` (optionnel, si amont utilisé) | Chaque sprint, copié tel quel |
-| `04b-sdlc-sync-SKILL-TEMPLATE.md` | Alignement version | Tableau de compatibilité `07-DECISIONS-SDLC.md` | Évolution du modèle |
-| `05-ROADMAP-TEMPLATE.md` | Backlog Now/Next/Later | — | `/retrospective`, `/wrap-up` |
-| `06-PDR-bootstrap.md` | Guide Sprint 0 | `10` (référencé si phase amont) | Bootstrap initial uniquement |
-| `07-DECISIONS-SDLC.md` | Registre décisions sur le modèle | — | *(propre au projet toolkit, jamais copié)* |
-| `08-hooks-TEMPLATE.md` | Hooks bash PreToolUse | — | Chaque commande bash en session |
-| `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `docs/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
-| `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | — | Project Claude.ai dédié, optionnel |
-| `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `Claude.md` | À la demande |
-| `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | — | Comparaison SDLC vs framework tiers, ponctuel |
-| `00-CONTEXT.md` | Contexte Claude.ai — invariants + carte des fichiers | — | Toute évolution du modèle (lu en premier) |
-| `README.md` | Pitch + démarrage rapide | — | Première lecture humaine du toolkit |
-| `CHANGELOG.md` | Historique des sprints du toolkit lui-même | — | `/wrap-up` (propre au toolkit) |
-| `docs/index.html` + `docs/nav.json` + `docs/meta.json` | Site de documentation publique (GitHub Pages `main` → `/docs`, M-ARCH-09) | `docs/pages/*.md` (fetch runtime) | Publication publique, lecture externe |
+Table canonique (fusion sprint courant — remplace l'ex-doublon
+`00-CONTEXT.md §1 Carte des fichiers`, qui renvoie ici depuis) : toute
+donnée sur un module toolkit (rôle, destination, dépendances,
+consommateurs) se lit et se met à jour uniquement ici.
+
+| Module | Rôle | Destination dans le projet cible | Dépend de | Utilisé par |
+|--------|------|-----------------------------------|-----------|-------------|
+| `01-Claude-md-TEMPLATE.md` | Règles permanentes d'exécution | `Claude.md` (racine) | `02-STANDARDS-TEMPLATE.md` (DoD référencée) | Chaque session Claude Code |
+| `02-STANDARDS-TEMPLATE.md` | DoD, types de sprint, niveaux de test | `STANDARDS.md` (racine) | — | `03-wrap-up`, `04-sprint-PDR-TEMPLATE.md` |
+| `03-wrap-up-SKILL-TEMPLATE.md` | Clôture de sprint | `.claude/skills/wrap-up/SKILL.md` | `02` (DoD), `09` (index patterns) | Fin de chaque sprint |
+| `04-sprint-PDR-TEMPLATE.md` | Spec de sprint — copier tel quel | `specs/sprint-template.md` | `10` (optionnel, si amont utilisé) | Chaque sprint, copié tel quel |
+| `04b-sdlc-sync-SKILL-TEMPLATE.md` | Alignement version | `.claude/skills/sdlc-sync/SKILL.md` | Tableau de compatibilité `07-DECISIONS-SDLC.md` | Évolution du modèle |
+| `05-ROADMAP-TEMPLATE.md` | Backlog Now/Next/Later | `docs/ROADMAP.md` | — | `/retrospective`, `/wrap-up` |
+| `06-PDR-bootstrap.md` | Guide Sprint 0 | *(guide d'exécution, pas copié)* | `10` (référencé si phase amont) | Bootstrap initial uniquement |
+| `07-DECISIONS-SDLC.md` | Registre décisions sur le modèle | *(propre à ce projet)* | — | *(propre au projet toolkit, jamais copié)* |
+| `08-hooks-TEMPLATE.md` | Hooks bash PreToolUse | `.claude/hooks/` | — | Chaque commande bash en session |
+| `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `.claude/skills/retrospective/SKILL.md` | `docs/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
+| `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) | — | Project Claude.ai dédié, optionnel |
+| `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/skills/help/SKILL.md` | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `Claude.md` | À la demande |
+| `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | *(guide toolkit, pas copié)* | — | Comparaison SDLC vs framework tiers, ponctuel |
+| `00-CONTEXT.md` | Contexte Claude.ai — invariants + index des modules | *(jamais copié — propre à ce projet)* | — | Toute évolution du modèle (lu en premier) |
+| `README.md` | Pitch + démarrage rapide | — | — | Première lecture humaine du toolkit |
+| `CHANGELOG.md` | Historique des sprints du toolkit lui-même | — | — | `/wrap-up` (propre au toolkit) |
+| `docs/index.html` + `docs/nav.json` + `docs/meta.json` | Site de documentation publique (GitHub Pages `main` → `/docs`, M-ARCH-09) | — | `docs/pages/*.md` (fetch runtime) | Publication publique, lecture externe |
 
 **Fichiers humains hors Claude.ai** (non listés ci-dessus, non synchronisés —
 `docs/SPEC.html`, `docs/MODE-OPERATOIRE.html`, voir `00-CONTEXT.md §1`).
