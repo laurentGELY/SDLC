@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ECO-5 — Pattern .claude/rules/ documenté] · 2026-09-03
+**Commit :** 7a96829
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `01-Claude-md-TEMPLATE.md §Tokens` documente `.claude/rules/` (seuil ~200 lignes + frontière `paths:` réelle) pour les projets cibles — `M-TMPL-06`. `P-20` (hook `SessionStart`) et un self-split de ce repo écartés après vérification factuelle (`Claude.md` recharge déjà nativement à startup/resume/clear/compact ; aucune frontière `paths:` naturelle ici). `LL-T05` non touché (décision utilisateur explicite). `LL-T08` atteint sa 4e occurrence consécutive — garde-fou en cours de décision dans une `/retrospective` lancée en cours de session (couvre `ECO-3→ECO-4`, `LL-T08` et 2 vieux `SDLC_CANDIDATE` liés à `LL-T05` à trancher). `sdlc-validate.sh` 8/8. Prochaine action : terminer la `/retrospective` en cours (garde-fou `LL-T08`, clôture `SDLC_CANDIDATE` SDLC-16/17, nouveau pattern `LL-T12` grep -A mal calibré) avant tout nouveau sprint.
+
 ### [Sprint ECO-4 — Durcissement PDR] · 2026-09-03
 **Commit :** b0e7f3b
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `02-STANDARDS-TEMPLATE.md §Barre qualité` (seuils, plancher anti-affaiblissement, cliquet M1 10%, exceptions datées), règle absolue anti-affaiblissement, DoD référencée aux 2 points qui n'en disposaient pas. Vérification factuelle avant PDR (`M-PROC-41`) a infirmé `E-04` de l'ANALYSE (DoD déjà consolidée) — portée réduite en conséquence. Adversarial Review a trouvé et corrigé 3 défauts (doublon de phrase, confusion M1/M2 dans une justification, version affirmée sans preuve). `LL-T10` confirmé (2e occurrence). `sdlc-validate.sh` 8/8. Prochaine action : `ECO-4` (durcissement PDR) ou `ECO-5`/`P-20` (hook SessionStart) — les deux en `docs/ROADMAP.md §Next`.
 
+## §Archive
+
 ### [Sprint ECO-2 — Rédaction des templates] · 2026-09-03
 **Commit :** 26dfb79
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `00-CONTEXT.md §5` pose 2 règles de rédaction (description=déclenchement E-08, forme selon échec E-09), en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit. `E-16` (frontmatter + `disable-model-invocation`) vérifié factuellement puis écarté — conflit réel avec C2 de `sdlc-validate.sh` (frontmatter exige `---` en 1ère ligne) — différé en `ECO-2b §Later`. `sdlc-validate.sh` 8/8, non-régression confirmée. `docs/LESSONS_LEARNED.md` note pour `/retrospective` : 3 confirmations consécutives de `LL-T04` (SDLC-25/ECO-1/ECO-2) sous-comptées dans l'index, à reclasser et évaluer pour graduation. Prochaine action : `ECO-3` (barre qualité) ou `ECO-4` (durcissement PDR) — les deux débloqués en `docs/ROADMAP.md §Next`.
-
-## §Archive
 
 ### [Sprint ECO-1 — sdlc-validate.sh] · 2026-09-02
 **Commit :** 720f2be
