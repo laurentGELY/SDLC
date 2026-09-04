@@ -48,7 +48,7 @@ if [ -f "$SPRINT_MEMORY" ]; then
     if [ "$TOOL" = "Write" ] || [ "$TOOL" = "Edit" ]; then
       # FILE_PATH est toujours absolu (confirmé empiriquement, Sprint SDLC-18) — comparer en
       # suffixe, jamais en égalité stricte avec SPEC_PATH qui reste relatif.
-      if [[ "$FILE_PATH" == "$SPEC_PATH" || "$FILE_PATH" == */"$SPEC_PATH" || "$FILE_PATH" == */specs/Sprints/* ]]; then
+      if [[ "$FILE_PATH" == "$SPEC_PATH" || "$FILE_PATH" == */"$SPEC_PATH" || "$FILE_PATH" == */specs/Sprints/* || "$FILE_PATH" == */.claude/sprint-memory.md ]]; then
         CARVE_OUT=1
       fi
     fi

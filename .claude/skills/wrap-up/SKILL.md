@@ -239,7 +239,7 @@ Si présent : compléter la section §Corrections ajustées vs spec si ≥ 1 div
 Si aucune divergence : confirmer explicitement "✅ spec sprint — aucune correction ajustée".
 Enforcement placeholders résiduels :
 ```bash
-grep -En "\[À REMPLIR\]|\[ \]|\[→ ADAPTER\]" specs/Sprints/sprint-N-slug.md \
+grep -En "\[À REMPLIR\]|\[ \]|\[→ ADAPTER\]|TBD|à implémenter plus tard|gestion d'erreur appropriée|cas limites appropriés|similaire à la tâche" specs/Sprints/sprint-N-slug.md \
   && echo "⚠️ placeholders résiduels — corriger avant commit" \
   || echo "✅ spec propre"
 ```

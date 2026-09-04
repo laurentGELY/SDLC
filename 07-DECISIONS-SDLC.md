@@ -569,6 +569,7 @@ pas seulement l'auteur du modèle.
 | M-TMPL-05 | Rédaction des templates/skills — description = déclenchement, forme selon type d'échec | ✓ | — |
 | M-PROC-41 | Graduation LL-T04 — vérification factuelle avant analyse/PDR (`Claude.md §Analyse`) | ✓ | — |
 | M-PROC-42 | Barre qualité chiffrée + cliquet de contexte (seuil M1 10%) | ✓ | — |
+| M-PROC-43 | Durcissement PDR — Pas de placeholders, auto-revue 3 passes, coût si faux, précédence ledger | ✓ | — |
 
 ---
 
@@ -1331,6 +1332,18 @@ réel — observée deux fois en conditions réelles cette session, pas hypothé
 → Mise à jour 19/06/2026 (même sprint) : limite comblée par `M-HOOKS-06` (allowlist Bash
 lecture seule). Cette entrée M-HOOKS-04 reste la trace de l'incident d'origine.
 
+→ Mise à jour 03/09/2026 (Sprint ECO-4, hors PDR initial — `docs/LESSONS_LEARNED.md
+LL-T07`) : le carve-out Write/Edit (ligne 51 de `pre-tool-bash.sh`) n'autorisait que
+`SPEC_PATH` ou un chemin sous `specs/Sprints/*` — une correction légitime de
+`.claude/sprint-memory.md` lui-même (ex : renommage du spec référencé) restait bloquée,
+alors que c'est exactement le cas que ce carve-out visait à débloquer. Déclencheur nommé
+lors de `/retrospective` du 03/09/2026 pour ce sprint précisément (`E-06`/`E-07` touchent
+déjà le format de `sprint-memory.md`), traité sur validation explicite de l'utilisateur
+après découverte tardive (post-codage, pendant le wrap-up). Carve-out élargi : `|| 
+"$FILE_PATH" == */.claude/sprint-memory.md` ajouté à la condition. `LL-T08` (traçabilité
+`sprint-memory.md` insuffisante) reste distinct — celui-ci porte sur le contenu des
+entrées, pas sur la possibilité de les écrire.
+
 **Impact fichiers :** `.claude/hooks/pre-tool-bash.sh` (+section M-HOOKS-04, v2.0.0→2.0.1),
 `.claude/settings.json` (matcher `Bash` → `Bash|Edit|Write`).
 
@@ -2040,3 +2053,55 @@ marqueur de version incrémenté par édition) · `06-PDR-bootstrap.md`
 **Déclencheur de réouverture :** si le seuil M1 (10 %) produit des faux positifs
 (pistes d'allègement exigées pour des croissances de contexte légitimes et mineures)
 sur 2 rétrospectives consécutives, recalibrer la valeur plutôt que la retirer.
+
+---
+
+## M-PROC-43 · Durcissement PDR — placeholders, auto-revue, coût si faux, précédence ledger · v2.0+ECO-4 · 03/09/2026
+
+**Contexte :** `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-06/§E-07/§E-13/§E-14`
+documentait quatre manques, scopés par `docs/ROADMAP.md §Next` à `E-13(b)+E-14+E-06+
+E-07` exactement (pas `E-13(a)` ni `E-13(c)`). Vérification factuelle avant rédaction
+du PDR (`Claude.md §Analyse`, `M-PROC-41`) : `E-13(b)`, `E-14` et `E-06` confirmés
+exacts par grep (aucun des 3 mécanismes présent). `E-07` **partiellement infirmé** —
+la « ligne d'identité » du ledger que l'ANALYSE dit manquante existe déjà
+(`01-Claude-md-TEMPLATE.md §Démarrage 4b` écrit 2 lignes d'identité, et une clause
+d'exception compare déjà le header du fichier au sprint en cours) ; seule la règle de
+précédence explicite (ledger + `git log` > souvenir de session) manquait réellement.
+
+**Retenu :** `04-sprint-PDR-TEMPLATE.md §Pas de placeholders` (nouvelle section, liste
+fixe de motifs interdits + commande grep citée) ; grep d'enforcement de l'Étape 3 du
+wrap-up étendu aux mêmes motifs (une seule commande, pas un second bloc) ;
+`01-Claude-md-TEMPLATE.md §Analyse §Auto-revue du plan` (nouvelle sous-section, 3
+passes + règle d'arrêt, insérée entre `§Vérification factuelle` et `§Demande
+d'aval`) ; champ `[coût si faux]` ajouté au format `DÉCISION` de `§Mémoire de
+sprint` ; règle de précédence ajoutée après le bloc « Perte accidentelle en cours de
+sprint ».
+
+**Écarté :**
+- **Importer la posture Superpowers du Ruling** (trancher et continuer sans humain)
+  — écarté explicitement par la source `E-06` elle-même : casserait la thèse du
+  modèle (« Claude propose, l'humain décide »). Seul le format (champ coût-si-faux)
+  est importé.
+- **Réécrire la ligne d'identité de `sprint-memory.md`** (`E-07`) — écarté après
+  vérification : déjà présente et déjà fonctionnelle.
+- **`E-13(a)` (Interfaces Consumes/Produces) et `E-13(c)` (dimensionnement des
+  tâches)** — hors du scope explicite de l'item ROADMAP, non traités.
+- **`08-hooks-TEMPLATE.md`** (condition de `E-06`) — vérifié non applicable :
+  `PreCompact` n'écrit que des lignes `CHECKPOINT`, jamais `DÉCISION`.
+- **`Claude.md`** (ce repo) — cohérent avec le précédent SDLC-19 : un enrichissement
+  de `01-Claude-md-TEMPLATE.md` ne s'y répercute que s'il ajoute une règle absolue
+  opérative, pas le cas ici (enrichissements de `§Analyse`/`§Mémoire de sprint`).
+
+**Raison :** quatre ajouts ponctuels dans des sections existantes ferment chacun un
+mode d'échec nommé par l'ANALYSE, sans nouvelle section de gouvernance lourde ni
+mécanisme exécutable nouveau — le grep de placeholders étend un mécanisme déjà en
+place plutôt que d'en dupliquer un.
+
+**Impact fichiers :** `04-sprint-PDR-TEMPLATE.md` v2.2 (+§Pas de placeholders) ·
+`03-wrap-up-SKILL-TEMPLATE.md` v1.8 + `.claude/skills/wrap-up/SKILL.md` (grep étendu)
+· `01-Claude-md-TEMPLATE.md` v2.3 (+§Auto-revue du plan, +champ DÉCISION, +règle de
+précédence).
+
+**Déclencheur de réouverture :** si le grep étendu de `§Pas de placeholders` produit
+des faux positifs sur du texte français légitime dans une spec réelle, resserrer les
+motifs plutôt que retirer le mécanisme.

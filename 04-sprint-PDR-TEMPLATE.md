@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v2.1 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.2 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -122,6 +122,25 @@ Scénario : [nom du comportement]
      ✗ "l'erreur est gérée"
      ✓ "curl localhost:8000/endpoint avec payload invalide retourne HTTP 422 + {error: string}"
 -->
+
+---
+
+## Pas de placeholders
+
+*(Auto-revue avant la Demande d'aval — voir `01-Claude-md-TEMPLATE.md §Analyse
+§Auto-revue du plan`. Grep de vérification, aussi utilisé à l'Étape 3 du wrap-up :*
+`grep -En "TBD|à implémenter plus tard|gestion d'erreur appropriée|cas limites
+appropriés|similaire à la tâche" specs/Sprints/sprint-N-slug.md`*)*
+
+Jamais dans ce PDR — ce sont des échecs de plan, pas des choix de style :
+- « TBD » / « à implémenter plus tard »
+- « ajouter la gestion d'erreur appropriée » / « ajouter la validation » / « gérer
+  les cas limites »
+- « écrire les tests pour ce qui précède » sans le contenu du test
+- « similaire à la tâche N » — décrire l'écart réel ou reprendre le contenu, jamais
+  renvoyer à une autre tâche
+- une étape qui décrit quoi faire sans montrer comment
+- une référence à un type ou une fonction non défini nulle part dans ce PDR
 
 ---
 

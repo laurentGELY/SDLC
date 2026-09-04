@@ -3,7 +3,7 @@
 Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
-**Version courante : v2.0+ECO-3**
+**Version courante : v2.0+ECO-4**
 
 ---
 
@@ -189,3 +189,4 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+ECO-2 | 03/09/2026 | Rédaction des templates — `00-CONTEXT.md §5` (description = déclenchement, forme de règle selon type d'échec), en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit (M-TMPL-05) |
 | v2.0+SDLC-26 | 03/09/2026 | `/retrospective` (SDLC-21→ECO-2) — graduation `LL-T04` en règle permanente `Claude.md §Analyse` (M-PROC-41), index `LESSONS_LEARNED` recompté |
 | v2.0+ECO-3 | 03/09/2026 | `STANDARDS.md §Barre qualité` (seuils chiffrés, plancher anti-affaiblissement, cliquet M1 10%, exceptions datées), Definition of Done référencée (M-PROC-42) |
+| v2.0+ECO-4 | 03/09/2026 | Durcissement PDR — `§Pas de placeholders` (04-sprint-PDR-TEMPLATE), grep d'enforcement étendu au wrap-up, auto-revue du plan en 3 passes avant l'aval, champ `[coût si faux]` sur DÉCISION, règle de précédence ledger/git après compaction (M-PROC-43) |

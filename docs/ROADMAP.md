@@ -23,7 +23,6 @@
 | P-39 — Sync `.claude/skills/wrap-up` v1.3 + `.claude/skills/retrospective` avec templates v1.6/v1.8 après GSD-V2 | Fix | XS | — | — | Exécutable directement — templates GSD-V1+V2 non répercutés sur les skills installés |
 | P-22 — `10-audit-externe-TEMPLATE.md` (checklist 7 sections + bloc verdict IMPORTER/REJETER/INVESTIGUER/MERGER) | Doc | XS | Cohérence inter-audits | — | Débloqué — Sprint SDLC-Audit-GSTACK confirme : template XS justifié si ≥ 2 audits futurs. Scope réduit : 7 sections obligatoires + format étiqueté standardisé. |
 | P-27 — sprint-memory.md documenté explicitement comme mécanisme de reprise après pause tranche horaire | Doc | XS | — | — | Débloqué — Sprint SDLC-23 (P-30, hook PreCompact) exécuté |
-| ECO-4 — Durcissement PDR (`E-13(b)`+`E-14`+`E-06`+`E-07`) | Doc | S | — | — | Indépendant — peut passer avant ECO-3 si un sprint court est préférable. |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
@@ -110,6 +109,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| ECO-4 — Durcissement PDR (`E-13(b)`+`E-14`+`E-06`+`E-07`) | Doc | S | ECO-4 (03/09/2026) | `04-sprint-PDR-TEMPLATE.md` v2.2 §Pas de placeholders · grep d'enforcement wrap-up étendu (`03-wrap-up-SKILL-TEMPLATE.md` v1.8 + skill vivant) · `01-Claude-md-TEMPLATE.md` v2.3 §Auto-revue du plan + champ `[coût si faux]` + règle de précédence ledger/git · `M-PROC-43` · `E-07` infirmé pour moitié après vérification factuelle · `LL-T07` clos (carve-out `pre-tool-bash.sh` élargi à `sprint-memory.md`, hors PDR initial sur aval explicite) · `LL-T08` seuil de surveillance atteint (3e occurrence) · nouveau `LL-T11` |
 | ECO-3 — Barre qualité chiffrée et cliquet de contexte | Doc | M | ECO-3 (03/09/2026) | `02-STANDARDS-TEMPLATE.md` v2.0 §Barre qualité (seuils, plancher anti-affaiblissement, cliquet M1 10%, exceptions) · règle absolue anti-affaiblissement (`Claude.md`/`01-Claude-md-TEMPLATE.md`) · DoD référencée (`04-PDR`, `03-wrap-up`) · `M-PROC-42` · `E-04` infirmé après vérification factuelle |
 | `/retrospective` — Sprints SDLC-21→ECO-2 (8 sprints d'écart) | Revue | S | SDLC-26 (03/09/2026) | Index `LESSONS_LEARNED` recompté (`LL-T03` 2→4, `LL-T04` 1→7) · `LL-T04` gradué → `Claude.md §Analyse` + `01-Claude-md-TEMPLATE.md` v2.1 (`M-PROC-41`) · 3 nouveaux patterns `LL-T08/09/10` · `LL-T05`/`LL-T07` différés avec déclencheur nommé · `§Métriques de rétro` (M1/M2/token usage) |
 | ECO-2 — Rédaction des templates (description = déclenchement, forme selon type d'échec) | Doc | S | ECO-2 (03/09/2026) | `00-CONTEXT.md` v1.7 §5 (E-08 + E-09, exemples SDLC) · en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit · `M-TMPL-05` · ligne `/help` §4 (E-17) · `E-16` écarté après vérification factuelle → `ECO-2b` §Later |

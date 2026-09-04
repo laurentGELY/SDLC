@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.2 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v1.8 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -319,6 +319,17 @@ session.
 - [ ] Chaque affirmation factuelle non vérifiable par lecture du repo → source citée
 - [ ] Si non vérifiable en session → signalé comme hypothèse explicite, pas comme fait
 
+## Auto-revue du plan *(obligatoire avant la Demande d'aval — 3 passes, faites par
+l'auteur du plan, jamais déléguées à un sous-agent)*
+1. Couverture de la spec — chaque exigence du PDR pointe vers l'étape du Plan
+   d'exécution qui l'implémente ; lister les manques.
+2. Balayage des placeholders — motifs de `04-sprint-PDR-TEMPLATE.md §Pas de
+   placeholders`.
+3. Cohérence des références — mêmes noms (fichier, fonction, section) d'une étape
+   à l'autre du plan.
+Règle d'arrêt : un problème trouvé se corrige sur place et on continue — pas de
+re-relecture après correction.
+
 ## Demande d'aval
 Résumé 3 lignes · fichiers à modifier · tests prévus · confiance : [HAUTE/MOYENNE/FAIBLE — raison en 1 ligne]
 
@@ -341,7 +352,7 @@ Fichier : `.claude/sprint-memory.md` — non versionné (gitignore), créé au �
 **Format des entrées — 7 types :**
 ```
 [HH:MM] ANALYSE  — [objectif · périmètre · conclusion en 1 ligne] [CONF: HAUTE/MOY/FAIBLE — raison]
-[HH:MM] DÉCISION — [retenu : X / écarté : Y — raison : Z] [valide jusqu'à : condition ou "stable"]
+[HH:MM] DÉCISION — [retenu : X / écarté : Y — raison : Z] [valide jusqu'à : condition ou "stable"] [coût si faux : impact concret d'une reprise]
                    → fichiers : `path/to/file`  *(optionnel)*
 [HH:MM] TEST [A/B/C] — `[commande]` → [OK ✓ / FAIL ✗ — observation]
 [HH:MM] QUESTION — [question] → [réponse ou EN ATTENTE [humain]]
@@ -373,6 +384,12 @@ git log --oneline -3             # ancrage temporel
 ```
 Format minimal acceptable : 3-5 entrées DÉCISION/TEST couvrant l'état connu.
 Signaler la reconstruction explicitement : `[RECONSTRUIT depuis git diff]`.
+
+**Précédence après compaction ou reprise :** `sprint-memory.md` (ligne d'identité +
+entrées) et `git log` font foi sur le souvenir de session — un commit qu'ils
+nomment existe dans git même si le contexte courant ne se souvient plus de
+l'avoir créé. En cas de doute entre une impression de session et une trace
+écrite, vérifier par `git log`/`git diff` avant d'agir sur cette impression.
 
 ---
 
