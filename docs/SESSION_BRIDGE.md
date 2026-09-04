@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-29 — 12-audit-externe-TEMPLATE.md] · 2026-09-04
+**Commit :** 74cabd8
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `12-audit-externe-TEMPLATE.md` livré (7 sections, tableau 6 axes, verdicts `IMPORTER/REJETER/INVESTIGUER/MERGER`) — squelette repris de `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`, renuméroté 10→12 sur collision détectée avant code (`10-AMONT-TEMPLATE.md` déjà présent). `M-TMPL-07`. `docs/ROADMAP.md §Next` est maintenant **vide** — aucun item prêt à démarrer, prochain choix à faire depuis `§Later`. `LL-T08` 6e occurrence, `M-PROC-44` déclenché 2 fois consécutives (SDLC-28, SDLC-29) — signalé les 2 fois, escalade explicitement déclinée par l'utilisateur, pas de réouverture. `sdlc-validate.sh` 8/8.
+
 ### [Sprint SDLC-28 — sprint-memory.md = mécanisme de reprise] · 2026-09-04
 **Commit :** 90dc3e1
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `01-Claude-md-TEMPLATE.md §Tokens` documente `.claude/rules/` (seuil ~200 lignes + frontière `paths:` réelle) pour les projets cibles — `M-TMPL-06`. `P-20` (hook `SessionStart`) et un self-split de ce repo écartés après vérification factuelle (`Claude.md` recharge déjà nativement à startup/resume/clear/compact ; aucune frontière `paths:` naturelle ici). `LL-T05` non touché (décision utilisateur explicite). `LL-T08` atteint sa 4e occurrence consécutive — garde-fou en cours de décision dans une `/retrospective` lancée en cours de session (couvre `ECO-3→ECO-4`, `LL-T08` et 2 vieux `SDLC_CANDIDATE` liés à `LL-T05` à trancher). `sdlc-validate.sh` 8/8. Prochaine action : terminer la `/retrospective` en cours (garde-fou `LL-T08`, clôture `SDLC_CANDIDATE` SDLC-16/17, nouveau pattern `LL-T12` grep -A mal calibré) avant tout nouveau sprint.
 
+## §Archive
+
 ### [Sprint ECO-4 — Durcissement PDR] · 2026-09-03
 **Commit :** b0e7f3b
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `04-sprint-PDR-TEMPLATE.md §Pas de placeholders` (6 motifs interdits + grep, repris dans l'enforcement du wrap-up), `01-Claude-md-TEMPLATE.md §Analyse §Auto-revue du plan` (3 passes avant l'aval), champ `[coût si faux]` sur `DÉCISION`, règle de précédence ledger/`git log` après compaction (`M-PROC-43`). Vérification factuelle avant PDR a infirmé `E-07` pour moitié (ligne d'identité déjà présente) — portée réduite. Miss réel repéré au wrap-up : `LL-T07` (déclencheur nommé pour ce sprint dans `LESSONS_LEARNED.md`) non lu à la rédaction du PDR — traité hors PDR sur aval explicite (carve-out `pre-tool-bash.sh` élargi à `sprint-memory.md`). `LL-T08` atteint son seuil de surveillance (3e occurrence : `sprint-memory.md` réduit à son en-tête) — décision de garde-fou différée à `/retrospective`. Nouveau `LL-T11`. `sdlc-validate.sh` 8/8. Prochaine action : `ECO-5`/`P-20` (hook SessionStart) ou `LL-T08` (garde-fou traçabilité sprint-memory) — voir `docs/ROADMAP.md §Next` et prochaine `/retrospective`.
-
-## §Archive
 
 ### [Sprint ECO-3 — Barre qualité et cliquet de contexte] · 2026-09-03
 **Commit :** 6670581
