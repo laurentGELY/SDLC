@@ -290,9 +290,9 @@ Fichier : `.claude/sprint-memory.md` — non versionné (gitignore), créé au �
 **Ne pas écrire :** après chaque `read_file` / `bash` / `grep` · états intermédiaires sans décision · ce que le CLI montre déjà.
 
 **`CHECKPOINT` — seul type non écrit par Claude :** généré automatiquement par le
-hook `PreCompact` (`.claude/hooks/pre-compact.sh`, M-HOOKS-XX) avant toute
+hook `PreCompact` (`.claude/hooks/pre-compact.sh`, `M-HOOKS-08`) avant toute
 compaction, manuelle ou automatique. Purement mécanique — il marque le moment
-de la coupure, il ne résume pas le contexte perdu. Étend `M-PROC-13` : la
+de la coupure, il ne résume pas le contexte perdu. Étend `M-PROC-10` : la
 pause forcée par tranche horaire suit le même chemin de reprise que la
 session tronquée par crash, sans action manuelle requise pour amorcer la trace.
 

@@ -1815,6 +1815,17 @@ en déclencher une). Cf. `docs/DIAGNOSTIC_CMDS.md`.
 nouveau, ou si un déclenchement réel en session révèle un comportement non
 couvert par le smoke test (cf. limite de validation ci-dessus).
 
+→ **Mise à jour 04/09/2026 (Sprint SDLC-28, `P-27`) :** le paragraphe
+`CHECKPOINT` de `Claude.md`/`01-Claude-md-TEMPLATE.md §Mémoire de sprint`
+portait 2 citations fautives depuis sa rédaction ici même — `M-HOOKS-XX`
+(placeholder jamais résolu ; ce sprint citait déjà `M-HOOKS-08` dans son
+propre `CHANGELOG.md`) et `Étend M-PROC-13` (le cadrage crash-recovery cité
+est en réalité le `Raison` de `M-PROC-10`, `M-PROC-13` étant l'annotation
+`[CONF: HAUTE/MOY/FAIBLE]` sans rapport). Les deux corrigées dans les 2
+fichiers. `docs/MODE-OPERATOIRE.html §Concepts clés` reçoit en complément une
+carte expliquant le mécanisme côté humain — absent jusqu'ici de toute
+documentation hors `Claude.md`.
+
 ---
 
 ## M-PROC-40 · `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) · v2.0+ECO-1 · 02/09/2026

@@ -2,6 +2,14 @@
 
 ---
 
+## [v2.0+SDLC-28] — 2026-09-04 · Sprint Doc S · `sprint-memory.md` = mécanisme de reprise (P-27) + clôture P-39
+- **`Claude.md` + `01-Claude-md-TEMPLATE.md` v2.5** : correction de 2 citations fautives dans le paragraphe `CHECKPOINT` de `§Mémoire de sprint` — `M-HOOKS-XX` (placeholder jamais résolu) → `M-HOOKS-08` ; `Étend M-PROC-13` (sans rapport, c'est l'annotation `[CONF:...]`) → `Étend M-PROC-10` (origine réelle du cadrage crash-recovery)
+- **`docs/MODE-OPERATOIRE.html §Concepts clés`** : nouvelle carte « Reprise après coupure » — le mécanisme n'existait jusqu'ici que dans `Claude.md`, absent de toute doc humaine
+- **`07-DECISIONS-SDLC.md`** : sous-bloc `→ Mise à jour` sous `M-HOOKS-08` (pas de nouvelle décision)
+- **`P-39` retiré sans code** — vérifié déjà résolu : `sdlc-validate.sh C4` confirme une parité totale template↔skill vivant pour `wrap-up`/`retrospective`, la discipline de sync appliquée depuis GSD-V2 a fermé l'écart sans jamais retirer l'item du ROADMAP
+- **Observation notée, non traitée ce sprint** : `sdlc-validate.sh C3` ne détecte pas les résidus `M-XXXX-XX` non résolus (motif limité à `[→ ADAPTER]`/`[À REMPLIR]`/`[Nom du projet]`) — extension hors scope Doc/S, candidat `LESSONS_LEARNED`
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **8/8 ✅**, exit 0
+
 ## [v2.0+SDLC-27] — 2026-09-03 · Sprint Revue S · `/retrospective` (ECO-3→ECO-5)
 - **`03-wrap-up-SKILL-TEMPLATE.md` v1.9** + **`.claude/skills/wrap-up/SKILL.md`** : garde-fou traçabilité (`M-PROC-44`) — avertissement non bloquant en Bilan §0c/§0d si `sprint-memory.md` réduit à son en-tête malgré un diff ≥ 3 fichiers/50 lignes (`LL-T08`, 4e occurrence : `SDLC-25, ECO-1, ECO-4, ECO-5`)
 - **`04-sprint-PDR-TEMPLATE.md` v2.3** : rappel dans `§Critères d'acceptation` — dimensionner `grep -A<N>` sur le contenu réel, pas une estimation (`LL-T12`, nouveau pattern, 2 occurrences consécutives `ECO-3`/`ECO-4`)

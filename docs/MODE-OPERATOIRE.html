@@ -553,6 +553,11 @@
         <div class="card-title">Circuit bidirectionnel</div>
         <p>Le tuning d'un projet peut remonter vers le modèle via <code>[SDLC_CANDIDATE]</code> dans <code>LESSONS_LEARNED.md</code>.</p>
       </div>
+      <div class="card">
+        <div class="card-icon">🧭</div>
+        <div class="card-title">Reprise après coupure</div>
+        <p><code>.claude/sprint-memory.md</code> trace le sprint en cours (analyses, décisions, tests). Si la session s'interrompt — crash ou pause forcée par tranche horaire — le hook <code>PreCompact</code> y dépose automatiquement une entrée <code>CHECKPOINT</code> avant toute compaction, pour que la session suivante reprenne sans reconstruction manuelle.</p>
+      </div>
     </div>
 
     <div class="callout info">

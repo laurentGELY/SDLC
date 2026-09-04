@@ -1,7 +1,7 @@
 # LESSONS_LEARNED — Modèle de gouvernance SDLC (projet toolkit)
 <!-- Créé Sprint SDLC-14 (self-bootstrap + rattrapage) — 8 entrées rétroactives SDLC-07→14 -->
 
-## §Index des patterns · mis à jour 03/09/2026 · Sprints SDLC-07→ECO-5
+## §Index des patterns · mis à jour 04/09/2026 · Sprints SDLC-07→SDLC-28
 
 | ID | Pattern | Occurrences | Sprints | Statut | Décision |
 |----|---------|-------------|---------|--------|----------|
@@ -17,6 +17,7 @@
 | LL-T10 | Un Blind Hunter délégué à un sous-agent sans accès au repo produit des hypothèses non vérifiables à côté de vrais défauts | 2 | ECO-1 (2 faux positifs sur 4 findings), ECO-3 (3 défauts réels, 0 faux positif signalé) | Confirmé — surveillé | Aucune action — proportion à mesurer sur plusieurs sprints avant d'ajuster `03-wrap-up-SKILL-TEMPLATE.md §0f` ; correction d'index `/retrospective` SDLC-27 (2e occurrence non reportée à l'exécution ECO-3) |
 | LL-T11 | La vérification factuelle pré-PDR (`Claude.md §Analyse`, `M-PROC-41`/`LL-T04`) recoupe systématiquement l'ANALYSE source et `docs/ROADMAP.md`, mais pas `docs/LESSONS_LEARNED.md` — alors que ce fichier peut porter un déclencheur de réouverture nommant explicitement un sprint donné | 1 | ECO-4 (`LL-T07`, déclencheur manqué à la rédaction du PDR, repéré seulement au wrap-up) | Nouveau — surveillé | Aucune action — 1 occurrence, pas encore récurrent ; surveiller si une 2e survient avant de proposer d'étendre `§Vérification factuelle` |
 | LL-T12 | Un critère d'acceptation utilisant `grep -A<N>` dimensionne `N` sur une estimation plutôt que le contenu réel du fichier cible — la commande de vérification échoue alors qu'un contenu correct existe | 2 | ECO-3 (`-A40`→`-A50`), ECO-4 (`-A10`→`-A20`, `-A3`→`-A12`, 2 critères) | Nouveau — corrigé | Rappel ajouté à `04-sprint-PDR-TEMPLATE.md §Critères d'acceptation` (`/retrospective` SDLC-27, 03/09/2026) — compter les lignes réellement couvertes avant d'écrire `-A<N>` |
+| LL-T13 | Un identifiant `M-XXXX-NN` cité dans une règle de gouvernance (`Claude.md`/template) peut rester incorrect indéfiniment — `sdlc-validate.sh C3` ne détecte que 3 motifs de placeholder littéraux (`[→ ADAPTER]`/`[À REMPLIR]`/`[Nom du projet]`), pas une référence `M-XXXX-XX` non résolue ou erronée | 1 | SDLC-28 (`M-HOOKS-XX` jamais résolu + `Étend M-PROC-13` erroné, tous deux introduits SDLC-23, non détectés pendant 5 sprints) | Nouveau — surveillé | Aucune action — 1 occurrence ; extension de `C3` à envisager si une 2e survient |
 
 ## §Métriques de rétro · 03/09/2026 (SDLC-27)
 
@@ -31,6 +32,12 @@
 - Dernière `/retrospective` : 03/09/2026 · Sprints ECO-3→ECO-5 (SDLC-27)
 
 ## §Entrées par sprint
+
+### Sprint SDLC-28 — 04/09/2026 — `sprint-memory.md` = mécanisme de reprise (P-27) + clôture P-39
+**Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 8/8, exit 0.
+**Processus :** Vérification factuelle avant PDR a trouvé `P-39` déjà résolu (parité skill↔template déjà totale — retiré sans code) et `P-27` partiellement fait : le paragraphe `CHECKPOINT` existait depuis SDLC-23 mais citait `M-HOOKS-XX` (placeholder jamais résolu) et `Étend M-PROC-13` (référence erronée — la bonne origine est `M-PROC-10`), non détectés pendant 5 sprints. `sprint-memory.md` réduit à son en-tête malgré 7 fichiers touchés — **le garde-fou `M-PROC-44` (ajouté hier, SDLC-27) s'est déclenché pour la 1ère fois**, exactement comme conçu.
+**Lien pattern :** nouveau `LL-T13` (identifiant `M-XXXX-NN` erroné non détecté par `sdlc-validate.sh C3`) · confirme `LL-T08` (`M-PROC-44` fonctionne — 5e occurrence de fond, mais 1ère fois où le garde-fou lui-même est observé en action).
+**Action proposée :** `LL-T13` — étendre `C3` si une 2e occurrence survient, pas d'action immédiate.
 
 ### Sprint ECO-5 — 03/09/2026 — Pattern `.claude/rules/` documenté (rescopé depuis P-20)
 **Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 8/8, exit 0.

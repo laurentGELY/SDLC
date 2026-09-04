@@ -19,9 +19,7 @@
 
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur |
 |------|------|--------|----------|------------|-------------|
-| P-39 — Sync `.claude/skills/wrap-up` v1.3 + `.claude/skills/retrospective` avec templates v1.6/v1.8 après GSD-V2 | Fix | XS | — | — | Exécutable directement — templates GSD-V1+V2 non répercutés sur les skills installés |
 | P-22 — `10-audit-externe-TEMPLATE.md` (checklist 7 sections + bloc verdict IMPORTER/REJETER/INVESTIGUER/MERGER) | Doc | XS | Cohérence inter-audits | — | Débloqué — Sprint SDLC-Audit-GSTACK confirme : template XS justifié si ≥ 2 audits futurs. Scope réduit : 7 sections obligatoires + format étiqueté standardisé. |
-| P-27 — sprint-memory.md documenté explicitement comme mécanisme de reprise après pause tranche horaire | Doc | XS | — | — | Débloqué — Sprint SDLC-23 (P-30, hook PreCompact) exécuté |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
@@ -108,6 +106,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| P-27 — `sprint-memory.md` documenté comme mécanisme de reprise + P-39 (déjà résolu, retiré) | Doc | S | SDLC-28 (04/09/2026) | Correction de 2 citations fautives dans `Claude.md`/`01-Claude-md-TEMPLATE.md §Mémoire de sprint` (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`) · nouvelle carte `docs/MODE-OPERATOIRE.html §Concepts clés` (« Reprise après coupure ») · sous-bloc `→ Mise à jour` sous `M-HOOKS-08` · `P-39` confirmé déjà résolu par la discipline de sync skill/template appliquée depuis GSD-V2, retiré sans code |
 | `/retrospective` — Sprints ECO-3→ECO-5 (2 sprints d'écart, déclenchée manuellement) | Revue | S | SDLC-27 (03/09/2026) | Garde-fou traçabilité `sprint-memory.md` (`M-PROC-44`, `LL-T08` gradué 4e occurrence) · rappel fenêtre `grep -A` dans `04-sprint-PDR-TEMPLATE.md` (`LL-T12` nouveau) · index `LESSONS_LEARNED` recompté (`LL-T10` 2e occurrence) · 2 vieux `SDLC_CANDIDATE`/`HOOK_CANDIDATE` clos (SDLC-16/17 hook `SessionStart` invalidé par `ECO-5` ; rationalisations HALT + fusion clause déjà livrées SDLC-19 ; `test -f spec` déjà couvert par `M-HOOKS-04`) |
 | P-20 — Hook SessionStart, rescopé en documentation `.claude/rules/` | Doc | S | ECO-5 (03/09/2026) | `01-Claude-md-TEMPLATE.md` v2.4 §Tokens (+bullet `.claude/rules/`, seuil ~200 lignes + frontière `paths:` réelle) · `M-TMPL-06` · hook `SessionStart` et self-split de ce repo écartés après vérification factuelle (`Claude.md` recharge déjà nativement à startup/resume/clear/compact ; aucune frontière `paths:` naturelle dans ce repo) · `LL-T05` non touché (décision utilisateur explicite) |
 | ECO-4 — Durcissement PDR (`E-13(b)`+`E-14`+`E-06`+`E-07`) | Doc | S | ECO-4 (03/09/2026) | `04-sprint-PDR-TEMPLATE.md` v2.2 §Pas de placeholders · grep d'enforcement wrap-up étendu (`03-wrap-up-SKILL-TEMPLATE.md` v1.8 + skill vivant) · `01-Claude-md-TEMPLATE.md` v2.3 §Auto-revue du plan + champ `[coût si faux]` + règle de précédence ledger/git · `M-PROC-43` · `E-07` infirmé pour moitié après vérification factuelle · `LL-T07` clos (carve-out `pre-tool-bash.sh` élargi à `sprint-memory.md`, hors PDR initial sur aval explicite) · `LL-T08` seuil de surveillance atteint (3e occurrence) · nouveau `LL-T11` |

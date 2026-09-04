@@ -3,7 +3,7 @@
 Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
-**Version courante : v2.0+SDLC-27**
+**Version courante : v2.0+SDLC-28**
 
 ---
 
@@ -192,3 +192,4 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+ECO-4 | 03/09/2026 | Durcissement PDR — `§Pas de placeholders` (04-sprint-PDR-TEMPLATE), grep d'enforcement étendu au wrap-up, auto-revue du plan en 3 passes avant l'aval, champ `[coût si faux]` sur DÉCISION, règle de précédence ledger/git après compaction (M-PROC-43) |
 | v2.0+ECO-5 | 03/09/2026 | `P-20` rescopé — hook `SessionStart` écarté (Claude.md recharge déjà nativement), pattern `.claude/rules/` documenté pour projets cibles (`§Tokens`, M-TMPL-06) |
 | v2.0+SDLC-27 | 03/09/2026 | `/retrospective` (ECO-3→ECO-5) — garde-fou traçabilité `sprint-memory.md` (M-PROC-44, `LL-T08` gradué), rappel fenêtre `grep -A` dans `04-sprint-PDR-TEMPLATE.md` (`LL-T12`), clôture de 2 vieux `SDLC_CANDIDATE` invalidés par ECO-5 |
+| v2.0+SDLC-28 | 04/09/2026 | `sprint-memory.md` = mécanisme de reprise (`P-27`) — correction de 2 citations fautives (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), carte `MODE-OPERATOIRE.html` ; `P-39` retiré, déjà résolu |
