@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ECO-4 — Durcissement PDR] · 2026-09-03
+**Commit :** b0e7f3b
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `04-sprint-PDR-TEMPLATE.md §Pas de placeholders` (6 motifs interdits + grep, repris dans l'enforcement du wrap-up), `01-Claude-md-TEMPLATE.md §Analyse §Auto-revue du plan` (3 passes avant l'aval), champ `[coût si faux]` sur `DÉCISION`, règle de précédence ledger/`git log` après compaction (`M-PROC-43`). Vérification factuelle avant PDR a infirmé `E-07` pour moitié (ligne d'identité déjà présente) — portée réduite. Miss réel repéré au wrap-up : `LL-T07` (déclencheur nommé pour ce sprint dans `LESSONS_LEARNED.md`) non lu à la rédaction du PDR — traité hors PDR sur aval explicite (carve-out `pre-tool-bash.sh` élargi à `sprint-memory.md`). `LL-T08` atteint son seuil de surveillance (3e occurrence : `sprint-memory.md` réduit à son en-tête) — décision de garde-fou différée à `/retrospective`. Nouveau `LL-T11`. `sdlc-validate.sh` 8/8. Prochaine action : `ECO-5`/`P-20` (hook SessionStart) ou `LL-T08` (garde-fou traçabilité sprint-memory) — voir `docs/ROADMAP.md §Next` et prochaine `/retrospective`.
+
 ### [Sprint ECO-3 — Barre qualité et cliquet de contexte] · 2026-09-03
 **Commit :** 6670581
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `00-CONTEXT.md §5` pose 2 règles de rédaction (description=déclenchement E-08, forme selon échec E-09), en-tête `04b-sdlc-sync-SKILL-TEMPLATE.md` réécrit. `E-16` (frontmatter + `disable-model-invocation`) vérifié factuellement puis écarté — conflit réel avec C2 de `sdlc-validate.sh` (frontmatter exige `---` en 1ère ligne) — différé en `ECO-2b §Later`. `sdlc-validate.sh` 8/8, non-régression confirmée. `docs/LESSONS_LEARNED.md` note pour `/retrospective` : 3 confirmations consécutives de `LL-T04` (SDLC-25/ECO-1/ECO-2) sous-comptées dans l'index, à reclasser et évaluer pour graduation. Prochaine action : `ECO-3` (barre qualité) ou `ECO-4` (durcissement PDR) — les deux débloqués en `docs/ROADMAP.md §Next`.
 
+## §Archive
+
 ### [Sprint ECO-1 — sdlc-validate.sh] · 2026-09-02
 **Commit :** 720f2be
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `sdlc-validate.sh` (nouveau, racine) vérifie 8 aspects structurels du modèle en registre extensible, appelé à l'Étape 3.5 du wrap-up. 8/8 sur le repo actuel. Adversarial Review a trouvé et corrigé 2 défauts (pré-vol de commandes désaligné, phrase auto-référentielle fausse dans `00-CONTEXT.md`). ECO-2/3/4 débloqués en `docs/ROADMAP.md §Next` (rédaction templates, barre qualité, durcissement PDR — catalogue complet dans `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md`, 26 patterns). `[SDLC_CANDIDATE]` ouvert : proportion faux positifs/vrais défauts du Blind Hunter délégué à surveiller sur plusieurs sprints.
-
-## §Archive
 
 ### [Sprint SDLC-25 — Migration doc/ → docs/ + site de documentation] · 2026-07-02
 **Commit :** 831b60d
