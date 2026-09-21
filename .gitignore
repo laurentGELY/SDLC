@@ -30,3 +30,7 @@ Thumbs.db
 # Brouillon de pistes/évolutions à chaud, pas un livrable de gouvernance —
 # jamais versionné.
 docs/EVO.md
+
+# ─── Config locale Claude Code ────────────────────────────────────────────────
+# Permissions accumulées par session (chemins absolus de la machine) — jamais versionné.
+.claude/settings.local.json

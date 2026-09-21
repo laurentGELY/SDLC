@@ -11,7 +11,8 @@ set -euo pipefail
 # ─── CONFIGURATION ───────────────────────────────────────────────────────────
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SDLC_VERSION="v1.3"
+# Source de vérité : README.md (déjà contrôlé ↔ CHANGELOG.md par sdlc-validate.sh C1)
+SDLC_VERSION="$(grep -m1 -oE 'Version courante : [^ *]+' "${SCRIPT_DIR}/README.md" | sed 's/Version courante : //')"
 DATE_TODAY=$(date +%d/%m/%Y)
 DATE_ISO=$(date +%Y-%m-%d)
 

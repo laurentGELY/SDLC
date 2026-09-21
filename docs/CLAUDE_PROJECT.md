@@ -25,7 +25,6 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 | `specs/Sprints/audit-exemple-vs-modele-sdlc.md` | Rapport d'audit ponctuel — obsolète après intégration (déplacé depuis `docs/` — Sprint SDLC-07) |
 | `docs/MODE-OPERATOIRE.html` | HTML — non chargeable comme Project File |
 | `docs/SPEC.html` | HTML — non chargeable comme Project File |
-| `bak/sdlc-kit-exportable.md` | Archive/backup — redondant avec les fichiers source |
 | `sdlc-init.sh` | Script bash — contexte limité dans Claude.ai, 453 lignes |
 | `sdlc-project-check.sh` | Script bash — contenu dans 06-PDR-bootstrap.md |
 | `sdlc-validate.sh` | Script bash — contexte limité dans Claude.ai, sa spec complète est dans `specs/Sprints/sprint-ECO-1-sdlc-validate.md` |

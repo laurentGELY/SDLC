@@ -2,6 +2,13 @@
 
 ---
 
+## Publication GitHub — 2026-09-21 · hors versionnement du modèle (pas de bump)
+- **`sdlc-init.sh`** : `SDLC_VERSION` codé en dur à `v1.3` (jamais mis à jour depuis v1.3) → lu depuis `README.md` ; corrige l'avertissement faux « Marqueur SDLC version non trouvé » et le message « bootstrap SDLC v1.3 » détectés au test de bout en bout
+- **`README.md`** : en-tête de contexte, schéma de la boucle de rétroaction, URL de clone réelle, historique des versions repliable
+- **`LICENSE`** (nouveau, MIT) · **`.gitignore`** : `.claude/settings.local.json`
+- **Nettoyage** : suppression de `bak/` (+ référence `docs/CLAUDE_PROJECT.md`), chemins absolus de machine → relatifs dans `specs/Sprints/`, mentions de projet nominatif → « projet de production » dans `07-DECISIONS-SDLC.md`
+- **Tests** : `bash sdlc-validate.sh` → 8/8 ✅ · `sdlc-init.sh` exécuté sur repo vide : exit 0, marqueur de version présent
+
 ## [v2.0+SDLC-29] — 2026-09-04 · Sprint Doc XS · `12-audit-externe-TEMPLATE.md` (P-22)
 - **`12-audit-externe-TEMPLATE.md`** (nouveau) : gabarit d'audit externe — 7 sections, tableau comparatif 6 axes (Gouvernance de session, Séparation des rôles, Traçabilité et documentation, Scalabilité, Overhead, Récupération de session), verdicts étiquetés `IMPORTER/REJETER/INVESTIGUER/MERGER` — squelette repris de `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`, le format le plus mature des 4 audits existants
 - **Renumérotation 10→12** : le nom prévu `10-audit-externe-TEMPLATE.md` collisionnait avec `10-AMONT-TEMPLATE.md` (jamais détecté par les 6 fichiers historiques qui l'ont mentionné) — mentions historiques non réécrites, seules les références vivantes (`ROADMAP.md`, `00-CONTEXT.md`, `specs/SPEC.md`) utilisent le nom corrigé

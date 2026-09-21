@@ -1,9 +1,21 @@
 # SDLC Toolkit — Gouvernance Claude Code
 
-Modèle de gouvernance reproductible pour projets pilotés par Claude Code.
-Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
+> **Ce que c'est :** un modèle de gouvernance pour projets pilotés par Claude Code — règles permanentes (`Claude.md`), skills de clôture et de rétrospective, hooks — qui transforme chaque incident de session en règle vérifiable.
+> **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire outillée.
+> **État :** 29 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 8 contrôles).
 
-**Version courante : v2.0+SDLC-29**
+**Version courante : v2.0+SDLC-29** · Licence MIT
+
+```mermaid
+flowchart LR
+    A["Incident terrain"] --> B["LESSONS_LEARNED"]
+    B --> C["/retrospective<br/>détecte les récurrences"]
+    C --> D["Hook ou règle permanente"]
+    D --> E["Claude.md · hooks"]
+    E -. prévient .-> A
+```
+
+Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle.
 
 ---
 
@@ -64,7 +76,7 @@ sdlc-toolkit/
 
 ```bash
 # 1. Cloner le toolkit
-git clone <ce-repo> sdlc-toolkit
+git clone https://github.com/laurentGELY/SDLC.git sdlc-toolkit
 
 # 2. Depuis la racine du nouveau projet (git init déjà fait)
 bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
@@ -165,6 +177,9 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 
 ## Historique des versions
 
+<details>
+<summary>Voir les 28 versions (v1.0 → v2.0+SDLC-29)</summary>
+
 | Version | Date | Changements principaux |
 |---------|------|------------------------|
 | v1.0 | 29/05/2026 | Bootstrap initial — 7 fichiers |
@@ -195,3 +210,5 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+SDLC-27 | 03/09/2026 | `/retrospective` (ECO-3→ECO-5) — garde-fou traçabilité `sprint-memory.md` (M-PROC-44, `LL-T08` gradué), rappel fenêtre `grep -A` dans `04-sprint-PDR-TEMPLATE.md` (`LL-T12`), clôture de 2 vieux `SDLC_CANDIDATE` invalidés par ECO-5 |
 | v2.0+SDLC-28 | 04/09/2026 | `sprint-memory.md` = mécanisme de reprise (`P-27`) — correction de 2 citations fautives (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), carte `MODE-OPERATOIRE.html` ; `P-39` retiré, déjà résolu |
 | v2.0+SDLC-29 | 04/09/2026 | `12-audit-externe-TEMPLATE.md` (`P-22`) — gabarit 7 sections/6 axes/verdicts étiquetés, renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`), `M-TMPL-07` |
+
+</details>

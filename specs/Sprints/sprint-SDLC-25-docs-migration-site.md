@@ -77,7 +77,7 @@ Le dépôt publie un site de documentation sur GitHub Pages depuis `docs/`, le d
 ## Dépendances
 
 **Inputs requis :**
-- [x] Bundle site fourni — trouvé dans `/home/laurentg/Downloads/Documentation for Claude project.zip` (pas à la racine du dépôt comme attendu par le PDR, mais contenu conforme : `index.html`, `nav.json`, `meta.json`, `.nojekyll`, `pages/*.md`, `README.md`). `meta.json.version = "v1.9+SDLC-23"`, cohérent avec l'état du dépôt à la génération du bundle.
+- [x] Bundle site fourni — trouvé dans `~/Downloads/Documentation for Claude project.zip` (pas à la racine du dépôt comme attendu par le PDR, mais contenu conforme : `index.html`, `nav.json`, `meta.json`, `.nojekyll`, `pages/*.md`, `README.md`). `meta.json.version = "v1.9+SDLC-23"`, cohérent avec l'état du dépôt à la génération du bundle.
 - [x] Dépôt en état git propre (`git status --porcelain` vide au démarrage).
 - [ ] Droit d'activer GitHub Pages sur le dépôt (action humaine hors Claude Code — étape de publication).
 

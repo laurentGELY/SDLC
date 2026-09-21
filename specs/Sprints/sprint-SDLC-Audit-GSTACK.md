@@ -18,7 +18,7 @@ GSD-lite et Superpowers déjà menés (CHANGELOG v1.9+SDLC-Audit-GSD-lite, SDLC-
 Le projet P-22 (`doc/ROADMAP.md §Later`) prévoyait un template `10-audit-externe-TEMPLATE.md`
 pour standardiser les audits — ce sprint peut servir de cas réel pour valider ou affiner ce besoin.
 
-Source locale : `/home/laurentg/Downloads/Sandbox/SDLC/exemples/gstack` (git clone de
+Source locale : `exemples/gstack` (git clone de
 `https://github.com/garrytan/gstack`). Ne pas fetcher le repo distant.
 
 ---
@@ -75,7 +75,7 @@ les recommandations sont analytiques uniquement.
 
 ## Contraintes techniques / produit
 
-- Source locale uniquement : `/home/laurentg/Downloads/Sandbox/SDLC/exemples/gstack/`
+- Source locale uniquement : `exemples/gstack/`
 - Output : fichier `.md` unique dans `doc/`
 - Le livrable audité (GSTACK) n'est jamais modifié
 - Format des recommandations cohérent avec les audits précédents (étiquetage explicite)
@@ -90,7 +90,7 @@ les recommandations sont analytiques uniquement.
 ## Dépendances
 
 **Inputs requis :**
-- [x] Clone local GSTACK disponible : `/home/laurentg/Downloads/Sandbox/SDLC/exemples/gstack/`
+- [x] Clone local GSTACK disponible : `exemples/gstack/`
 - [x] Audits précédents pour cohérence de format :
   - `doc/AUDIT-EXTERNE-gsd-vs-sdlc.md` (GSD-full)
   - `doc/AUDIT-EXTERNE-gsd-lite-vs-sdlc.md` (GSD-lite)

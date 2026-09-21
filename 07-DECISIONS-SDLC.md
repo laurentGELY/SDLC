@@ -202,7 +202,7 @@ commentée, avec un marqueur `[ACTIVER si…]` et un grep de validation post-boo
 **Écarté :** Livrer un hook vide (seulement les blocages universels) et laisser l'équipe
 construire from scratch.
 
-**Raison :** Le hook de production (projet JobSearch) a mis plusieurs sprints à atteindre
+**Raison :** Le hook de production (projet de production) a mis plusieurs sprints à atteindre
 sa forme finale. Partir d'un template avec sections pré-rédigées réduit le temps de bootstrap
 et garantit la cohérence du pattern de lecture stdin JSON — non-trivial à retrouver.
 Le grep `[ACTIVER` force une décision explicite sur chaque section : activer = documenter
@@ -638,7 +638,7 @@ si le pattern a changé. La pratique existait déjà implicitement dans `sdlc-in
 - Hook `pre-tool-bash.sh` détectant l'absence du fichier sprint : trop invasif pour un gap de process
 - Skill `/sprint-init` dédié : surcharge pour 4 actions séquentielles déjà dans §Démarrage
 
-**Raison :** Observation directe projet JobSearch (05/06/2026) — sprints 33–37b sans fichier
+**Raison :** Observation directe projet de production (05/06/2026) — sprints 33–37b sans fichier
 `specs/Sprints/sprint-N.md` dans git. La règle §4 existante (`cat specs/Sprints/…`) supposait
 que le fichier existait déjà. Rendre la création explicite et vérifiable dès la réception du PDR
 garantit la traçabilité du plan de développement et la matière première du wrap-up.
@@ -1090,7 +1090,7 @@ des `.md`) a été produit en amont et devait être déposé pour publication.
 **Exclusions du sed (fidélité historique — même principe que `CHANGELOG.md`) :**
 `specs/Sprints/*.md` (récits de sprints déjà exécutés où `doc/` était le nom réel au
 moment des faits — les réécrire romprait la fidélité du PDR historique) et
-`bak/sdlc-kit-exportable.md` (extrait figé d'un autre projet, hors périmètre
+`bak/sdlc-kit-exportable.md` (extrait figé d'un autre projet, supprimé depuis ; hors périmètre
 fonctionnel). Un faux positif a été détecté et corrigé manuellement :
 `07-DECISIONS-SDLC.md` §M-PROC-28 contenait `registre/doc/specs` — une énumération,
 pas un chemin — que le sed aurait transformé à tort en `registre/docs/specs`.
