@@ -16,6 +16,7 @@ Chaque décision porte un identifiant stable, préfixé par famille :
 | `M-PROC-NN` | Procédures (séquences de skill, cadences…) |
 | `M-ARCH-NN` | Architecture (structure de fichiers, conventions…) |
 | `M-HOOKS-NN` | Hooks (PreToolUse, PreCompact…) |
+| `M-TMPL-NN` | Contenu et rédaction des templates et skills |
 | `D-SYNC-NN` | Synchronisations de version appliquées à un projet |
 
 Ces identifiants sont **citables** depuis n'importe quel fichier : une règle de `Claude.md` peut renvoyer à `M-PROC-28`, un template à `M-SCOPE-04`. La référence croisée est le tissu conjonctif du modèle.
@@ -29,6 +30,8 @@ Pour donner le grain de ce que le registre contient :
 - **`M-PROC-26`** — skill `/help` en lecture seule, zéro suggestion.
 - **`M-HOOKS-08`** — hook `PreCompact` × mémoire de sprint, 7ᵉ type d'entrée `CHECKPOINT`. Voir [Hooks](#hooks).
 - **`M-PROC-36`** — métriques de tokens `M1`/`M2` remontées dans `/retrospective`.
+- **`M-PROC-40`** — `sdlc-validate.sh` : la cohérence du modèle se vérifie par un script, plus à l'œil.
+- **`M-PROC-45`** — contrôle C9 : la documentation publique est elle aussi vérifiée.
 
 ## La règle d'or d'évolution
 

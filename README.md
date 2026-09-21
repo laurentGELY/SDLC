@@ -1,8 +1,8 @@
 # SDLC Toolkit — Gouvernance Claude Code
 
 > **Ce que c'est :** un modèle de gouvernance pour projets pilotés par Claude Code — règles permanentes (`Claude.md`), skills de clôture et de rétrospective, hooks — qui transforme chaque incident de session en règle vérifiable.
-> **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire outillée.
-> **État :** 29 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 8 contrôles).
+> **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
+> **État :** 29 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 9 contrôles).
 
 **Version courante : v2.0+SDLC-29** · Licence MIT
 
@@ -112,7 +112,7 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 1. Lire `00-CONTEXT.md §Invariants` avant toute modification
 2. Modifier le(s) template(s) concerné(s) — mettre à jour le numéro de version dans l'en-tête
 3. Documenter la décision dans `07-DECISIONS-SDLC.md` (format `M-XXXX-NN`)
-4. Mettre à jour `§Historique des versions` ci-dessous
+4. Mettre à jour `§Historique des versions` ci-dessous, ainsi que `docs/meta.json` et `docs/pages/versions.md` (site publié — contrôlé par `sdlc-validate.sh` C9)
 5. Commit `docs(sdlc): description · vX.Y → vZ.W`
 
 > Après une évolution du modèle, tous les projets avec un marqueur de version antérieur sont candidats à un `/sdlc-sync`. Ce n'est pas automatique — décision humaine au cas par cas.

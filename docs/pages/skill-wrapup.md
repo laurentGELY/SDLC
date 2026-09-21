@@ -10,7 +10,7 @@ La procédure de clôture de sprint. Une **séquence stricte**, exécutée dans 
 
 - **0a — Lire la mémoire sprint.** Source de vérité prioritaire pour reconstruire le bilan. Les entrées `EN ATTENTE [humain]` deviennent des action items. Un second output synthétise les signaux rétrospectifs (`PIVOT`, `BLOQUANT`, `HOOK_CANDIDATE`, `CONF FAIBLE`).
 - **0b — Identifier la référence** de session (ROADMAP §Now ou PDR en cours).
-- **0c — Ancrer sur git** (`git diff --stat HEAD`, `git status`). Auto-exécuté, jamais de copier-coller demandé. Source de vérité primaire `[✓ git]`.
+- **0c — Ancrer sur git** (`git diff --stat HEAD`, `git status`). Auto-exécuté, jamais de copier-coller demandé. Source de vérité primaire `[✓ git]`. Un garde-fou de traçabilité (`M-PROC-44`) signale, sans bloquer, un `sprint-memory.md` resté à son seul en-tête malgré un diff d'au moins 3 fichiers ou 50 lignes.
 - **0d — Bilan structuré** : FAIT / PARTIEL / NON FAIT / BLOQUANTS / HORS SCOPE / DETTE, avec un ratio « objectifs réalisés X/Y ».
 - **0e — Revue objectif** : croiser l'objectif du PDR avec le résultat constaté → verdict `ATTEINT / PARTIEL / NON ATTEINT`. Un « fait à 90% » sans critère d'acceptation coché n'est **pas** ATTEINT.
 - **0f — Adversarial Review** *(Taille M/L uniquement)* — relecture adverse en couches. Voir [Garde-fous](#garde-fous).
@@ -35,7 +35,7 @@ Une entrée de 5 lignes max dans `LESSONS_LEARNED.md`, avec les champs `[HOOK_CA
 
 ## Étapes 3.5 → 6
 
-- **3.5 — Vérification pré-commit** : `git diff --stat`, checklist (version +0.1 cohérente, aucun sprint futur écrasé, zéro fichier hors portée).
+- **3.5 — Vérification pré-commit** : `bash sdlc-validate.sh` (présent dans le repo du toolkit uniquement — ignoré ailleurs), `git diff --stat`, checklist (version +0.1 cohérente, aucun sprint futur écrasé, zéro fichier hors portée, Definition of Done citée par son nom).
 - **4 — Commit** : format `type(module): résumé`, puis suppression de `sprint-memory.md` **après** le commit (jamais avant).
 - **5 — Amorce session suivante** : bloc de contexte + écriture dans `SESSION_BRIDGE.md`, avec un **test STATELESS** — la session suivante peut-elle reprendre depuis ce seul fichier ?
 - **6 — Sync Claude.ai** : reminder de synchroniser les fichiers de gouvernance (hors repo git).

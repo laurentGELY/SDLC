@@ -6,7 +6,7 @@ Là où un SDLC classique décrit les *phases* d'un projet logiciel, ce modèle 
 
 Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le modèle — avec des règles d'exécution permanentes, des skills de clôture et une boucle de rétroaction qui transforme chaque incident terrain en règle durable.
 
-> **Version courante : v2.0+SDLC-25** · Un harnais de templates numérotés `01` → `11`, copiés dans un projet cible pour lui donner un cadre d'exécution complet.
+> **Version courante : v2.0+SDLC-29** · Un harnais de templates numérotés `01` → `12`, dont la plupart sont copiés dans un projet cible pour lui donner un cadre d'exécution complet.
 
 Les [quatre invariants](#invariants) qui fondent le modèle sont, au fond, quatre principes de conception de harnais : boucle de contrôle vérifiable (INV-1), zéro état implicite (INV-2), budget de contexte (INV-3), et un harnais qui apprend (INV-4).
 

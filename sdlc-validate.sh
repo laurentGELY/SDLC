@@ -7,7 +7,7 @@
 # Lecture seule : aucune écriture de fichier, aucun appel réseau, idempotent.
 # Résout ses chemins par rapport à sa propre position — pas au cwd de l'appelant.
 #
-# Codes de sortie : 0 = 8/8 · 1 = ≥ 1 contrôle en échec · 2 = erreur d'exécution
+# Codes de sortie : 0 = tous les contrôles OK · 1 = ≥ 1 contrôle en échec · 2 = erreur d'exécution
 # du script lui-même (fichier attendu absent, commande indisponible).
 
 set -uo pipefail
@@ -17,7 +17,7 @@ ROOT="$SCRIPT_DIR"
 
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un
-# contrôle en échec (exit 1) : sans ces fichiers, aucun des 8 contrôles n'a de sens.
+# contrôle en échec (exit 1) : sans ces fichiers, aucun des contrôles n'a de sens.
 
 for cmd in grep sed tr diff sort comm uniq head basename date ls; do
   command -v "$cmd" >/dev/null 2>&1 || {
@@ -80,7 +80,7 @@ report() {
   echo ""
 }
 
-# ─── LES 8 CONTRÔLES ──────────────────────────────────────────────────────────
+# ─── LES CONTRÔLES ──────────────────────────────────────────────────────────
 # Une fonction par contrôle. Chacune imprime son propre verdict via `report`
 # et retourne 0 (succès) ou 1 (échec) — jamais d'arrêt du script (pas de `-e`),
 # le rapport doit être complet en un seul passage.
@@ -281,11 +281,37 @@ check_c8() {
   return $fail
 }
 
+check_c9() {
+  # Site de documentation à jour (M-PROC-45). Le site docs/ est édité à la main
+  # (docs/README.md) : sans contrôle, il a dérivé de SDLC-25 à SDLC-29 sans alerte.
+  # (a) docs/meta.json porte la version courante du README.md
+  # (b) docs/pages/versions.md mentionne le sprint courant (partie après le « + »)
+  local fail=0 detail="" readme_v meta_v tag
+  readme_v=$(grep -m1 -oE 'Version courante : [^ *]+' "$ROOT/README.md" | sed 's/Version courante : //')
+  meta_v=$(grep -m1 -oE '"version"[[:space:]]*:[[:space:]]*"[^"]+"' "$ROOT/docs/meta.json" 2>/dev/null | sed -E 's/.*:[[:space:]]*"([^"]+)"/\1/')
+  tag="${readme_v##*+}"
+  if [ "$meta_v" != "$readme_v" ]; then
+    fail=1
+    detail="❌ docs/meta.json=${meta_v:-absent ou illisible} · README.md=$readme_v — divergentes"
+  fi
+  if [ -z "$tag" ] || ! grep -qF -- "$tag" "$ROOT/docs/pages/versions.md" 2>/dev/null; then
+    fail=1
+    detail="${detail:+$detail
+}❌ docs/pages/versions.md ne mentionne pas « ${tag:-?} »"
+  fi
+  if [ "$fail" -eq 0 ]; then
+    report "C9 · Site docs/ à jour (meta.json ↔ README.md, versions.md)" 0 "meta.json=$meta_v · versions.md mentionne $tag"
+  else
+    report "C9 · Site docs/ à jour (meta.json ↔ README.md, versions.md)" 1 "$detail"
+  fi
+  return $fail
+}
+
 # ─── REGISTRE DE CONTRÔLES ────────────────────────────────────────────────────
 # Point d'extension pour les vagues 2/3 (ECO-2, ECO-3, …) :
 # 1) définir une fonction check_cN ci-dessus, qui appelle `report` et retourne 0/1
 # 2) l'ajouter à ce tableau, dans l'ordre où elle doit s'exécuter
-CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8)
+CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9)
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

@@ -573,6 +573,7 @@ pas seulement l'auteur du modèle.
 | M-TMPL-06 | Pattern `.claude/rules/` documenté pour projets cibles — hook `SessionStart` et self-split de ce repo écartés | ✓ | — |
 | M-PROC-44 | Garde-fou traçabilité `sprint-memory.md` — avertissement non bloquant en Bilan §0d du wrap-up | ✓ | — |
 | M-TMPL-07 | `12-audit-externe-TEMPLATE.md` — gabarit audit externe (7 sections, verdicts étiquetés, 6 axes), renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`) | ✓ | — |
+| M-PROC-45 | Contrôle C9 de `sdlc-validate.sh` — site `docs/` à jour (`meta.json` ↔ README, `versions.md`) | ✓ | — |
 
 ---
 
@@ -1900,6 +1901,8 @@ sont un jour installées dans ce repo (C4 repasse alors en comparaison
 structurelle normale sur ces 2 paires), ou si le bloc `README.md §Structure
 du repo` est normalisé (C6 repasse à 3 listes).
 
+→ Mise à jour 21/09/2026 : le registre compte désormais 9 contrôles — C9 ajouté par `M-PROC-45`.
+
 ---
 
 ## M-TMPL-05 · Rédaction des templates/skills — description = déclenchement, forme selon type d'échec · v2.0+ECO-2 · 03/09/2026
@@ -2273,3 +2276,48 @@ déplacé `§Next` → `§Historique`).
 **Déclencheur de réouverture :** si un audit futur signale en §7 du template
 qu'un axe des 6 n'est pas pertinent pour son framework, ou qu'une section
 manque — réviser après 2 signalements convergents, pas sur un seul retour.
+
+---
+
+## M-PROC-45 · Contrôle C9 — site `docs/` à jour · hors bump (publication GitHub) · 21/09/2026
+
+**Contexte :** `docs/` est un site statique édité à la main (`docs/README.md`
+§Éditer : « changer la version affichée → éditer `meta.json` »). Aucun contrôle
+ne le surveillait : `docs/meta.json` est resté à `v2.0+SDLC-25` et
+`docs/pages/versions.md` s'est arrêté à SDLC-25 pendant 9 versions
+(ECO-1 → SDLC-29), constaté lors de la préparation de la publication GitHub.
+Même famille de défaut que `M-PROC-40` : une règle écrite quelque part mais
+vérifiée nulle part.
+
+**Retenu :** `check_c9` dans `sdlc-validate.sh` (registre `CHECKS=(…)`),
+deux conditions — (a) `docs/meta.json` porte la version de
+`README.md §Version courante` ; (b) `docs/pages/versions.md` mentionne le
+sprint courant (partie après le `+` de la version). Étend `M-PROC-40` sans en
+changer le principe : lecture seule, pas de dépendance (`grep`/`sed`).
+
+**Écarté :**
+- **Générer `meta.json` depuis le README par script** — écarté : le site est
+  volontairement un dossier de fichiers statiques éditables sans build
+  (`docs/README.md`) ; un générateur ajouterait une étape que le site a été
+  conçu pour ne pas avoir. Un contrôle qui échoue suffit à rendre le défaut
+  visible.
+- **Hook `PostToolUse` sur `README.md`** — écarté : même raison que
+  `M-PROC-40` (un hook bloquant mal calibré coûte plus cher que le défaut).
+- **Vérifier tout le contenu des pages** — écarté : impossible à mécaniser
+  sans faux positifs (le contenu est de la prose) ; la mention du sprint
+  courant dans `versions.md` est le signal le plus fiable de « le site a été
+  relu à cette version ».
+
+**Raison :** le défaut n'était pas une omission ponctuelle mais structurelle
+(aucune alerte possible). Le contrôle est peu coûteux et attrape exactement le
+cas observé — il aurait échoué dès SDLC-26.
+
+**Impact fichiers :** `sdlc-validate.sh` (+`check_c9`, registre) ·
+`docs/meta.json` · `docs/pages/{intro,versions,modules,standards,cycle-sprint,
+skill-wrapup,skill-retro,contexte,decisions}.md` (rattrapage ECO-1 → SDLC-29) ·
+`00-CONTEXT.md` v1.8 (checklist §4) · `README.md` · `docs/README.md`.
+
+**Déclencheur de réouverture :** si le site est un jour généré par un build
+(le contrôle (a) devient redondant), ou si un faux positif apparaît sur (b)
+lors d'un bump de version au format inhabituel (sans `+`).
+

@@ -22,6 +22,7 @@ Jamais de lecture préventive « au cas où ». Un fichier différé qu'aucun gr
 | **Délégation sous-agent** | Étape nécessitant > 5 fichiers simultanés, ou fichier > ~10K tokens → déléguer à un sous-agent qui retourne un résumé structuré (le brut n'entre jamais dans le contexte parent) |
 | **Analyse en une passe** | Formuler toutes les questions avant de modifier |
 | **Oracle en amont** | Toute question anticipable résolue avant le handoff — zéro recherche externe en session sauf blocage imprévu |
+| **Découpage `.claude/rules/`** | Si `Claude.md` dépasse ~200 lignes **et** qu'une partie a une frontière réelle par chemin de fichier → extraire dans `.claude/rules/<nom>.md` avec un bloc `paths:`. Jamais le contenu transverse au processus (règles absolues, démarrage, analyse) : sans `paths:`, aucun gain (`M-TMPL-06`) |
 | **Batching XS/S** | Signaler les opportunités de fusionner des items indépendants de même taille touchant les mêmes fichiers |
 
 ## Mesurer, pas deviner

@@ -1,4 +1,4 @@
-# Modèle de gouvernance SDLC — Claude Code · v1.7
+# Modèle de gouvernance SDLC — Claude Code · v1.8
 <!-- Contexte Claude.ai · Premier fichier lu · Ne pas copier dans les projets cibles -->
 <!-- Mis à jour à chaque évolution structurelle du modèle -->
 
@@ -118,10 +118,12 @@ Avant tout commit sur ce projet :
 - [ ] Décision ajoutée au tableau de compatibilité (universelle / conditionnelle)
 - [ ] `§Historique des versions` dans `README.md` mis à jour
 - [ ] `specs/SPEC.md §Modules` mis à jour si la carte des fichiers a changé
-- [ ] `bash sdlc-validate.sh` → 8/8 (`M-PROC-40`) — 8 contrôles structurels du
-      modèle (version, en-têtes, placeholders, parité template↔skill, schéma
-      JSON hooks, carte des fichiers, unicité des IDs, syntaxe shell),
-      auparavant vérifiés à l'œil un par un
+- [ ] `bash sdlc-validate.sh` → tous ✅ (`M-PROC-40`, C9 : `M-PROC-45`) — 9 contrôles
+      structurels du modèle (version, en-têtes, placeholders, parité
+      template↔skill, schéma JSON hooks, carte des fichiers, unicité des IDs,
+      syntaxe shell, site `docs/` à jour), auparavant vérifiés à l'œil un par un
+- [ ] `docs/meta.json` (version) et `docs/pages/versions.md` (ligne du sprint)
+      mis à jour — contrôlés par C9
 - [ ] `11-help-SKILL-TEMPLATE.md` mis à jour si une skill a été ajoutée, renommée
       ou retirée dans `.claude/skills/` (`M-TMPL-05`) — un routeur qui omet une
       skill vivante ou route vers une skill morte ment

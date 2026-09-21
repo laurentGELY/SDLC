@@ -22,7 +22,7 @@ Le site charge les `.md` à la volée (`fetch`) : **modifier le contenu = édite
 
 - **Changer un texte** → éditer `pages/<id>.md`. Les liens internes entre pages : `[texte](#id-de-page)`.
 - **Ajouter une page** → 1) créer `pages/<id>.md`, 2) ajouter une entrée `{ "id", "title" }` dans le groupe voulu de `nav.json`. Le sommaire, le routage, le fil précédent/suivant et le badge de niveau se génèrent seuls.
-- **Changer la version affichée** → éditer `meta.json` (`version`). À faire lors de tout `/sdlc-sync` ou bump de version du modèle.
+- **Changer la version affichée** → éditer `meta.json` (`version`). À faire lors de tout `/sdlc-sync` ou bump de version du modèle, avec une ligne dans `pages/versions.md` — `bash sdlc-validate.sh` (C9) échoue si l'un des deux est oublié.
 
 ## Lancer en local
 

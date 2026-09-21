@@ -32,6 +32,17 @@ Le cœur de la discipline `STANDARDS` : lister tout fichier référencé par ≥
 
 Exemple, pour le toolkit lui-même : `07-DECISIONS-SDLC.md` (référencé par tout PDR de gouvernance) et `00-CONTEXT.md` (la carte des fichiers).
 
+## La barre qualité
+
+Le template `02-STANDARDS-TEMPLATE.md` porte une section **§Barre qualité** (`M-PROC-42`), construite sur la même règle que le reste : *un chiffre sans commande de vérification est une aspiration, pas une contrainte* (`INV-1`). Elle a quatre blocs :
+
+- **Seuils** — un tableau `Dimension / Règle / Vérifié par / S'exécute à`, complété au bootstrap (zéro placeholder avant le commit initial).
+- **Plancher** — non négociable, sans configuration : aucun commentaire de suppression nouveau (`@ts-ignore`, `# noqa`…), aucun stub livré comme fini, aucun test sauté sans raison au commit, aucun secret en source, et le fichier ne s'affaiblit pas pour faire passer un changement.
+- **Cliquet** — pour les dimensions sans seuil évident : mesurer la valeur du jour et tenir la ligne. Exemple fourni : le contexte permanent (M1, `wc -w Claude.md STANDARDS.md`) ne croît pas de plus de 10 % entre deux `/retrospective`.
+- **Exceptions** — une dérogation est une ligne datée avec propriétaire et date d'expiration, jamais un `# noqa` anonyme.
+
+Une règle absolue de `Claude.md` interdit d'affaiblir un seuil sans passer par la table d'exceptions.
+
 ## Règles d'archivage
 
 - **`DIAGNOSTIC_CMDS.md`** — toute commande `grep`/`diff`/`git` ayant localisé ou résolu un problème est archivée avant le wrap-up, avec symptôme, date, commande exacte, résultat observé et conclusion.

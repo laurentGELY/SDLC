@@ -27,6 +27,15 @@ Chaque sprint commence par une analyse structurée : compréhension de l'objecti
 
 Voir [Garde-fous : HALT & verdicts](#garde-fous) pour le détail du verdict gate.
 
+## Deux garde-fous avant l'aval
+
+Entre l'analyse et la demande d'aval, deux contrôles ferment des défauts récurrents :
+
+- **Vérification factuelle** (`M-PROC-41`) — toute précondition qui ne se lit pas dans les fichiers du projet (schéma d'une plateforme externe, comportement d'un produit tiers…) est confirmée par une commande ou une recherche **avant** d'être écrite dans l'analyse. Sinon, elle est signalée comme hypothèse, jamais comme fait.
+- **Auto-revue du plan** (`M-PROC-43`) — trois passes faites par l'auteur du plan, jamais déléguées : couverture de la spec (chaque exigence pointe vers l'étape qui l'implémente), balayage des placeholders (« TBD », « gérer les cas limites », « similaire à la tâche N »…), cohérence des références. Un problème trouvé se corrige sur place, sans re-relecture.
+
+Le PDR interdit explicitement les placeholders : ce sont des échecs de plan, pas des choix de style.
+
 ## Les types de sprint
 
 Le type détermine le flux et l'output attendu.
@@ -46,6 +55,8 @@ Le type détermine le flux et l'output attendu.
 Pendant le sprint, un fichier éphémère `.claude/sprint-memory.md` (non versionné) trace les moments décisifs. Sept types d'entrées : `ANALYSE`, `DÉCISION`, `TEST`, `QUESTION`, `PIVOT`, `BLOQUANT`, et `CHECKPOINT` (généré automatiquement par le hook `PreCompact` avant toute compaction).
 
 On écrit quand : analyse formulée, décision prise, résultat de test, question résolue, pivot, bloquant détecté ou levé. On **n'écrit pas** après chaque lecture de fichier ou ce que le CLI montre déjà.
+
+Chaque entrée `DÉCISION` porte un champ `[coût si faux]`. Après une compaction, la règle de précédence est : le ledger et `git log` priment sur le souvenir de session.
 
 Le fichier est détruit après le commit de clôture — jamais avant. S'il est retrouvé non vide au démarrage d'une session, c'est le signal d'un sprint précédent non clôturé, et l'agent s'arrête pour demander quoi faire.
 

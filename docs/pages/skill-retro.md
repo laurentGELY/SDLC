@@ -13,6 +13,7 @@ C'est l'étage d'analyse de la [boucle de rétroaction](#boucle).
 - **Étape 2b — Significant Discovery Alert.** Cinq catégories `SD-1` → `SD-5` de découvertes significatives à signaler explicitement.
 - **Étapes 3/4 — Actions.** Propositions d'actions internes (nouveaux hooks, règles) **et** remontées vers le modèle SDLC (synthèse des `[SDLC_CANDIDATE]` en attente → bloc de remontée manuelle).
 - **Étape 5 — Index structuré des patterns.** Mise à jour de l'index avec les patterns confirmés/infirmés.
+- **Étape 7 — Métriques tokens** *(optionnel)*. M1 (contexte permanent, `wc -w Claude.md STANDARDS.md`) et M2 (coût de la procédure wrap-up). Cliquet (`M-PROC-42`) : si M1 croît de plus de 10 % depuis la dernière rétro, une piste d'allègement devient obligatoire au rapport.
 
 ## Les deux circuits de remontée
 
@@ -20,6 +21,10 @@ C'est l'étage d'analyse de la [boucle de rétroaction](#boucle).
 
 - **Interne au projet** — un `[HOOK_CANDIDATE]` récurrent devient un hook bash ou une règle `Claude.md`. La boucle se ferme dans le projet lui-même.
 - **Vers le modèle SDLC** — un `[SDLC_CANDIDATE]` propose de faire évoluer un template, une procédure ou un invariant du toolkit. La remontée est **manuelle et humaine** : elle n'est jamais automatique, car modifier le modèle affecte tous les projets qui en dérivent.
+
+## Graduer un pattern en règle
+
+Un pattern qui se répète finit en règle permanente. Exemple réel : la rétro SDLC-26 a gradué `LL-T04` (7 occurrences) en règle de `Claude.md §Analyse` — la vérification factuelle avant analyse (`M-PROC-41`). La rétro SDLC-27 a aussi clos deux anciens candidats devenus caducs après vérification factuelle : la boucle sert autant à *retirer* des règles qu'à en ajouter.
 
 ## Validation humaine
 

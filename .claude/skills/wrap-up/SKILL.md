@@ -297,7 +297,7 @@ Rapporter :
 ## Étape 3.5 — Vérification pré-commit
 
 ```bash
-bash sdlc-validate.sh    # 8 contrôles structurels du modèle
+bash sdlc-validate.sh    # contrôles structurels du modèle
 git diff --stat          # uniquement les fichiers attendus
 git status               # rien d'oublié, rien d'en trop
 ```

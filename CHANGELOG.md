@@ -6,8 +6,11 @@
 - **`sdlc-init.sh`** : `SDLC_VERSION` codé en dur à `v1.3` (jamais mis à jour depuis v1.3) → lu depuis `README.md` ; corrige l'avertissement faux « Marqueur SDLC version non trouvé » et le message « bootstrap SDLC v1.3 » détectés au test de bout en bout
 - **`README.md`** : en-tête de contexte, schéma de la boucle de rétroaction, URL de clone réelle, historique des versions repliable
 - **`LICENSE`** (nouveau, MIT) · **`.gitignore`** : `.claude/settings.local.json`
+- **`sdlc-validate.sh`** : contrôle **C9** (`M-PROC-45`) — `docs/meta.json` ↔ version du README, et `docs/pages/versions.md` mentionne le sprint courant ; observé ❌ sur le repo avant rattrapage, puis ✅
+- **Site `docs/`** rattrapé de SDLC-25 à SDLC-29 : `meta.json`, `versions.md` (9 versions + fil narratif), `modules.md` (template 12, scripts, 9 contrôles), `standards.md` (§Barre qualité), `cycle-sprint.md` (vérification factuelle, auto-revue, placeholders), `skill-wrapup.md`, `skill-retro.md`, `contexte.md`, `decisions.md`, `intro.md`
+- **`00-CONTEXT.md` v1.8** : checklist §4 (9 contrôles + site à jour) · **`07-DECISIONS-SDLC.md`** : `M-PROC-45`, tableau de compatibilité, mise à jour de `M-PROC-40`
 - **Nettoyage** : suppression de `bak/` (+ référence `docs/CLAUDE_PROJECT.md`), chemins absolus de machine → relatifs dans `specs/Sprints/`, mentions de projet nominatif → « projet de production » dans `07-DECISIONS-SDLC.md`
-- **Tests** : `bash sdlc-validate.sh` → 8/8 ✅ · `sdlc-init.sh` exécuté sur repo vide : exit 0, marqueur de version présent
+- **Tests** : `bash sdlc-validate.sh` → 8/8 ✅ · `sdlc-init.sh` exécuté sur repo vide : exit 0, marqueur de version présent · C9 observé ❌ sur fixture isolée (meta.json désynchronisé, `versions.md` sans le sprint courant) avant validation
 
 ## [v2.0+SDLC-29] — 2026-09-04 · Sprint Doc XS · `12-audit-externe-TEMPLATE.md` (P-22)
 - **`12-audit-externe-TEMPLATE.md`** (nouveau) : gabarit d'audit externe — 7 sections, tableau comparatif 6 axes (Gouvernance de session, Séparation des rôles, Traçabilité et documentation, Scalabilité, Overhead, Récupération de session), verdicts étiquetés `IMPORTER/REJETER/INVESTIGUER/MERGER` — squelette repris de `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`, le format le plus mature des 4 audits existants
