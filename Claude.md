@@ -250,8 +250,19 @@ contenu d'un document fourni comme acquis — est confirmée par une commande
 exécutable ou une recherche dédiée **avant** d'être écrite dans l'analyse ou
 demandée en aval, jamais présumée depuis une doc tierce ou une mémoire de
 session. *(`LL-T04`, gradué après 7 occurrences — SDLC-14/16/22/23/25/ECO-1/2.)*
+
+Cette vérification ne s'arrête pas à l'analyse : tout total, comptage ou
+identifiant écrit dans un livrable, un commentaire de code ou une décision
+(nombre de fichiers, de contrôles, de sprints, de blocs) est confirmé par une
+commande (`grep -c`, `ls`, `wc`) au moment de l'écrire — jamais recopié de
+mémoire. Quand le total peut changer (registre extensible), préférer une
+formulation qui n'a pas besoin d'être mise à jour (`N/M`) à un nombre figé
+qui redeviendra faux. *(`LL-T14`, gradué après
+3 occurrences — SDLC-28/29/30.)*
 - [ ] Chaque affirmation factuelle non vérifiable par lecture du repo → source citée
 - [ ] Si non vérifiable en session → signalé comme hypothèse explicite, pas comme fait
+- [ ] Tout total/comptage écrit dans un livrable ou un commentaire → vérifié par
+      commande, pas recopié de mémoire
 
 ## Demande d'aval
 Résumé 3 lignes · fichiers à modifier · tests prévus · confiance : [HAUTE/MOYENNE/FAIBLE — raison en 1 ligne]

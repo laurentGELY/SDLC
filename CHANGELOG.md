@@ -2,6 +2,14 @@
 
 ---
 
+## [v2.0+SDLC-31] — 2026-09-22 · Sprint Revue S · `/retrospective` (SDLC-28→SDLC-30)
+- **`Claude.md §Analyse §Vérification factuelle`** + **`01-Claude-md-TEMPLATE.md` v2.6** : extension — tout total/comptage écrit dans un livrable, un commentaire de code ou une décision est vérifié par commande (`grep -c`/`ls`/`wc`) au moment de l'écrire, pas seulement une précondition d'analyse ; préférer `N/M` à un nombre figé quand il peut changer (`M-PROC-48`, graduation `LL-T14` — 3 occurrences SDLC-28/29/30)
+- **`docs/LESSONS_LEARNED.md`** : `LL-T14` nouveau (gradué) · `LL-T05` réévalué (déclencheur `ECO-5` atteint le 03/09, jamais revisité) · 2 `SDLC_CANDIDATE` ouverts depuis 3 mois sans déclencheur (SDLC-16, SDLC-18) tranchés plutôt que reconduits (`SD-5`) — sprints Fix dédiés à suivre · index recompté, `§Métriques de rétro` ajoutées
+- **`07-DECISIONS-SDLC.md`** : `M-PROC-48`, tableau de compatibilité
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **10/10 ✅**, exit 0
+
+---
+
 ## [v2.0+SDLC-30] — 2026-09-21 · Sprint Doc L · Rattrapage `SPEC.html` / `MODE-OPERATOIRE.html` + contrôle C10 (M-PROC-46)
 - **`docs/MODE-OPERATOIRE.html`** : marqueur de version ; 4 concepts clés ajoutés (vérification factuelle, auto-revue du plan, barre qualité, `sdlc-validate.sh`) ; arborescence complète (00→12, scripts, `docs/`) ; init (skills réellement déposés, `[À REMPLIR]` de la barre qualité, message de commit sans version figée) ; `sdlc-delta.sh` en sync ; « Faire évoluer » en 8 étapes (`00-README.md` → `00-CONTEXT.md`, documentation publiée, `sdlc-validate.sh`) ; nouvelle section **Vérifier le modèle** (10 contrôles) ; carte des fichiers (10/11/12, `§PreCompact`, scripts) ; type de sprint Revue ; skill `/help`
 - **`docs/SPEC.html`** : marqueur de version ; « Les 10 fichiers » → tous les fichiers du modèle (cartes 04b/10/11/12 ajoutées, descriptions 01/02/03/04/06/07/08/09 mises à jour) + 5 scripts ; 3ᵉ circuit « vérification du modèle » (le titre annonçait « trois circuits », deux étaient dessinés) ; workflow en 6 phases (vérification factuelle + auto-revue) ; table de 19 décisions arrêtée à v1.4 → carte des 6 familles avec commande de comptage (`grep -c "^## M-"`) au lieu d'un chiffre recopié

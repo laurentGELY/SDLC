@@ -576,6 +576,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-45 | Contrôle C9 de `sdlc-validate.sh` — site `docs/` à jour (`meta.json` ↔ README, `versions.md`) | ✓ | — |
 | M-PROC-46 | Contrôle C10 de `sdlc-validate.sh` — livrables HTML `SPEC.html`/`MODE-OPERATOIRE.html` à jour (marqueur de version, carte des templates) | ✓ | — |
 | M-PROC-47 | `README.md §Structure du repo` reste un arbre curaté (2 listes dans C6, pas 3) — corrigé sur les 2 inexactitudes réelles (scripts, `docs/`), close le `SDLC_CANDIDATE` ECO-1 | ✓ | — |
+| M-PROC-48 | Graduation `LL-T14` — tout total/comptage écrit dans un livrable vérifié par commande (extension de `§Vérification factuelle`) | ✓ | — |
 
 ---
 
@@ -2421,3 +2422,56 @@ déplacé `§Later` → `§Historique`).
 sur ce bloc curaté (script ou dossier de premier niveau omis), ou si
 `README.md` change de rôle (devient la référence exhaustive plutôt que le
 pitch).
+
+---
+
+## M-PROC-48 · Graduation LL-T14 — total/comptage vérifié par commande · v2.0+SDLC-31 · 22/09/2026
+
+**Contexte :** `/retrospective` (22/09/2026, sprints SDLC-28→SDLC-30, 3 sprints
+d'écart) a identifié un pattern transverse non encore indexé : un total ou un
+identifiant écrit de mémoire dans un livrable dérive du réel, distinct de
+`LL-T04` (précondition d'*analyse*, vérifiée avant rédaction du PDR) parce
+qu'il survient à la *rédaction* elle-même, après l'analyse. 3 occurrences en
+3 sprints consécutifs : `LL-T13` (SDLC-28, identifiant `M-XXXX-NN` erroné),
+SDLC-29 (nom de fichier planifié de mémoire, collision non détectée), SDLC-30
+(4 comptages faux dans la même session : blocs de commandes, nombre de
+templates, versions dans un commentaire de code, nombre de sprints).
+
+**Retenu :** extension du bloc `Claude.md §Analyse §Vérification factuelle`
+(et son pendant générique `01-Claude-md-TEMPLATE.md`) — le principe déjà en
+place (« vérifier par commande avant d'écrire ») s'étend explicitement à tout
+total/comptage écrit dans un livrable, un commentaire de code ou une
+décision, pas seulement une précondition d'analyse. +1 checklist :
+préférer une formulation qui n'a pas besoin d'être mise à jour (`N/M`) à un
+nombre figé quand le total peut changer.
+
+**Écarté :**
+- **Nouvelle règle séparée** (plutôt qu'extension de `§Vérification
+  factuelle`) — écarté : même principe, même moment (avant d'écrire quelque
+  chose de vérifiable), coût de duplication sans bénéfice — décision
+  utilisateur explicite de choisir l'extension.
+- **`STANDARDS.md §Barre qualité`** — écarté : cette section porte des seuils
+  chiffrés vérifiables par grep sur le projet lui-même, pas une règle de
+  rédaction appliquée à chaque sprint quel que soit le contenu touché — mauvais
+  registre.
+- **Hook `.claude/hooks/`** — écarté, même raison que `M-PROC-41` : un total
+  en prose libre n'est pas un pattern détectable mécaniquement (contrairement
+  à un marqueur de version ou une carte de fichiers, déjà couverts par C9/C10).
+- **Contrôle `sdlc-validate.sh` dédié (C11)** — écarté explicitement 2 fois
+  dans la même session avant cette rétro (fix `N/8`→`N/M`, non-extension de
+  C6) : un total en prose libre est trop variable pour un contrôle générique
+  sans faux positifs massifs.
+
+**Raison :** 3 confirmations consécutives sur 3 sprints, coût d'ajout nul (un
+paragraphe + une ligne de checklist dans un fichier déjà lu à chaque session),
+bénéfice direct : les 4 erreurs de SDLC-30 auraient toutes été évitées par
+cette seule discipline appliquée à la rédaction, pas seulement à l'analyse.
+
+**Impact fichiers :** `Claude.md` (extension `§Vérification factuelle`) ·
+`01-Claude-md-TEMPLATE.md` v2.6 (même extension, générique) ·
+`docs/LESSONS_LEARNED.md` (`LL-T14` nouveau, index).
+
+**Déclencheur de réouverture :** si la discipline échoue malgré tout (un
+total faux glisse encore dans un livrable après ce sprint) — évaluer si un
+contrôle mécanique partiel est possible sur un sous-ensemble régulier (ex :
+nombre de fichiers `NN-*.md`, déjà couvert indirectement par C6/C10).

@@ -4,7 +4,7 @@
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
 > **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 10 contrôles).
 
-**Version courante : v2.0+SDLC-30** · Licence MIT
+**Version courante : v2.0+SDLC-31** · Licence MIT
 
 ```mermaid
 flowchart LR
@@ -180,7 +180,7 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 ## Historique des versions
 
 <details>
-<summary>Voir les 29 versions (v1.0 → v2.0+SDLC-30)</summary>
+<summary>Voir les 30 versions (v1.0 → v2.0+SDLC-31)</summary>
 
 | Version | Date | Changements principaux |
 |---------|------|------------------------|
@@ -213,5 +213,6 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+SDLC-28 | 04/09/2026 | `sprint-memory.md` = mécanisme de reprise (`P-27`) — correction de 2 citations fautives (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), carte `MODE-OPERATOIRE.html` ; `P-39` retiré, déjà résolu |
 | v2.0+SDLC-29 | 04/09/2026 | `12-audit-externe-TEMPLATE.md` (`P-22`) — gabarit 7 sections/6 axes/verdicts étiquetés, renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`), `M-TMPL-07` |
 | v2.0+SDLC-30 | 21/09/2026 | Rattrapage `docs/SPEC.html` + `docs/MODE-OPERATOIRE.html` (figés à v1.4) — fichiers 00→12, scripts, vérification factuelle, auto-revue, barre qualité, `sdlc-validate.sh` ; table des décisions remplacée par un résumé renvoyant au registre · contrôle C10 (`M-PROC-46`) |
+| v2.0+SDLC-31 | 22/09/2026 | `/retrospective` — graduation `LL-T14` (total/comptage vérifié par commande, extension `§Vérification factuelle`, `M-PROC-48`) · 2 `SDLC_CANDIDATE` de 3 mois tranchés (`SD-5`) plutôt que reconduits |
 
 </details>

@@ -1,5 +1,5 @@
 # Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.5 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.6 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -331,8 +331,18 @@ contenu d'un document fourni comme acquis — est confirmée par une commande
 exécutable ou une recherche dédiée **avant** d'être écrite dans l'analyse ou
 demandée en aval, jamais présumée depuis une doc tierce ou une mémoire de
 session.
+
+Cette vérification ne s'arrête pas à l'analyse : tout total, comptage ou
+identifiant écrit dans un livrable, un commentaire de code ou une décision
+(nombre de fichiers, de contrôles, de sprints, de blocs) est confirmé par une
+commande (`grep -c`, `ls`, `wc`) au moment de l'écrire — jamais recopié de
+mémoire. Quand le total peut changer (registre extensible), préférer une
+formulation qui n'a pas besoin d'être mise à jour (`N/M`) à un nombre figé
+qui redeviendra faux.
 - [ ] Chaque affirmation factuelle non vérifiable par lecture du repo → source citée
 - [ ] Si non vérifiable en session → signalé comme hypothèse explicite, pas comme fait
+- [ ] Tout total/comptage écrit dans un livrable ou un commentaire → vérifié par
+      commande, pas recopié de mémoire
 
 ## Auto-revue du plan *(obligatoire avant la Demande d'aval — 3 passes, faites par
 l'auteur du plan, jamais déléguées à un sous-agent)*
