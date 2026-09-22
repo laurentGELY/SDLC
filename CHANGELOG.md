@@ -2,6 +2,15 @@
 
 ---
 
+## [v2.0+SDLC-30] — 2026-09-21 · Sprint Doc L · Rattrapage `SPEC.html` / `MODE-OPERATOIRE.html` + contrôle C10 (M-PROC-46)
+- **`docs/MODE-OPERATOIRE.html`** : marqueur de version ; 4 concepts clés ajoutés (vérification factuelle, auto-revue du plan, barre qualité, `sdlc-validate.sh`) ; arborescence complète (00→12, scripts, `docs/`) ; init (skills réellement déposés, `[À REMPLIR]` de la barre qualité, message de commit sans version figée) ; `sdlc-delta.sh` en sync ; « Faire évoluer » en 8 étapes (`00-README.md` → `00-CONTEXT.md`, documentation publiée, `sdlc-validate.sh`) ; nouvelle section **Vérifier le modèle** (10 contrôles) ; carte des fichiers (10/11/12, `§PreCompact`, scripts) ; type de sprint Revue ; skill `/help`
+- **`docs/SPEC.html`** : marqueur de version ; « Les 10 fichiers » → tous les fichiers du modèle (cartes 04b/10/11/12 ajoutées, descriptions 01/02/03/04/06/07/08/09 mises à jour) + 5 scripts ; 3ᵉ circuit « vérification du modèle » (le titre annonçait « trois circuits », deux étaient dessinés) ; workflow en 6 phases (vérification factuelle + auto-revue) ; table de 19 décisions arrêtée à v1.4 → carte des 6 familles avec commande de comptage (`grep -c "^## M-"`) au lieu d'un chiffre recopié
+- **`sdlc-validate.sh`** : contrôle **C10** — pour `SPEC.html` et `MODE-OPERATOIRE.html` : marqueur `SDLC version : <version du README>` présent, et chaque template `NN-*.md` de la racine cité par son nom ; observé ❌ sur les deux HTML d'origine (fixture : `SPEC.html` ne cite pas 04b/10/11/12, `MODE-OPERATOIRE.html` ne cite pas 10/11/12), puis sur 4 fixtures isolées (marqueur périmé, template absent de chaque fichier, nouveau template non cité)
+- **`07-DECISIONS-SDLC.md`** : `M-PROC-46`, tableau de compatibilité · **`00-CONTEXT.md` v1.9** : checklist §4 (10 contrôles, livrables HTML)
+- **Site `docs/`** : `meta.json`, `versions.md`, `modules.md` (10 contrôles, rôle de la ligne 12 raccourci), `decisions.md`
+- **Observation notée, non traitée ce sprint** : `03-wrap-up-SKILL-TEMPLATE.md §Étape 3.5` écrit encore « N/8 » (le nombre de contrôles a changé deux fois) — modifier un template hors scope Doc/L ; candidat `LESSONS_LEARNED`
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **10/10 ✅**, exit 0 · balises HTML équilibrées (2 fichiers) · rendu vérifié par captures Chromium headless
+
 ## Publication GitHub — 2026-09-21 · hors versionnement du modèle (pas de bump)
 - **`sdlc-init.sh`** : `SDLC_VERSION` codé en dur à `v1.3` (jamais mis à jour depuis v1.3) → lu depuis `README.md` ; corrige l'avertissement faux « Marqueur SDLC version non trouvé » et le message « bootstrap SDLC v1.3 » détectés au test de bout en bout
 - **`README.md`** : en-tête de contexte, schéma de la boucle de rétroaction, URL de clone réelle, historique des versions repliable

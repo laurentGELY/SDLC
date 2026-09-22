@@ -574,6 +574,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-44 | Garde-fou traçabilité `sprint-memory.md` — avertissement non bloquant en Bilan §0d du wrap-up | ✓ | — |
 | M-TMPL-07 | `12-audit-externe-TEMPLATE.md` — gabarit audit externe (7 sections, verdicts étiquetés, 6 axes), renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`) | ✓ | — |
 | M-PROC-45 | Contrôle C9 de `sdlc-validate.sh` — site `docs/` à jour (`meta.json` ↔ README, `versions.md`) | ✓ | — |
+| M-PROC-46 | Contrôle C10 de `sdlc-validate.sh` — livrables HTML `SPEC.html`/`MODE-OPERATOIRE.html` à jour (marqueur de version, carte des templates) | ✓ | — |
 
 ---
 
@@ -2320,4 +2321,54 @@ skill-wrapup,skill-retro,contexte,decisions}.md` (rattrapage ECO-1 → SDLC-29) 
 **Déclencheur de réouverture :** si le site est un jour généré par un build
 (le contrôle (a) devient redondant), ou si un faux positif apparaît sur (b)
 lors d'un bump de version au format inhabituel (sans `+`).
+
+---
+
+## M-PROC-46 · Contrôle C10 — livrables HTML à jour · v2.0+SDLC-30 · 21/09/2026
+
+**Contexte :** `docs/SPEC.html` et `docs/MODE-OPERATOIRE.html` (livrables de
+lecture humaine, v1.4 — 04/06/2026) n'ont pas suivi le modèle : « Les 10
+fichiers du modèle » alors que 14 fichiers numérotés existent, « 19
+décisions » pour 74 entrées au registre, aucune mention de `sdlc-validate`,
+de la barre qualité, de la vérification factuelle ni du template 12. Le
+rattrapage du site (`M-PROC-45`) les avait laissés hors périmètre ; leur
+retard a été mesuré au sprint SDLC-30. Même défaut structurel que `M-PROC-45`
+et `M-PROC-40` : un livrable écrit à la main, vérifié par personne.
+
+**Retenu :** `check_c10` dans `sdlc-validate.sh` — pour chacun des deux HTML :
+(a) le marqueur `SDLC version : <version de README.md §Version courante>` est
+présent ; (b) chaque template `NN-*.md` de la racine y est cité par son nom
+(attrape « N fichiers » figé quand un template s'ajoute). Contenu rattrapé
+dans le même sprint ; la table de 19 décisions de `SPEC.html` est remplacée
+par la carte des 6 familles + une commande de comptage (`grep -c "^## M-"`)
+plutôt qu'un total recopié.
+
+**Écarté :**
+- **Recopier les 74 décisions dans `SPEC.html`** — écarté : une liste tenue à
+  la main dérive exactement comme la précédente ; le registre reste la source.
+- **Retirer les deux HTML au profit du site `docs/pages/`** — écarté : 5
+  fichiers vivants y renvoient (`README.md`, `00-CONTEXT.md`,
+  `06-PDR-bootstrap.md`, `01-`/`02-*-TEMPLATE.md`) et le prompt exact du
+  bootstrap comme le format `D-SYNC-XX` n'existent pas dans le site.
+- **Générer les HTML depuis le Markdown** — écarté : ajoute une étape de
+  build que ces fichiers autonomes (ouverts en `file://`) n'ont pas.
+- **Vérifier la justesse de la prose** — écarté : non mécanisable sans faux
+  positifs ; C10 vérifie qu'un livrable a été remis à la version courante,
+  pas qu'il est exact — limite assumée, le contenu se relit.
+
+**Raison :** le retard (v1.4 → v2.0+SDLC-29) est resté invisible parce que
+rien ne pouvait l'alerter. Le contrôle est peu coûteux (`grep`, aucune
+dépendance) et aurait échoué dès la première version suivant v1.4 ; le
+critère « chaque template est cité » se met à jour tout seul quand un
+template est ajouté.
+
+**Impact fichiers :** `sdlc-validate.sh` (+`check_c10`) ·
+`docs/SPEC.html` · `docs/MODE-OPERATOIRE.html` · `00-CONTEXT.md` v1.9
+(checklist §4) · `README.md` · `CHANGELOG.md` · `docs/meta.json` ·
+`docs/pages/{intro,versions,modules,decisions}.md`.
+
+**Déclencheur de réouverture :** si un troisième livrable HTML de lecture
+humaine est ajouté (l'étendre à C10 ou le fusionner avec le site), si un faux
+positif apparaît sur (b) — par exemple un template volontairement non cité —
+ou si ces deux fichiers sont un jour retirés au profit du site.
 

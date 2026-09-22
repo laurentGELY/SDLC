@@ -23,7 +23,7 @@ Cette carte est construite depuis l'état réel du repo (`ls *.md`), vérifiée 
 | 09 | `09-retrospective-SKILL-TEMPLATE.md` | Rétrospective + remontées SDLC | `.claude/skills/retrospective/` |
 | 10 | `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | *(Project Knowledge, hors repo)* |
 | 11 | `11-help-SKILL-TEMPLATE.md` | Skill `/help` — recap contexte | `.claude/skills/help/` |
-| 12 | `12-audit-externe-TEMPLATE.md` | Gabarit d'audit d'un framework tiers vs SDLC (7 sections, 6 axes, verdicts étiquetés) | *(guide toolkit, non copié)* |
+| 12 | `12-audit-externe-TEMPLATE.md` | Gabarit d'audit d'un framework tiers | *(guide toolkit, non copié)* |
 
 ## Les scripts
 
@@ -32,12 +32,12 @@ Cinq scripts bash à la racine, chacun autonome :
 | Script | Rôle |
 |--------|------|
 | `sdlc-init.sh` | Bootstrap mécanique d'un nouveau projet — lancé depuis la racine du projet cible |
-| `sdlc-validate.sh` | Vérifie la cohérence du modèle lui-même (9 contrôles) — lecture seule, exit 0 si tout est ✅ (`M-PROC-40`) |
+| `sdlc-validate.sh` | Vérifie la cohérence du modèle lui-même (10 contrôles) — lecture seule, exit 0 si tout est ✅ (`M-PROC-40`) |
 | `sdlc-delta.sh` | Pré-calcule l'écart de version d'un projet cible pour co-construire le PDR de `/sdlc-sync` (`M-PROC-25`) |
 | `sdlc-project-check.sh` | Génère ou met à jour `docs/CLAUDE_PROJECT.md` (fichiers de gouvernance à synchroniser dans Claude.ai) |
 | `sdlc-token-usage.sh` | Mesure la consommation de tokens réelle depuis les transcripts Claude Code (`M-PROC-36`) |
 
-### Les 9 contrôles de `sdlc-validate.sh`
+### Les 10 contrôles de `sdlc-validate.sh`
 
 | # | Contrôle |
 |---|----------|
@@ -50,6 +50,7 @@ Cinq scripts bash à la racine, chacun autonome :
 | C7 | Unicité des identifiants `M-XXXX-NN` |
 | C8 | Syntaxe de tous les scripts shell |
 | C9 | Site `docs/` à jour : `meta.json` ↔ `README.md`, `versions.md` (`M-PROC-45`) |
+| C10 | Livrables HTML à jour : marqueur de version et carte des templates de `SPEC.html` et `MODE-OPERATOIRE.html` (`M-PROC-46`) |
 
 Le script est un **registre** : ajouter un contrôle = une fonction `check_cN` et une ligne dans `CHECKS=(…)`.
 

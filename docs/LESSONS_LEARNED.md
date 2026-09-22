@@ -33,6 +33,12 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-30 — 21/09/2026 — Rattrapage `SPEC.html` / `MODE-OPERATOIRE.html` + contrôle C10 (M-PROC-46)
+**Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 10/10, exit 0.
+**Processus :** Vérification factuelle avant PDR a trouvé un retard structurel (2 HTML figés à v1.4 depuis 23 versions, invisible faute de contrôle) — même famille que `M-PROC-45`. En session, 4 chiffres écrits à la main ont dérivé du réel avant d'être corrigés : « 31 blocs de commandes » cité au plan (réel : 8 blocs, 5 copiables — confondu avec un compte de lignes `grep`), « 13 templates » (réel : 14), « ~25 versions » dans un commentaire de `check_c10` (réel : 23), « 29 sprints » dans le README (c'est le 30e). Tous trouvés par la revue adverse ou l'utilisateur, aucun resté en l'état.
+**Lien pattern :** confirme `LL-T04` (vérification factuelle) sur un axe nouveau — pas seulement une précondition d'analyse, mais tout chiffre écrit à la main dans un livrable (compte de fichiers, de blocs, de sprints) dérive de la même façon qu'une version non contrôlée. Proche de `LL-T13` (identifiant erroné qui reste incorrect faute de contrôle) mais porte sur des comptages, pas des références.
+**Action proposée :** candidat pour `/retrospective` — évaluer si un motif générique (« ne jamais écrire un total sans `grep -c` à l'appui, y compris en commentaire de code ») mérite sa propre entrée d'index plutôt que de rester sous `LL-T04`.
+
 ### Sprint SDLC-29 — 04/09/2026 — `12-audit-externe-TEMPLATE.md` (P-22)
 **Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 8/8, exit 0.
 **Processus :** Vérification factuelle avant PDR a trouvé une collision de numérotation réelle (`10-audit-externe-TEMPLATE.md` prévu, `10-AMONT-TEMPLATE.md` déjà présent) jamais détectée par 6 fichiers historiques l'ayant mentionné — renuméroté `12-` avant tout code. Contenu non inventé : repris du squelette déjà écrit dans `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`. `sprint-memory.md` de nouveau réduit à son en-tête — `M-PROC-44` s'est déclenché pour la **2e fois consécutive** depuis son introduction hier ; signalé explicitement dans le Bilan, escalade proposée puis déclinée par l'utilisateur (RAS).

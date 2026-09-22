@@ -32,6 +32,7 @@ Pour donner le grain de ce que le registre contient :
 - **`M-PROC-36`** — métriques de tokens `M1`/`M2` remontées dans `/retrospective`.
 - **`M-PROC-40`** — `sdlc-validate.sh` : la cohérence du modèle se vérifie par un script, plus à l'œil.
 - **`M-PROC-45`** — contrôle C9 : la documentation publique est elle aussi vérifiée.
+- **`M-PROC-46`** — contrôle C10 : les deux livrables HTML de lecture humaine le sont aussi.
 
 ## La règle d'or d'évolution
 

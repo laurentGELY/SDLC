@@ -307,11 +307,53 @@ check_c9() {
   return $fail
 }
 
+check_c10() {
+  # Livrables HTML de lecture humaine à jour (M-PROC-46) — même famille de défaut
+  # que C9 : SPEC.html et MODE-OPERATOIRE.html sont restés figés à v1.4 jusqu'à
+  # v2.0+SDLC-29 (23 versions) sans alerte. Pour chacun :
+  # (a) le marqueur « SDLC version : <version du README> » est présent
+  # (b) chaque template numéroté à la racine (NN-*.md) est cité par son nom —
+  #     attrape « Les 10 fichiers du modèle » quand il y en a davantage.
+  # Limite assumée : présence de noms, pas justesse de la prose.
+  local fail=0 detail="" readme_v html f base missing
+  readme_v=$(grep -m1 -oE 'Version courante : [^ *]+' "$ROOT/README.md" | sed 's/Version courante : //')
+  for html in docs/SPEC.html docs/MODE-OPERATOIRE.html; do
+    if [ ! -f "$ROOT/$html" ]; then
+      fail=1
+      detail="${detail:+$detail
+}❌ $html — fichier absent"
+      continue
+    fi
+    if ! grep -qF -- "SDLC version : ${readme_v}" "$ROOT/$html"; then
+      fail=1
+      detail="${detail:+$detail
+}❌ $html — marqueur « SDLC version : ${readme_v} » absent"
+    fi
+    missing=""
+    for f in "$ROOT"/[0-9][0-9]*.md; do
+      [ -f "$f" ] || continue
+      base="$(basename "$f")"
+      grep -qF -- "$base" "$ROOT/$html" || missing="$missing $base"
+    done
+    if [ -n "$missing" ]; then
+      fail=1
+      detail="${detail:+$detail
+}❌ $html — template(s) non cité(s) :$missing"
+    fi
+  done
+  if [ "$fail" -eq 0 ]; then
+    report "C10 · Livrables HTML à jour (marqueur de version, carte des templates)" 0 ""
+  else
+    report "C10 · Livrables HTML à jour (marqueur de version, carte des templates)" 1 "$detail"
+  fi
+  return $fail
+}
+
 # ─── REGISTRE DE CONTRÔLES ────────────────────────────────────────────────────
 # Point d'extension pour les vagues 2/3 (ECO-2, ECO-3, …) :
 # 1) définir une fonction check_cN ci-dessus, qui appelle `report` et retourne 0/1
 # 2) l'ajouter à ce tableau, dans l'ordre où elle doit s'exécuter
-CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9)
+CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9 check_c10)
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

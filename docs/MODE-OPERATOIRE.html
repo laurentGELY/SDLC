@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- SDLC version : v2.0+SDLC-30 · aligné le 21/09/2026 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SDLC Toolkit — Mode opératoire</title>
@@ -496,7 +497,7 @@
 <nav>
   <div class="nav-logo">
     <span class="wordmark">SDLC Toolkit</span>
-    <span class="sub">Mode opératoire · v1.4</span>
+    <span class="sub">Mode opératoire · SDLC-30</span>
   </div>
 
   <div class="nav-section">Vue d'ensemble</div>
@@ -508,6 +509,7 @@
   <a href="#init">Initialiser un projet <span class="badge">sdlc-init</span></a>
   <a href="#sync">Mettre à jour un projet <span class="badge">sdlc-sync</span></a>
   <a href="#evolve">Faire évoluer le modèle</a>
+  <a href="#verify">Vérifier le modèle <span class="badge">sdlc-validate</span></a>
 
   <div class="nav-section">Référence</div>
   <a href="#files">Carte des fichiers</a>
@@ -523,7 +525,7 @@
     <h1>SDLC Toolkit<br><em>pour Claude Code</em></h1>
     <p>Gouvernance de projet reproductible : bootstrapper un nouveau projet, aligner un projet existant sur le modèle courant, faire évoluer le modèle lui-même.</p>
     <div class="version-tag">
-      Modèle SDLC <span>v1.4</span> · Mis à jour le <span>04/06/2026</span>
+      Modèle SDLC <span>v2.0+SDLC-30</span> · Mis à jour le <span>21/09/2026</span>
     </div>
   </div>
 
@@ -558,6 +560,31 @@
         <div class="card-title">Reprise après coupure</div>
         <p><code>.claude/sprint-memory.md</code> trace le sprint en cours (analyses, décisions, tests). Si la session s'interrompt — crash ou pause forcée par tranche horaire — le hook <code>PreCompact</code> y dépose automatiquement une entrée <code>CHECKPOINT</code> avant toute compaction, pour que la session suivante reprenne sans reconstruction manuelle.</p>
       </div>
+      <div class="card">
+        <div class="card-icon">🔎</div>
+        <div class="card-title">Vérification factuelle</div>
+        <p>Toute précondition qui ne se lit pas dans les fichiers du projet est confirmée par une commande ou une recherche <em>avant</em> d'entrer dans l'analyse. Sinon elle est signalée comme hypothèse, jamais comme fait.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📝</div>
+        <div class="card-title">Auto-revue du plan</div>
+        <p>Avant la demande d'aval, l'auteur du plan le relit en trois passes : couverture de la spec, placeholders (« TBD », « cas limites appropriés »…), cohérence des références. Un problème trouvé se corrige sur place.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📏</div>
+        <div class="card-title">Barre qualité</div>
+        <p><code>STANDARDS.md §Barre qualité</code> : seuils chiffrés avec leur commande de vérification, plancher non négociable, cliquet (le contexte permanent ne croît pas de plus de 10 % entre deux rétrospectives), exceptions datées.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <div class="card-title">sdlc-validate.sh</div>
+        <p>Le modèle se vérifie lui-même : contrôles exécutables en lecture seule, appelés à l'étape 3.5 du wrap-up. Voir <a href="#verify" style="color:var(--accent)">Vérifier le modèle</a>.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Site de documentation</div>
+        <p><code>docs/</code> est un site statique publié par GitHub Pages : les pages sont des fichiers Markdown éditables sans build. Sa version et son historique sont contrôlés par <code>sdlc-validate.sh</code>.</p>
+      </div>
     </div>
 
     <div class="callout info">
@@ -581,22 +608,27 @@
         <span class="code-label">Arborescence</span>
       </div>
       <pre>sdlc-toolkit/
-├── <span class="ok">00-CONTEXT.md</span>               <span class="comment"># Contexte Claude.ai — premier lu par Claude</span>
-├── 01-Claude-md-TEMPLATE.md  <span class="comment"># → Claude.md du projet cible</span>
-├── 02-STANDARDS-TEMPLATE.md  <span class="comment"># → STANDARDS.md du projet cible</span>
+├── <span class="ok">00-CONTEXT.md</span>                     <span class="comment"># Contexte Claude.ai — premier lu par Claude</span>
+├── 01-Claude-md-TEMPLATE.md          <span class="comment"># → Claude.md du projet cible</span>
+├── 02-STANDARDS-TEMPLATE.md          <span class="comment"># → STANDARDS.md du projet cible</span>
 ├── 03-wrap-up-SKILL-TEMPLATE.md
 ├── 04-sprint-PDR-TEMPLATE.md
-├── 04b-sdlc-sync-SKILL-TEMPLATE.md  <span class="comment"># → .claude/skills/sdlc-sync/SKILL.md</span>
+├── 04b-sdlc-sync-SKILL-TEMPLATE.md   <span class="comment"># → .claude/skills/sdlc-sync/SKILL.md</span>
 ├── 05-ROADMAP-TEMPLATE.md
-├── 06-PDR-bootstrap.md       <span class="comment"># Référence — le "pourquoi" du bootstrap</span>
-├── 07-DECISIONS-SDLC.md      <span class="comment"># Registre décisions du modèle</span>
+├── 06-PDR-bootstrap.md               <span class="comment"># Référence — le "pourquoi" du bootstrap</span>
+├── 07-DECISIONS-SDLC.md              <span class="comment"># Registre décisions du modèle</span>
 ├── 08-hooks-TEMPLATE.md
 ├── 09-retrospective-SKILL-TEMPLATE.md
-├── <span class="ok">docs/MODE-OPERATOIRE.html</span>  <span class="comment"># Ce document</span>
-└── <span class="cmd">sdlc-init.sh</span>              <span class="comment"># Script bootstrap — point d'entrée principal</span>
+├── 10-AMONT-TEMPLATE.md              <span class="comment"># Phase amont — Project Claude.ai, hors repo</span>
+├── 11-help-SKILL-TEMPLATE.md
+├── 12-audit-externe-TEMPLATE.md      <span class="comment"># Guide toolkit — audit d'un framework tiers</span>
+├── <span class="cmd">sdlc-init.sh</span>                      <span class="comment"># Script bootstrap — point d'entrée principal</span>
+├── <span class="cmd">sdlc-validate.sh</span>                  <span class="comment"># Vérifie la cohérence du modèle</span>
+├── sdlc-delta.sh · sdlc-project-check.sh · sdlc-token-usage.sh
 └── docs/
-    ├── SPEC.html                    <span class="comment"># Spec fonctionnelle du modèle</span>
-    └── MODE-OPERATOIRE.html         <span class="comment"># Ce document</span></pre>
+    ├── <span class="ok">MODE-OPERATOIRE.html</span>          <span class="comment"># Ce document</span>
+    ├── SPEC.html                     <span class="comment"># Spec fonctionnelle du modèle</span>
+    └── index.html · pages/           <span class="comment"># Site de documentation (GitHub Pages)</span></pre>
     </div>
   </section>
 
@@ -674,7 +706,7 @@
 bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"</pre>
     </div>
 
-    <p>Le script crée la structure complète, remplace les placeholders mécaniques (<code>[Nom du projet]</code>, date), et dépose le skill <code>/sdlc-sync</code> dans <code>.claude/skills/</code>.</p>
+    <p>Le script crée la structure complète (<code>Claude.md</code>, <code>STANDARDS.md</code>, hook <code>pre-tool-bash.sh</code>, dossiers <code>docs/</code> et <code>specs/</code>), remplace les placeholders mécaniques (<code>[Nom du projet]</code>, date), et dépose les skills <code>/wrap-up</code>, <code>/retrospective</code>, <code>/sdlc-sync</code> et <code>/diagnostic</code> dans <code>.claude/skills/</code>. Il affiche la version du modèle appliquée et vérifie la présence du marqueur de version.</p>
 
     <h3>Étape 2 — Ouvrir Claude Code et compléter</h3>
 
@@ -690,12 +722,14 @@ bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"</pre>
 - §Limites bash : [lister les actions impossibles en bash]
 - §Démarrage §2 : commandes d'état spécifiques au projet
 - §Carte des étapes dans STANDARDS.md : vider, sera rempli sprint 1
+- §Barre qualité dans STANDARDS.md : compléter les seuils (zéro [À REMPLIR])
 - specs/SPEC.md : structure vide du domaine (§Vue d'ensemble · §Architecture · §Modules)
 - .claude/skills/diagnostic/SKILL.md : commandes de diagnostic du système
 - Décider des sections [ACTIVER si…] dans pre-tool-bash.sh
 
 Grep de validation final :
-grep "\[→ ADAPTER\]\|\[Nom du projet\]\|\[ACTIVER" Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
+grep "\[→ ADAPTER\]\|\[Nom du projet\]\|\[ACTIVER\|\[À REMPLIR\]" \
+  Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
 → zéro résultat attendu avant le commit.</pre>
     </div>
 
@@ -715,14 +749,14 @@ echo '{"tool":"bash","input":{"command":"echo ok"}}' \
 <span class="comment"># Commit</span>
 git add -A
 git diff --stat HEAD  <span class="comment"># vérifier la liste</span>
-git commit -m "chore: bootstrap SDLC v1.3"</pre>
+git commit -m "chore: bootstrap SDLC vX.Y"  <span class="comment"># vX.Y = version affichée par sdlc-init.sh</span></pre>
     </div>
 
     <div class="callout success">
       <div class="callout-icon">✅</div>
       <div class="callout-body">
         <strong>Critères d'acceptation</strong>
-        <p>Marqueur <code>SDLC version</code> présent · zéro placeholder résiduel · hook smoke test exit 0 · <code>CHANGELOG.md</code> avec entrée Sprint 0 · <code>docs/ROADMAP.md</code> avec Sprint 1 en §Now.</p>
+        <p>Marqueur <code>SDLC version</code> présent · zéro placeholder résiduel (dont <code>[À REMPLIR]</code> de la barre qualité) · hook smoke test exit 0 · <code>CHANGELOG.md</code> avec entrée Sprint 0 · <code>docs/ROADMAP.md</code> avec Sprint 1 en §Now.</p>
       </div>
     </div>
   </section>
@@ -756,6 +790,16 @@ git commit -m "chore: bootstrap SDLC v1.3"</pre>
         <button class="copy-btn" onclick="copyCode(this)">Copier</button>
       </div>
       <pre>/sdlc-sync</pre>
+    </div>
+
+    <p>Pour co-construire le PDR de synchronisation dans Claude.ai plutôt que directement dans le projet, <code>sdlc-delta.sh</code> pré-calcule l'écart et produit un bloc structuré à coller :</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-label">bash</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+      </div>
+      <pre>bash /chemin/vers/sdlc-toolkit/sdlc-delta.sh /chemin/vers/projet-cible</pre>
     </div>
 
     <h3>Règle de tri — ce que fait Claude à l'étape B</h3>
@@ -829,7 +873,7 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">Vérifier les invariants</div>
-          <p>Lire <code>00-README.md</code> §3 avant toute modification. Les 4 invariants (vérification exécutable, circuit fermé, contexte chirurgical, boucle de rétroaction) doivent être préservés ou la violation explicitement justifiée.</p>
+          <p>Lire <code>00-CONTEXT.md</code> §Invariants avant toute modification. Les 4 invariants (vérification exécutable, circuit fermé, contexte chirurgical, boucle de rétroaction) doivent être préservés ou la violation explicitement justifiée.</p>
         </div>
       </div>
       <div class="step">
@@ -847,18 +891,39 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
         <div class="step-num">4</div>
         <div class="step-body">
           <div class="step-title">Documenter dans 07-DECISIONS-SDLC.md</div>
-          <p>Nouvelle entrée <code>M-XXXX-NN</code> avec décision retenue, alternative écartée, justification. Ajouter la décision au tableau de compatibilité avec sa qualification universelle / conditionnelle.</p>
+          <p>Nouvelle entrée <code>M-XXXX-NN</code> avec contexte, décision retenue, alternative écartée, raison, impact fichiers et déclencheur de réouverture. Ajouter la décision au tableau de compatibilité avec sa qualification universelle / conditionnelle.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">5</div>
         <div class="step-body">
-          <div class="step-title">Mettre à jour 00-README.md</div>
-          <p>Incrémenter la version dans §Historique des versions. Cocher la checklist §4.</p>
+          <div class="step-title">Mettre à jour 00-CONTEXT.md et README.md</div>
+          <p>Cocher la checklist §4 de <code>00-CONTEXT.md</code>. Dans <code>README.md</code> : ligne <code>Version courante</code> et <code>§Historique des versions</code>. Ajouter l'entrée <code>CHANGELOG.md</code>.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-title">Mettre à jour la documentation publiée</div>
+          <p><code>docs/meta.json</code> (version) et <code>docs/pages/versions.md</code> (ligne du sprint) pour le site ; marqueur <code>SDLC version</code> en tête de <code>docs/SPEC.html</code> et de ce document, avec tout nouveau fichier numéroté ajouté à leur carte. Ces points sont contrôlés par <code>sdlc-validate.sh</code> (C9, C10).</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-title">Vérifier</div>
+          <p>Le modèle se vérifie lui-même — tous les contrôles doivent être ✅ avant le commit. Voir <a href="#verify" style="color:var(--accent)">Vérifier le modèle</a>.</p>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-label">bash</span>
+              <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+            </div>
+            <pre>bash sdlc-validate.sh</pre>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
         <div class="step-body">
           <div class="step-title">Sync Claude.ai + commit</div>
           <p>Remplacer les fichiers modifiés dans le projet Claude.ai "Modèle SDLC". Committer avec <code>docs(sdlc): description · vX.Y → vZ.W</code>.</p>
@@ -871,6 +936,49 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
       <div class="callout-body">
         <strong>Après une évolution du modèle</strong>
         <p>Tous les projets avec un marqueur de version antérieur à la nouvelle version sont désormais candidats à un <code>/sdlc-sync</code>. Ce n'est pas automatique — c'est une décision humaine au cas par cas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VERIFY -->
+  <section id="verify">
+    <div class="section-label">Opération 4</div>
+    <h2>Vérifier le modèle</h2>
+
+    <p>Le modèle applique à lui-même sa première règle : aucune affirmation de cohérence sans commande exacte. <code>sdlc-validate.sh</code> contrôle le dépôt du toolkit — pas les copies dans les projets cibles. Il est en lecture seule, ne fait aucun appel réseau, et s'appelle depuis la racine ou n'importe où (il résout ses chemins seul).</p>
+
+    <div class="code-block">
+      <div class="code-header">
+        <span class="code-label">bash</span>
+        <button class="copy-btn" onclick="copyCode(this)">Copier</button>
+      </div>
+      <pre>bash sdlc-validate.sh
+<span class="comment"># exit 0 = tous ✅ · 1 = au moins un ❌ · 2 = erreur du script</span></pre>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>Contrôle</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>C1</td><td>Version <code>README.md</code> ↔ dernière entrée <code>CHANGELOG.md</code></td></tr>
+        <tr><td>C2</td><td>En-tête de version sur chaque template</td></tr>
+        <tr><td>C3</td><td>Aucun placeholder résiduel hors fichiers de référence</td></tr>
+        <tr><td>C4</td><td>Parité structurelle template ↔ skill vivant</td></tr>
+        <tr><td>C5</td><td>Parité du schéma JSON du hook, template ↔ hooks actifs</td></tr>
+        <tr><td>C6</td><td>Carte des fichiers : disque ↔ <code>00-CONTEXT.md</code></td></tr>
+        <tr><td>C7</td><td>Unicité des identifiants <code>M-XXXX-NN</code></td></tr>
+        <tr><td>C8</td><td>Syntaxe de tous les scripts shell</td></tr>
+        <tr><td>C9</td><td>Site <code>docs/</code> à jour : <code>meta.json</code> ↔ <code>README.md</code>, <code>versions.md</code></td></tr>
+        <tr><td>C10</td><td>Livrables HTML à jour : marqueur de version, et chaque template numéroté présent dans <code>SPEC.html</code> et ce document</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout info">
+      <div class="callout-icon">ℹ️</div>
+      <div class="callout-body">
+        <strong>Ce que ces contrôles ne disent pas</strong>
+        <p>C9 et C10 vérifient qu'un livrable a été remis à la version courante, pas que sa prose est juste : le contenu se relit. Ajouter un contrôle = une fonction <code>check_cN</code> et une ligne dans le registre <code>CHECKS</code> du script.</p>
       </div>
     </div>
   </section>
@@ -895,13 +1003,34 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
         <tr><td>05-ROADMAP-TEMPLATE.md</td><td>docs/ROADMAP.md</td><td>Sprint 1 en §Now, vider §Next et §Later</td></tr>
         <tr><td>08-hooks-TEMPLATE.md §1</td><td>.claude/hooks/pre-tool-bash.sh</td><td>Activer les sections pertinentes · chmod +x</td></tr>
         <tr><td>08-hooks-TEMPLATE.md §2</td><td>.claude/settings.json</td><td>Copier tel quel</td></tr>
+        <tr><td>08-hooks-TEMPLATE.md §PreCompact</td><td>.claude/hooks/pre-compact.sh</td><td>Optionnel — à activer consciemment</td></tr>
         <tr><td>09-retrospective-SKILL-TEMPLATE.md</td><td>.claude/skills/retrospective/SKILL.md</td><td>Copier tel quel</td></tr>
+        <tr><td>10-AMONT-TEMPLATE.md</td><td>Project Knowledge Claude.ai (hors repo)</td><td>Optionnel — phase amont</td></tr>
+        <tr><td>11-help-SKILL-TEMPLATE.md</td><td>.claude/skills/help/SKILL.md</td><td>Copier tel quel — non déposé par <code>sdlc-init.sh</code></td></tr>
+        <tr><td>12-audit-externe-TEMPLATE.md</td><td><em>(guide toolkit)</em></td><td>Non copié — audit d'un framework tiers</td></tr>
         <tr><td><em>from scratch</em></td><td>CHANGELOG.md</td><td>Header + entrée Sprint 0</td></tr>
         <tr><td><em>from scratch</em></td><td>docs/DECISIONS.md</td><td>Header + conventions préfixes</td></tr>
         <tr><td><em>from scratch</em></td><td>docs/LESSONS_LEARNED.md</td><td>§Index vide + format</td></tr>
         <tr><td><em>from scratch</em></td><td>docs/DIAGNOSTIC_CMDS.md</td><td>Header + format</td></tr>
         <tr><td><em>from scratch</em></td><td>specs/SPEC.md</td><td>Structure vide du domaine</td></tr>
         <tr><td><em>from scratch</em></td><td>.claude/skills/diagnostic/SKILL.md</td><td>Commandes de diagnostic du système</td></tr>
+      </tbody>
+    </table>
+
+    <p>Cinq fichiers du toolkit ne sont jamais copiés dans un repo cible : <code>00-CONTEXT.md</code> (contexte Claude.ai), <code>06-PDR-bootstrap.md</code> (guide du Sprint 0), <code>07-DECISIONS-SDLC.md</code> (registre des décisions sur le modèle), <code>10-AMONT-TEMPLATE.md</code> (Project Claude.ai) et <code>12-audit-externe-TEMPLATE.md</code> (guide toolkit).</p>
+
+    <h3>Scripts du toolkit</h3>
+
+    <table>
+      <thead>
+        <tr><th>Script</th><th>Rôle</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>sdlc-init.sh</td><td>Bootstrap mécanique d'un nouveau projet — lancé depuis la racine du projet cible</td></tr>
+        <tr><td>sdlc-validate.sh</td><td>Vérifie la cohérence du modèle lui-même — lecture seule</td></tr>
+        <tr><td>sdlc-delta.sh</td><td>Pré-calcule l'écart de version d'un projet cible pour le PDR de <code>/sdlc-sync</code></td></tr>
+        <tr><td>sdlc-project-check.sh</td><td>Génère ou met à jour <code>docs/CLAUDE_PROJECT.md</code></td></tr>
+        <tr><td>sdlc-token-usage.sh</td><td>Mesure la consommation de tokens réelle depuis les transcripts Claude Code</td></tr>
       </tbody>
     </table>
   </section>
@@ -920,6 +1049,7 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
         <tr><td>Fix</td><td>Correction de bug ou régression</td><td>Code corrigé + test non-régression</td></tr>
         <tr><td>Tuning</td><td>Seuils, prompts, paramètres</td><td>Mesure avant/après + DECISIONS.md</td></tr>
         <tr><td>Doc</td><td>Documentation, process, SDLC</td><td>Fichiers doc mis à jour, zéro code</td></tr>
+        <tr><td>Revue</td><td>Audit ou backlog — lecture et recommandations, sans modifier le livrable audité</td><td>Recommandations étiquetées (IMPORTER / REJETER…) + /wrap-up</td></tr>
         <tr><td>Spike</td><td>Investigation bornée dans le temps</td><td>Décision dans DECISIONS.md (pas de code)</td></tr>
         <tr><td>Dette</td><td>Remboursement dette technique</td><td>Code nettoyé + test de non-régression</td></tr>
         <tr><td>SDLC-Sync</td><td>Alignement sur version SDLC plus récente</td><td>Marqueur version à jour + D-SYNC-XX</td></tr>
@@ -942,6 +1072,7 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
         <tr><td>/wrap-up</td><td>Clôture de sprint</td><td>Fin de chaque sprint</td></tr>
         <tr><td>/retrospective</td><td>Analyse de patterns sur N sprints</td><td>Toutes les ~5 sprints ou après incident</td></tr>
         <tr><td>/diagnostic</td><td>Bug ou comportement inattendu</td><td>Sur incident</td></tr>
+        <tr><td>/help</td><td>Recap en lecture seule : où on en est, où on va, outils disponibles</td><td>À la demande, en reprise de session</td></tr>
       </tbody>
     </table>
 
@@ -949,7 +1080,7 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
       <div class="callout-icon">ℹ️</div>
       <div class="callout-body">
         <strong>Note sur /sdlc-init</strong>
-        <p>Ce skill n'existe pas dans un repo vide — il est déposé par <code>sdlc-init.sh</code> lors du bootstrap. Le script est le vrai point d'entrée pour un nouveau projet.</p>
+        <p>Ce skill n'existe pas dans un repo vide — le script <code>sdlc-init.sh</code> est le vrai point d'entrée pour un nouveau projet. Il dépose <code>/wrap-up</code>, <code>/retrospective</code>, <code>/sdlc-sync</code> et <code>/diagnostic</code> ; <code>/help</code> se copie depuis <code>11-help-SKILL-TEMPLATE.md</code>.</p>
       </div>
     </div>
   </section>

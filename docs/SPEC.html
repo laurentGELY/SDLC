@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modèle de gouvernance SDLC · Claude Code · v1.2</title>
+<title>Modèle de gouvernance SDLC · Claude Code · v2.0+SDLC-30</title>
+<!-- SDLC version : v2.0+SDLC-30 · aligné le 21/09/2026 -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,600;0,900;1,300&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -414,7 +415,7 @@
   /* ── WORKFLOW ── */
   .workflow-row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 2px;
     margin-bottom: 16px;
   }
@@ -540,7 +541,7 @@
   <div class="header-label">Modèle de gouvernance · Claude Code</div>
   <h1>SDLC<br><em>by design,</em><br>not by habit.</h1>
   <p class="header-sub">Un kit de templates et procédures pour structurer chaque projet Claude Code — du bootstrap au dernier sprint.</p>
-  <span class="version-badge">v1.4 · 04/06/2026 · 10 fichiers</span>
+  <span class="version-badge">v2.0+SDLC-30 · 21/09/2026</span>
 </header>
 
 <main>
@@ -584,8 +585,8 @@
   <!-- CARTE DES FICHIERS -->
   <section>
     <div class="section-label">Architecture</div>
-    <h2>Les 10 fichiers du modèle</h2>
-    <p class="section-intro">Chaque fichier a un rôle unique. Certains sont copiés tels quels dans les projets cibles, d'autres adaptés, d'autres créés from scratch.</p>
+    <h2>Les fichiers du modèle</h2>
+    <p class="section-intro">Chaque fichier a un rôle unique. Certains sont copiés tels quels dans les projets cibles, d'autres adaptés, d'autres créés from scratch. La carte complète est tenue dans 00-CONTEXT.md et vérifiée par sdlc-validate.sh.</p>
 
     <div class="files-grid">
 
@@ -594,46 +595,49 @@
         <div class="file-number">00</div>
         <div class="file-name">00-CONTEXT.md</div>
         <div class="file-role">Conscience du projet SDLC</div>
-        <div class="file-desc">Les 4 invariants, la carte des fichiers, la checklist d'évolution et l'historique des versions. Jamais copié dans les projets cibles.</div>
+        <div class="file-desc">Les 4 invariants, la carte des fichiers, la checklist d'évolution, les règles de rédaction des templates. Jamais copié dans les projets cibles.</div>
         <span class="file-dest meta">ce projet uniquement</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-adapt">adapter</span>
         <div class="file-number">01</div>
         <div class="file-name">01-Claude-md-TEMPLATE.md</div>
         <div class="file-role">Instructions permanentes Claude Code</div>
-        <div class="file-desc">Rôle, règles absolues, démarrage de session, workflow d'analyse, plan de test avec commande exacte obligatoire, /wrap-up et /retrospective.</div>
+        <div class="file-desc">Rôle, règles absolues, démarrage de session, mémoire de sprint, analyse (vérification factuelle, auto-revue du plan, verdict PASS / CONCERNS / FAIL), plan de test avec commande exacte, /wrap-up et /retrospective.</div>
         <span class="file-dest">→ Claude.md (racine repo)</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-adapt">adapter</span>
         <div class="file-number">02</div>
         <div class="file-name">02-STANDARDS-TEMPLATE.md</div>
         <div class="file-role">Definition of Done &amp; standards</div>
-        <div class="file-desc">DoD livrable + clôture, types de sprint (Feature/Fix/Tuning/Doc/Spike/Dette), niveaux de test A/B/C, modules partagés, observabilité.</div>
+        <div class="file-desc">DoD livrable + clôture, types de sprint, niveaux de test A/B/C, modules partagés, observabilité, barre qualité chiffrée (seuils, plancher, cliquet, exceptions datées).</div>
         <span class="file-dest">→ STANDARDS.md (racine repo)</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-adapt">adapter</span>
         <div class="file-number">03</div>
         <div class="file-name">03-wrap-up-SKILL-TEMPLATE.md</div>
         <div class="file-role">Procédure de clôture de sprint</div>
-        <div class="file-desc">7 étapes : bilan session ancré sur git, rétrospective (3 questions), LESSONS_LEARNED avec tags HOOK_CANDIDATE et SDLC_CANDIDATE, docs, commit, amorce session suivante.</div>
+        <div class="file-desc">Étapes 0 à 6 : bilan de session ancré sur git, rétrospective (3 questions), LESSONS_LEARNED avec HOOK_CANDIDATE et SDLC_CANDIDATE, documentation, vérification pré-commit (sdlc-validate.sh), commit, amorce de la session suivante. Revue adverse pour les sprints M et L.</div>
         <span class="file-dest">→ .claude/skills/wrap-up/SKILL.md</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-copy">copier</span>
         <div class="file-number">04</div>
         <div class="file-name">04-sprint-PDR-TEMPLATE.md</div>
         <div class="file-role">Spec de sprint (PDR)</div>
-        <div class="file-desc">Contexte, objectif, portée, option retenue, contraintes + champ Interdit, critères d'acceptation avec commande exacte + Given/When/Then, risques, pre-mortem, handoff.</div>
+        <div class="file-desc">Contexte, objectif, portée, contraintes + champ Interdit, critères d'acceptation avec commande exacte + Given/When/Then, §Pas de placeholders, risques, handoff.</div>
         <span class="file-dest">→ specs/sprint-template.md</span>
       </div>
-
+      <div class="file-card">
+        <span class="file-tag tag-copy">copier</span>
+        <div class="file-number">04b</div>
+        <div class="file-name">04b-sdlc-sync-SKILL-TEMPLATE.md</div>
+        <div class="file-role">Skill /sdlc-sync</div>
+        <div class="file-desc">Aligne un projet existant sur la version courante du modèle en 4 étapes : inventaire, tri, application après aval humain, trace D-SYNC-XX. Le tuning local prime toujours.</div>
+        <span class="file-dest">→ .claude/skills/sdlc-sync/SKILL.md</span>
+      </div>
       <div class="file-card">
         <span class="file-tag tag-adapt">adapter</span>
         <div class="file-number">05</div>
@@ -642,41 +646,108 @@
         <div class="file-desc">Structure tripartite avec règles de passage entre colonnes, seuils métriques déclencheurs, signaux faibles, tailles de référence XS/S/M/L.</div>
         <span class="file-dest">→ docs/ROADMAP.md</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-meta">guide</span>
         <div class="file-number">06</div>
         <div class="file-name">06-PDR-bootstrap.md</div>
         <div class="file-role">Guide opérationnel Sprint 0</div>
-        <div class="file-desc">Plan d'exécution en 9 étapes avec greps de validation, carte complète des fichiers à créer (6 groupes), critères d'acceptation, risques du bootstrap.</div>
+        <div class="file-desc">Plan d'exécution en 9 étapes avec greps de validation, carte complète des fichiers à créer, critères d'acceptation, risques du bootstrap, procédure de mise à jour d'un projet existant.</div>
         <span class="file-dest meta">guide d'exécution, pas copié</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-meta">méta</span>
         <div class="file-number">07</div>
         <div class="file-name">07-DECISIONS-SDLC.md</div>
         <div class="file-role">Registre des décisions sur le modèle</div>
-        <div class="file-desc">19 entrées M-ARCH / M-TMPL / M-PROC / M-SCOPE / M-HOOKS. Chaque décision : retenue · écartée · justification. Trace complète de l'évolution du modèle.</div>
+        <div class="file-desc">Décisions M-ARCH / M-ENV / M-HOOKS / M-PROC / M-SCOPE / M-TMPL. Chaque décision : contexte, retenu, écarté, raison, impact fichiers, déclencheur de réouverture. Trace complète de l'évolution du modèle.</div>
         <span class="file-dest meta">ce projet uniquement</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-adapt">adapter</span>
         <div class="file-number">08</div>
         <div class="file-name">08-hooks-TEMPLATE.md</div>
-        <div class="file-role">Hook PreToolUse Bash + settings</div>
-        <div class="file-desc">pre-tool-bash.sh Python générique avec blocages universels et 6 sections [ACTIVER si…] commentées. settings.json + settings.local.json. Boucle de rétroaction documentée.</div>
+        <div class="file-role">Hooks &amp; settings</div>
+        <div class="file-desc">pre-tool-bash.sh Python générique avec blocages universels et sections [ACTIVER si…] commentées ; settings.json et settings.local.json ; PostToolUse et PreCompact optionnels (checkpoint de la mémoire de sprint) ; boucle de rétroaction ; confinement natif.</div>
         <span class="file-dest">→ .claude/hooks/</span>
       </div>
-
       <div class="file-card">
         <span class="file-tag tag-copy">copier</span>
         <div class="file-number">09</div>
         <div class="file-name">09-retrospective-SKILL-TEMPLATE.md</div>
         <div class="file-role">Procédure de rétrospective</div>
-        <div class="file-desc">6 étapes : chargement contexte, analyse patterns, actions internes, remontées modèle SDLC (SDLC_CANDIDATE), mise à jour LESSONS_LEARNED, index patterns. Seuils de déclenchement.</div>
+        <div class="file-desc">Étapes 1 à 7 : chargement du contexte, analyse des patterns, alertes de découverte significative, actions internes, remontées SDLC_CANDIDATE, index des patterns, champs décision, métriques tokens optionnelles (M1/M2, cliquet de 10 %).</div>
         <span class="file-dest">→ .claude/skills/retrospective/SKILL.md</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-meta">amont</span>
+        <div class="file-number">10</div>
+        <div class="file-name">10-AMONT-TEMPLATE.md</div>
+        <div class="file-role">Phase amont Claude.ai</div>
+        <div class="file-desc">Instructions d'un Project Claude.ai dédié à l'idéation, au cadrage produit et à l'architecture. Optionnel : Claude Code prend le relais au Sprint 0.</div>
+        <span class="file-dest meta">Project Knowledge, hors repo</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-copy">copier</span>
+        <div class="file-number">11</div>
+        <div class="file-name">11-help-SKILL-TEMPLATE.md</div>
+        <div class="file-role">Skill /help</div>
+        <div class="file-desc">Recap en lecture seule — sprint-memory, ROADMAP §Now / §Next, classification de Claude.md — sans aucune suggestion.</div>
+        <span class="file-dest">→ .claude/skills/help/SKILL.md</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-meta">guide</span>
+        <div class="file-number">12</div>
+        <div class="file-name">12-audit-externe-TEMPLATE.md</div>
+        <div class="file-role">Gabarit d'audit externe</div>
+        <div class="file-desc">Compare le modèle à un framework tiers : 7 sections, tableau à 6 axes, verdicts IMPORTER / REJETER / INVESTIGUER / MERGER.</div>
+        <span class="file-dest meta">guide toolkit, pas copié</span>
+      </div>
+
+    </div>
+
+    <p class="section-intro" style="margin-top:32px">Cinq scripts bash à la racine outillent le modèle.</p>
+
+    <div class="files-grid">
+
+      <div class="file-card">
+        <span class="file-tag tag-scratch">script</span>
+        <div class="file-number">sh</div>
+        <div class="file-name">sdlc-init.sh</div>
+        <div class="file-role">Bootstrap mécanique</div>
+        <div class="file-desc">Crée la structure de gouvernance d'un nouveau projet depuis la racine de celui-ci.</div>
+        <span class="file-dest meta">racine du toolkit</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-scratch">script</span>
+        <div class="file-number">sh</div>
+        <div class="file-name">sdlc-validate.sh</div>
+        <div class="file-role">Vérification du modèle</div>
+        <div class="file-desc">Contrôles de cohérence du modèle lui-même — lecture seule, code de sortie 0 si tout est ✅.</div>
+        <span class="file-dest meta">racine du toolkit</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-scratch">script</span>
+        <div class="file-number">sh</div>
+        <div class="file-name">sdlc-delta.sh</div>
+        <div class="file-role">Delta de version</div>
+        <div class="file-desc">Pré-calcule l'écart entre un projet cible et la version courante, pour co-construire le PDR de /sdlc-sync.</div>
+        <span class="file-dest meta">racine du toolkit</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-scratch">script</span>
+        <div class="file-number">sh</div>
+        <div class="file-name">sdlc-project-check.sh</div>
+        <div class="file-role">Fichiers Claude.ai</div>
+        <div class="file-desc">Génère ou met à jour docs/CLAUDE_PROJECT.md, la liste des fichiers de gouvernance à synchroniser.</div>
+        <span class="file-dest meta">racine du toolkit</span>
+      </div>
+      <div class="file-card">
+        <span class="file-tag tag-scratch">script</span>
+        <div class="file-number">sh</div>
+        <div class="file-name">sdlc-token-usage.sh</div>
+        <div class="file-role">Consommation réelle</div>
+        <div class="file-desc">Mesure les tokens consommés depuis les transcripts Claude Code.</div>
+        <span class="file-dest meta">racine du toolkit</span>
       </div>
 
     </div>
@@ -785,6 +856,46 @@
         </div>
       </div>
     </div>
+
+    <div class="circuit" style="margin-top:2px">
+      <div class="circuit-title">
+        Circuit vérification du modèle
+        <span class="circuit-tag" style="background:var(--blue-soft);color:var(--blue)">sdlc-validate</span>
+      </div>
+      <div class="circuit-flow">
+        <div class="flow-step">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Le modèle change</div>
+            <div class="flow-step-desc">Un template, un script ou une page de documentation est modifié.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Décision tracée</div>
+            <div class="flow-step-desc">Une entrée M-XXXX-NN est ajoutée au registre, avec son tableau de compatibilité.</div>
+            <div class="flow-step-file">07-DECISIONS-SDLC.md</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">bash sdlc-validate.sh</div>
+            <div class="flow-step-desc">Contrôles en lecture seule : version, en-têtes, placeholders, parité template ↔ skill, schéma du hook, carte des fichiers, unicité des identifiants, syntaxe shell, site docs/ et livrables HTML à jour.</div>
+            <div class="flow-step-file">03-wrap-up §Étape 3.5</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-content">
+            <div class="flow-step-label">Résultat consigné</div>
+            <div class="flow-step-desc">Le résultat remplace la ligne Tests du CHANGELOG : « N/A » n'est plus une réponse valide pour un sprint touchant le modèle. Chaque contrôle a été observé en échec sur fixture isolée avant d'être validé.</div>
+            <div class="flow-step-file">sdlc-validate.sh</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <hr class="divider">
@@ -798,8 +909,8 @@
     <div class="workflow-row">
       <div class="workflow-phase">
         <div class="phase-name">Démarrage</div>
-        <div class="phase-action">Lire sprint spec + état repo</div>
-        <div class="phase-file">06 PDR-bootstrap</div>
+        <div class="phase-action">Lire sprint spec + état repo + mémoire de sprint</div>
+        <div class="phase-file">01 Claude.md §Démarrage</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Analyse</div>
@@ -807,18 +918,23 @@
         <div class="phase-file">01 Claude.md §Analyse</div>
       </div>
       <div class="workflow-phase">
+        <div class="phase-name">Vérification</div>
+        <div class="phase-action">Faits confirmés par commande + auto-revue du plan en 3 passes</div>
+        <div class="phase-file">01 Claude.md §Vérification factuelle</div>
+      </div>
+      <div class="workflow-phase">
         <div class="phase-name">Aval</div>
-        <div class="phase-action">Attendre confirmation explicite</div>
-        <div class="phase-file">01 Claude.md §Règles</div>
+        <div class="phase-action">Verdict PASS / CONCERNS / FAIL, puis confirmation explicite</div>
+        <div class="phase-file">01 Claude.md §Demande d'aval</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Code + Test</div>
         <div class="phase-action">Commande exacte → itérer jusqu'au vert</div>
-        <div class="phase-file">04 PDR §Tests A/B/C</div>
+        <div class="phase-file">04 PDR §Critères d'acceptation</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Wrap-up</div>
-        <div class="phase-action">Bilan + rétro + docs + commit</div>
+        <div class="phase-action">Bilan + rétro + docs + vérification + commit</div>
         <div class="phase-file">03 wrap-up §Étapes 0–6</div>
       </div>
     </div>
@@ -830,7 +946,7 @@
   <section>
     <div class="section-label">Sprint 0</div>
     <h2>Bootstrapper un nouveau projet</h2>
-    <p class="section-intro">Le Sprint 0 installe la gouvernance complète avant le premier sprint métier. 9 étapes, un seul commit final.</p>
+    <p class="section-intro">Le Sprint 0 installe la gouvernance complète avant le premier sprint métier. 9 étapes, un seul commit final. Le script sdlc-init.sh automatise la partie mécanique ; Claude Code complète ce qui demande du jugement.</p>
 
     <div class="bootstrap-steps">
       <div class="bootstrap-step">
@@ -844,12 +960,12 @@
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Copier sans modification</div>
-        <div class="step-desc">specs/sprint-template.md (depuis 04) · .claude/skills/retrospective/SKILL.md (depuis 09)</div>
+        <div class="step-desc">specs/sprint-template.md (depuis 04) · .claude/skills/sdlc-sync/SKILL.md (depuis 04b) · .claude/skills/retrospective/SKILL.md (depuis 09)</div>
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Adapter Claude.md et STANDARDS.md</div>
-        <div class="step-desc">Remplir §Rôle, §Démarrage §2, §Limites bash, §Fichier .env. Vider §Carte des étapes et §Modules partagés.</div>
-        <div class="step-cmd">grep -i "\[→ adapter\]" Claude.md → zéro résultat attendu</div>
+        <div class="step-desc">Remplir §Rôle, §Démarrage §2, §Limites bash, §Fichier .env, et les seuils de §Barre qualité. Vider §Carte des étapes et §Modules partagés.</div>
+        <div class="step-cmd">grep "\[→ ADAPTER\]\|\[À REMPLIR\]" Claude.md STANDARDS.md → zéro résultat attendu</div>
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Adapter wrap-up SKILL</div>
@@ -861,17 +977,17 @@
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Configurer les hooks</div>
-        <div class="step-desc">Copier pre-tool-bash.sh, décider des sections [ACTIVER si…], documenter chaque choix dans DECISIONS.md §D-HOOK-XX, test smoke.</div>
+        <div class="step-desc">Copier pre-tool-bash.sh, décider des sections [ACTIVER si…] (et du hook PreCompact, optionnel), documenter chaque choix dans DECISIONS.md §D-HOOK-XX, test smoke.</div>
         <div class="step-cmd">grep "\[ACTIVER" .claude/hooks/pre-tool-bash.sh → zéro résultat</div>
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Vérification finale</div>
-        <div class="step-desc">11 critères d'acceptation. Zéro placeholder résiduel. Test smoke hook exit 0.</div>
+        <div class="step-desc">Critères d'acceptation de 06-PDR-bootstrap.md. Zéro placeholder résiduel. Test smoke hook exit 0.</div>
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Commit</div>
-        <div class="step-desc">Un seul commit final après validation des 11 critères.</div>
-        <div class="step-cmd">git commit -m "chore: bootstrap SDLC v1.2"</div>
+        <div class="step-desc">Un seul commit final après validation de tous les critères.</div>
+        <div class="step-cmd">git commit -m "chore: bootstrap SDLC vX.Y"</div>
       </div>
     </div>
   </section>
@@ -881,46 +997,36 @@
   <!-- DECISIONS -->
   <section>
     <div class="section-label">Traçabilité</div>
-    <h2>Historique des décisions</h2>
-    <p class="section-intro">19 décisions documentées dans 07-DECISIONS-SDLC.md. Chaque décision : retenue, alternative écartée, justification.</p>
+    <h2>Le registre des décisions</h2>
+    <p class="section-intro">07-DECISIONS-SDLC.md est la source : chaque décision structurante sur le modèle y porte un identifiant stable M-XXXX-NN, avec son contexte, ce qui a été retenu, ce qui a été écarté et pourquoi. Cette page n'en recopie pas la liste — une copie manuelle dérive. Elle en donne la carte.</p>
 
     <table class="decisions-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Décision</th>
-          <th>Version</th>
+          <th>Famille</th>
+          <th>Domaine</th>
+          <th>Décisions structurantes</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>M-ARCH-01</td><td>8 fichiers séparés vs monolithique</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-ARCH-02</td><td>Numérotation 00–09 des fichiers</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-ARCH-03</td><td>DECISIONS/CHANGELOG/LESSONS_LEARNED hors projet SDLC</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-ARCH-04</td><td>00-README comme méta-document</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-TMPL-01</td><td>Placeholders [entre crochets] + marqueurs [→ ADAPTER]</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-TMPL-02</td><td>Champ Interdit dans PDR</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-TMPL-03</td><td>Given/When/Then dans PDR (optionnel, Feature uniquement)</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-PROC-01</td><td>Sprint 0 comme PDR opérationnel complet</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-PROC-02</td><td>Bilan session intégré dans wrap-up (Étape 0)</td><td><span class="version-dot v11"></span>v1.1</td></tr>
-        <tr><td>M-PROC-03</td><td>Auto-exécution sans questions utilisateur</td><td><span class="version-dot v11"></span>v1.1</td></tr>
-        <tr><td>M-PROC-04</td><td>Nettoyage artefacts périmés en Étape 3</td><td><span class="version-dot v11"></span>v1.1</td></tr>
-        <tr><td>M-PROC-05</td><td>DIAGNOSTIC_CMDS.md obligatoire à chaque sprint</td><td><span class="version-dot v11"></span>v1.1</td></tr>
-        <tr><td>M-PROC-06</td><td>Boucle de rétroaction hook via LESSONS_LEARNED</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-PROC-07</td><td>Vérification exécutable renforcée — commande exacte obligatoire</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-PROC-08</td><td>Circuit SDLC_CANDIDATE via /retrospective</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-SCOPE-01</td><td>sprint-template.md = copie sans adaptation</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-SCOPE-02</td><td>SPEC.md = from scratch, jamais copiée</td><td><span class="version-dot v10"></span>v1.0</td></tr>
-        <tr><td>M-HOOKS-01</td><td>PreToolUse-only, PostToolUse optionnel</td><td><span class="version-dot v12"></span>v1.4</td></tr>
-        <tr><td>M-HOOKS-02</td><td>Sections [ACTIVER si…] vs hook vide</td><td><span class="version-dot v12"></span>v1.4</td></tr>
+        <tr><td>M-SCOPE-NN</td><td>Périmètre du modèle</td><td>M-SCOPE-04 — séparation amont (Claude.ai) / aval (Claude Code)</td></tr>
+        <tr><td>M-ARCH-NN</td><td>Architecture, structure de fichiers</td><td>M-ARCH-09 — migration doc/ → docs/, publication du site</td></tr>
+        <tr><td>M-TMPL-NN</td><td>Contenu et rédaction des templates</td><td>M-TMPL-05 — la description d'un skill énonce son déclenchement, jamais la séquence</td></tr>
+        <tr><td>M-PROC-NN</td><td>Procédures et cadences</td><td>M-PROC-40 — sdlc-validate.sh · M-PROC-41 — vérification factuelle avant analyse · M-PROC-45 et M-PROC-46 — site et livrables HTML contrôlés</td></tr>
+        <tr><td>M-HOOKS-NN</td><td>Hooks</td><td>M-HOOKS-08 — PreCompact × mémoire de sprint</td></tr>
+        <tr><td>M-ENV-NN</td><td>Environnement local</td><td>M-ENV-01 — emplacement local du toolkit</td></tr>
       </tbody>
     </table>
+
+    <p class="section-intro" style="margin-top:24px">Pour compter ou lister, la commande exacte plutôt qu'un chiffre écrit ici :</p>
+    <div class="step-cmd" style="margin-top:8px">grep -c "^## M-" 07-DECISIONS-SDLC.md &nbsp;·&nbsp; grep "^## M-PROC" 07-DECISIONS-SDLC.md</div>
   </section>
 
 </main>
 
 <footer>
-  <span>Modèle de gouvernance SDLC · Claude Code · v1.4 · 04/06/2026</span>
-  <span>10 fichiers · 19 décisions · 4 invariants</span>
+  <span>Modèle de gouvernance SDLC · Claude Code · v2.0+SDLC-30 · 21/09/2026</span>
+  <span>Fichiers 00→12 · registre M-XXXX-NN · 4 invariants</span>
 </footer>
 
 </body>

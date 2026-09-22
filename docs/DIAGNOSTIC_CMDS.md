@@ -1,6 +1,12 @@
 # DIAGNOSTIC_CMDS — Projet toolkit SDLC
 <!-- Créé Sprint SDLC-14 (self-bootstrap) — voir STANDARDS.md §Règles d'archivage -->
 
+## Symptôme : un livrable HTML réécrit passe tous les greps de critère d'acceptation mais casse le rendu (balise non fermée, grille déséquilibrée)
+Date : 21/09/2026 (Sprint SDLC-30, rattrapage `SPEC.html`/`MODE-OPERATOIRE.html`)
+Commande : équilibre des balises — `python3 -c "from html.parser import HTMLParser; ..."` (voir `sdlc-validate.sh` pour le motif d'un contrôle similaire) sur les deux fichiers, puis capture `chromium --headless=new --no-sandbox --disable-gpu --window-size=W,H --virtual-time-budget=10000 --screenshot=out.png file://<chemin>`.
+Résultat observé : les balises étaient équilibrées (aucun grep ne l'aurait détecté autrement), mais la capture a montré une grille de 9 cartes avec une case vide (nombre impair ajouté à une grille à 2 colonnes) — invisible dans le HTML brut, visible seulement au rendu.
+Conclusion : pour un livrable HTML, le grep de contenu (§critères d'acceptation) ne suffit pas — une vérification structurelle (balises) et une capture de rendu sont deux niveaux distincts, complémentaires, avant tout commit touchant un fichier `.html`.
+
 ## Symptôme : précondition du PDR présuppose un sprint qui n'existe pas dans le repo
 Date : 19/06/2026
 Commande : `grep -n "SDLC-14\|Rattrapage" 07-DECISIONS-SDLC.md ; grep -n "SDLC-14" CHANGELOG.md ; git log --oneline --all | head -20`
