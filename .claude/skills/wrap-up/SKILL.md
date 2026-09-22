@@ -302,7 +302,7 @@ git diff --stat          # uniquement les fichiers attendus
 git status               # rien d'oublié, rien d'en trop
 ```
 
-Son résultat (N/8, code de sortie) remplace la ligne `**Tests**` du
+Son résultat (N/M, code de sortie) remplace la ligne `**Tests**` du
 `CHANGELOG.md` — `N/A (gouvernance uniquement)` n'est plus une réponse valide
 pour un sprint touchant les fichiers du modèle (`M-PROC-40`).
 
