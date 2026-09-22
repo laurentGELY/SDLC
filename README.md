@@ -48,6 +48,7 @@ phase amont est optionnelle.
 ```
 sdlc-toolkit/
 ├── README.md                        # Ce fichier — pitch + démarrage rapide
+├── LICENSE                          # MIT
 ├── 00-CONTEXT.md                    # Contexte Claude.ai — invariants + carte des fichiers
 ├── 01-Claude-md-TEMPLATE.md         # → Claude.md du projet cible
 ├── 02-STANDARDS-TEMPLATE.md         # → STANDARDS.md du projet cible
@@ -62,10 +63,11 @@ sdlc-toolkit/
 ├── 10-AMONT-TEMPLATE.md             # → Project Knowledge Claude.ai (hors repo)
 ├── 11-help-SKILL-TEMPLATE.md        # → .claude/skills/help/SKILL.md
 ├── 12-audit-externe-TEMPLATE.md     # Guide toolkit — audit framework tiers vs SDLC, pas copié
-├── sdlc-init.sh                     # Point d'entrée bootstrap — à lancer en premier
-└── docs/
-    ├── SPEC.html                    # Spec fonctionnelle du modèle (ouvrir dans un navigateur)
-    └── MODE-OPERATOIRE.html         # Procédures complètes (ouvrir dans un navigateur)
+├── sdlc-init.sh · sdlc-validate.sh · sdlc-delta.sh · sdlc-project-check.sh · sdlc-token-usage.sh
+│                                     # Scripts — voir docs/MODE-OPERATOIRE.html §Vérifier le modèle
+├── specs/                           # Sprints exécutés (specs/Sprints/) + template de sprint
+├── .claude/                         # Hooks + skills installés dans ce repo (self-bootstrap)
+└── docs/                            # Site de documentation (GitHub Pages) + SPEC.html/MODE-OPERATOIRE.html
 ```
 
 ---

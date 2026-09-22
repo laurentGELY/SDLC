@@ -575,6 +575,7 @@ pas seulement l'auteur du modèle.
 | M-TMPL-07 | `12-audit-externe-TEMPLATE.md` — gabarit audit externe (7 sections, verdicts étiquetés, 6 axes), renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`) | ✓ | — |
 | M-PROC-45 | Contrôle C9 de `sdlc-validate.sh` — site `docs/` à jour (`meta.json` ↔ README, `versions.md`) | ✓ | — |
 | M-PROC-46 | Contrôle C10 de `sdlc-validate.sh` — livrables HTML `SPEC.html`/`MODE-OPERATOIRE.html` à jour (marqueur de version, carte des templates) | ✓ | — |
+| M-PROC-47 | `README.md §Structure du repo` reste un arbre curaté (2 listes dans C6, pas 3) — corrigé sur les 2 inexactitudes réelles (scripts, `docs/`), close le `SDLC_CANDIDATE` ECO-1 | ✓ | — |
 
 ---
 
@@ -2372,3 +2373,51 @@ humaine est ajouté (l'étendre à C10 ou le fusionner avec le site), si un faux
 positif apparaît sur (b) — par exemple un template volontairement non cité —
 ou si ces deux fichiers sont un jour retirés au profit du site.
 
+
+---
+
+## M-PROC-47 · README.md §Structure du repo reste un arbre curaté (2 listes dans C6) · hors bump · 22/09/2026
+
+**Contexte :** `[SDLC_CANDIDATE]` ouvert au sprint ECO-1 (`sdlc-validate.sh
+check_c6`, commentaire du code) — le contrôle C6 (carte des fichiers) est
+volontairement dégradé à 2 listes (disque ↔ `00-CONTEXT.md`) au lieu de 3,
+faute de bloc `README.md §Structure du repo` normalisé. Le candidat pointait
+2 inexactitudes réelles, vérifiées : les scripts `sdlc-delta.sh`/
+`sdlc-project-check.sh`/`sdlc-token-usage.sh`/`sdlc-validate.sh` absents de
+l'arbre (seul `sdlc-init.sh` listé), et le contenu réel de `docs/` absent
+(seuls `SPEC.html`/`MODE-OPERATOIRE.html` apparaissaient, sur ~15 fichiers
+réels). `LICENSE`, `specs/` et `.claude/` en étaient aussi absents. Son
+propre déclencheur (« avant ECO-2/3 ») est passé sans être revu — resté
+ouvert 3 semaines de plus que prévu.
+
+**Retenu :** corriger les 2 inexactitudes (scripts groupés en une ligne,
+`docs/` résumé au site + aux 2 HTML, `LICENSE`/`specs/`/`.claude/` ajoutés)
+sans rendre l'arbre exhaustif. C6 reste à 2 listes — décision tranchée, pas
+un report de plus.
+
+**Écarté :**
+- **Étendre C6 à 3 listes (disque ↔ `00-CONTEXT.md` ↔ `README.md`)** —
+  écarté : contredit le principe que `00-CONTEXT.md §1` vient d'adopter
+  (ECO-2, M-TMPL-05) — *« voir la table canonique `specs/SPEC.md §Modules` —
+  ne pas la dupliquer ici »*. Une 3ᵉ copie de la carte des fichiers dans
+  `README.md` referait exactement le double-maintien que ce principe vise à
+  éviter.
+- **Arbre `README.md` exhaustif (tous les fichiers de `docs/`, `specs/Sprints/*`)**
+  — écarté : `README.md` a pour rôle le pitch et le démarrage rapide pour un
+  lecteur externe (en-tête « 10 secondes », sprint de publication GitHub) ;
+  un arbre listant chaque `AUDIT-EXTERNE-*.md` nuit à cet objectif sans
+  ajouter d'information que `00-CONTEXT.md`/`specs/SPEC.md`/le site ne
+  donnent pas déjà, de façon vérifiée.
+
+**Raison :** un arbre curaté mais honnête (rien de faux, tout groupé
+lisiblement) sert mieux le lecteur externe qu'un arbre exhaustif redondant
+avec 2 fichiers déjà chargés de tenir cette carte à jour.
+
+**Impact fichiers :** `README.md` §Structure du repo · `sdlc-validate.sh`
+(commentaire `check_c6`, logique inchangée) · `docs/ROADMAP.md` (candidat
+déplacé `§Later` → `§Historique`).
+
+**Déclencheur de réouverture :** si un 3ᵉ écart README ↔ disque est constaté
+sur ce bloc curaté (script ou dossier de premier niveau omis), ou si
+`README.md` change de rôle (devient la référence exhaustive plutôt que le
+pitch).

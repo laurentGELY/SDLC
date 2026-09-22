@@ -225,9 +225,11 @@ check_c5() {
 
 check_c6() {
   # Carte des fichiers 00-CONTEXT.md §1 ↔ disque.
-  # Dégradé à 2 listes (disque ↔ 00-CONTEXT.md) plutôt que 3 : le bloc
-  # README.md §Structure du repo n'est pas normalisé (cf. §Risques du PDR
-  # ECO-1) — [SDLC_CANDIDATE] à instruire séparément pour sa normalisation.
+  # Volontairement 2 listes (disque ↔ 00-CONTEXT.md), pas 3 : README.md
+  # §Structure du repo reste un arbre curaté pour un lecteur externe, pas une
+  # carte exhaustive — l'étendre à 3 listes dupliquerait la table canonique
+  # que 00-CONTEXT.md §1 refuse déjà de dupliquer (ECO-2). Décision tranchée
+  # M-PROC-47, close le SDLC_CANDIDATE ouvert depuis ECO-1.
   # Extraction ajustée à la forme réelle de la table (nom de fichier entre
   # backticks, pas forcément en première colonne) — cf. PDR §C6, seul point
   # d'ajustement explicitement admis.
