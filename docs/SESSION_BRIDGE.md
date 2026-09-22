@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-30 — Rattrapage SPEC.html/MODE-OPERATOIRE.html + C10] · 2026-09-21
+**Commit :** c00fac9
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** Les deux livrables HTML de lecture humaine, figés à v1.4 depuis 23 versions (invisible faute de contrôle), sont remis à v2.0+SDLC-30 : carte complète des 14 fichiers et 5 scripts, vérification factuelle, auto-revue, barre qualité, `sdlc-validate.sh` désormais documentés ; table des 74 décisions de `SPEC.html` remplacée par un résumé renvoyant à `07-DECISIONS-SDLC.md`. Contrôle `check_c10` (`M-PROC-46`) les surveille désormais, testé sur les 2 HTML d'origine (❌ confirmé) et 4 fixtures isolées. `sdlc-validate.sh` 10/10. Prochaine action : `docs/ROADMAP.md §Next` est vide — prochain choix depuis `§Later`, ou candidat `/retrospective` sur le motif « chiffres figés dérivent » relevé ce sprint (`docs/LESSONS_LEARNED.md` Sprint SDLC-30).
+
 ### [Sprint SDLC-29 — 12-audit-externe-TEMPLATE.md] · 2026-09-04
 **Commit :** 74cabd8
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `Claude.md`/`01-Claude-md-TEMPLATE.md §Mémoire de sprint` corrigés — 2 citations fautives introduites SDLC-23 (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), non détectées pendant 5 sprints. `docs/MODE-OPERATOIRE.html` reçoit une carte « Reprise après coupure » (mécanisme absent jusqu'ici de toute doc humaine). `P-39` vérifié déjà résolu (parité skill↔template déjà totale) et retiré sans code. Nouveau `LL-T13` (résidu `M-XXXX-NN` non détecté par `sdlc-validate.sh C3`, 1 occurrence). `M-PROC-44` (garde-fou traçabilité, créé hier) s'est déclenché pour la 1ère fois ce sprint — fonctionne comme prévu. `sdlc-validate.sh` 8/8. Prochaine action : `docs/ROADMAP.md §Next` ne porte plus que `P-22` (template audit externe, XS) — voir aussi `LL-T13` (surveiller si 2e occurrence) et les 2 `SDLC_CANDIDATE` encore ouverts (SDLC-18 résolution de chemin, SDLC-16 restatement 4a-4d PDR).
 
+## §Archive
+
 ### [Sprint ECO-5 — Pattern .claude/rules/ documenté] · 2026-09-03
 **Commit :** 7a96829
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `01-Claude-md-TEMPLATE.md §Tokens` documente `.claude/rules/` (seuil ~200 lignes + frontière `paths:` réelle) pour les projets cibles — `M-TMPL-06`. `P-20` (hook `SessionStart`) et un self-split de ce repo écartés après vérification factuelle (`Claude.md` recharge déjà nativement à startup/resume/clear/compact ; aucune frontière `paths:` naturelle ici). `LL-T05` non touché (décision utilisateur explicite). `LL-T08` atteint sa 4e occurrence consécutive — garde-fou en cours de décision dans une `/retrospective` lancée en cours de session (couvre `ECO-3→ECO-4`, `LL-T08` et 2 vieux `SDLC_CANDIDATE` liés à `LL-T05` à trancher). `sdlc-validate.sh` 8/8. Prochaine action : terminer la `/retrospective` en cours (garde-fou `LL-T08`, clôture `SDLC_CANDIDATE` SDLC-16/17, nouveau pattern `LL-T12` grep -A mal calibré) avant tout nouveau sprint.
-
-## §Archive
 
 ### [Sprint ECO-4 — Durcissement PDR] · 2026-09-03
 **Commit :** b0e7f3b
