@@ -2,6 +2,15 @@
 
 ---
 
+## [v2.0+SDLC-32] — 2026-09-22 · Sprint Doc XS · Rappel 4a-4d dans le Handoff PDR (M-TMPL-08)
+- **`04-sprint-PDR-TEMPLATE.md` v2.4** : encart de 4 lignes en tête de `§Handoff Claude Code` — les 4 étapes (4a créer le fichier spec · 4b mémoire sprint · 4c charger les fichiers · 4d Plan de développement) rappelées avec renvoi explicite à `Claude.md §Démarrage`, jusqu'ici citées séparément sans 4a et sans rappel unifié
+- **`docs/LESSONS_LEARNED.md`** : `SDLC_CANDIDATE` SDLC-16 → implémenté · `LL-T05` → Résolu (2 occurrences, garde-fou de rédaction jugé suffisant, pas de mécanisation)
+- **`07-DECISIONS-SDLC.md`** : `M-TMPL-08`, tableau de compatibilité
+- **Origine** : `/retrospective` SDLC-31 (`SD-5` — candidat ouvert 3 mois sans déclencheur)
+- **Tests** : niveau A — `bash sdlc-validate.sh` → **10/10 ✅**, exit 0
+
+---
+
 ## [v2.0+SDLC-31] — 2026-09-22 · Sprint Revue S · `/retrospective` (SDLC-28→SDLC-30)
 - **`Claude.md §Analyse §Vérification factuelle`** + **`01-Claude-md-TEMPLATE.md` v2.6** : extension — tout total/comptage écrit dans un livrable, un commentaire de code ou une décision est vérifié par commande (`grep -c`/`ls`/`wc`) au moment de l'écrire, pas seulement une précondition d'analyse ; préférer `N/M` à un nombre figé quand il peut changer (`M-PROC-48`, graduation `LL-T14` — 3 occurrences SDLC-28/29/30)
 - **`docs/LESSONS_LEARNED.md`** : `LL-T14` nouveau (gradué) · `LL-T05` réévalué (déclencheur `ECO-5` atteint le 03/09, jamais revisité) · 2 `SDLC_CANDIDATE` ouverts depuis 3 mois sans déclencheur (SDLC-16, SDLC-18) tranchés plutôt que reconduits (`SD-5`) — sprints Fix dédiés à suivre · index recompté, `§Métriques de rétro` ajoutées

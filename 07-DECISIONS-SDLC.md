@@ -573,6 +573,7 @@ pas seulement l'auteur du modèle.
 | M-TMPL-06 | Pattern `.claude/rules/` documenté pour projets cibles — hook `SessionStart` et self-split de ce repo écartés | ✓ | — |
 | M-PROC-44 | Garde-fou traçabilité `sprint-memory.md` — avertissement non bloquant en Bilan §0d du wrap-up | ✓ | — |
 | M-TMPL-07 | `12-audit-externe-TEMPLATE.md` — gabarit audit externe (7 sections, verdicts étiquetés, 6 axes), renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`) | ✓ | — |
+| M-TMPL-08 | Rappel unifié des 4 étapes (4a-4d) en tête de `04-sprint-PDR-TEMPLATE.md §Handoff` — clôt `SDLC_CANDIDATE` SDLC-16, résout `LL-T05` | ✓ | — |
 | M-PROC-45 | Contrôle C9 de `sdlc-validate.sh` — site `docs/` à jour (`meta.json` ↔ README, `versions.md`) | ✓ | — |
 | M-PROC-46 | Contrôle C10 de `sdlc-validate.sh` — livrables HTML `SPEC.html`/`MODE-OPERATOIRE.html` à jour (marqueur de version, carte des templates) | ✓ | — |
 | M-PROC-47 | `README.md §Structure du repo` reste un arbre curaté (2 listes dans C6, pas 3) — corrigé sur les 2 inexactitudes réelles (scripts, `docs/`), close le `SDLC_CANDIDATE` ECO-1 | ✓ | — |
@@ -2475,3 +2476,40 @@ cette seule discipline appliquée à la rédaction, pas seulement à l'analyse.
 total faux glisse encore dans un livrable après ce sprint) — évaluer si un
 contrôle mécanique partiel est possible sur un sous-ensemble régulier (ex :
 nombre de fichiers `NN-*.md`, déjà couvert indirectement par C6/C10).
+
+---
+
+## M-TMPL-08 · Rappel 4a-4d dans le Handoff PDR · v2.0+SDLC-32 · 22/09/2026
+
+**Contexte :** `SDLC_CANDIDATE` ouvert depuis SDLC-16 (19/06/2026), tranché
+par `/retrospective` SDLC-31 sur alerte `SD-5` (3 mois sans déclencheur). Le
+bloc `## Handoff Claude Code` de `04-sprint-PDR-TEMPLATE.md` citait 4b, 4c,
+4d séparément dans des commentaires disjoints, jamais 4a, jamais un rappel
+unifié vers `Claude.md §Démarrage` — un lecteur qui ne travaille que depuis
+le PDR peut manquer une étape sans garde-fou avant le `/wrap-up` (`LL-T05`,
+2 occurrences : SDLC-16, SDLC-Audit-GSTACK).
+
+**Retenu :** un encart de 4 lignes en tête du bloc `Handoff`, citant les 4
+étapes avec la terminologie exacte de `Claude.md §Démarrage` et rappelant
+explicitement que le Handoff ne s'y substitue pas.
+
+**Écarté :**
+- **Hook de détection** — écarté : le défaut est une omission de lecture, pas
+  un état mécaniquement détectable avant le fait (même famille de raison que
+  `M-PROC-30`/`LL-T05`, déjà actée : la vigilance manuelle reste le mécanisme).
+- **Réécrire `Claude.md §Démarrage`** — écarté : déjà correct et complet,
+  seule la citation côté PDR manquait.
+
+**Raison :** coût nul (4 lignes), referme un candidat de 3 mois sans
+déclencheur nommé, et clôt la réévaluation due de `LL-T05` (déclencheur
+`ECO-5` atteint le 03/09/2026, jamais revisité) — jugé suffisant comme
+garde-fou additionnel sans mécanisation, cohérent avec `M-PROC-47`/`M-PROC-48`
+(pas de contrôle pour un défaut de prose/lecture dans la même session).
+
+**Impact fichiers :** `04-sprint-PDR-TEMPLATE.md` v2.4 ·
+`docs/LESSONS_LEARNED.md` (candidat SDLC-16 → implémenté, `LL-T05` → Résolu).
+
+**Déclencheur de réouverture :** si `LL-T05` se reproduit une 3e fois malgré
+le rappel — le garde-fou manuel/rappel de prose serait alors jugé insuffisant,
+réévaluer un mécanisme plus fort (ex : `sdlc-validate.sh` sur les fichiers
+`specs/Sprints/*` récents, cohérence avec `Claude.md §Démarrage` 4a).

@@ -1,5 +1,5 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v2.3 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.4 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
@@ -181,6 +181,11 @@ Si l'un de ces signaux apparaît pendant l'exécution, checkpoint immédiat dans
 
 ## Handoff Claude Code
 *(à compléter en début de session)*
+
+> Ce PDR ne remplace pas `Claude.md §Démarrage` — les 4 étapes (4a créer le
+> fichier spec · 4b initialiser la mémoire sprint · 4c charger les fichiers ·
+> 4d écrire le §Plan de développement) restent dues même si ce Handoff n'en
+> détaille qu'une partie ci-dessous.
 
 **Fichiers — chargement immédiat :**
 - *(lire en étape 4c, avant toute analyse)*

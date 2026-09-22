@@ -105,6 +105,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| SDLC-32 — Rappel 4a-4d dans le PDR, réévaluation `LL-T05` | Doc | XS | SDLC-32 (22/09/2026) | Encart 4 lignes `04-sprint-PDR-TEMPLATE.md §Handoff` · clôt `SDLC_CANDIDATE` SDLC-16 et `LL-T05` (2 occurrences, résolu sans mécanisation) · `M-TMPL-08` |
 | SDLC-31 — `/retrospective` (SDLC-28→SDLC-30) | Revue | S | SDLC-31 (22/09/2026) | `LL-T14` gradué (`M-PROC-48`) · `LL-T05` réévalué · `SDLC_CANDIDATE` SDLC-16/SDLC-18 tranchés (`SD-5`) — sprints Fix dédiés à suivre |
 | [SDLC_CANDIDATE] Normalisation `README.md §Structure du repo` — clos, pas repris | Doc | XS | Fix (22/09/2026) | 2 inexactitudes corrigées (scripts groupés, `docs/` résumé, `LICENSE`/`specs/`/`.claude/` ajoutés) · C6 reste à 2 listes, décision tranchée plutôt que 3e liste — contredirait le principe anti-duplication de `00-CONTEXT.md §1` (ECO-2) · `M-PROC-47` |
 | SDLC-30 — Rattrapage `SPEC.html` / `MODE-OPERATOIRE.html` (figés à v1.4 depuis 23 versions) | Doc | L | SDLC-30 (21/09/2026) | Marqueur de version + carte des 14 fichiers/5 scripts dans les 2 HTML · contrôle `check_c10` (`M-PROC-46`) — testé sur les 2 HTML d'origine (❌) et 4 fixtures isolées · `SPEC.html` table des 74 décisions remplacée par un résumé de 6 familles renvoyant à `07-DECISIONS-SDLC.md` · rendu vérifié par captures Chromium headless |

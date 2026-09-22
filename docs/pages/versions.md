@@ -53,7 +53,7 @@ Une deuxième vague de confrontation à l'extérieur, plus systématique que l'i
 | **Audit-GSTACK** | Audit externe GSTACK (Garry Tan / YC, 59 skills) vs SDLC — adoption sélective, 4 recommandations XS/S retenues |
 | **+SDLC-25** | Migration `doc/` → `docs/`, publication de ce site sur GitHub Pages (`M-ARCH-09`) |
 
-## Se vérifier et se durcir (ECO-1 → SDLC-31)
+## Se vérifier et se durcir (ECO-1 → SDLC-32)
 
 Une dernière phase, tournée vers la fiabilité du modèle lui-même : un script exécutable qui contrôle sa cohérence, des règles de rédaction et de qualité chiffrées, et des rétrospectives qui graduent les patterns récurrents en règles permanentes.
 
@@ -70,12 +70,13 @@ Une dernière phase, tournée vers la fiabilité du modèle lui-même : un scrip
 | **+SDLC-29** | `12-audit-externe-TEMPLATE.md` — gabarit d'audit externe : 7 sections, 6 axes, verdicts `IMPORTER/REJETER/INVESTIGUER/MERGER` (`M-TMPL-07`) |
 | **+SDLC-30** | Rattrapage des deux livrables HTML (`SPEC.html`, `MODE-OPERATOIRE.html`), figés à v1.4 — et contrôle **C10** qui les surveille désormais : marqueur de version et carte des templates (`M-PROC-46`) |
 | **+SDLC-31** | `/retrospective` — graduation `LL-T14` : tout total écrit dans un livrable est vérifié par commande, pas seulement une précondition d'analyse (`M-PROC-48`) |
+| **+SDLC-32** | Rappel 4a-4d dans `04-sprint-PDR-TEMPLATE.md §Handoff` — clôt un `SDLC_CANDIDATE` de 3 mois et `LL-T05` (`M-TMPL-08`) |
 | **C9** *(hors bump)* | `sdlc-validate.sh` contrôle désormais ce site : `docs/meta.json` doit égaler la version du README et `versions.md` mentionner le sprint courant (`M-PROC-45`) |
 
 Le dernier item est né d'un constat : ce site est resté figé à SDLC-25 pendant neuf versions, sans que rien ne le signale. Le modèle applique sa propre règle — *toute règle implicite devient un contrôle exécutable* — à sa propre documentation.
 
 ## Ce que raconte cette progression
 
-Cinq mouvements se lisent dans cet historique. D'abord **poser le socle** (v1.0→1.9) : règles, skills, boucle de rétroaction. Ensuite **se confronter à l'extérieur** (SDLC-07→13) : auditer d'autres méthodes et importer ce qui tient. Puis **s'instrumenter** (SDLC-22→23) : mesurer sa propre consommation, automatiser sa propre mémoire. Puis **se rendre public** (SDLC-24→25) : une deuxième vague d'audits externes, et la publication de ce site — le modèle documente maintenant sa propre trajectoire pour un lecteur externe, pas seulement pour lui-même. Enfin **se vérifier** (ECO-1→SDLC-31) : un script exécutable contrôle la cohérence du modèle, les règles de rédaction et de qualité se chiffrent — et le contrôle finit par surveiller jusqu'à la documentation publique qui l'avait laissé dériver.
+Cinq mouvements se lisent dans cet historique. D'abord **poser le socle** (v1.0→1.9) : règles, skills, boucle de rétroaction. Ensuite **se confronter à l'extérieur** (SDLC-07→13) : auditer d'autres méthodes et importer ce qui tient. Puis **s'instrumenter** (SDLC-22→23) : mesurer sa propre consommation, automatiser sa propre mémoire. Puis **se rendre public** (SDLC-24→25) : une deuxième vague d'audits externes, et la publication de ce site — le modèle documente maintenant sa propre trajectoire pour un lecteur externe, pas seulement pour lui-même. Enfin **se vérifier** (ECO-1→SDLC-32) : un script exécutable contrôle la cohérence du modèle, les règles de rédaction et de qualité se chiffrent — et le contrôle finit par surveiller jusqu'à la documentation publique qui l'avait laissé dériver.
 
 C'est la trajectoire d'un système qui non seulement fonctionne, mais **s'observe fonctionner** — et se corrige en conséquence. Le meilleur argument pour le modèle, c'est que le modèle s'est construit lui-même selon ses propres règles.
