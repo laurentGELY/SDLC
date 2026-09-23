@@ -205,3 +205,16 @@ Date : 23/09/2026 (Sprint SDLC-Import-Strands-Harness, construction du tableau R
 Commandes : `grep -n "exit 1" 08-hooks-TEMPLATE.md .claude/hooks/*.sh` (commentaire vs usage réel) · `grep -n "^[^#]*exit 1" .claude/hooks/pre-tool-bash.sh` (usage actif seul) · smoke test sans effet de bord : `echo '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"ls"}}' | bash .claude/hooks/pre-tool-bash.sh; echo "exit=$?"`
 Résultat observé : « `exit 1` = bloquer (silencieux) » en commentaire dans le template et le hook actif, aucun `exit 1` actif. La doc `code.claude.com/docs/en/hooks` : sans JSON valide sur stdout, `exit 1` est une erreur **non bloquante**, la commande s'exécute — seul `exit 2` bloque.
 Conclusion : tout comportement de plateforme écrit dans un template (code de sortie, schéma JSON) se vérifie contre la doc courante avec une date — une erreur de commentaire se propage aux projets cibles, qui peuvent écrire un `exit 1` en croyant bloquer.
+
+## Symptôme : un contrôle à exemption par fichier entier ne voit plus rien dans ce fichier
+Date : 23/09/2026 (Sprint ECO-7, analyse du grain de `C3_EXCEPTIONS`)
+Commande (ventilation prose / code inline / bloc fencé d'un motif, par fichier) :
+`awk -v P='\[→ ADAPTER\]|\[À REMPLIR\]|\[Nom du projet\]' '/^[[:space:]]*```/{fence=!fence; next} { if ($0 ~ P) { if (fence) fc++; else { l=$0; gsub(/`[^`]*`/,"",l); if (l ~ P) {pr++; print FILENAME":"NR} else ic++ } } } END{printf "%s fenced=%d inline=%d prose=%d\n", FILENAME, fc, ic, pr}' <fichier>`
+Résultat observé : 0 fencé · 21 inline · 2 prose (`07-DECISIONS-SDLC.md:62`, `:509`, titre et index de `M-TMPL-01`) sur les 8 fichiers de C3. Les blocs fencés citaient la forme échappée `\[→ ADAPTER\]`, que le motif ne matche pas.
+Conclusion : mesurer la ventilation avant de choisir un correctif — « retirer les blocs fencés » aurait été testé sur rien. Seule une exception de ligne par motif de contenu est nécessaire.
+
+## Symptôme : vérifier qu'un contrôle de `sdlc-validate.sh` sait échouer, sans toucher au dépôt
+Date : 23/09/2026 (Sprint ECO-7)
+Commande : `F=$(mktemp -d); ( tar --exclude=./.git --exclude=./exemples -cf - . ) | ( cd "$F" && tar -xf - ); <injection du défaut dans $F>; SDLC_VALIDATE_ROOT="$F" bash sdlc-validate.sh; rm -rf "$F"` — ou la suite complète : `bash tests/sdlc-validate-test.sh`
+Résultat observé : exit 1 et `❌ C<n> ·` sur le contrôle visé ; `git status --porcelain` inchangé.
+Conclusion : asserter sur `❌ C<n> ·` complet, pas sur `C<n>` (`C1` matche `C10`) ni sur l'exit code seul (dix contrôles, pas d'arrêt au premier échec).

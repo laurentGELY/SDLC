@@ -4,7 +4,7 @@
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
 > **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 10 contrôles).
 
-**Version courante : v2.0+SDLC-Import-Strands-Harness** · Licence MIT
+**Version courante : v2.0+ECO-7** · Licence MIT
 
 ```mermaid
 flowchart LR
@@ -65,6 +65,7 @@ sdlc-toolkit/
 ├── 12-audit-externe-TEMPLATE.md     # Guide toolkit — audit framework tiers vs SDLC, pas copié
 ├── sdlc-init.sh · sdlc-validate.sh · sdlc-delta.sh · sdlc-project-check.sh · sdlc-token-usage.sh
 │                                     # Scripts — voir docs/MODE-OPERATOIRE.html §Vérifier le modèle
+├── tests/                           # sdlc-validate-test.sh — suite de tests du validateur
 ├── specs/                           # Sprints exécutés (specs/Sprints/) + template de sprint
 ├── .claude/                         # Hooks + skills installés dans ce repo (self-bootstrap)
 └── docs/                            # Site de documentation (GitHub Pages) + SPEC.html/MODE-OPERATOIRE.html
@@ -180,7 +181,7 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 ## Historique des versions
 
 <details>
-<summary>Voir les 33 versions (v1.0 → v2.0+SDLC-Import-Strands-Harness)</summary>
+<summary>Voir les 34 versions (v1.0 → v2.0+ECO-7)</summary>
 
 | Version | Date | Changements principaux |
 |---------|------|------------------------|
@@ -217,5 +218,6 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+SDLC-32 | 22/09/2026 | Rappel 4a-4d dans `04-sprint-PDR-TEMPLATE.md §Handoff` (`M-TMPL-08`) — clôt un `SDLC_CANDIDATE` de 3 mois et `LL-T05` |
 | v2.0+SDLC-Audit-Strands-Harness | 23/09/2026 | Audit externe Strands Harness (AWS) — 1er audit au gabarit `12-audit-externe-TEMPLATE.md` : runtime d'agent ≠ gouvernance, 5 recommandations (1 IMPORTER / 1 ADAPTER / 3 REJETER), aucun template modifié |
 | v2.0+SDLC-Import-Strands-Harness | 23/09/2026 | Import audit Strands (P-45) — exemples agent/LLM dans `02-STANDARDS-TEMPLATE.md §Observabilité` (`M-TMPL-09`), tableau du rôle des hooks dans `08-hooks-TEMPLATE.md` ; correction : `exit 1` ne bloque pas un hook |
+| v2.0+ECO-7 | 23/09/2026 | Durcissement de `sdlc-validate.sh` — suite de tests `tests/sdlc-validate-test.sh` (1 cas RED par contrôle, 15/15), C3 au grain ligne (fin de l'exemption de 3 fichiers entiers), en-têtes d'incident et messages de correctif |
 
 </details>

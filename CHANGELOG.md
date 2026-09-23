@@ -2,6 +2,20 @@
 
 ---
 
+## [v2.0+ECO-7] — 2026-09-23 · Sprint Fix S · Durcissement de `sdlc-validate.sh` (harnais de test, C3 au grain ligne)
+- **`tests/sdlc-validate-test.sh`** (nouveau) : harnais bash (patron `obra/superpowers/tests/`) — copie du dépôt sans `.git/`/`exemples/` dans `mktemp -d`, injection d'un défaut, assertion exit 1 **et** `❌ C<n> ·` complet (`C1` seul matcherait `C10`) · 15 cas : 1 baseline, 1 RED par contrôle (C1→C10), 4 de non-aveuglement C3
+- **`sdlc-validate.sh`** : racine surchargeable par `SDLC_VALIDATE_ROOT` (défaut inchangé) · **C3** ligne par ligne, blocs fencés et code inline ignorés, ligne à backtick impair traitée comme prose · `C3_EXCEPTIONS` (3 fichiers entiers exemptés, C3 aveugle sur 3 fichiers / 8) remplacé par `C3_LINE_EXCEPTIONS` (1 entrée, motif de contenu `M-TMPL-01`) · sortie `fichier:ligne` + nombre de fichiers examinés · en-tête `# Incident :` sur les 10 contrôles (4 sans incident réel, marqués `[HYPOTHÈSE]` : C2, C3, C6, C8) · ligne `→ Correctif :` sur les 10 branches d'échec · point d'extension du registre : tout nouveau contrôle vient avec son cas RED
+- **`07-DECISIONS-SDLC.md`** : `M-PROC-40` → Mise à jour 23/09/2026 (exceptions au grain ligne, cas RED obligatoire)
+- **`docs/LESSONS_LEARNED.md`** : entrée sprint · `LL-T04` 9→10 · `LL-T14` 3→4 · 1 `SDLC_CANDIDATE` (C8 et `tests/`, suite de test dans l'Étape 3.5)
+- **`docs/DIAGNOSTIC_CMDS.md`** : ventilation prose / inline / fencé des marqueurs C3 · lancer le validateur sur une copie
+- **Versions** : `README.md` (+ structure : `tests/`), `docs/meta.json`, `docs/pages/versions.md`, marqueurs `docs/SPEC.html`/`docs/MODE-OPERATOIRE.html` alignés (C1/C9/C10) · **`docs/ROADMAP.md`** : ECO-7 → Historique
+- **Origine** : `specs/Sprints/PASSE-A-couche-validation.md` (passe A, prémisse initiale fausse corrigée — ECO-1 déjà livré)
+- **Corrections ajustées vs spec** — 4 contrôles sans incident réel, pas 3 (C3 s'ajoute à C2/C6/C8) · critère `bash -n a b` ne vérifie que `a` → vérifié fichier par fichier · fixture sans `exemples/` (91 Mo) + cas baseline, non prévus au PDR · variable nommée `SDLC_VALIDATE_ROOT` (préfixée) plutôt que `ROOT`
+  - Fichiers à relire dans Claude.ai : `specs/Sprints/sprint-ECO-7-durcissement-validate.md` (§Plan de développement, §Corrections ajustées)
+- **Tests** : A — `bash tests/sdlc-validate-test.sh` → **15/15**, exit 0 · C3 non-aveuglement : 2 cas FAIL avant durcissement (résidu en prose dans `06`/`07` passait, exit 0), PASS après · `git status --porcelain` inchangé après la suite · B — `bash sdlc-validate.sh` → **10/10 ✅**, exit 0
+
+---
+
 ## [v2.0+SDLC-Import-Strands-Harness] — 2026-09-23 · Sprint Doc S · Import Strands Harness R3 + R4 (P-45, M-TMPL-09)
 - **`02-STANDARDS-TEMPLATE.md` v2.1** : §Observabilité — exemple « si projet agent/LLM » ajouté dans la parenthèse d'exemple de 4 questions Q/R sur 5 (itération, tokens, latence, échec d'outil, appels sans résultat) — R3 de l'audit
 - **`07-DECISIONS-SDLC.md`** : `M-TMPL-09` recopiée telle quelle depuis `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md §4` (sprint et date complétés) + ligne d'index

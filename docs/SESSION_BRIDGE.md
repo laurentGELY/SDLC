@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ECO-7 — durcissement-validate] · 2026-09-23
+**Commit :** 437ca42
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `sdlc-validate.sh` a sa suite de tests (`bash tests/sdlc-validate-test.sh` → 15/15 : chaque contrôle C1→C10 vu rouge sur un défaut injecté dans une copie du dépôt, via `SDLC_VALIDATE_ROOT`), et C3 lit ligne par ligne — l'exemption de 3 fichiers entiers est remplacée par une exception de ligne sur le motif `M-TMPL-01` (`M-PROC-40` → Mise à jour : exception au grain ligne + cas RED obligatoire pour tout nouveau contrôle). La suite n'est pas encore appelée par l'Étape 3.5 du wrap-up ni couverte par C8 — `SDLC_CANDIDATE` ouvert dans `docs/LESSONS_LEARNED.md` ; `sdlc-validate.sh` 10/10.
+
 ### [Sprint SDLC-Import-Strands-Harness — import R3 + R4 (P-45)] · 2026-09-23
 **Commit :** b898daa
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md` livré, 1er audit au gabarit 12 : Strands Harness est un runtime d'agent (concurrent de Claude Code), pas une gouvernance — 3 recommandations sur 5 rejetées comme runtime, 1 IMPORTER (exemples observabilité agent/LLM dans `02-STANDARDS-TEMPLATE.md`, `M-TMPL-09` rédigé mais non reporté) et 1 ADAPTER (rôle des hooks dans `08-hooks-TEMPLATE.md`), aucun template modifié. Import R3+R4 inscrit en `P-45` (`docs/ROADMAP.md §Later`, déclencheur = décision humaine) ; verdict `ADAPTER` hors gabarit 12, 1ʳᵉ occurrence. `sdlc-validate.sh` 10/10.
 
+## §Archive
+
 ### [Sprint SDLC-30 — Rattrapage SPEC.html/MODE-OPERATOIRE.html + C10] · 2026-09-21
 **Commit :** c00fac9
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** Les deux livrables HTML de lecture humaine, figés à v1.4 depuis 23 versions (invisible faute de contrôle), sont remis à v2.0+SDLC-30 : carte complète des 14 fichiers et 5 scripts, vérification factuelle, auto-revue, barre qualité, `sdlc-validate.sh` désormais documentés ; table des 74 décisions de `SPEC.html` remplacée par un résumé renvoyant à `07-DECISIONS-SDLC.md`. Contrôle `check_c10` (`M-PROC-46`) les surveille désormais, testé sur les 2 HTML d'origine (❌ confirmé) et 4 fixtures isolées. `sdlc-validate.sh` 10/10. Prochaine action : `docs/ROADMAP.md §Next` est vide — prochain choix depuis `§Later`, ou candidat `/retrospective` sur le motif « chiffres figés dérivent » relevé ce sprint (`docs/LESSONS_LEARNED.md` Sprint SDLC-30).
-
-## §Archive
 
 ### [Sprint SDLC-29 — 12-audit-externe-TEMPLATE.md] · 2026-09-04
 **Commit :** 74cabd8

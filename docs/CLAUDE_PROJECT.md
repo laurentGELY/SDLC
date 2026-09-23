@@ -28,6 +28,7 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 | `sdlc-init.sh` | Script bash — contexte limité dans Claude.ai, 453 lignes |
 | `sdlc-project-check.sh` | Script bash — contenu dans 06-PDR-bootstrap.md |
 | `sdlc-validate.sh` | Script bash — contexte limité dans Claude.ai, sa spec complète est dans `specs/Sprints/sprint-ECO-1-sdlc-validate.md` |
+| `tests/sdlc-validate-test.sh` | Script bash — suite de tests du validateur, spec dans `specs/Sprints/sprint-ECO-7-durcissement-validate.md` |
 | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill secondaire — consulté ponctuellement |
 | `05-ROADMAP-TEMPLATE.md` | Template simple, peu de valeur contextuelle permanente |
 | `08-hooks-TEMPLATE.md` | Référence hooks — rarement consulté en session SDLC |
@@ -44,3 +45,8 @@ traitement que les autres scripts). `specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md` 
 avec le fait qu'aucun fichier `specs/Sprints/*.md` individuel n'est listé ici. Fichiers
 déjà synchronisés modifiés ce sprint (`00-CONTEXT.md`, `07-DECISIONS-SDLC.md`) :
 re-synchroniser leur contenu dans Claude.ai ("Sync now").
+
+## Dernière vérification : 23/09/2026 · Sprint ECO-7 wrap-up
+Delta vérifié : `tests/sdlc-validate-test.sh` (nouveau) ajouté aux fichiers exclus ci-dessus
+(même traitement que les autres scripts). Fichiers déjà synchronisés modifiés ce sprint
+(`07-DECISIONS-SDLC.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").

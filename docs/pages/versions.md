@@ -73,6 +73,7 @@ Une dernière phase, tournée vers la fiabilité du modèle lui-même : un scrip
 | **+SDLC-32** | Rappel 4a-4d dans `04-sprint-PDR-TEMPLATE.md §Handoff` — clôt un `SDLC_CANDIDATE` de 3 mois et `LL-T05` (`M-TMPL-08`) |
 | **+SDLC-Audit-Strands-Harness** | Audit externe Strands Harness (AWS, runtime d'agent) — premier audit au gabarit 12 ; la comparaison tranche d'abord *runtime vs gouvernance*, 3 recommandations sur 5 rejetées comme relevant du runtime |
 | **+SDLC-Import-Strands-Harness** | Import de l'audit Strands : exemples d'observabilité pour un projet cible qui est lui-même un agent (`M-TMPL-09`), vue d'ensemble du rôle de chaque hook — et correction d'une erreur ancienne : `exit 1` ne bloque pas une commande, seul `exit 2` le fait |
+| **+ECO-7** | Le validateur du modèle a maintenant sa propre suite de tests : chaque contrôle est vu en échec sur un défaut injecté. Le contrôle des placeholders (C3) lit ligne par ligne au lieu d'exempter trois fichiers entiers, et chaque échec indique le correctif |
 | **C9** *(hors bump)* | `sdlc-validate.sh` contrôle désormais ce site : `docs/meta.json` doit égaler la version du README et `versions.md` mentionner le sprint courant (`M-PROC-45`) |
 
 Le dernier item est né d'un constat : ce site est resté figé à SDLC-25 pendant neuf versions, sans que rien ne le signale. Le modèle applique sa propre règle — *toute règle implicite devient un contrôle exécutable* — à sa propre documentation.
