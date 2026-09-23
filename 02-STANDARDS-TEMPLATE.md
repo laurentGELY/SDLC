@@ -1,5 +1,5 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.0 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.1 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -133,19 +133,19 @@ toute dimension sans seuil a priori évident — mesurer l'existant et tenir la 
 ### Checklist Q/R — à compléter au bootstrap · zéro placeholder avant le commit initial
 
 Q: Quel marqueur de log indique qu'une étape a démarré ?
-→ R: [À REMPLIR] *(ex: "[START] nom_etape run_id=...")*
+→ R: [À REMPLIR] *(ex: "[START] nom_etape run_id=..." · si projet agent/LLM : "[TURN] session_id=... iteration=N")*
 
 Q: Quel marqueur indique qu'elle est terminée avec succès ?
-→ R: [À REMPLIR] *(ex: "[DONE] nom_etape items=N duration=Xs")*
+→ R: [À REMPLIR] *(ex: "[DONE] nom_etape items=N duration=Xs" · si projet agent/LLM : "[DONE] iterations=N tokens_in=N tokens_out=N latency_ms=N")*
 
 Q: Quel marqueur indique une erreur non fatale (avertissement) ?
-→ R: [À REMPLIR] *(ex: "[WARN] description item_id=...")*
+→ R: [À REMPLIR] *(ex: "[WARN] description item_id=..." · si projet agent/LLM : "[TOOL_FAIL] tool=nom_outil error=... iteration=N")*
 
 Q: Quelle commande affiche les N dernières lignes de log en prod ?
 → R: [À REMPLIR] *(ex: "tail -100 logs/pipeline.log | grep RUN_ID")*
 
 Q: Comment vérifier qu'aucun item n'a été silencieusement ignoré ?
-→ R: [À REMPLIR] *(ex: "grep 'items_skipped=[^0]' logs/pipeline.log")*
+→ R: [À REMPLIR] *(ex: "grep 'items_skipped=[^0]' logs/pipeline.log" · si projet agent/LLM : compter les appels d'outil sans résultat enregistré, succès + échecs = appels émis)*
 
 Grep de validation au bootstrap : `grep "\[À REMPLIR\]" STANDARDS.md` → zéro résultat attendu.
 

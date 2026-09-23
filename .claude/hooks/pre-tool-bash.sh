@@ -6,7 +6,8 @@
 #
 # Protocole Claude Code :
 #   exit 0  = autoriser
-#   exit 1  = bloquer (silencieux)
+#   exit 1  = NE bloque PAS — erreur non bloquante, la commande s'exécute
+#             (doc Claude Code hooks, vérifié 23/09/2026) → toujours exit 2 pour bloquer
 #   exit 2  = bloquer avec message d'erreur affiché dans Claude Code
 #
 # Schéma JSON réel reçu sur stdin (confirmé empiriquement, Sprint SDLC-18 — capture directe

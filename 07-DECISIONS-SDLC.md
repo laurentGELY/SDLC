@@ -574,6 +574,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-44 | Garde-fou traçabilité `sprint-memory.md` — avertissement non bloquant en Bilan §0d du wrap-up | ✓ | — |
 | M-TMPL-07 | `12-audit-externe-TEMPLATE.md` — gabarit audit externe (7 sections, verdicts étiquetés, 6 axes), renuméroté 10→12 (collision `10-AMONT-TEMPLATE.md`) | ✓ | — |
 | M-TMPL-08 | Rappel unifié des 4 étapes (4a-4d) en tête de `04-sprint-PDR-TEMPLATE.md §Handoff` — clôt `SDLC_CANDIDATE` SDLC-16, résout `LL-T05` | ✓ | — |
+| M-TMPL-09 | Exemples d'observabilité « projet agent/LLM » dans `02-STANDARDS-TEMPLATE.md §Observabilité` — import R3 audit Strands Harness | ✓ | — |
 | M-PROC-45 | Contrôle C9 de `sdlc-validate.sh` — site `docs/` à jour (`meta.json` ↔ README, `versions.md`) | ✓ | — |
 | M-PROC-46 | Contrôle C10 de `sdlc-validate.sh` — livrables HTML `SPEC.html`/`MODE-OPERATOIRE.html` à jour (marqueur de version, carte des templates) | ✓ | — |
 | M-PROC-47 | `README.md §Structure du repo` reste un arbre curaté (2 listes dans C6, pas 3) — corrigé sur les 2 inexactitudes réelles (scripts, `docs/`), close le `SDLC_CANDIDATE` ECO-1 | ✓ | — |
@@ -2513,3 +2514,30 @@ garde-fou additionnel sans mécanisation, cohérent avec `M-PROC-47`/`M-PROC-48`
 le rappel — le garde-fou manuel/rappel de prose serait alors jugé insuffisant,
 réévaluer un mécanisme plus fort (ex : `sdlc-validate.sh` sur les fichiers
 `specs/Sprints/*` récents, cohérence avec `Claude.md §Démarrage` 4a).
+
+---
+
+## M-TMPL-09 · Exemples d'observabilité « projet agent/LLM » dans §Observabilité · v2.0+SDLC-Import-Strands-Harness · 23/09/2026
+
+**Contexte :** audit externe Strands Harness (`docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md`
+R3, 23/09/2026). La checklist Q/R de `02-STANDARDS-TEMPLATE.md §Observabilité` ne propose que
+des exemples de pipeline batch. Un projet cible qui est lui-même un agent n'a aucun repère pour
+qualifier ses `[À REMPLIR]`. Le SDK Strands Agents documente un référentiel de métriques d'agent
+(itérations de boucle, succès/échec par outil, tokens, latence — blog AWS du 31/07/2025).
+
+**Retenu :** ajout d'exemples entre parenthèses, marqués « si projet agent/LLM », sous les
+questions Q/R existantes — même forme que les exemples actuels, aucune question ni règle nouvelle.
+
+**Écarté :**
+- **Imposer OpenTelemetry** — écarté : dépendance technique dans un template de process, hors
+  du principe « SDLC zéro code métier » ; le choix du backend reste au projet.
+- **Section séparée « Observabilité agent »** — écarté : duplique la règle start/done/erreur
+  déjà générale ; des exemples suffisent.
+
+**Raison :** coût XS, comble un vide réel de la checklist sans alourdir la règle, référentiel
+externe cité plutôt qu'inventé.
+
+**Impact fichiers :** `02-STANDARDS-TEMPLATE.md` §Observabilité (bump de version mineur).
+
+**Déclencheur de réouverture :** si un projet cible agent rapporte que les exemples ne
+couvrent pas ses besoins réels (ex. coûts, garde-fous de sortie) — évaluer une section dédiée.

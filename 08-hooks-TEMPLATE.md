@@ -1,5 +1,5 @@
 # Hooks Claude Code — Template Python · v1.0
-<!-- Template SDLC v1.3 · Destination : .claude/hooks/ dans le repo cible -->
+<!-- Template SDLC v1.4 · Destination : .claude/hooks/ dans le repo cible -->
 <!-- Généré au bootstrap · Complété au fil des sprints via boucle LESSONS_LEARNED -->
 
 > Les hooks rendent certaines règles non-négociables — indépendamment de la mémoire du modèle.
@@ -8,6 +8,18 @@
 > pas par précaution théorique.
 
 ---
+
+## Rôle de chaque hook — vue d'ensemble
+
+> Résumé des sections détaillées ci-dessous — aucune règle nouvelle. Chaque ligne renvoie à sa
+> section source (principe de déclaration explicite repris de l'audit Strands Harness, R4).
+
+| Hook | Rôle | Effet sur Claude Code | Source |
+|------|------|-----------------------|--------|
+| `PreToolUse` Bash — `pre-tool-bash.sh` | Garde bloquante | `exit 2` : commande refusée, message affiché à Claude Code — seul code qui bloque (`exit 1` ne bloque pas) | §1, en-tête du script et blocs `BLOQUÉ` |
+| `PreToolUse` Bash — `pre-tool-bash.sh` | Avertissement | message `AVERTISSEMENT` sur stderr, la commande s'exécute | §1, bloc `AVERTISSEMENTS NON BLOQUANTS` |
+| `PostToolUse` Edit/Write *(optionnel)* | Transformation | reformate/corrige le fichier écrit (`\|\| true` : jamais bloquant) | §PostToolUse |
+| `PreCompact` *(optionnel)* | Observation | checkpoint dans `.claude/sprint-memory.md`, toujours `exit 0` — pas un gate | §PreCompact |
 
 ## Arborescence attendue
 
@@ -37,7 +49,8 @@ Grep de validation post-adaptation : `grep "\[ACTIVER" .claude/hooks/pre-tool-ba
 #
 # Protocole Claude Code :
 #   exit 0  = autoriser
-#   exit 1  = bloquer (silencieux)
+#   exit 1  = NE bloque PAS — erreur non bloquante, la commande s'exécute
+#             (doc Claude Code hooks, vérifié 23/09/2026) → toujours exit 2 pour bloquer
 #   exit 2  = bloquer avec message d'erreur affiché dans Claude Code
 #
 # Le JSON d'entrée arrive sur stdin (schéma réel confirmé Sprint SDLC-18, M-HOOKS-05) :

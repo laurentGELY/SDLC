@@ -57,7 +57,7 @@
 | P-36 — Extension sdlc-token-usage.sh → package figé (diff + critères) pour Adversarial Review Couche 1 | Feature | S | — | Script de base validé | Sur un sprint Taille M/L réel | — |
 | P-37 — 00-CONTEXT.md déclaré Index-guidé formellement (résorbe duplication invariants + carte fichiers) | Doc | S | — | — | Exécutable directement | — |
 | P-38 — Déplacer commentaire goal-backward (Prop F) avant le bloc BDD optionnel dans 04-PDR §CA | Doc | XS | — | — | Exécutable directement | — |
-| P-45 — Import audit Strands Harness : R3 (exemples observabilité agent/LLM dans `02-STANDARDS-TEMPLATE.md §Observabilité`, `M-TMPL-09` déjà rédigé dans l'audit) + R4 (tableau rôle des hooks dans `08-hooks-TEMPLATE.md`) | Doc | XS | — | — | Décision humaine explicite — `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md §4` | — |
+| P-46 — Durée d'appel par outil vs `HALT-TIMEOUT` manuel (`Claude.md:31`, « sans sortie depuis > 60s ») — idée §5-2 de `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md` (`AfterToolCallEvent.duration`) | Seed | S | — | — | Si ≥ 1 entrée `docs/LESSONS_LEARNED.md` ou `[SDLC_CANDIDATE]` remonté documente une commande bloquée > 60s que `HALT-TIMEOUT` n'a pas interceptée à temps | — |
 | ECO-6 — Lexique ubiquitaire versionné (`E-05`, `specs/SPEC.md §Lexique`) | Doc | S | — | — | Moins urgent qu'ECO-2→4 — pas de déclencheur numérique, priorité éditoriale | — |
 | ECO-2b — Frontmatter YAML + `disable-model-invocation: true` sur les 4 templates de skill (`E-16`) | Doc | S | — | Conflit avec C2 de `sdlc-validate.sh` | Différé au wrap-up ECO-2 (03/09/2026) : `---` doit être la 1ère ligne du fichier pour être reconnu par Claude Code, ce qui pousse le marqueur de version (`<!-- Template SDLC vX.Y -->`, actuellement lignes 1-3) au-delà de la fenêtre vérifiée par C2. Nécessite d'ajuster C2 (chercher le marqueur après un éventuel bloc frontmatter) dans le même sprint que le frontmatter — sinon régression sciemment introduite. | — |
 
@@ -106,6 +106,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| P-45 — Import audit Strands Harness (R3 + R4) | Doc | S | SDLC-Import-Strands-Harness (23/09/2026) | `02-STANDARDS-TEMPLATE.md` v2.1 (exemples agent/LLM, 4 Q/R sur 5) · `08-hooks-TEMPLATE.md` v1.4 (tableau rôle des hooks + correction `exit 1` non bloquant) · `M-TMPL-09` · Seed P-46 (HALT-TIMEOUT) |
 | SDLC-Audit-Strands-Harness — Audit externe Strands Harness (AWS) vs modèle SDLC | Revue | S | SDLC-Audit-Strands-Harness (23/09/2026) | `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md` — 1er audit au gabarit 12 (+ verdict `ADAPTER`) · 5 recommandations : 1 IMPORTER / 1 ADAPTER / 3 REJETER · `M-TMPL-09` rédigé, non reporté · P-45 §Later · aucun template modifié |
 | SDLC-32 — Rappel 4a-4d dans le PDR, réévaluation `LL-T05` | Doc | XS | SDLC-32 (22/09/2026) | Encart 4 lignes `04-sprint-PDR-TEMPLATE.md §Handoff` · clôt `SDLC_CANDIDATE` SDLC-16 et `LL-T05` (2 occurrences, résolu sans mécanisation) · `M-TMPL-08` |
 | SDLC-31 — `/retrospective` (SDLC-28→SDLC-30) | Revue | S | SDLC-31 (22/09/2026) | `LL-T14` gradué (`M-PROC-48`) · `LL-T05` réévalué · `SDLC_CANDIDATE` SDLC-16/SDLC-18 tranchés (`SD-5`) — sprints Fix dédiés à suivre |
