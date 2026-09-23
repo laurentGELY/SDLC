@@ -71,6 +71,7 @@ Une dernière phase, tournée vers la fiabilité du modèle lui-même : un scrip
 | **+SDLC-30** | Rattrapage des deux livrables HTML (`SPEC.html`, `MODE-OPERATOIRE.html`), figés à v1.4 — et contrôle **C10** qui les surveille désormais : marqueur de version et carte des templates (`M-PROC-46`) |
 | **+SDLC-31** | `/retrospective` — graduation `LL-T14` : tout total écrit dans un livrable est vérifié par commande, pas seulement une précondition d'analyse (`M-PROC-48`) |
 | **+SDLC-32** | Rappel 4a-4d dans `04-sprint-PDR-TEMPLATE.md §Handoff` — clôt un `SDLC_CANDIDATE` de 3 mois et `LL-T05` (`M-TMPL-08`) |
+| **+SDLC-Audit-Strands-Harness** | Audit externe Strands Harness (AWS, runtime d'agent) — premier audit au gabarit 12 ; la comparaison tranche d'abord *runtime vs gouvernance*, 3 recommandations sur 5 rejetées comme relevant du runtime |
 | **C9** *(hors bump)* | `sdlc-validate.sh` contrôle désormais ce site : `docs/meta.json` doit égaler la version du README et `versions.md` mentionner le sprint courant (`M-PROC-45`) |
 
 Le dernier item est né d'un constat : ce site est resté figé à SDLC-25 pendant neuf versions, sans que rien ne le signale. Le modèle applique sa propre règle — *toute règle implicite devient un contrôle exécutable* — à sa propre documentation.

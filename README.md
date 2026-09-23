@@ -4,7 +4,7 @@
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
 > **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 10 contrôles).
 
-**Version courante : v2.0+SDLC-32** · Licence MIT
+**Version courante : v2.0+SDLC-Audit-Strands-Harness** · Licence MIT
 
 ```mermaid
 flowchart LR
@@ -180,7 +180,7 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 ## Historique des versions
 
 <details>
-<summary>Voir les 31 versions (v1.0 → v2.0+SDLC-32)</summary>
+<summary>Voir les 32 versions (v1.0 → v2.0+SDLC-Audit-Strands-Harness)</summary>
 
 | Version | Date | Changements principaux |
 |---------|------|------------------------|
@@ -215,5 +215,6 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+SDLC-30 | 21/09/2026 | Rattrapage `docs/SPEC.html` + `docs/MODE-OPERATOIRE.html` (figés à v1.4) — fichiers 00→12, scripts, vérification factuelle, auto-revue, barre qualité, `sdlc-validate.sh` ; table des décisions remplacée par un résumé renvoyant au registre · contrôle C10 (`M-PROC-46`) |
 | v2.0+SDLC-31 | 22/09/2026 | `/retrospective` — graduation `LL-T14` (total/comptage vérifié par commande, extension `§Vérification factuelle`, `M-PROC-48`) · 2 `SDLC_CANDIDATE` de 3 mois tranchés (`SD-5`) plutôt que reconduits |
 | v2.0+SDLC-32 | 22/09/2026 | Rappel 4a-4d dans `04-sprint-PDR-TEMPLATE.md §Handoff` (`M-TMPL-08`) — clôt un `SDLC_CANDIDATE` de 3 mois et `LL-T05` |
+| v2.0+SDLC-Audit-Strands-Harness | 23/09/2026 | Audit externe Strands Harness (AWS) — 1er audit au gabarit `12-audit-externe-TEMPLATE.md` : runtime d'agent ≠ gouvernance, 5 recommandations (1 IMPORTER / 1 ADAPTER / 3 REJETER), aucun template modifié |
 
 </details>

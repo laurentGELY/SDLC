@@ -2,6 +2,16 @@
 
 ---
 
+## [v2.0+SDLC-Audit-Strands-Harness] — 2026-09-23 · Sprint Revue S · Audit externe Strands Harness vs modèle SDLC
+- **`docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md`** (nouveau) : audit Strands Harness (AWS, annoncé 21/09/2026) sur 3 sources web lues en session — 1er audit au gabarit `12-audit-externe-TEMPLATE.md` (`M-TMPL-07`) : cartographie, §3.0 distinction harness runtime (Strands) vs harness gouvernance (SDLC), tableau 6 axes, 5 recommandations (1 IMPORTER / 1 ADAPTER / 3 REJETER), verdict synthétique
+- **Recommandations** : R3 IMPORTER — exemples « projet agent/LLM » pour `02-STANDARDS-TEMPLATE.md §Observabilité`, entrée `M-TMPL-09` rédigée dans l'audit (non reportée dans `07-DECISIONS-SDLC.md`) · R4 ADAPTER — tableau rôle de chaque hook dans `08-hooks-TEMPLATE.md` · R1/R2/R5 REJETER (compaction/troncature, session ID, relance autonome — couche runtime ; `SessionStart` déjà tranché `M-TMPL-06`)
+- **Versions** : `README.md`, `docs/meta.json`, `docs/pages/versions.md`, marqueurs `docs/SPEC.html`/`docs/MODE-OPERATOIRE.html` alignés (C1/C9/C10) · **`docs/ROADMAP.md`** : P-45 §Later (import R3+R4) · **`docs/LESSONS_LEARNED.md`** : entrée sprint (confirme `LL-T04`)
+- **Aucun template modifié** — imports R3/R4 réservés à un sprint « Import » ultérieur si décidé
+- **Corrections ajustées vs spec** : `doc/` → `docs/` (dossier inexistant) · structure `12-audit-externe-TEMPLATE.md` au lieu de celle de l'audit GSD-lite (antérieure au gabarit) + verdict `ADAPTER` conservé, justifié §7 · `DECISIONS-SDLC.md` → `07-DECISIONS-SDLC.md` · source 3 : page guide hooks en 404 → API reference `strands.hooks.events` · source 2 datée 31/07/2025 (SDK, pas le Harness) — signalé dans l'audit
+- **Tests** : A1 `grep -c "IMPORTER\|ADAPTER\|REJETER"` → 8 ✅ · A2 verdict synthétique + distinction → 2/2 ✅ · A3 chiffres 28 %/77 % → 2/2 lignes avec « chiffre vendeur, non vérifié indépendamment » ✅ (1er passage ❌, mention sur la ligne suivante, reformaté) · B aucun template ni `07-DECISIONS-SDLC.md` modifié ✅ · `sdlc-validate.sh` 10/10, exit 0
+
+---
+
 ## [v2.0+SDLC-32] — 2026-09-22 · Sprint Doc XS · Rappel 4a-4d dans le Handoff PDR (M-TMPL-08)
 - **`04-sprint-PDR-TEMPLATE.md` v2.4** : encart de 4 lignes en tête de `§Handoff Claude Code` — les 4 étapes (4a créer le fichier spec · 4b mémoire sprint · 4c charger les fichiers · 4d Plan de développement) rappelées avec renvoi explicite à `Claude.md §Démarrage`, jusqu'ici citées séparément sans 4a et sans rappel unifié
 - **`docs/LESSONS_LEARNED.md`** : `SDLC_CANDIDATE` SDLC-16 → implémenté · `LL-T05` → Résolu (2 occurrences, garde-fou de rédaction jugé suffisant, pas de mécanisation)

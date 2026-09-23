@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-Audit-Strands-Harness — audit externe Strands Harness] · 2026-09-23
+**Commit :** daa5b9c
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md` livré, 1er audit au gabarit 12 : Strands Harness est un runtime d'agent (concurrent de Claude Code), pas une gouvernance — 3 recommandations sur 5 rejetées comme runtime, 1 IMPORTER (exemples observabilité agent/LLM dans `02-STANDARDS-TEMPLATE.md`, `M-TMPL-09` rédigé mais non reporté) et 1 ADAPTER (rôle des hooks dans `08-hooks-TEMPLATE.md`), aucun template modifié. Import R3+R4 inscrit en `P-45` (`docs/ROADMAP.md §Later`, déclencheur = décision humaine) ; verdict `ADAPTER` hors gabarit 12, 1ʳᵉ occurrence. `sdlc-validate.sh` 10/10.
+
 ### [Sprint SDLC-30 — Rattrapage SPEC.html/MODE-OPERATOIRE.html + C10] · 2026-09-21
 **Commit :** c00fac9
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `12-audit-externe-TEMPLATE.md` livré (7 sections, tableau 6 axes, verdicts `IMPORTER/REJETER/INVESTIGUER/MERGER`) — squelette repris de `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`, renuméroté 10→12 sur collision détectée avant code (`10-AMONT-TEMPLATE.md` déjà présent). `M-TMPL-07`. `docs/ROADMAP.md §Next` est maintenant **vide** — aucun item prêt à démarrer, prochain choix à faire depuis `§Later`. `LL-T08` 6e occurrence, `M-PROC-44` déclenché 2 fois consécutives (SDLC-28, SDLC-29) — signalé les 2 fois, escalade explicitement déclinée par l'utilisateur, pas de réouverture. `sdlc-validate.sh` 8/8.
 
+## §Archive
+
 ### [Sprint SDLC-28 — sprint-memory.md = mécanisme de reprise] · 2026-09-04
 **Commit :** 90dc3e1
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `Claude.md`/`01-Claude-md-TEMPLATE.md §Mémoire de sprint` corrigés — 2 citations fautives introduites SDLC-23 (`M-HOOKS-XX`→`M-HOOKS-08`, `Étend M-PROC-13`→`M-PROC-10`), non détectées pendant 5 sprints. `docs/MODE-OPERATOIRE.html` reçoit une carte « Reprise après coupure » (mécanisme absent jusqu'ici de toute doc humaine). `P-39` vérifié déjà résolu (parité skill↔template déjà totale) et retiré sans code. Nouveau `LL-T13` (résidu `M-XXXX-NN` non détecté par `sdlc-validate.sh C3`, 1 occurrence). `M-PROC-44` (garde-fou traçabilité, créé hier) s'est déclenché pour la 1ère fois ce sprint — fonctionne comme prévu. `sdlc-validate.sh` 8/8. Prochaine action : `docs/ROADMAP.md §Next` ne porte plus que `P-22` (template audit externe, XS) — voir aussi `LL-T13` (surveiller si 2e occurrence) et les 2 `SDLC_CANDIDATE` encore ouverts (SDLC-18 résolution de chemin, SDLC-16 restatement 4a-4d PDR).
-
-## §Archive
 
 ### [Sprint ECO-5 — Pattern .claude/rules/ documenté] · 2026-09-03
 **Commit :** 7a96829

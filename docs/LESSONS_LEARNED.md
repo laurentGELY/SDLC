@@ -47,6 +47,11 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-Audit-Strands-Harness — 23/09/2026 — Audit externe Strands Harness vs modèle SDLC
+**Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 10/10, exit 0 (après alignement des versions README/`meta.json`/`versions.md`/HTML : 1er passage 9/10 sur C1, puis C10).
+**Processus :** PDR rédigé dans Claude.ai avec 4 préconditions fausses sur le repo (`doc/` inexistant, `DECISIONS-SDLC.md` au lieu de `07-`, « dernières entrées `M-PROC-3x` », structure d'un audit antérieur au gabarit 12) et 2 sources externes mal qualifiées (page hooks en 404, billet AWS de 07/2025 sur le SDK et non le Harness) — toutes interceptées en 4d, avant rédaction, par la vérification factuelle, et tranchées via un HALT-ARCH en un seul aller-retour. `sprint-memory.md` bien tenu (13 entrées). Un test A3 a échoué au 1er passage (mention obligatoire posée sur la ligne suivante du chiffre, pas sur la même).
+**Lien pattern :** confirme `LL-T04` — la règle graduée fonctionne côté Claude Code ; les préconditions fausses naissent en amont, à la rédaction du PDR dans Claude.ai.
+
 ### Sprint SDLC-30 — 21/09/2026 — Rattrapage `SPEC.html` / `MODE-OPERATOIRE.html` + contrôle C10 (M-PROC-46)
 **Code :** N/A — sprint de gouvernance, zéro code applicatif. `bash sdlc-validate.sh` → 10/10, exit 0.
 **Processus :** Vérification factuelle avant PDR a trouvé un retard structurel (2 HTML figés à v1.4 depuis 23 versions, invisible faute de contrôle) — même famille que `M-PROC-45`. En session, 4 chiffres écrits à la main ont dérivé du réel avant d'être corrigés : « 31 blocs de commandes » cité au plan (réel : 8 blocs, 5 copiables — confondu avec un compte de lignes `grep`), « 13 templates » (réel : 14), « ~25 versions » dans un commentaire de `check_c10` (réel : 23), « 29 sprints » dans le README (c'est le 30e). Tous trouvés par la revue adverse ou l'utilisateur, aucun resté en l'état.
