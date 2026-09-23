@@ -1,9 +1,9 @@
-# Sprint — Durcissement de `sdlc-validate.sh`
+# Sprint ECO-7 — Durcissement de `sdlc-validate.sh`
 
 <!-- PDR conforme à 04-sprint-PDR-TEMPLATE.md v2.0 -->
-<!-- Numéro de sprint et ID de décision à attribuer À L'EXÉCUTION, pas ici : le contrôle C7 -->
-<!-- du validateur existe pour attraper exactement la double attribution qu'une attribution -->
-<!-- à la rédaction provoquerait. Renommer ce fichier au moment de l'attribution. -->
+<!-- Numéro ECO-7 attribué le 23/09/2026 (ECO-6 réservé en ROADMAP §Later, ECO-2b dérivé d'ECO-2). -->
+<!-- ID de décision éventuel à attribuer À L'EXÉCUTION : le contrôle C7 du validateur existe -->
+<!-- pour attraper la double attribution qu'une attribution à la rédaction provoquerait. -->
 
 **Type :** Fix
 **Taille :** S
@@ -288,13 +288,12 @@ grep -n "C3_EXCEPTIONS" sdlc-validate.sh
 grep -n "^check_" sdlc-validate.sh
 ls tests/ 2>/dev/null || echo "tests/ absent — attendu"
 git log --oneline -5 -- sdlc-validate.sh
-ls specs/Sprints/ | grep -E "sprint-(SDLC|ECO)-" | sort -V | tail -3   # attribution du numéro
 ```
 
 **Init mémoire sprint :**
 ```bash
-echo "# Sprint <N> — durcissement-validate · $(date +%Y-%m-%d)" > .claude/sprint-memory.md
-echo "# Spec : specs/Sprints/sprint-<N>-durcissement-validate.md" >> .claude/sprint-memory.md
+echo "# Sprint ECO-7 — durcissement-validate · $(date +%Y-%m-%d)" > .claude/sprint-memory.md
+echo "# Spec : specs/Sprints/sprint-ECO-7-durcissement-validate.md" >> .claude/sprint-memory.md
 ```
 
 ---

@@ -595,3 +595,25 @@ règle renforcée — décision : [en attente]
 Périmètre couvert : 10 dépôts demandés, 4 lus au source, 4 survolés, 1 traité comme index, 1 non ré-identifié. Zéro fichier de gouvernance modifié — sprint de type Revue. Sorties : 26 patterns catalogués (7 manques structurels, 10 renforcements, 3 à surveiller, 6 écartés), 1 pattern confirmé déjà fait (E-10), P-21 débloqué, P-20 confirmé et enrichi, 4 questions ouvertes, 4 `[SDLC_CANDIDATE]` préformatés.
 
 Ce que cette revue n'a pas fait : exécuter le moindre de ces dispositifs. Les evals d'Addy Osmani, le harnais Drill de Superpowers et les hooks SessionStart ont été lus, pas observés en fonctionnement. Toute estimation de leur efficacité réelle serait une affirmation non citable.
+
+---
+
+→ Mise à jour 23/09/2026 : relecture de la couche test et validation (`specs/Sprints/PASSE-A-couche-validation.md`). Entrées sources non réécrites.
+
+*Provenance des chiffres : mesures de la passe A (dépôts tiers clonés hors de ce repo), non re-vérifiées par commande ici (`M-PROC-48`).*
+
+- **§1** — « lu au source » y signifiait « arborescence + quelques fichiers ». Couverture
+  réelle mesurée : **~5-6 % des 610 000 mots** des 5 dépôts clonés. Les verdicts gardent leur
+  valeur, pas leur pondération.
+- **`E-01`** — le tier 1 a une implémentation de référence testée
+  (`addyosmani/agent-skills/scripts/`, 1 838 lignes, 5 validateurs + 5 tests appariés).
+  `E-01` la citait de seconde main via `evals/README.md`.
+- **`E-02`** — la version praticable est `A-3` (commentaire d'en-tête citant l'incident), pas
+  le pressure testing à 5 répétitions. Mise en œuvre : sprint `ECO-7`.
+- **`E-03`** — l'anti-affaiblissement a une implémentation de référence (exemptions
+  validateur-owned + garde anti-auto-exemption) ; `sdlc-validate.sh` l'a déjà.
+- **`E-23`** — **décision à revoir.** `leonxlnx/taste-skill` a été écarté comme « skills de
+  domaine » sur la foi d'un listing de `SKILL.md`, alors que son `research/laziness/`
+  (10 fichiers, 3 698 mots) porte sur les causes de la troncature de sortie — soit les
+  signaux « Silent partial completion » et « Increasing vagueness » du
+  `04-sprint-PDR-TEMPLATE.md`. *Passe E, différée.*

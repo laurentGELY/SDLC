@@ -155,7 +155,7 @@ ligne repérée par motif de contenu** (`M-TMPL-01`), jamais par numéro de lign
 
 ## §4 · Suites
 
-1. **Nouveau PDR Taille S — `specs/Sprints/sprint-durcissement-validate.md`** *(et non un
+1. **Nouveau PDR Taille S — `specs/Sprints/sprint-ECO-7-durcissement-validate.md`** *(et non un
    amendement à ECO-1 : ajouter un bloc `→ Mise à jour` à un sprint clos brouille
    l'historique)*. Trois axes : le harnais de test, le correctif C3 du §3, les en-têtes
    d'incident et messages de correctif d'`A-3`/`A-5`.

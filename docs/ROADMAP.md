@@ -19,7 +19,7 @@
 
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur |
 |------|------|--------|----------|------------|-------------|
-| — | — | — | — | — | — En attente |
+| ECO-7 — Durcissement `sdlc-validate.sh` : harnais de test (1 cas RED/contrôle), C3 au grain ligne, en-têtes d'incident + messages de correctif (`specs/Sprints/sprint-ECO-7-durcissement-validate.md`) | Fix | S | Validateur testé · harnais réutilisable `sdlc-*.sh` | — | PDR rédigé 23/09/2026 — passe A (`specs/Sprints/PASSE-A-couche-validation.md`) |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
