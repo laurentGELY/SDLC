@@ -2,6 +2,19 @@
 
 ---
 
+## [v2.0+SDLC-Import-Strands-Harness] — 2026-09-23 · Sprint Doc S · Import Strands Harness R3 + R4 (P-45, M-TMPL-09)
+- **`02-STANDARDS-TEMPLATE.md` v2.1** : §Observabilité — exemple « si projet agent/LLM » ajouté dans la parenthèse d'exemple de 4 questions Q/R sur 5 (itération, tokens, latence, échec d'outil, appels sans résultat) — R3 de l'audit
+- **`07-DECISIONS-SDLC.md`** : `M-TMPL-09` recopiée telle quelle depuis `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md §4` (sprint et date complétés) + ligne d'index
+- **`08-hooks-TEMPLATE.md` v1.4** : tableau « Rôle de chaque hook » avant §Arborescence (garde / avertissement / transformation / observation, section source par ligne) — R4 · commentaire du script corrigé : `exit 1` ne bloque **pas** (erreur non bloquante, doc Claude Code vérifiée 23/09/2026), seul `exit 2` bloque
+- **`.claude/hooks/pre-tool-bash.sh`** : même correction du commentaire `exit 1` (ligne 9), aucun changement de comportement — `bash -n` OK, smoke test exit 0
+- **`docs/ROADMAP.md`** : P-45 → Historique · Seed **P-46** (durée par outil vs `HALT-TIMEOUT`, idée §5-2 de l'audit)
+- **`docs/LESSONS_LEARNED.md`** : entrée sprint · `LL-T04` 7→9 occurrences · 2 `SDLC_CANDIDATE` (chemins réels dans les PDR Claude.ai · source datée pour tout comportement Claude Code dans un template)
+- **Corrections ajustées vs spec** — PDR Claude.ai révisé avant démarrage : `doc/`→`docs/` ; tâche « ligne 80 `docs/`→`doc/` » supprimée (aurait créé un lien mort) ; critère « diff limité à 6 fichiers » remplacé ; Seeds 2→1 (§5-1 = déclencheur de réouverture de `M-TMPL-09`) ; P-45 et index `M-TMPL-09` ajoutés ; correction `exit 1` hors PDR sur aval
+  - Fichiers à relire dans Claude.ai : `02-STANDARDS-TEMPLATE.md`, `08-hooks-TEMPLATE.md`, `07-DECISIONS-SDLC.md`
+- **Tests** : A — agent/LLM 4 ✅ · tableau avant §Arborescence ✅ · `M-TMPL-09` sans placeholder ✅ · P-45/P-46 ✅ · B — aucun template hors 02/08, hook = commentaire seul ✅ · `sdlc-validate.sh` 10/10, exit 0
+
+---
+
 ## [v2.0+SDLC-Audit-Strands-Harness] — 2026-09-23 · Sprint Revue S · Audit externe Strands Harness vs modèle SDLC
 - **`docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md`** (nouveau) : audit Strands Harness (AWS, annoncé 21/09/2026) sur 3 sources web lues en session — 1er audit au gabarit `12-audit-externe-TEMPLATE.md` (`M-TMPL-07`) : cartographie, §3.0 distinction harness runtime (Strands) vs harness gouvernance (SDLC), tableau 6 axes, 5 recommandations (1 IMPORTER / 1 ADAPTER / 3 REJETER), verdict synthétique
 - **Recommandations** : R3 IMPORTER — exemples « projet agent/LLM » pour `02-STANDARDS-TEMPLATE.md §Observabilité`, entrée `M-TMPL-09` rédigée dans l'audit (non reportée dans `07-DECISIONS-SDLC.md`) · R4 ADAPTER — tableau rôle de chaque hook dans `08-hooks-TEMPLATE.md` · R1/R2/R5 REJETER (compaction/troncature, session ID, relance autonome — couche runtime ; `SessionStart` déjà tranché `M-TMPL-06`)

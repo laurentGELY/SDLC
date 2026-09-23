@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-Import-Strands-Harness — import R3 + R4 (P-45)] · 2026-09-23
+**Commit :** b898daa
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** Audit Strands intégré et clos : `02-STANDARDS-TEMPLATE.md` v2.1 porte des exemples d'observabilité agent/LLM (`M-TMPL-09`), `08-hooks-TEMPLATE.md` v1.4 un tableau du rôle de chaque hook ; l'erreur « `exit 1` bloque » (fausse depuis ≥ SDLC-18, seul `exit 2` bloque) est corrigée dans le template et le hook actif. Seed P-46 (HALT-TIMEOUT) en §Later, 2 `SDLC_CANDIDATE` ouverts dans `docs/LESSONS_LEARNED.md` (chemins réels dans les PDR Claude.ai · source datée pour tout comportement Claude Code) ; `sdlc-validate.sh` 10/10.
+
 ### [Sprint SDLC-Audit-Strands-Harness — audit externe Strands Harness] · 2026-09-23
 **Commit :** daa5b9c
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** Les deux livrables HTML de lecture humaine, figés à v1.4 depuis 23 versions (invisible faute de contrôle), sont remis à v2.0+SDLC-30 : carte complète des 14 fichiers et 5 scripts, vérification factuelle, auto-revue, barre qualité, `sdlc-validate.sh` désormais documentés ; table des 74 décisions de `SPEC.html` remplacée par un résumé renvoyant à `07-DECISIONS-SDLC.md`. Contrôle `check_c10` (`M-PROC-46`) les surveille désormais, testé sur les 2 HTML d'origine (❌ confirmé) et 4 fixtures isolées. `sdlc-validate.sh` 10/10. Prochaine action : `docs/ROADMAP.md §Next` est vide — prochain choix depuis `§Later`, ou candidat `/retrospective` sur le motif « chiffres figés dérivent » relevé ce sprint (`docs/LESSONS_LEARNED.md` Sprint SDLC-30).
 
+## §Archive
+
 ### [Sprint SDLC-29 — 12-audit-externe-TEMPLATE.md] · 2026-09-04
 **Commit :** 74cabd8
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `12-audit-externe-TEMPLATE.md` livré (7 sections, tableau 6 axes, verdicts `IMPORTER/REJETER/INVESTIGUER/MERGER`) — squelette repris de `docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7`, renuméroté 10→12 sur collision détectée avant code (`10-AMONT-TEMPLATE.md` déjà présent). `M-TMPL-07`. `docs/ROADMAP.md §Next` est maintenant **vide** — aucun item prêt à démarrer, prochain choix à faire depuis `§Later`. `LL-T08` 6e occurrence, `M-PROC-44` déclenché 2 fois consécutives (SDLC-28, SDLC-29) — signalé les 2 fois, escalade explicitement déclinée par l'utilisateur, pas de réouverture. `sdlc-validate.sh` 8/8.
-
-## §Archive
 
 ### [Sprint SDLC-28 — sprint-memory.md = mécanisme de reprise] · 2026-09-04
 **Commit :** 90dc3e1
