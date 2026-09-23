@@ -168,29 +168,29 @@ Patron pris à `obra/superpowers/tests/` (`mktemp -d` + `trap cleanup EXIT` +
 **Inputs requis :**
 - [x] `sdlc-validate.sh` présent, `bash sdlc-validate.sh` → `10/10 ✅`, exit 0 — état : vérifié 23/09/2026
 - [x] `C3_EXCEPTIONS` : 3 entrées (`06-PDR-bootstrap.md`, `CHANGELOG.md`, `07-DECISIONS-SDLC.md`) ; C3 couvre 8 fichiers — état : vérifié 23/09/2026
-- [ ] Sprint ECO-1 clos (`640020e`), aucun travail en cours sur le validateur — état :
+- [x] Sprint ECO-1 clos (`640020e`), aucun travail en cours sur le validateur — état : vérifié 23/09/2026, aucun `sprint-memory.md` résiduel
 
 **Outputs produits :**
-- [ ] `tests/sdlc-validate-test.sh` — interface : `bash tests/sdlc-validate-test.sh`, exit 0 si tous les cas passent
-- [ ] Le harnais lui-même, réutilisable par tout script `sdlc-*.sh` futur
-- [ ] C3 au grain ligne — précédent pour les contrôles à venir
+- [x] `tests/sdlc-validate-test.sh` — interface : `bash tests/sdlc-validate-test.sh`, exit 0 si tous les cas passent
+- [x] Le harnais lui-même, réutilisable par tout script `sdlc-*.sh` futur
+- [x] C3 au grain ligne — précédent pour les contrôles à venir
 
 ---
 
 ## Critères d'acceptation
 
-- [ ] `bash tests/sdlc-validate-test.sh ; echo "exit=$?"` → exit 0, et la sortie affiche
+- [x] `bash tests/sdlc-validate-test.sh ; echo "exit=$?"` → exit 0, et la sortie affiche
       **au moins 10 `[PASS]`** — un par contrôle
-- [ ] **Chaque contrôle a été observé en échec** : pour chacun, une fixture injecte un défaut
+- [x] **Chaque contrôle a été observé en échec** : pour chacun, une fixture injecte un défaut
       et le test assert `exit 1` **et** la présence de `❌ C<n> ·` dans la sortie
       *(un `exit 1` seul ne prouve pas que c'est le bon contrôle qui a parlé)*
-- [ ] `bash sdlc-validate.sh ; echo $?` → toujours `10/10 ✅`, exit 0 **après** le durcissement
+- [x] `bash sdlc-validate.sh ; echo $?` → toujours `10/10 ✅`, exit 0 **après** le durcissement
       de C3 — ou, si C3 devient rouge, le résidu trouvé est un **vrai défaut** documenté dans
       `sprint-memory.md`, pas une régression du contrôle
-- [ ] Aucune exception C3 au grain fichier : `grep -c "C3_EXCEPTIONS" sdlc-validate.sh` → `0`,
+- [x] Aucune exception C3 au grain fichier : `grep -c "C3_EXCEPTIONS" sdlc-validate.sh` → `0`,
       et `C3_LINE_EXCEPTIONS` compte **une seule** entrée (motif `M-TMPL-01`)
-- [ ] C3 couvre les 8 fichiers : `bash sdlc-validate.sh` affiche 8 fichiers examinés par C3
-- [ ] **Test de non-aveuglement C3**, sur copie en `mktemp -d` :
+- [x] C3 couvre les 8 fichiers : `bash sdlc-validate.sh` affiche 8 fichiers examinés par C3
+- [x] **Test de non-aveuglement C3**, sur copie en `mktemp -d` :
   - injecter un `[À REMPLIR]` en prose active dans `06-PDR-bootstrap.md` → C3 **rouge** ;
   - injecter un `[À REMPLIR]` en prose dans `07-DECISIONS-SDLC.md`, sur une ligne sans
     `M-TMPL-01` → C3 **rouge** ;
@@ -198,16 +198,16 @@ Patron pris à `obra/superpowers/tests/` (`mktemp -d` + `trap cleanup EXIT` +
     → C3 **vert** *(sans cette injection, l'exclusion des fences n'est testée sur rien)* ;
   - sans injection, avec les citations légitimes en place (inline l. 40 de `06`, l. 62 et
     l. 509 de `07`) → C3 **vert**
-- [ ] `grep -c "^# Incident :" sdlc-validate.sh` → `10` — chaque contrôle porte son incident
+- [x] `grep -c "^# Incident :" sdlc-validate.sh` → `10` — chaque contrôle porte son incident
       fondateur, **ou la mention explicite qu'il n'en a pas**
-- [ ] Chaque message d'échec nomme le correctif, pas seulement la violation — vérifié à la
+- [x] Chaque message d'échec nomme le correctif, pas seulement la violation — vérifié à la
       lecture des 10 branches d'erreur
-- [ ] `bash -n sdlc-validate.sh tests/sdlc-validate-test.sh` → exit 0
-- [ ] `git status --porcelain` inchangé après `bash tests/sdlc-validate-test.sh` — le harnais
+- [x] `bash -n sdlc-validate.sh tests/sdlc-validate-test.sh` → exit 0
+- [x] `git status --porcelain` inchangé après `bash tests/sdlc-validate-test.sh` — le harnais
       n'écrit rien dans le repo
-- [ ] Tests niveau A : `bash tests/sdlc-validate-test.sh` → tous verts
-- [ ] Tests niveau B : `bash sdlc-validate.sh` sur le repo réel → `10/10 ✅`, exit 0
-- [ ] `CHANGELOG.md` mis à jour, ligne `**Tests**` portant le résultat réel des deux scripts
+- [x] Tests niveau A : `bash tests/sdlc-validate-test.sh` → tous verts
+- [x] Tests niveau B : `bash sdlc-validate.sh` sur le repo réel → `10/10 ✅`, exit 0
+- [x] `CHANGELOG.md` mis à jour, ligne `**Tests**` portant le résultat réel des deux scripts
 
 ---
 
@@ -299,28 +299,64 @@ echo "# Spec : specs/Sprints/sprint-ECO-7-durcissement-validate.md" >> .claude/s
 ---
 
 ## Plan de développement
-*(produit par Claude Code après analyse — à compléter en étape 4d, avant tout code)*
+*(produit par Claude Code après analyse — étape 4d, 23/09/2026)*
 
 **Dépendances vérifiées :**
-- [ ] `sdlc-validate.sh` → 10/10 — état :
-- [ ] `C3_EXCEPTIONS` : 3 entrées, 8 fichiers couverts — état :
-- [ ] Ventilation des marqueurs re-mesurée — état :
+- [x] `sdlc-validate.sh` → 10/10 — état : `Résumé : 10/10 ✅`, exit 0 (23/09/2026, après commit `71fded4`)
+- [x] `C3_EXCEPTIONS` : 3 entrées, 8 fichiers couverts — état : `sdlc-validate.sh:42-46` (3 entrées) · `:138` (8 fichiers)
+- [x] Ventilation des marqueurs re-mesurée — état : identique au §Contexte (0 fencé · 21 inline · 2 prose, `07-DECISIONS-SDLC.md:62` et `:509`, toutes deux porteuses de `M-TMPL-01`)
+- [x] Sprint ECO-1 clos — état : `640020e`, aucun `sprint-memory.md` résiduel au démarrage
+
+**Incidents fondateurs relevés** (source : `specs/Sprints/sprint-ECO-1-sdlc-validate.md` §C1–§C8, commentaires de `check_c9`/`check_c10`) :
+
+| Contrôle | Incident réel ? | Source |
+|---|---|---|
+| C1 | Oui — écart `v1.9+SDLC-13` vs `v2.0+SDLC-GSD-V2`, rouge au 1er lancement | PDR ECO-1 §C1 |
+| C2 | **Non** — « défaut visé », checklist `00-CONTEXT.md §4` vérifiée à l'œil | PDR ECO-1 §C2 |
+| C3 | **Non** — « défaut visé » : placeholder copié lors d'une réorganisation | PDR ECO-1 §C3 |
+| C4 | Oui — `M-TMPL-04` | PDR ECO-1 §C4 |
+| C5 | Oui — `M-HOOKS-05` puis `M-TMPL-04` | PDR ECO-1 §C5 |
+| C6 | **Non** — maintenance manuelle SDLC-11/12, aucune dérive manquée documentée | PDR ECO-1 §C6 |
+| C7 | Oui — `M-PROC-25` attribué deux fois (CHANGELOG SDLC-11) | PDR ECO-1 §C7 |
+| C8 | **Non** — « aucun connu », contrôle de non-régression | PDR ECO-1 §C8 |
+| C9 | Oui — site `docs/` dérivé SDLC-25→29 sans alerte (`M-PROC-45`) | `sdlc-validate.sh:287-288` |
+| C10 | Oui — HTML figés à v1.4 jusqu'à v2.0+SDLC-29 (`M-PROC-46`) | `sdlc-validate.sh:313-315` |
+
+→ 4 contrôles sans incident (C2, C3, C6, C8), pas 3 comme présumé au §Risques : C3 s'y ajoute.
 
 **Modules touchés :**
+- `sdlc-validate.sh` — `ROOT` (l. 16), bloc exceptions C3 (l. 39-46), `check_c3` (l. 135-160), en-têtes `# Incident :` ×10, ligne `→ Correctif :` dans chaque branche d'échec ×10
+- `tests/sdlc-validate-test.sh` — nouveau
+- `CHANGELOG.md` — au wrap-up
+- Taille : cœur S (2 fichiers) · gouvernance associée au wrap-up (CHANGELOG, README version, `docs/meta.json`, `docs/pages/versions.md`, HTML — imposés par C1/C9/C10)
 
 **Risques identifiés :**
+- Copie de fixture : le repo pèse 92 Mo, dont 91 Mo sous `exemples/` que le validateur ne lit pas → copie par `tar` en excluant `.git/` et `exemples/` (~1,3 Mo). Un cas « baseline verte » sur fixture non modifiée garantit que l'exclusion ne retire rien d'utile à un contrôle.
+- Injections qui déclenchent plusieurs contrôles (ex. un `99-*.md` orphelin rouge C2+C6+C10) : sans effet sur le verdict, l'assertion porte sur `❌ C<n> ·` du contrôle visé.
+- Nom de la variable d'environnement : `SDLC_VALIDATE_ROOT` (préfixée, pas `ROOT` nu, pour ne pas capter une variable homonyme de l'environnement appelant).
 
 **Plan d'exécution :**
-1.
-2.
+1. `ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"` + commentaire (lecture seule, surface acceptée) — `bash sdlc-validate.sh` → 10/10.
+2. Harnais `tests/sdlc-validate-test.sh` : `SCRIPT_DIR`, `mktemp -d` + `trap cleanup EXIT`, `make_fixture` (tar sans `.git`/`exemples`), `run_validate` en sous-shell, `pass`/`fail`, `assert_red <n>` (exit 1 **et** `❌ C<n> ·`), `assert_green <n>` (`✅ C<n> ·`). Cas 0 : baseline verte (exit 0).
+3. Validation du harnais sur C8 (script `zz-broken.sh` avec `if then`) — le voir rouge.
+4. Cas RED un par un, chacun vu rouge avant le suivant :
+   C1 version CHANGELOG altérée · C2 marqueur de version retiré de `01-Claude-md-TEMPLATE.md` · C3 `[À REMPLIR]` en prose dans `README.md` · C4 `## ` parasite dans `.claude/skills/wrap-up/SKILL.md` · C5 `data.get('zz_cle_fantome')` en commentaire dans `pre-tool-bash.sh` · C6 `99-orphelin.md` sur disque · C7 `## M-PROC-25` dupliqué · C9 version altérée dans `docs/meta.json` · C10 marqueur retiré de `docs/SPEC.html`.
+5. Cas C3 de non-aveuglement écrits **avant** le durcissement (les 2 cas « rouge » échouent sur le C3 actuel — c'est le RED du durcissement).
+6. Durcissement C3 : `awk` ligne par ligne, saut des blocs fencés (```` ``` ````/`~~~`), retrait du code inline si nombre de backticks pair (impair → ligne traitée comme prose), exemption par `C3_LINE_EXCEPTIONS` (`fichier|motif|justification`), sortie `fichier:ligne`, compte de fichiers examinés. Suppression de `C3_EXCEPTIONS`.
+7. En-têtes `# Incident :` (col. 0, au-dessus de chaque `check_*`) et `→ Correctif :` dans les 10 branches d'échec.
+8. Vérifications finales (critères d'acceptation), `git status --porcelain` avant/après la suite.
 
 **Plan de test :**
 - A — Ciblé : `bash tests/sdlc-validate-test.sh ; echo "exit=$?"`
-- **Volumétrie minimum :** ≥ 10 `[PASS]` affichés — une suite qui sort `0` en affichant moins
-  de 10 cas est invalide même avec un code de sortie correct
-- B — Non-régression : `bash sdlc-validate.sh` sur le repo réel → `10/10 ✅`, exit 0
-
----
+- **Volumétrie minimum :** ≥ 10 `[PASS]` affichés — attendu 15 (1 baseline + 10 RED + 4 non-aveuglement C3)
+- B — Non-régression : `bash sdlc-validate.sh ; echo "exit=$?"` sur le repo réel → `10/10 ✅`, exit 0 · `bash -n sdlc-validate.sh tests/sdlc-validate-test.sh`
 
 ## Corrections ajustées vs spec
 *(complété au wrap-up — §Étape 3)*
+
+- **4 contrôles sans incident réel, pas 3** — §Risques présumait C2, C6, C8 ; le PDR ECO-1 décrit aussi C3 comme « défaut visé » non constaté. C3 porte donc `[HYPOTHÈSE]`.
+- **Critère `bash -n sdlc-validate.sh tests/sdlc-validate-test.sh`** — ne vérifie que le premier fichier (le second devient `$1`). Vérifié fichier par fichier : OK pour les deux.
+- **Fixture** — copie par `tar` sans `.git/` ni `exemples/` (91 Mo non lus par le validateur) + cas « baseline » sur fixture non modifiée, absents du PDR : sans eux, suite lente et rouge ambigu.
+- **Variable d'environnement** — `SDLC_VALIDATE_ROOT` (préfixée) plutôt qu'un `ROOT` nu, pour ne pas capter une variable homonyme de l'appelant.
+- **Point d'extension du registre** (`sdlc-validate.sh`, commentaire `CHECKS`) — étapes 3-4 ajoutées (en-tête d'incident, correctif, cas RED) : commentaire seul, aucune logique.
+- **`README.md §Structure du repo`** — ligne `tests/` ajoutée (hors §Surface, imposée par le nouveau répertoire).

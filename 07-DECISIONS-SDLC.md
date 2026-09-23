@@ -1908,6 +1908,21 @@ du repo` est normalisé (C6 repasse à 3 listes).
 
 → Mise à jour 21/09/2026 : le registre compte désormais 9 contrôles — C9 ajouté par `M-PROC-45`.
 
+→ Mise à jour 23/09/2026 (Sprint ECO-7) : le validateur a sa suite de tests
+(`tests/sdlc-validate-test.sh`, 1 cas RED par contrôle, copie du dépôt sous
+`mktemp -d`, racine passée par `SDLC_VALIDATE_ROOT`). Deux règles s'ajoutent :
+**(1)** une exception de contrôle se déclare **au grain ligne, par motif de contenu**
+— jamais un fichier entier (qui rend le contrôle aveugle sur ce fichier : C3 ne
+lisait plus 3 fichiers sur 8), jamais un numéro de ligne (qui dérive) ;
+**(2)** tout nouveau contrôle arrive avec un cas qui injecte son défaut et le voit
+rouge, un en-tête `# Incident :` (incident réel, ou « aucun connu — [HYPOTHÈSE] »,
+jamais inventé) et un `→ Correctif :` dans son message d'échec. Écartés : refactor
+en fonctions pures + tests unitaires (pattern `skill-lint.js`, réécriture de 378
+lignes vertes pour une testabilité que la copie de dépôt obtient sans y toucher) ;
+exemption des 2 lignes restantes par réécriture en code inline du titre de
+`M-TMPL-01` (l'artefact se plierait à l'outil). Source :
+`specs/Sprints/PASSE-A-couche-validation.md`.
+
 ---
 
 ## M-TMPL-05 · Rédaction des templates/skills — description = déclenchement, forme selon type d'échec · v2.0+ECO-2 · 03/09/2026

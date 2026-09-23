@@ -6,6 +6,9 @@
 # Ce script valide le MODÈLE (ce dépôt), pas ses copies dans des projets cibles.
 # Lecture seule : aucune écriture de fichier, aucun appel réseau, idempotent.
 # Résout ses chemins par rapport à sa propre position — pas au cwd de l'appelant.
+# SDLC_VALIDATE_ROOT, si défini, remplace cette racine : c'est ainsi que
+# tests/sdlc-validate-test.sh valide une copie modifiée du dépôt. Le script étant
+# en lecture seule, pointer ailleurs ne peut rien écrire ni détruire.
 #
 # Codes de sortie : 0 = tous les contrôles OK · 1 = ≥ 1 contrôle en échec · 2 = erreur d'exécution
 # du script lui-même (fichier attendu absent, commande indisponible).
@@ -13,7 +16,7 @@
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT="$SCRIPT_DIR"
+ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"
 
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un
@@ -37,12 +40,14 @@ done
 # Une exception ne s'ajoute jamais pour contourner un vrai défaut — seulement
 # pour un cas déjà justifié explicitement dans 07-DECISIONS-SDLC.md.
 
-# C3 — le motif de placeholder est cité pour DOCUMENTER la convention M-TMPL-01,
-# pas laissé en résidu réel. Format : "fichier|justification".
-C3_EXCEPTIONS=(
-  "06-PDR-bootstrap.md|cite [→ ADAPTER] pour documenter la convention M-TMPL-01, §Étape 2"
-  "CHANGELOG.md|entrées narrant des sprints passés qui ont introduit [À REMPLIR] (ex. M-ARCH-08)"
-  "07-DECISIONS-SDLC.md|documente la convention M-TMPL-01 elle-même (titres et citations)"
+# C3 — lignes où le motif de placeholder est cité pour DOCUMENTER la convention
+# M-TMPL-01, en prose (hors code inline, hors bloc fencé — déjà ignorés par C3).
+# Grain LIGNE, repérage par motif de contenu, jamais par numéro de ligne ni par
+# fichier entier : une exception de fichier rendait C3 aveugle sur tout le fichier
+# (ECO-7). Une ligne n'est exemptée que si elle contient le motif.
+# Format : "fichier|motif de contenu|justification".
+C3_LINE_EXCEPTIONS=(
+  "07-DECISIONS-SDLC.md|M-TMPL-01|titre et ligne d'index de la décision qui définit la convention des placeholders"
 )
 
 # C4 — paire dont le skill vivant n'a jamais été installé dans CE repo (état
@@ -85,6 +90,9 @@ report() {
 # et retourne 0 (succès) ou 1 (échec) — jamais d'arrêt du script (pas de `-e`),
 # le rapport doit être complet en un seul passage.
 
+# Incident : écart README.md v1.9+SDLC-13 ↔ CHANGELOG.md v2.0+SDLC-GSD-V2, resté
+#   invisible jusqu'à la rédaction du PDR ECO-1 — C1 était rouge au 1er lancement.
+#   Rien d'autre ne compare les deux fichiers : chacun se relit seul.
 check_c1() {
   # Version README.md ↔ dernière entrée CHANGELOG.md
   local readme_v chlog_v
@@ -94,11 +102,14 @@ check_c1() {
     report "C1 · Version README.md ↔ CHANGELOG.md" 0 "README=$readme_v · CHANGELOG=$chlog_v"
     return 0
   else
-    report "C1 · Version README.md ↔ CHANGELOG.md" 1 "README=$readme_v · CHANGELOG=$chlog_v — divergentes"
+    report "C1 · Version README.md ↔ CHANGELOG.md" 1 "README=$readme_v · CHANGELOG=$chlog_v — divergentes
+→ Correctif : aligner « Version courante : » de README.md sur la 1re entrée « ## [...] » de CHANGELOG.md (celui qui est en retard rattrape l'autre)."
     return 1
   fi
 }
 
+# Incident : aucun connu — contrôle préventif [HYPOTHÈSE]. Vise un template modifié
+#   sans incrément de version (checklist 00-CONTEXT.md §4, vérifiée à l'œil).
 check_c2() {
   # En-tête de version sur chaque template NN-*.md — commentaire HTML
   # (<!-- Template SDLC vX.Y ... -->). Exception stricte au cas par cas :
@@ -127,38 +138,64 @@ check_c2() {
   if [ "$fail" -eq 0 ]; then
     report "C2 · En-tête de version sur chaque template" 0 ""
   else
-    report "C2 · En-tête de version sur chaque template" 1 "$detail"
+    report "C2 · En-tête de version sur chaque template" 1 "$detail
+→ Correctif : ajouter dans les 3 premières lignes un commentaire « <!-- Template SDLC vX.Y ... --> » (00-CONTEXT.md : version dans le titre H1), et l'incrémenter à chaque modification."
   fi
   return $fail
 }
 
+# Incident : aucun connu — contrôle préventif [HYPOTHÈSE]. Vise un placeholder
+#   copié d'un template vers un fichier de référence lors d'une réorganisation.
+#   Aveugle sur 3 fichiers entiers jusqu'à ECO-7 (exceptions au grain fichier).
 check_c3() {
   # Placeholders [→ ADAPTER] / [À REMPLIR] / [Nom du projet] absents des
-  # fichiers de référence — sauf citation documentée de la convention elle-même.
+  # fichiers de référence, ligne par ligne. Ne comptent pas : les blocs fencés
+  # (``` ou ~~~) et le code inline — formes de citation. Une ligne à nombre
+  # impair de backticks est traitée comme prose : faux positif visible plutôt
+  # que faux négatif silencieux.
   local files=(00-CONTEXT.md 06-PDR-bootstrap.md 07-DECISIONS-SDLC.md README.md CHANGELOG.md Claude.md STANDARDS.md specs/SPEC.md)
-  local fail=0 detail="" f excepted ex exfile
+  local fail=0 detail="" f hits hit lineno line excepted ex exfile rest motif examined=0
   for f in "${files[@]}"; do
     [ -f "$ROOT/$f" ] || continue
-    if grep -lqE '\[→ ADAPTER\]|\[À REMPLIR\]|\[Nom du projet\]' "$ROOT/$f" 2>/dev/null; then
+    examined=$((examined + 1))
+    hits=$(awk '
+      /^[[:space:]]*(```|~~~)/ { fence = !fence; next }
+      fence { next }
+      {
+        l = $0
+        if (gsub(/`/, "`", l) % 2 == 0) gsub(/`[^`]*`/, "", l)
+        if (l ~ /\[→ ADAPTER\]|\[À REMPLIR\]|\[Nom du projet\]/) print NR ":" $0
+      }' "$ROOT/$f")
+    [ -n "$hits" ] || continue
+    while IFS= read -r hit; do
+      lineno="${hit%%:*}"
+      line="${hit#*:}"
       excepted=0
-      for ex in "${C3_EXCEPTIONS[@]}"; do
+      for ex in "${C3_LINE_EXCEPTIONS[@]}"; do
         exfile="${ex%%|*}"
-        [ "$exfile" = "$f" ] && excepted=1
+        rest="${ex#*|}"
+        motif="${rest%%|*}"
+        if [ "$exfile" = "$f" ] && [[ "$line" == *"$motif"* ]]; then
+          excepted=1
+        fi
       done
       [ "$excepted" -eq 1 ] && continue
       fail=1
       detail="$detail
-❌ $f — placeholder résiduel non justifié"
-    fi
+❌ $f:$lineno — placeholder en prose : ${line:0:100}"
+    done <<<"$hits"
   done
   if [ "$fail" -eq 0 ]; then
-    report "C3 · Placeholders hors des fichiers template" 0 "0 résidu non justifié (${#C3_EXCEPTIONS[@]} exception(s) documentée(s) — voir C3_EXCEPTIONS en tête de script)"
+    report "C3 · Placeholders hors des fichiers template" 0 "$examined fichier(s) examiné(s) · 0 résidu en prose (${#C3_LINE_EXCEPTIONS[@]} exception(s) de ligne — voir C3_LINE_EXCEPTIONS en tête de script)"
   else
-    report "C3 · Placeholders hors des fichiers template" 1 "$detail"
+    report "C3 · Placeholders hors des fichiers template" 1 "$examined fichier(s) examiné(s)$detail
+→ Correctif : remplacer le placeholder par sa valeur réelle. S'il cite la convention, l'écrire en code inline (\`[→ ADAPTER]\`) ; exception de ligne dans C3_LINE_EXCEPTIONS seulement avec renvoi 07-DECISIONS-SDLC.md."
   fi
   return $fail
 }
 
+# Incident : M-TMPL-04 — un template et son skill vivant ont divergé sans que
+#   personne ne le voie ; aucune relecture ne compare les deux copies.
 check_c4() {
   # Parité structurelle (liste ordonnée des titres ^## ) entre 4 paires
   # template ↔ skill vivant. Une paire sans skill installée est signalée
@@ -201,11 +238,15 @@ check_c4() {
   if [ "$fail" -eq 0 ]; then
     report "C4 · Parité structurelle template ↔ skill vivant" 0 "$detail"
   else
-    report "C4 · Parité structurelle template ↔ skill vivant" 1 "$detail"
+    report "C4 · Parité structurelle template ↔ skill vivant" 1 "$detail
+→ Correctif : reporter les titres « ## » manquants d'un côté à l'autre — voir : diff <(grep '^## ' <template>) <(grep '^## ' <skill>). Skill absente : l'installer, ou la justifier dans C4_EXCEPTIONS avec renvoi 07-DECISIONS-SDLC.md."
   fi
   return $fail
 }
 
+# Incident : M-HOOKS-05 puis M-TMPL-04 — clés JSON du hook template et du hook
+#   actif divergentes, bug reproduit en bootstrap sur deux sprints. Un hook qui lit
+#   une clé absente échoue en silence : rien ne le signale à l'exécution.
 check_c5() {
   # Parité du schéma JSON (clés data.get('...')) entre 08-hooks-TEMPLATE.md
   # et les hooks actifs (pre-tool-bash.sh, pre-compact.sh)
@@ -218,11 +259,14 @@ check_c5() {
     report "C5 · Parité schéma JSON hook template ↔ hooks actifs" 0 ""
     return 0
   else
-    report "C5 · Parité schéma JSON hook template ↔ hooks actifs" 1 "$diffout"
+    report "C5 · Parité schéma JSON hook template ↔ hooks actifs" 1 "$diffout
+→ Correctif : aligner les clés data.get() entre 08-hooks-TEMPLATE.md (colonne gauche = template seul) et .claude/hooks/*.sh (colonne indentée = hooks seuls)."
     return 1
   fi
 }
 
+# Incident : aucun connu — contrôle préventif [HYPOTHÈSE]. La carte a été tenue à
+#   la main aux sprints SDLC-11 et SDLC-12 sans dérive manquée documentée.
 check_c6() {
   # Carte des fichiers 00-CONTEXT.md §1 ↔ disque.
   # Volontairement 2 listes (disque ↔ 00-CONTEXT.md), pas 3 : README.md
@@ -246,11 +290,14 @@ check_c6() {
     report "C6 · Carte des fichiers ↔ disque ↔ 00-CONTEXT.md" 0 ""
     return 0
   else
-    report "C6 · Carte des fichiers ↔ disque ↔ 00-CONTEXT.md" 1 "$diffout"
+    report "C6 · Carte des fichiers ↔ disque ↔ 00-CONTEXT.md" 1 "$diffout
+→ Correctif : ajouter le fichier à la table « ## 1. Carte des fichiers » de 00-CONTEXT.md (colonne gauche = disque seul), ou retirer l'entrée périmée (colonne indentée = carte seule)."
     return 1
   fi
 }
 
+# Incident : M-PROC-25 attribué deux fois (CHANGELOG SDLC-11), conflit résolu à
+#   la main. Deux sessions qui numérotent chacune de leur côté ne se voient pas.
 check_c7() {
   # Unicité des identifiants M-XXXX-NN dans 07-DECISIONS-SDLC.md
   local dups
@@ -259,11 +306,14 @@ check_c7() {
     report "C7 · Unicité des identifiants M-XXXX-NN" 0 ""
     return 0
   else
-    report "C7 · Unicité des identifiants M-XXXX-NN" 1 "$dups"
+    report "C7 · Unicité des identifiants M-XXXX-NN" 1 "$dups
+→ Correctif : renuméroter le doublon le plus récent au prochain ID libre de sa famille — grep -oE '^## M-<FAMILLE>-[0-9]+' 07-DECISIONS-SDLC.md | sort -V | tail -1 — et mettre à jour ses renvois."
     return 1
   fi
 }
 
+# Incident : aucun connu — contrôle préventif [HYPOTHÈSE] de non-régression ;
+#   `bash -n` était déjà pratiqué à la main (SDLC-21, 22, 23).
 check_c8() {
   # Syntaxe de tous les scripts shell (racine + .claude/hooks/)
   local fail=0 detail="" f err
@@ -278,11 +328,14 @@ check_c8() {
   if [ "$fail" -eq 0 ]; then
     report "C8 · Syntaxe de tous les scripts shell" 0 ""
   else
-    report "C8 · Syntaxe de tous les scripts shell" 1 "$detail"
+    report "C8 · Syntaxe de tous les scripts shell" 1 "$detail
+→ Correctif : corriger la syntaxe à la ligne indiquée, puis vérifier par bash -n <fichier>."
   fi
   return $fail
 }
 
+# Incident : M-PROC-45 — le site docs/, édité à la main, a dérivé de SDLC-25 à
+#   SDLC-29 sans alerte ; aucun sprint ne relit le site.
 check_c9() {
   # Site de documentation à jour (M-PROC-45). Le site docs/ est édité à la main
   # (docs/README.md) : sans contrôle, il a dérivé de SDLC-25 à SDLC-29 sans alerte.
@@ -304,11 +357,14 @@ check_c9() {
   if [ "$fail" -eq 0 ]; then
     report "C9 · Site docs/ à jour (meta.json ↔ README.md, versions.md)" 0 "meta.json=$meta_v · versions.md mentionne $tag"
   else
-    report "C9 · Site docs/ à jour (meta.json ↔ README.md, versions.md)" 1 "$detail"
+    report "C9 · Site docs/ à jour (meta.json ↔ README.md, versions.md)" 1 "$detail
+→ Correctif : reporter la version de README.md dans docs/meta.json (« version ») et ajouter la ligne du sprint courant dans docs/pages/versions.md."
   fi
   return $fail
 }
 
+# Incident : M-PROC-46 — SPEC.html et MODE-OPERATOIRE.html figés à v1.4 jusqu'à
+#   v2.0+SDLC-29 (23 versions) ; livrables de lecture humaine, jamais relus en sprint.
 check_c10() {
   # Livrables HTML de lecture humaine à jour (M-PROC-46) — même famille de défaut
   # que C9 : SPEC.html et MODE-OPERATOIRE.html sont restés figés à v1.4 jusqu'à
@@ -346,7 +402,8 @@ check_c10() {
   if [ "$fail" -eq 0 ]; then
     report "C10 · Livrables HTML à jour (marqueur de version, carte des templates)" 0 ""
   else
-    report "C10 · Livrables HTML à jour (marqueur de version, carte des templates)" 1 "$detail"
+    report "C10 · Livrables HTML à jour (marqueur de version, carte des templates)" 1 "$detail
+→ Correctif : mettre à jour le marqueur « SDLC version : <version README> » du HTML et y citer chaque template NN-*.md manquant."
   fi
   return $fail
 }
@@ -355,6 +412,10 @@ check_c10() {
 # Point d'extension pour les vagues 2/3 (ECO-2, ECO-3, …) :
 # 1) définir une fonction check_cN ci-dessus, qui appelle `report` et retourne 0/1
 # 2) l'ajouter à ce tableau, dans l'ordre où elle doit s'exécuter
+# 3) la faire précéder d'un en-tête « # Incident : » (incident réel, ou « aucun
+#    connu — [HYPOTHÈSE] ») et donner un « → Correctif : » à sa branche d'échec
+# 4) ajouter à tests/sdlc-validate-test.sh un cas qui injecte le défaut visé et
+#    vérifie « ❌ C<n> · » — un contrôle jamais vu rouge n'est pas un contrôle (ECO-7)
 CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9 check_c10)
 
 echo ""

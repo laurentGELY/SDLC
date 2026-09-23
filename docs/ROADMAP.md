@@ -19,7 +19,7 @@
 
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur |
 |------|------|--------|----------|------------|-------------|
-| ECO-7 — Durcissement `sdlc-validate.sh` : harnais de test (1 cas RED/contrôle), C3 au grain ligne, en-têtes d'incident + messages de correctif (`specs/Sprints/sprint-ECO-7-durcissement-validate.md`) | Fix | S | Validateur testé · harnais réutilisable `sdlc-*.sh` | — | PDR rédigé 23/09/2026 — passe A (`specs/Sprints/PASSE-A-couche-validation.md`) |
+| — | — | — | — | — | — En attente |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
@@ -106,6 +106,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| ECO-7 — Durcissement `sdlc-validate.sh` | Fix | S | ECO-7 (23/09/2026) | `tests/sdlc-validate-test.sh` (nouveau, 15 cas, 1 RED par contrôle) · `sdlc-validate.sh` : `SDLC_VALIDATE_ROOT`, C3 au grain ligne (`C3_LINE_EXCEPTIONS`), en-têtes `# Incident :`, `→ Correctif :` · `M-PROC-40` → Mise à jour · origine : `specs/Sprints/PASSE-A-couche-validation.md` |
 | P-45 — Import audit Strands Harness (R3 + R4) | Doc | S | SDLC-Import-Strands-Harness (23/09/2026) | `02-STANDARDS-TEMPLATE.md` v2.1 (exemples agent/LLM, 4 Q/R sur 5) · `08-hooks-TEMPLATE.md` v1.4 (tableau rôle des hooks + correction `exit 1` non bloquant) · `M-TMPL-09` · Seed P-46 (HALT-TIMEOUT) |
 | SDLC-Audit-Strands-Harness — Audit externe Strands Harness (AWS) vs modèle SDLC | Revue | S | SDLC-Audit-Strands-Harness (23/09/2026) | `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md` — 1er audit au gabarit 12 (+ verdict `ADAPTER`) · 5 recommandations : 1 IMPORTER / 1 ADAPTER / 3 REJETER · `M-TMPL-09` rédigé, non reporté · P-45 §Later · aucun template modifié |
 | SDLC-32 — Rappel 4a-4d dans le PDR, réévaluation `LL-T05` | Doc | XS | SDLC-32 (22/09/2026) | Encart 4 lignes `04-sprint-PDR-TEMPLATE.md §Handoff` · clôt `SDLC_CANDIDATE` SDLC-16 et `LL-T05` (2 occurrences, résolu sans mécanisation) · `M-TMPL-08` |
