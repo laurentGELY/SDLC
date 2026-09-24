@@ -50,3 +50,6 @@ re-synchroniser leur contenu dans Claude.ai ("Sync now").
 Delta vérifié : `tests/sdlc-validate-test.sh` (nouveau) ajouté aux fichiers exclus ci-dessus
 (même traitement que les autres scripts). Fichiers déjà synchronisés modifiés ce sprint
 (`07-DECISIONS-SDLC.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").
+
+## Dernière vérification : 24/09/2026 · Sprint ECO-8 wrap-up
+Delta vérifié : aucun nouveau fichier de gouvernance (seul `specs/Sprints/sprint-ECO-8-suite-dans-wrapup.md`, non listé individuellement). Fichiers déjà synchronisés modifiés ce sprint (`00-CONTEXT.md`, `03-wrap-up-SKILL-TEMPLATE.md`, `07-DECISIONS-SDLC.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").

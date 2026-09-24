@@ -218,3 +218,9 @@ Date : 23/09/2026 (Sprint ECO-7)
 Commande : `F=$(mktemp -d); ( tar --exclude=./.git --exclude=./exemples -cf - . ) | ( cd "$F" && tar -xf - ); <injection du défaut dans $F>; SDLC_VALIDATE_ROOT="$F" bash sdlc-validate.sh; rm -rf "$F"` — ou la suite complète : `bash tests/sdlc-validate-test.sh`
 Résultat observé : exit 1 et `❌ C<n> ·` sur le contrôle visé ; `git status --porcelain` inchangé.
 Conclusion : asserter sur `❌ C<n> ·` complet, pas sur `C<n>` (`C1` matche `C10`) ni sur l'exit code seul (dix contrôles, pas d'arrêt au premier échec).
+
+## Symptôme : un grep de vérification ne trouve rien alors que le motif est dans le fichier
+Date : 24/09/2026 (Sprint ECO-8, grep préalable du §Handoff)
+Commande : `grep -n 'for f in "$ROOT"' sdlc-validate.sh` → vide · `grep -nF 'for f in "$ROOT"/*.sh' sdlc-validate.sh` → `320:`
+Résultat observé : dans un motif regex, `$` est une ancre de fin de ligne — le motif ne peut jamais matcher au milieu d'une ligne.
+Conclusion : motif contenant `$`, `*`, `[`, `.` à prendre littéralement → `grep -F`. Toute commande de vérification écrite dans un PDR se lance une fois avant d'être écrite (`LL-T12`).

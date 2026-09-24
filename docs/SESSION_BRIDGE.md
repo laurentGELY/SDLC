@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ECO-8 — suite-dans-wrapup] · 2026-09-24
+**Commit :** 16075ab
+**Bloquants en suspens :** aucun
+**Fil fonctionnel :** L'Étape 3.5 du wrap-up (skill vivant + `03-wrap-up-SKILL-TEMPLATE.md` v2.0) et la checklist `00-CONTEXT.md §4` lancent `bash tests/sdlc-validate-test.sh` (16/16) en plus de `bash sdlc-validate.sh` (10/10) ; C8 vérifie aussi `tests/*.sh`. Le `SDLC_CANDIDATE` d'ECO-7 est implémenté pour (a) et (b) ; (c) — établir l'état du repo avant toute lecture de source externe — reste ouvert dans `docs/LESSONS_LEARNED.md`.
+
 ### [Sprint ECO-7 — durcissement-validate] · 2026-09-23
 **Commit :** 437ca42
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** Audit Strands intégré et clos : `02-STANDARDS-TEMPLATE.md` v2.1 porte des exemples d'observabilité agent/LLM (`M-TMPL-09`), `08-hooks-TEMPLATE.md` v1.4 un tableau du rôle de chaque hook ; l'erreur « `exit 1` bloque » (fausse depuis ≥ SDLC-18, seul `exit 2` bloque) est corrigée dans le template et le hook actif. Seed P-46 (HALT-TIMEOUT) en §Later, 2 `SDLC_CANDIDATE` ouverts dans `docs/LESSONS_LEARNED.md` (chemins réels dans les PDR Claude.ai · source datée pour tout comportement Claude Code) ; `sdlc-validate.sh` 10/10.
 
+## §Archive
+
 ### [Sprint SDLC-Audit-Strands-Harness — audit externe Strands Harness] · 2026-09-23
 **Commit :** daa5b9c
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `docs/AUDIT-EXTERNE-strands-harness-vs-sdlc.md` livré, 1er audit au gabarit 12 : Strands Harness est un runtime d'agent (concurrent de Claude Code), pas une gouvernance — 3 recommandations sur 5 rejetées comme runtime, 1 IMPORTER (exemples observabilité agent/LLM dans `02-STANDARDS-TEMPLATE.md`, `M-TMPL-09` rédigé mais non reporté) et 1 ADAPTER (rôle des hooks dans `08-hooks-TEMPLATE.md`), aucun template modifié. Import R3+R4 inscrit en `P-45` (`docs/ROADMAP.md §Later`, déclencheur = décision humaine) ; verdict `ADAPTER` hors gabarit 12, 1ʳᵉ occurrence. `sdlc-validate.sh` 10/10.
-
-## §Archive
 
 ### [Sprint SDLC-30 — Rattrapage SPEC.html/MODE-OPERATOIRE.html + C10] · 2026-09-21
 **Commit :** c00fac9

@@ -2,6 +2,20 @@
 
 ---
 
+## [v2.0+ECO-8] — 2026-09-24 · Sprint Fix S · Suite de tests du validateur au wrap-up + C8 sur `tests/`
+- **`sdlc-validate.sh`** : C8 couvre `tests/*.sh` (glob + commentaire) — la suite de tests du validateur est elle-même vérifiée en syntaxe
+- **`tests/sdlc-validate-test.sh`** : cas RED « script invalide sous `tests/` → `❌ C8 ·` » (16 cas)
+- **`03-wrap-up-SKILL-TEMPLATE.md` v2.0** + **`.claude/skills/wrap-up/SKILL.md`** : Étape 3.5 lance `bash tests/sdlc-validate-test.sh` à chaque wrap-up, résultat dans la ligne `**Tests**` — dans le template, sous la condition existante « repo modèle uniquement » (non bloquant en projet cible)
+- **`00-CONTEXT.md` v2.0** : ligne de checklist §4 pour la suite
+- **`07-DECISIONS-SDLC.md`** : `M-PROC-40` → Mise à jour 24/09/2026 (Sprint ECO-8) — appel à chaque wrap-up, C8 sur `tests/`, C11 écarté
+- **`docs/LESSONS_LEARNED.md`** : entrée sprint · `LL-T12` 2→3 · `SDLC_CANDIDATE` ECO-7 (a)(b) → implémentés
+- **Versions** : `README.md`, `docs/meta.json`, `docs/pages/versions.md`, marqueurs `docs/SPEC.html`/`docs/MODE-OPERATOIRE.html` (C1/C9/C10) · **`docs/ROADMAP.md`** : ECO-8 → Historique
+- **Corrections ajustées vs spec** — grep préalable du §Handoff défectueux (`$` en regex) → `grep -F` · date de décision : 24/09/2026 (sprint commencé le 23)
+  - Fichiers à relire dans Claude.ai : `03-wrap-up-SKILL-TEMPLATE.md`, `00-CONTEXT.md`, `07-DECISIONS-SDLC.md`
+- **Tests** : A — `bash tests/sdlc-validate-test.sh` → **16/16**, exit 0 (nouveau cas FAIL avant le glob, PASS après) · B — `bash sdlc-validate.sh` → **10/10 ✅**, exit 0 · parité titres template ↔ skill (C4) OK · `git status --porcelain` inchangé après la suite
+
+---
+
 ## [v2.0+ECO-7] — 2026-09-23 · Sprint Fix S · Durcissement de `sdlc-validate.sh` (harnais de test, C3 au grain ligne)
 - **`tests/sdlc-validate-test.sh`** (nouveau) : harnais bash (patron `obra/superpowers/tests/`) — copie du dépôt sans `.git/`/`exemples/` dans `mktemp -d`, injection d'un défaut, assertion exit 1 **et** `❌ C<n> ·` complet (`C1` seul matcherait `C10`) · 15 cas : 1 baseline, 1 RED par contrôle (C1→C10), 4 de non-aveuglement C3
 - **`sdlc-validate.sh`** : racine surchargeable par `SDLC_VALIDATE_ROOT` (défaut inchangé) · **C3** ligne par ligne, blocs fencés et code inline ignorés, ligne à backtick impair traitée comme prose · `C3_EXCEPTIONS` (3 fichiers entiers exemptés, C3 aveugle sur 3 fichiers / 8) remplacé par `C3_LINE_EXCEPTIONS` (1 entrée, motif de contenu `M-TMPL-01`) · sortie `fichier:ligne` + nombre de fichiers examinés · en-tête `# Incident :` sur les 10 contrôles (4 sans incident réel, marqués `[HYPOTHÈSE]` : C2, C3, C6, C8) · ligne `→ Correctif :` sur les 10 branches d'échec · point d'extension du registre : tout nouveau contrôle vient avec son cas RED
