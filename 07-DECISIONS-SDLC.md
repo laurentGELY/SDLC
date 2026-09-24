@@ -1923,6 +1923,14 @@ exemption des 2 lignes restantes par réécriture en code inline du titre de
 `M-TMPL-01` (l'artefact se plierait à l'outil). Source :
 `specs/Sprints/PASSE-A-couche-validation.md`.
 
+→ Mise à jour 24/09/2026 (Sprint ECO-8) : la suite est appelée à chaque wrap-up
+(Étape 3.5 du skill vivant et de `03-wrap-up-SKILL-TEMPLATE.md` v2.0, sous la
+condition « repo modèle uniquement ») et à la checklist `00-CONTEXT.md §4`, pas
+seulement quand `sdlc-validate.sh` change — une suite que rien n'appelle dérive
+en silence. C8 couvre `tests/*.sh` : la suite elle-même est vérifiée en syntaxe.
+Écarté : un contrôle C11 qui lancerait la suite depuis le validateur (récursion,
+et le validateur cesserait d'être en lecture seule).
+
 ---
 
 ## M-TMPL-05 · Rédaction des templates/skills — description = déclenchement, forme selon type d'échec · v2.0+ECO-2 · 03/09/2026

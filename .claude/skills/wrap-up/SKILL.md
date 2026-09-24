@@ -298,13 +298,16 @@ Rapporter :
 
 ```bash
 bash sdlc-validate.sh    # contrôles structurels du modèle
+bash tests/sdlc-validate-test.sh   # suite de tests du validateur — chaque contrôle vu rouge
 git diff --stat          # uniquement les fichiers attendus
 git status               # rien d'oublié, rien d'en trop
 ```
 
-Son résultat (N/M, code de sortie) remplace la ligne `**Tests**` du
-`CHANGELOG.md` — `N/A (gouvernance uniquement)` n'est plus une réponse valide
-pour un sprint touchant les fichiers du modèle (`M-PROC-40`).
+Leurs résultats (N/M et N/N cas, codes de sortie) remplacent la ligne `**Tests**`
+du `CHANGELOG.md` — `N/A (gouvernance uniquement)` n'est plus une réponse valide
+pour un sprint touchant les fichiers du modèle (`M-PROC-40`). La suite est lancée
+à chaque wrap-up, pas seulement quand `sdlc-validate.sh` change : une suite que
+rien n'appelle dérive en silence (ECO-8).
 
 Checklist :
 - [ ] CHANGELOG : version +0.1 cohérente avec la précédente

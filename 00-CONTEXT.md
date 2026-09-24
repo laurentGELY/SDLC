@@ -1,4 +1,4 @@
-# Modèle de gouvernance SDLC — Claude Code · v1.9
+# Modèle de gouvernance SDLC — Claude Code · v2.0
 <!-- Contexte Claude.ai · Premier fichier lu · Ne pas copier dans les projets cibles -->
 <!-- Mis à jour à chaque évolution structurelle du modèle -->
 
@@ -122,6 +122,9 @@ Avant tout commit sur ce projet :
       structurels du modèle (version, en-têtes, placeholders, parité
       template↔skill, schéma JSON hooks, carte des fichiers, unicité des IDs,
       syntaxe shell, site `docs/` et livrables HTML à jour), auparavant vérifiés à l'œil un par un
+- [ ] `bash tests/sdlc-validate-test.sh` → tous `[PASS]`, exit 0 — chaque contrôle vu rouge
+      sur un défaut injecté dans une copie du dépôt (`M-PROC-40`, ECO-7/ECO-8) ; un contrôle
+      ajouté ou modifié vient avec son cas
 - [ ] `docs/meta.json` (version) et `docs/pages/versions.md` (ligne du sprint)
       mis à jour — contrôlés par C9
 - [ ] Marqueur `SDLC version` de `docs/SPEC.html` et `docs/MODE-OPERATOIRE.html`

@@ -89,6 +89,12 @@ printf '#!/bin/bash\nif then\n' > "$F/zz-broken.sh"
 run_validate "$F"
 assert_red 8 "script zz-broken.sh invalide"
 
+# C8 — un script shell invalide sous tests/ (la suite elle-même doit être couverte)
+F=$(make_fixture c8-tests)
+printf '#!/bin/bash\nif then\n' > "$F/tests/zz-broken.sh"
+run_validate "$F"
+assert_red 8 "script tests/zz-broken.sh invalide"
+
 # C1 — README.md et CHANGELOG.md divergent sur la version courante
 F=$(make_fixture c1)
 sed -i '0,/^## \[/s/^## \[[^]]*\]/## [v9.9+FAUX]/' "$F/CHANGELOG.md"

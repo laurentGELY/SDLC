@@ -315,9 +315,10 @@ check_c7() {
 # Incident : aucun connu — contrôle préventif [HYPOTHÈSE] de non-régression ;
 #   `bash -n` était déjà pratiqué à la main (SDLC-21, 22, 23).
 check_c8() {
-  # Syntaxe de tous les scripts shell (racine + .claude/hooks/)
+  # Syntaxe de tous les scripts shell (racine + .claude/hooks/ + tests/ — ECO-8 :
+  # la suite de tests du validateur doit elle-même être couverte)
   local fail=0 detail="" f err
-  for f in "$ROOT"/*.sh "$ROOT"/.claude/hooks/*.sh; do
+  for f in "$ROOT"/*.sh "$ROOT"/.claude/hooks/*.sh "$ROOT"/tests/*.sh; do
     [ -f "$f" ] || continue
     if ! err=$(bash -n "$f" 2>&1); then
       fail=1
