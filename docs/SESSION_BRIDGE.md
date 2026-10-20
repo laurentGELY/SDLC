@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ELAG-1 — audit-elagage-theorique] · 2026-10-20
+**Commit :** `docs(sdlc): Spike ELAG-1 — audit d'élagage théorique` (`git log --oneline -1 -- specs/Sprints/AUDIT-ELAGAGE-1.md`)
+**Bloquants en suspens :** le hook installé par `sdlc-init.sh:336` est inopérant (lit `input`), et `Claude.md` n'est pas chargé sous Linux (`CLAUDE.md` attendu) — dans ce repo comme dans les projets bootstrappés. Correction prévue par `ELAG-1b` (§Next), aucune modification faite.
+**Fil fonctionnel :** `specs/Sprints/AUDIT-ELAGAGE-1.md` classe les 134 règles d'un projet bootstrappé (`R-NN` : 61 GARDER, 23 FUSIONNER, 23 DÉPLACER, 20 MÉCANISER, 7 retraits provisoires) et rédige 8 décisions provisoires (`M-ARCH-10`, `M-PROC-49`→`54`, `M-TMPL-10`), aucune reportée dans `07-DECISIONS-SDLC.md`. Ordre décidé : `ELAG-1b` Fix bootstrap → `ELAG-2` mesure d'usage dans Job search, avec cette grille → « Import élagage » (§Later).
+
 ### [Sprint ECO-8 — suite-dans-wrapup] · 2026-09-24
 **Commit :** 16075ab
 **Bloquants en suspens :** aucun
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `sdlc-validate.sh` a sa suite de tests (`bash tests/sdlc-validate-test.sh` → 15/15 : chaque contrôle C1→C10 vu rouge sur un défaut injecté dans une copie du dépôt, via `SDLC_VALIDATE_ROOT`), et C3 lit ligne par ligne — l'exemption de 3 fichiers entiers est remplacée par une exception de ligne sur le motif `M-TMPL-01` (`M-PROC-40` → Mise à jour : exception au grain ligne + cas RED obligatoire pour tout nouveau contrôle). La suite n'est pas encore appelée par l'Étape 3.5 du wrap-up ni couverte par C8 — `SDLC_CANDIDATE` ouvert dans `docs/LESSONS_LEARNED.md` ; `sdlc-validate.sh` 10/10.
 
+## §Archive
+
 ### [Sprint SDLC-Import-Strands-Harness — import R3 + R4 (P-45)] · 2026-09-23
 **Commit :** b898daa
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** Audit Strands intégré et clos : `02-STANDARDS-TEMPLATE.md` v2.1 porte des exemples d'observabilité agent/LLM (`M-TMPL-09`), `08-hooks-TEMPLATE.md` v1.4 un tableau du rôle de chaque hook ; l'erreur « `exit 1` bloque » (fausse depuis ≥ SDLC-18, seul `exit 2` bloque) est corrigée dans le template et le hook actif. Seed P-46 (HALT-TIMEOUT) en §Later, 2 `SDLC_CANDIDATE` ouverts dans `docs/LESSONS_LEARNED.md` (chemins réels dans les PDR Claude.ai · source datée pour tout comportement Claude Code) ; `sdlc-validate.sh` 10/10.
-
-## §Archive
 
 ### [Sprint SDLC-Audit-Strands-Harness — audit externe Strands Harness] · 2026-09-23
 **Commit :** daa5b9c

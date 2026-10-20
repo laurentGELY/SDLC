@@ -19,7 +19,8 @@
 
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur |
 |------|------|--------|----------|------------|-------------|
-| — | — | — | — | — | — En attente |
+| ELAG-1b — Fix bootstrap : `sdlc-init.sh` livre les mécanismes que la prose promet (`M-ARCH-10` provisoire, `specs/Sprints/AUDIT-ELAGAGE-1.md §Propositions`) — `CLAUDE.md` chargé, hook lisant `tool_input` (`sdlc-init.sh:336`), `.gitignore`, frontmatter des 4 skills (lève `ECO-2b`), dates des gabarits wrap-up, `pre-compact.sh`, C5 étendu à `sdlc-init.sh` + cas RED | Fix | M | ELAG-2, Import élagage | — | Exécutable directement — défaut actif dans tout projet bootstrappé (hook inopérant, règles non chargées sous Linux) |
+| ELAG-2 — Mesure d'usage réel des règles dans le projet Job search, grille `R-NN` d'`AUDIT-ELAGAGE-1.md` (`M-PROC-50` provisoire) | Spike | M | Import élagage | ELAG-1b (`CLAUDE.md` chargé, sans quoi aucune règle n'est servie) | ELAG-1b livré et synchronisé dans Job search |
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
@@ -31,6 +32,7 @@
 
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur | Expiration |
 |------|------|--------|----------|------------|-------------|------------|
+| Import élagage — application règle par règle des propositions retenues d'`AUDIT-ELAGAGE-1.md` (`M-PROC-49`→`M-PROC-54`, `M-TMPL-10` provisoires) : budget absolu, prose → renvoi, fusions de couches, registre chaud/froid, revue au changement de modèle | Doc | L | — | ELAG-2 | Rétro de clôture ELAG-2 (retraits confirmés ou infirmés) | — |
 | P-08 — Délégation par défaut (Extract, don't ingest) pour sprints L | Spike | S | — | Q1 stratégique (scope amont) | Si le scope du toolkit s'étend vers les phases amont — réévaluer le principe de délégation par défaut | — |
 | P-15 — Architecture step-file (wrap-up / retrospective) | Refactor | S | — | Taille fichier | Si `03-wrap-up-SKILL-TEMPLATE.md` ou `09-retrospective-SKILL-TEMPLATE.md` dépasse ~500 lignes mesurées | — |
 | P-16 — En-tête d'activation uniforme (6 étapes) | Doc | XS | — | Nouveau skill SDLC | Si un nouveau skill SDLC est créé au-delà de wrap-up / retrospective / sdlc-sync | — |
@@ -106,6 +108,7 @@ P-27 dans le contenu reçu, préfixe manquant dans le texte source).
 
 | Item | Type | Taille | Sprint | Livrables |
 |------|------|--------|--------|-----------|
+| ELAG-1 — Audit d'élagage théorique du modèle | Spike | M | ELAG-1 (20/10/2026) | `specs/Sprints/AUDIT-ELAGAGE-1.md` (grille 134 règles `R-NN`, 8 décisions rédigées non appliquées) · constats bootstrap → `ELAG-1b` · `LL-T15` |
 | ECO-8 — Suite de tests du validateur au wrap-up + C8 sur `tests/` | Fix | S | ECO-8 (24/09/2026) | `sdlc-validate.sh` C8 (`tests/*.sh`) · `tests/sdlc-validate-test.sh` (16 cas) · `03-wrap-up-SKILL-TEMPLATE.md` v2.0 + skill vivant §3.5 · `00-CONTEXT.md` v2.0 §4 · `M-PROC-40` → Mise à jour |
 | ECO-7 — Durcissement `sdlc-validate.sh` | Fix | S | ECO-7 (23/09/2026) | `tests/sdlc-validate-test.sh` (nouveau, 15 cas, 1 RED par contrôle) · `sdlc-validate.sh` : `SDLC_VALIDATE_ROOT`, C3 au grain ligne (`C3_LINE_EXCEPTIONS`), en-têtes `# Incident :`, `→ Correctif :` · `M-PROC-40` → Mise à jour · origine : `specs/Sprints/PASSE-A-couche-validation.md` |
 | P-45 — Import audit Strands Harness (R3 + R4) | Doc | S | SDLC-Import-Strands-Harness (23/09/2026) | `02-STANDARDS-TEMPLATE.md` v2.1 (exemples agent/LLM, 4 Q/R sur 5) · `08-hooks-TEMPLATE.md` v1.4 (tableau rôle des hooks + correction `exit 1` non bloquant) · `M-TMPL-09` · Seed P-46 (HALT-TIMEOUT) |

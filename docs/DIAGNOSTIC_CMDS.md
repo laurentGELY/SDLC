@@ -224,3 +224,15 @@ Date : 24/09/2026 (Sprint ECO-8, grep préalable du §Handoff)
 Commande : `grep -n 'for f in "$ROOT"' sdlc-validate.sh` → vide · `grep -nF 'for f in "$ROOT"/*.sh' sdlc-validate.sh` → `320:`
 Résultat observé : dans un motif regex, `$` est une ancre de fin de ligne — le motif ne peut jamais matcher au milieu d'une ligne.
 Conclusion : motif contenant `$`, `*`, `[`, `.` à prendre littéralement → `grep -F`. Toute commande de vérification écrite dans un PDR se lance une fois avant d'être écrite (`LL-T12`).
+
+## Symptôme : le hook d'un projet bootstrappé laisse passer une commande qu'il devrait bloquer
+Date : 20/10/2026 (Sprint ELAG-1, Phase 1)
+Commande : `F="--for""ce"; printf '{"tool_name":"Bash","tool_input":{"command":"git push %s origin main"}}' "$F" | bash "$TMP/.claude/hooks/pre-tool-bash.sh"; echo $?` → `0` · `grep -n "get('input'" sdlc-init.sh` → `336:`
+Résultat observé : le hook inline de `sdlc-init.sh` lit `input` au lieu de `tool_input` (`M-HOOKS-05`) — commande vide, aucun blocage. La chaîne `--for""ce` évite que le hook actif du repo SDLC bloque la commande de test elle-même.
+Conclusion : tester un hook avec le schéma JSON réel (`tool_input`), dans un projet bootstrappé par `mktemp -d`, jamais seulement le hook du repo SDLC (C5 ne couvre pas la copie inline).
+
+## Symptôme : les règles de `Claude.md` ne semblent pas appliquées en session
+Date : 20/10/2026 (Sprint ELAG-1, `/doctor prompt-audit`)
+Commande : `ls CLAUDE.md Claude.md` · `grep -rlE "^@(Claude|STANDARDS)\.md" .`
+Résultat observé : seul `Claude.md` existe ; Claude Code charge `CLAUDE.md` — sur un système sensible à la casse (Linux), le fichier n'est pas chargé ; `STANDARDS.md` n'est importé par aucun fichier.
+Conclusion : vérifier le contexte initial de session (`/memory` ou `/doctor prompt-audit`) avant de supposer qu'une règle est chargée.

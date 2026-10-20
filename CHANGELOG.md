@@ -2,6 +2,19 @@
 
 ---
 
+## [v2.0+ELAG-1] — 2026-10-20 · Sprint Spike M · Audit d'élagage théorique du modèle SDLC
+- **`specs/Sprints/AUDIT-ELAGAGE-1.md`** (nouveau) : §Mesures (bootstrap `mktemp -d` : `Claude.md` 499 lignes contre une cible de 200 ; `01` ×3,2 en mots en 24 commits, une seule baisse ; registre 79 entrées, 0 retrait, 6 closes sans statut) · §Grille (134 règles `R-NN` comptées par script : 61 GARDER, 23 FUSIONNER, 23 DÉPLACER, 20 MÉCANISER, 7 retraits provisoires) · §Recouvrements (matrice des couches de vérification, 3 groupes à fusionner, 3 références cassées, `/doctor prompt-audit`) · §Propositions (A→H + I : 8 décisions rédigées avec Prédiction/Risque, `M-ARCH-10`, `M-PROC-49`→`54`, `M-TMPL-10` provisoires, **non reportées** dans `07-DECISIONS-SDLC.md`) · §Verdict
+- **Constats hors périmètre** (non corrigés, renvoyés à `ELAG-1b`) : le hook installé par `sdlc-init.sh:336` lit `input` et non `tool_input`, donc `git push --force` passe (exit 0) ; `Claude.md` n'est pas chargé sous Linux (`CLAUDE.md` attendu, absent ici comme dans les projets bootstrappés) ; ni `.gitignore` ni `pre-compact.sh` dans le bootstrap ; skills sans frontmatter ; dates figées dans les gabarits du skill wrap-up
+- **`docs/ROADMAP.md`** : `ELAG-1b` (Fix bootstrap) et `ELAG-2` (mesure d'usage, Job search) en §Next · « Import élagage » en §Later · ELAG-1 → Historique
+- **`docs/LESSONS_LEARNED.md`** : entrée sprint · `LL-T04` 10→11 · `LL-T14` 4→5 · `LL-T15` nouveau (mécanisme déclaré non vérifié dans un projet bootstrappé) · 1 `HOOK_CANDIDATE`, 1 `SDLC_CANDIDATE`
+- **`docs/DIAGNOSTIC_CMDS.md`** : test du hook bootstrappé avec le schéma JSON réel · vérification du fichier de règles réellement chargé
+- **Versions** : `README.md`, `docs/meta.json`, `docs/pages/versions.md`, marqueurs `docs/SPEC.html`/`docs/MODE-OPERATOIRE.html` (C1/C9/C10) · **aucun template, script, `Claude.md` ni `.claude/` modifié**
+- **Corrections ajustées vs spec** — unité de comptage étendue (amorces grasses, étapes de Démarrage, sections du gabarit d'Analyse) · exception « mécanisme → GARDER » au défaut portée ≠ toujours · `/doctor prompt-audit`, d'abord décliné puis fourni par l'humain, intégré en §3.3 · proposition I et item ROADMAP `ELAG-1b` ajoutés · 5 chiffres écrits avant mesure, corrigés par commande (`LL-T14`) · fichiers de version (README, site, HTML) modifiés en plus de la surface du PDR, pour C1/C9/C10
+  - Fichiers à relire dans Claude.ai : `specs/Sprints/AUDIT-ELAGAGE-1.md` (§Verdict, §Propositions), `docs/ROADMAP.md`
+- **Tests** : A — 10 critères d'acceptation du PDR → 10/10 (134=134 règles, 5 sections, 0 retrait sans source, 0 valeur de §Mesures sans commande, 8 Prédiction = 8 Risque, `$TMP` supprimé, aucun template ni script modifié, CHANGELOG) · B — `bash sdlc-validate.sh` → **10/10 ✅**, exit 0 · C — `bash tests/sdlc-validate-test.sh` → **16/16**, exit 0
+
+---
+
 ## [v2.0+ECO-8] — 2026-09-24 · Sprint Fix S · Suite de tests du validateur au wrap-up + C8 sur `tests/`
 - **`sdlc-validate.sh`** : C8 couvre `tests/*.sh` (glob + commentaire) — la suite de tests du validateur est elle-même vérifiée en syntaxe
 - **`tests/sdlc-validate-test.sh`** : cas RED « script invalide sous `tests/` → `❌ C8 ·` » (16 cas)
