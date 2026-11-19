@@ -1,3 +1,7 @@
+---
+name: sdlc-sync
+description: Alignement du projet sur une nouvelle version du modèle SDLC. Utiliser quand le modèle a évolué ou sur demande.
+---
 # sdlc-sync — SKILL
 <!-- Template SDLC v2.1 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->

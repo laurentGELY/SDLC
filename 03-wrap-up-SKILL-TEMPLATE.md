@@ -1,3 +1,7 @@
+---
+name: wrap-up
+description: Clôture de sprint. Utiliser quand l'utilisateur dit « clôture », « wrap-up », « fin de sprint », ou quand les tests A et B du sprint sont verts.
+---
 # wrap-up — SKILL
 <!-- Template SDLC v2.1 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->

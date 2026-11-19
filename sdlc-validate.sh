@@ -119,6 +119,8 @@ check_c2() {
   # titre H1 de TOUS les templates contient un "v1.0" générique (version du
   # futur projet cible, pas du template SDLC) qui rendrait le contrôle
   # aveugle à un vrai en-tête manquant.
+  # Un frontmatter YAML en ligne 1 (---…---, exigé par Claude Code pour un
+  # SKILL.md) est sauté : les 3 lignes sont lues après lui (ELAG-1b, M-ARCH-10).
   local fail=0 detail="" base pattern
   for f in "$ROOT"/[0-9][0-9]*.md; do
     [ -f "$f" ] || continue
@@ -128,18 +130,21 @@ check_c2() {
     else
       pattern='<!--.*v[0-9]+\.[0-9]+'
     fi
-    if head -3 "$f" | grep -qE "$pattern"; then
+    # awk s'arrête seul après 3 lignes : un « | head -3 » le tuerait par SIGPIPE sur
+    # un gros fichier, et pipefail ferait échouer le contrôle à tort.
+    if awk 'NR == 1 && $0 == "---" { fm = 1; next } fm && $0 == "---" { fm = 0; next } !fm { print; if (++n == 3) exit }' "$f" \
+        | grep -qE "$pattern"; then
       continue
     fi
     fail=1
     detail="$detail
-❌ $base — aucune version détectée dans les 3 premières lignes"
+❌ $base — aucune version détectée dans les 3 premières lignes (après le frontmatter éventuel)"
   done
   if [ "$fail" -eq 0 ]; then
     report "C2 · En-tête de version sur chaque template" 0 ""
   else
     report "C2 · En-tête de version sur chaque template" 1 "$detail
-→ Correctif : ajouter dans les 3 premières lignes un commentaire « <!-- Template SDLC vX.Y ... --> » (00-CONTEXT.md : version dans le titre H1), et l'incrémenter à chaque modification."
+→ Correctif : ajouter dans les 3 premières lignes (après le frontmatter éventuel) un commentaire « <!-- Template SDLC vX.Y ... --> » (00-CONTEXT.md : version dans le titre H1), et l'incrémenter à chaque modification."
   fi
   return $fail
 }

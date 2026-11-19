@@ -315,6 +315,10 @@ deploy_copy "${SCRIPT_DIR}/04b-sdlc-sync-SKILL-TEMPLATE.md" \
 
 # Diagnostic skill — squelette, Claude Code le complète
 cat > "${TARGET_DIR}/.claude/skills/diagnostic/SKILL.md" << DIAG_SKILL
+---
+name: diagnostic
+description: Diagnostic d'un bug, crash, blocage ou comportement anormal. Utiliser quand l'utilisateur signale une erreur ou une régression, ou demande pourquoi ça ne marche pas.
+---
 # diagnostic — SKILL
 <!-- À compléter par Claude Code lors du Sprint 1 -->
 <!-- Lister ici les commandes de diagnostic spécifiques au système -->

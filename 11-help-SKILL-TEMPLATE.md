@@ -1,3 +1,7 @@
+---
+name: help
+description: Récapitulatif de l'état du projet, en lecture seule. Utiliser quand l'utilisateur demande où en est le projet ou quoi faire ensuite.
+---
 # help — SKILL
 <!-- Template SDLC v2.0 · Destination : .claude/skills/help/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->

@@ -107,6 +107,16 @@ sed -i '1,3s/v[0-9][0-9]*\.[0-9][0-9]*/vX/g' "$F/01-Claude-md-TEMPLATE.md"
 run_validate "$F"
 assert_red 2 "marqueur de version retiré de 01-Claude-md-TEMPLATE.md"
 
+# C2 — frontmatter en tête d'un template de skill : la version est lue après lui (ELAG-1b)
+F=$(make_fixture c2-fm-sans-version)
+sed -i '/<!-- Template SDLC v/d' "$F/09-retrospective-SKILL-TEMPLATE.md"
+run_validate "$F"
+assert_red 2 "frontmatter présent, commentaire de version retiré de 09-retrospective-SKILL-TEMPLATE.md"
+
+F=$(make_fixture c2-fm-avec-version)
+run_validate "$F"
+assert_green 2 "frontmatter de 4 lignes suivi du commentaire de version (templates de skills)"
+
 # C3 — un placeholder résiduel en prose dans un fichier de référence
 F=$(make_fixture c3)
 printf '\nPropriétaire : [À REMPLIR]\n' >> "$F/README.md"
