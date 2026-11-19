@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Session 19/11 — préparation ELAG-1b, ELAG-4, SDLC-33 + lot 0 de SDLC-33] · 2026-11-19
+**Commit :** `3038808` (3 PDR) · `ecb1b15` (lot 0 de SDLC-33, hors bump)
+**Bloquants en suspens :** `Claude.md` de ce dépôt toujours **non chargé** sous Linux (lire ce fichier et `Claude.md` à la main au démarrage) ; hook vivant : la regex `--force` bloque à tort une commande Bash qui contient littéralement une poussée forcée (construire la chaîne en deux morceaux). Les deux sont corrigés par ELAG-1b.
+**Fil fonctionnel :** Remontées de Job search confrontées à son dépôt (`~/Downloads/Sandbox/JobSearch`, lisible en local) et réparties entre trois PDR, toutes questions tranchées par Laurent le 19/11 : `specs/Sprints/sprint-ELAG-1b-fix-bootstrap.md` (9 défauts du bootstrap mesurés sur un bootstrap jetable), `specs/Sprints/sprint-ELAG-4-import-elagage.md` (dispositions règle par règle, 8 décisions d'ELAG-1, contrôle de budget), `specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md` (PDR Claude.ai corrigé, lot 0 fait). Job search tient désormais une file unique `doc/REMONTEE_SDLC.md` ; chaque PDR porte son bilan de report. **Ordre :** ELAG-1b → ELAG-4 → SDLC-33 lots 1 à 3. **Prochaine action :** démarrer ELAG-1b (§Démarrage, puis écrire `tests/sdlc-init-test.sh` et le voir rouge avant tout correctif).
+
 ### [Sprint ELAG-1 — audit-elagage-theorique] · 2026-10-20
 **Commit :** `docs(sdlc): Spike ELAG-1 — audit d'élagage théorique` (`git log --oneline -1 -- specs/Sprints/AUDIT-ELAGAGE-1.md`)
 **Bloquants en suspens :** le hook installé par `sdlc-init.sh:336` est inopérant (lit `input`), et `Claude.md` n'est pas chargé sous Linux (`CLAUDE.md` attendu) — dans ce repo comme dans les projets bootstrappés. Correction prévue par `ELAG-1b` (§Next), aucune modification faite.
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** L'Étape 3.5 du wrap-up (skill vivant + `03-wrap-up-SKILL-TEMPLATE.md` v2.0) et la checklist `00-CONTEXT.md §4` lancent `bash tests/sdlc-validate-test.sh` (16/16) en plus de `bash sdlc-validate.sh` (10/10) ; C8 vérifie aussi `tests/*.sh`. Le `SDLC_CANDIDATE` d'ECO-7 est implémenté pour (a) et (b) ; (c) — établir l'état du repo avant toute lecture de source externe — reste ouvert dans `docs/LESSONS_LEARNED.md`.
 
+## §Archive
+
 ### [Sprint ECO-7 — durcissement-validate] · 2026-09-23
 **Commit :** 437ca42
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** `sdlc-validate.sh` a sa suite de tests (`bash tests/sdlc-validate-test.sh` → 15/15 : chaque contrôle C1→C10 vu rouge sur un défaut injecté dans une copie du dépôt, via `SDLC_VALIDATE_ROOT`), et C3 lit ligne par ligne — l'exemption de 3 fichiers entiers est remplacée par une exception de ligne sur le motif `M-TMPL-01` (`M-PROC-40` → Mise à jour : exception au grain ligne + cas RED obligatoire pour tout nouveau contrôle). La suite n'est pas encore appelée par l'Étape 3.5 du wrap-up ni couverte par C8 — `SDLC_CANDIDATE` ouvert dans `docs/LESSONS_LEARNED.md` ; `sdlc-validate.sh` 10/10.
-
-## §Archive
 
 ### [Sprint SDLC-Import-Strands-Harness — import R3 + R4 (P-45)] · 2026-09-23
 **Commit :** b898daa
