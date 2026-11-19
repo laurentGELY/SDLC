@@ -358,6 +358,22 @@ ELAG-1b n'a décalé aucune ancre de `01` : les lignes de la grille et du PDR co
 - Risque écarté : aucun script ne grep le texte retiré — `grep -nE "Rationalisations|Chargement chirurgical|Modifications spot|HALT-TIMEOUT|Éviter|Validation incrémentale|Auto-revue|DEPENDENCY_MAP|ne s'affaiblit" tests/*.sh sdlc-*.sh` → vide (19/11).
 - Point à trancher au lot 3 (cf. Demande d'aval) : la « ligne de renvoi » qui remplace R-36 pointe vers `M-TMPL-06` (le contrôle C11 protège le template, pas le `CLAUDE.md` du projet cible).
 
+
+### Prompt-audit « avant » (Laurent, 19/11/2026 — bootstrap neuf `Test`, modèle Claude Opus 5.5, `01` v2.7 à `1e8a8b9`)
+Synthèse : `CLAUDE.md` 499 lignes, 4 skills ; 9 constats, 6 signalements (groupe 2 : 8 constats + 6 signalements ; groupe 1 : 1 + 1 ; groupes 3 et 4 : 0 / N/A). Patch proposé par l'audit non appliqué (`M-PROC-54`).
+| # | Emplacement | Constat | Rattachement ELAG-4 |
+|---|---|---|---|
+| H1 | `CLAUDE.md:21-25` | « Pensée/Réalité » de la règle 4a-4d cite un `DECISIONS.md M-HOOKS-04` absent | hors §Règles visées → report |
+| H2 | `CLAUDE.md:351` | renvoi vers `04-sprint-PDR-TEMPLATE.md`, absent du projet (→ `specs/sprint-template.md`) | disparaît avec §Auto-revue (R-51 → R-52) |
+| H3 | `CLAUDE.md:39-42` | `[N]` renvoie à §Limites bash, qui ne le définit pas | R-12 : 120 s écrit dans la ligne |
+| H4 | `CLAUDE.md:134` | `git pull origin main` échoue sans remote et bloque `git status`/`git log` (`&&`) | hors §Règles visées (§3.3 n° 6 d'ELAG-1) → report |
+| M1 | `CLAUDE.md:44-93` | tables de rationalisation « HYPOTHÈSE », redites des HALT | R-13 (retrait) — confirmé |
+| M2 | `CLAUDE.md:254-273` | `sed` imposé, « régénérer le fichier complet » | R-37→R-39 (réécriture) — confirmé |
+| M3 | `CLAUDE.md:208` | « Mode /fast » entre en collision avec la commande intégrée `/fast` | hors §Règles visées → report |
+| M4 | `diagnostic/SKILL.md:6-17` | bloc de placeholders `[→ ADAPTER]` chargé dans le skill | hors §Règles visées → report |
+| M5 | `CLAUDE.md:395,397`, `wrap-up` `:52,62`, `retrospective` `:268` | IDs du dépôt SDLC (`M-HOOKS-08`, `M-PROC-10`, `M-PROC-44`, `LL-T08`, `M-PROC-22`) introuvables dans le projet | hors §Règles visées → report |
+Signalements : F1 « Mode /fast » contre « jamais sauter l'analyse » (`:15-16` / `:208-211`) · F2 placeholders du rôle et des limites bash chargés à chaque session · F3 hook `PreCompact` dit actif, documenté optionnel · F4 « si une règle n'est pas ici, elle n'existe pas » contre les renvois à `STANDARDS.md` et aux skills · F5 « fait vérifié » d'une source externe non datée (`:236-250`, disparaît avec R-36) · F6 exemples d'un autre projet dans `retrospective` `:114,121` · versions des templates divergentes.
+
 ### Plan d'exécution
 1. **Lot 1** — `07` : `M-PROC-49`, `50`, `51`, `53`, `54`, `M-TMPL-10` au format des entrées existantes + 6 lignes du tableau de compatibilité · ROADMAP : `M-PROC-52`, fusion des couches du wrap-up (`M-PROC-51` (1)), `CLAUDE.md` vivant du repo SDLC en §Later (« Import élagage 2 » existe déjà, `docs/ROADMAP.md:35`) · LESSONS : entrée « Import élagage » ouverte. **Aval sur le texte des décisions, puis commit.**
 2. **Lot 2** — `check_c11` : bootstrap `mktemp -d` depuis `$ROOT/sdlc-init.sh`, `wc -l`/`wc -c` du `CLAUDE.md` produit, constantes `BUDGET_LIGNES=499` / `BUDGET_OCTETS=25376` (gel, `# M-PROC-49`) · cas RED (+1 ligne → ❌ C11) et cas vert (mesure exacte) dans `tests/sdlc-validate-test.sh`. Le cas RED est d'abord vu rouge. **Aval, commit, point de coupe.**
@@ -378,3 +394,8 @@ ELAG-1b n'a décalé aucune ancre de `01` : les lignes de la grille et du PDR co
 - **Lot 1 — C18** : le PDR rattache C18 à la table ELAG-3 ; il est défini dans `AUDIT-ELAGAGE-2.md` (`grep -c C18` → 1 ; 0 dans `ELAG-3-table-verdict.md`), où c'est un compactage en renvoi. `M-TMPL-10` cite la bonne source.
 - **Lot 2 — nom du projet dans C11** : la substitution du nom de projet change la taille du fichier (« Budget » donnait 25 378 o contre 25 376 avec « Test ») ; constante `BUDGET_NOM_PROJET="Test"`, le nom de la commande de mesure du PDR.
 - **Lot 2 — docs au total figé** : `README.md:5`, `docs/pages/modules.md`, `00-CONTEXT.md:121` disaient « 10 contrôles » ; passés en formulation sans total (`LL-T14`), ligne C11 ajoutée à `modules.md`. Prévu au lot 4 par le PDR, avancé au lot 2 pour qu'aucun commit ne laisse une doc fausse.
+- **Lot 3 — mesures** : T0 `wc -lc CLAUDE.md` (bootstrap `Test`) → `499 25376` · T1 → `368 18162` (−131 lignes, −26,3 % ; −7 214 octets, −28,4 % : l'octet baisse plus que la ligne, pas de compression) · `STANDARDS.md` `192 8991` → `190 8823` · comptage `compter-regles.sh` 134 → 107 (dont `check_c11` ajouté au lot 2). `BUDGET_LIGNES=368`, `BUDGET_OCTETS=18162`.
+- **Lot 3 — traçabilité du diff du comptage** (`diff <(cut -d: -f4- avant.txt) <(cut -d: -f4- apres.txt)`) : R-01/R-14 (`:15` fusionnée) · R-07 · R-12 · R-13 · R-14 · R-15 · R-28 · R-29 · R-32 · R-34 · R-36 · R-37→R-39 (lignes 1-3 numérotées retirées ; texte réécrit non compté, prose sans puce) · R-40, R-41, R-42 · R-51 · R-59 · R-61 · R-63→R-65 · R-66→R-76 · R-91 · R-97 · `check_c11` (lot 2, `M-PROC-49`). Aucune autre ligne.
+- **Lot 3 — cibles de fusion hors §Règles visées, corps modifié, ligne comptée inchangée** : R-62 (phrase « toute conclusion cite… » ajoutée, renvoi circulaire vers §Rôle retiré) · R-50 (phrase R-41 ajoutée) · R-52 (ligne « Auto-évaluation ») · R-24 (commentaire 4c : « jamais de lecture préventive ») · R-92 (parenthèse de R-07) · R-01 (énoncé de R-14 ajouté — sa ligne comptée change).
+- **Lot 3 — R-12** : le prompt-audit « avant » (H3) montre que §Limites bash ne définit pas N ; la ligne porte `timeout 120`, sans renvoi.
+- **Lot 3 — R-63→R-65** : définition compacte gardée en §Test (là où elle est lue au moment de conclure) plutôt que dans le gabarit d'Analyse (R-48) ; renvoi vers `STANDARDS.md §Niveaux de test`.

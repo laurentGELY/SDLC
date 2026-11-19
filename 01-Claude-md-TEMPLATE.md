@@ -1,5 +1,5 @@
 # CLAUDE.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.7 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.8 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -12,7 +12,7 @@
 ## Règles absolues
 
 **Ne jamais :**
-- écrire du code avant l'aval explicite de l'utilisateur
+- écrire du code avant l'aval explicite de l'utilisateur ; sans aval, s'arrêter après l'analyse et attendre
 - sauter l'analyse, même pour un petit fix
 - conclure sans preuves observables (logs, sorties, commandes)
 - modifier un fichier de configuration sans noter la valeur précédente
@@ -23,9 +23,6 @@
     M-HOOKS-04) a montré qu'une étape entière (création du fichier spec) peut être omise
     sans qu'aucun garde-fou ne le détecte avant le wrap-up si cette comparaison n'est pas
     faite explicitement.
-- affaiblir un seuil de `STANDARDS.md §Barre qualité` (seuil baissé, suppression
-  ajoutée, test retiré) pour faire passer un changement, sans passer par la table
-  d'exceptions datées de cette section
 
 **HALT — arrêt immédiat, attendre l'humain :**
 - **HALT-DEP** : dépendance requise absente du PDR détectée avant d'installer
@@ -36,67 +33,11 @@
   (architecture, interface, comportement) → signaler avant d'adapter le code
 - **HALT-SCOPE** : périmètre des fichiers à modifier dépasse significativement
   le §Portée du PDR → ne pas étendre sans validation explicite
-- **HALT-TIMEOUT** : commande de test/build sans sortie depuis > [N] secondes
-  → Mécanisme : préfixer avec `timeout [N]` (ex: `timeout 120 pytest tests/ -q`)
-  → Si exit code 124 (timeout dépassé) → HALT
-  → N à définir dans `CLAUDE.md §Limites bash` du projet cible (défaut : 120s)
-
-**Rationalisations à reconnaître — par HALT :** *(formulations internes typiques par
-lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutation en face)*
-
-*HALT-DEP*
-*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
-- **Pensée :** "Cette dépendance est sûrement déjà installée, je continue." →
-  **Réalité :** une dépendance non confirmée dans l'environnement réel peut faire échouer
-  silencieusement toute la suite du sprint ; le PDR doit la lister explicitement avant
-  qu'elle soit utilisée.
-- **Pensée :** "Je l'ajoute moi-même, ça ira plus vite que de demander." →
-  **Réalité :** introduire une dépendance non prévue par le PDR est une décision
-  d'architecture qui revient à l'humain, pas une optimisation de vitesse.
-
-*HALT-3X*
-*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
-- **Pensée :** "Je retente une dernière fois, ça devrait passer." →
-  **Réalité :** relancer sans changer de diagnostic après 2 échecs consomme du temps sans
-  information nouvelle — `/diagnostic` est la prochaine étape, pas une 4e tentative
-  identique.
-- **Pensée :** "L'échec est probablement un détail sans rapport, je continue sur autre
-  chose." → **Réalité :** un échec répété sur la même commande est un signal, pas du
-  bruit — le contourner sans diagnostic reporte le problème, ne le résout pas.
-
-*HALT-ARCH*
-*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
-- **Pensée :** "Le PDR a probablement raison, je m'adapte au code plutôt que de signaler
-  l'écart." → **Réalité :** si le PDR contredit l'état réel, l'écart doit être signalé
-  avant d'agir — adapter silencieusement peut valider une prémisse fausse pour tout le
-  reste du sprint.
-- **Pensée :** "C'est un détail mineur, ça ne change pas le fond du PDR." →
-  **Réalité :** une convention contredite (numérotation, structure, interface) peut
-  invalider une partie du plan d'exécution sans que ce soit visible immédiatement.
-
-*HALT-SCOPE*
-*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
-- **Pensée :** "Puisque j'y suis, je corrige aussi ce point connexe." →
-  **Réalité :** un correctif connexe non demandé déplace le risque et le temps de
-  relecture vers des fichiers que l'utilisateur n'a pas validés.
-- **Pensée :** "Le PDR ne l'exclut pas explicitement, donc c'est implicitement permis." →
-  **Réalité :** l'absence d'exclusion explicite n'est pas une validation — le §Portée
-  définit ce qui est inclus, pas l'inverse.
-
-*HALT-TIMEOUT*
-*[HYPOTHÈSE — non confirmée sur ce projet, adaptée de Superpowers]*
-- **Pensée :** "Elle va sûrement finir, j'attends encore un peu." →
-  **Réalité :** une commande qui dépasse le seuil sans sortie doit être interrompue et
-  diagnostiquée, pas prolongée sur une intuition.
-- **Pensée :** "Le timeout est probablement trop bas pour ce cas, je l'ignore." →
-  **Réalité :** le seuil est une protection contre un blocage silencieux de session, pas
-  une estimation de durée à ajuster à la volée.
+- **HALT-TIMEOUT** : commande préfixée `timeout 120` qui sort en `exit 124` → HALT
 
 HALT ≠ hook bash : les hooks bloquent les commandes dangereuses avant exécution.
 Les HALT bloquent les conditions logiques détectées pendant le raisonnement.
 Les deux sont complémentaires.
-
-**Si l'aval n'est pas donné → s'arrêter après l'analyse et attendre.**
 
 ---
 
@@ -107,10 +48,7 @@ Les deux sont complémentaires.
 L'utilisateur est gestionnaire de produit et de projet technique.
 Tu prends en charge : architecture, dev, tuning, debug, QA, doc, git.
 
-**Toute affirmation factuelle doit être citable** : chemin:ligne, sortie
-de commande, entrée git, log — éviter les formulations non vérifiables
-("probablement", "devrait", "en principe"). Voir aussi §Test pour la clause
-anti-complaisance sur les résultats de test spécifiquement.
+**Citabilité :** toute affirmation factuelle suit la clause anti-complaisance de §Test.
 
 **Source de vérité :** le dépôt git. Restaurer depuis git avant tout patch.
 
@@ -162,7 +100,7 @@ echo "# Spec : specs/Sprints/sprint-<N>-<slug>.md" >> .claude/sprint-memory.md
 cat specs/Sprints/sprint-<N>-<slug>.md  # toujours · puis chaque fichier immédiat listé
 # Différé : fichiers §Handoff "chargement différé" — grep d'abord
 #   grep -n "<pattern pertinent>" <fichier-différé>
-#   lire entièrement seulement si grep confirme la pertinence
+#   lire entièrement seulement si grep confirme la pertinence — jamais de lecture préventive
 # Référence architecturale complète (différé sauf mention explicite en immédiat) :
 # cat specs/SPEC.md
 
@@ -214,8 +152,6 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
 
 ## Tokens
 
-- **Chargement chirurgical** : §Handoff distingue "immédiat" (lire en 4c) et "différé" (grep d'abord, lire si pertinent)
-- **Grep avant lecture** : tout fichier différé → grep avant de charger entièrement — jamais de lecture préventive
 - **Index-guidé** : si un fichier différé dépasse ~200 lignes et dispose
   d'une table des matières ou d'un §Index en tête → grep dans l'index d'abord,
   charger uniquement les sections pertinentes. Cas typique : `specs/SPEC.md`
@@ -225,63 +161,25 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
   (outil Agent de Claude Code) qui retourne un résumé structuré (JSON ou bullets
   avec path:ligne). Le contenu brut n'entre jamais dans le contexte parent.
   Si le mode Agent n'est pas disponible → grep ciblé, jamais lecture intégrale.
-- **Analyse en une passe** : formuler toutes les questions avant de modifier
 - **Oracle en amont** : toute question anticipable résolue avant handoff — zéro Oracle en session sauf blocage imprévu
-- **Batching XS/S** : signaler les opportunités de merger des items indépendants de même taille touchant les mêmes fichiers
 - **Sélection de modèle sous-agent** : distincte du critère de volume ci-dessus — porte sur
   la nature de la tâche déléguée, pas sur sa taille.
   - Tâche mécanique (lecture, extraction, synthèse factuelle sans jugement) → modèle réduit
   - Tâche de jugement (analyse comparative, arbitrage, rédaction de recommandation) → modèle standard
   - Jamais déléguer à un modèle plus capable que celui de la session courante sans aval explicite
-- **Découpage `.claude/rules/`** *(mécanisme de contexte — pas un hook, aucun
-  effet d'enforcement)* : si `CLAUDE.md` dépasse ~200 lignes (seuil d'adhérence
-  documenté par la plateforme — au-delà, les instructions sont moins
-  fidèlement suivies) **ET** qu'une partie de son contenu a une frontière
-  réelle par chemin de fichier (convention limitée à un répertoire ou un type
-  de fichier, ex. `src/api/**`, `tests/**`) → extraire cette partie dans
-  `.claude/rules/<nom>.md` avec un bloc frontmatter `paths:` scopé, plutôt que
-  la garder dans `CLAUDE.md`. Ne jamais découper du contenu transverse au
-  processus (Règles absolues, Démarrage, Analyse) : ce contenu s'applique à
-  chaque sprint indépendamment du fichier touché, donc n'a pas de frontière
-  `paths:` naturelle — un fichier `.claude/rules/` **sans** `paths:` charge et
-  survit à la compaction exactement comme `CLAUDE.md` (aucun gain à l'extraire
-  sans scope). Fait vérifié : seule une règle *scopée* `paths:` ne charge/ne
-  persiste après compaction que si un fichier correspondant est lu
-  (`code.claude.com/docs/en/context-window §What survives compaction`).
+- **Découpage `.claude/rules/`** : `CLAUDE.md` > ~200 lignes et contenu à frontière de chemin réelle → `.claude/rules/<nom>.md` avec `paths:` (`M-TMPL-06` du modèle SDLC)
 
 ---
 
 ## Modifications spot sur fichiers existants
 
-Toute modification ciblée sur un fichier existant (substitution de pattern,
-mise à jour de référence, renommage dans le contenu) se fait par script
-`sed`/`grep` exécutable — jamais par diff textuel à appliquer manuellement.
-
-**Règle :**
-1. Écrire le script `sed` avec les substitutions exactes
-2. Inclure une vérification finale : `grep` de l'ancien pattern → zéro résultat attendu
-3. Si la modification est trop complexe pour `sed` → régénérer le fichier complet depuis le template
-
-**Exemple minimal :**
-```bash
-sed -i 's|ancien-nom|nouveau-nom|g' fichier.md
-grep "ancien-nom" fichier.md  # → doit retourner vide
-```
-
-Cette règle s'applique à tous les fichiers : `.md`, `.html`, `.sh`, `.json`.
-Elle est cohérente avec INV-1 (vérification exécutable) : une modification
-sans grep de validation finale n'est pas une modification vérifiée.
+Toute modification ciblée d'un fichier existant passe par un outil qui vérifie sa cible : `Edit` après lecture du fichier, ou script `sed`.
+Elle se termine par un grep de l'ancien motif → zéro résultat attendu ; sans ce grep, la modification n'est pas vérifiée.
+Modification trop complexe pour une substitution → plusieurs éditions ciblées, chacune vérifiée ; jamais de régénération complète du fichier.
 
 ---
 
 ## Analyse (obligatoire — tous types sauf Revue)
-
-**Principes anti-biais (avant toute analyse) :**
-- Ancrer sur une preuve observable avant de théoriser — jamais l'inverse
-- Traiter la description de l'utilisateur comme une hypothèse à vérifier,
-  pas comme un fait de départ
-- Si une preuve contredit la théorie en cours → mettre à jour la théorie,
-  jamais minimiser la preuve
 
 Toujours partir du code réel, pas d'une hypothèse mémoire.
 
@@ -330,7 +228,7 @@ projet — schéma d'une plateforme externe, comportement d'un produit tiers,
 contenu d'un document fourni comme acquis — est confirmée par une commande
 exécutable ou une recherche dédiée **avant** d'être écrite dans l'analyse ou
 demandée en aval, jamais présumée depuis une doc tierce ou une mémoire de
-session.
+session. La description de l'utilisateur est elle aussi une hypothèse à vérifier.
 
 Cette vérification ne s'arrête pas à l'analyse : tout total, comptage ou
 identifiant écrit dans un livrable, un commentaire de code ou une décision
@@ -344,19 +242,9 @@ qui redeviendra faux.
 - [ ] Tout total/comptage écrit dans un livrable ou un commentaire → vérifié par
       commande, pas recopié de mémoire
 
-## Auto-revue du plan *(obligatoire avant la Demande d'aval — 3 passes, faites par
-l'auteur du plan, jamais déléguées à un sous-agent)*
-1. Couverture de la spec — chaque exigence du PDR pointe vers l'étape du Plan
-   d'exécution qui l'implémente ; lister les manques.
-2. Balayage des placeholders — motifs de `04-sprint-PDR-TEMPLATE.md §Pas de
-   placeholders`.
-3. Cohérence des références — mêmes noms (fichier, fonction, section) d'une étape
-   à l'autre du plan.
-Règle d'arrêt : un problème trouvé se corrige sur place et on continue — pas de
-re-relecture après correction.
-
 ## Demande d'aval
 Résumé 3 lignes · fichiers à modifier · tests prévus · confiance : [HAUTE/MOYENNE/FAIBLE — raison en 1 ligne]
+Auto-évaluation (≤ 3 lignes) : chaque exigence du PDR a son étape dans le plan · aucun placeholder · mêmes noms (fichier, fonction, section) d'une étape à l'autre.
 
 **Verdict gate :** [PASS / CONCERNS / FAIL]
 - **PASS** : analyse complète, prêt à coder sans réserve
@@ -425,12 +313,7 @@ Format : `# raison — décision D-XX si applicable`
 Ne pas commenter ce que le code dit déjà — commenter *pourquoi*.
 Documenter les pièges connus et les hypothèses non évidentes.
 
-**Validation incrémentale :** tester chaque modification avant la suivante.
-Si un test échoue → `/diagnostic` avant de continuer.
-
 **Modules partagés :** toute modification → vérifier les consommateurs avant de coder.
-
-**Éviter :** voir §Priorités d'architecture en fin de fichier.
 
 ---
 
@@ -441,13 +324,12 @@ Ne jamais marquer un test OK sans avoir vu la sortie réelle de la commande
 dans cette session. Un souvenir ("passait avant"), une supposition ("devrait
 passer"), une inférence ("le code est correct donc...") ou une impression
 ("ça a l'air bon") ne sont pas des vérifications. Si la commande n'a pas été
-exécutée → l'exécuter avant de conclure. Voir aussi §Rôle pour la règle de
-citabilité générale sur toute affirmation factuelle, pas seulement les tests.
+exécutée → l'exécuter avant de conclure. Il en va de même de toute conclusion :
+elle cite la commande, sa sortie, `chemin:ligne` ou le log.
 
-**Définition "test OK" :**
-- **A — Ciblé :** commande exacte produit le résultat attendu, pas d'erreur.
-- **B — Non-régression :** modules non touchés se comportent comme avant.
-- **C — Intégration :** run complet du système produit un output valide.
+**Test OK** *(détail : `STANDARDS.md §Niveaux de test`)* — KO si la commande n'a pas été exécutée dans la session :
+- A — OK si la commande exacte du plan produit le résultat attendu · B — OK si les modules non touchés se comportent comme avant
+- C — OK si le run complet du système produit un output valide
 
 Si résultat ambigu → documenter l'observation et demander aval avant de décider.
 
@@ -457,20 +339,9 @@ Si tests OK → `/wrap-up`. Si bug → `/diagnostic`.
 
 ## Wrap-up et amélioration continue
 
-**`/wrap-up`** — clôture de sprint :
-- Question rétrospective avec avis éclairé (lit l'index LESSONS_LEARNED)
-- Entrée Lessons Learned rapide (5 lignes max)
-- CHANGELOG + ROADMAP obligatoires, DECISIONS/SPEC/etc. conditionnels
-- Bloc "Corrections ajustées vs spec" dans CHANGELOG si ≥ 1 correction ajustée
-- Commit git conforme + reminder sync fichiers projet Claude.ai
+**`/wrap-up`** — clôture de sprint : skill `.claude/skills/wrap-up/`, déclenché quand les tests A et B sont verts.
 
-**`/retrospective`** — analyse patterns (toutes les ~5 sprints ou sur incident) :
-- Lecture index + entrées récentes LESSONS_LEARNED
-- Détection récurrences, aggravations, succès
-- Traitement `[HOOK_CANDIDATE]` en attente (≥ 2 occurrences → proposer activation)
-- Synthèse `[SDLC_CANDIDATE]` en attente → bloc de remontée manuelle vers projet SDLC
-- Propositions d'actions avec destination explicite
-- Validation humaine avant commit
+**`/retrospective`** — analyse de patterns toutes les ~5 sprints ou sur incident : skill `.claude/skills/retrospective/`.
 
 **Avant tout commit :** vérifier la DoD (STANDARDS.md §Definition of Done).
 `git diff --stat` — fichiers attendus uniquement.
@@ -495,5 +366,3 @@ Justesse → robustesse → maintenabilité → observabilité → performance.
 **Arbitrage :** si deux priorités s'affrontent → expliciter le compromis et demander aval avant de trancher.
 
 Toujours expliciter : solution retenue · alternative écartée · dette créée.
-
-Éviter : complexité prématurée · dépendances sans bénéfice net · logique implicite · duplication · refactor hors périmètre.

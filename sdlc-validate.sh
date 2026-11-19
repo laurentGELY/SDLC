@@ -22,11 +22,12 @@ ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"
 # ─── BUDGET DU CLAUDE.md BOOTSTRAPPÉ (C11) ───────────────────────────────────
 # M-PROC-49 — cliquet : baisser ces valeurs est libre ; les monter exige une
 # nouvelle décision dans 07-DECISIONS-SDLC.md. Valeurs = mesure du CLAUDE.md
-# produit par sdlc-init.sh (wc -l / wc -c sur un bootstrap jetable). Le nom du
+# produit par sdlc-init.sh (wc -l / wc -c sur un bootstrap jetable) — gel 499/25376
+# au lot 2 d'ELAG-4, abaissé à la mesure de fin de lot 3. Le nom du
 # projet est substitué dans le fichier : la mesure et le contrôle utilisent le même.
 BUDGET_NOM_PROJET="Test"
-BUDGET_LIGNES=499
-BUDGET_OCTETS=25376
+BUDGET_LIGNES=368
+BUDGET_OCTETS=18162
 
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un

@@ -1,5 +1,5 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.2 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -74,8 +74,6 @@ n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 
 **Règle :** toute modification d'un module partagé → niveau B obligatoire + mise à jour de cette table dans le même commit.
 
-**Déclencheur DEPENDENCY_MAP :** si un module partagé est ajouté, supprimé ou renommé → régénérer `docs/DEPENDENCY_MAP.md` dans le même commit.
-
 ---
 
 ## Barre qualité
@@ -84,7 +82,8 @@ n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 
 **Règle :** une dimension avec un chiffre et sans commande dans la colonne « Vérifié
 par » est une aspiration, pas une contrainte (`INV-1`). Affaiblir un seuil ou le
-plancher ci-dessous pour faire passer un changement passe par la table d'exceptions,
+plancher ci-dessous (seuil baissé, suppression ajoutée, test retiré) pour faire passer
+un changement passe par la table d'exceptions,
 jamais par une modification silencieuse de cette section.
 
 ### Seuils — à compléter au bootstrap · zéro placeholder avant le commit initial
@@ -104,7 +103,6 @@ attendu (même règle que `§Observabilité`).
 - Aucun stub non implémenté livré comme fini
 - Aucun test sauté ou supprimé sans raison explicite dans le message de commit
 - Aucun secret en source
-- Ce fichier ne s'affaiblit pas pour faire passer un changement
 
 ### Cliquet — mesuré, pas encore imposé
 
