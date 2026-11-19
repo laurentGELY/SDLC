@@ -23,17 +23,18 @@ ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"
 # M-PROC-49 — cliquet : baisser ces valeurs est libre ; les monter exige une
 # nouvelle décision dans 07-DECISIONS-SDLC.md. Valeurs = mesure du CLAUDE.md
 # produit par sdlc-init.sh (wc -l / wc -c sur un bootstrap jetable) — gel 499/25376
-# au lot 2 d'ELAG-4, abaissé à la mesure de fin de lot 3. Le nom du
+# au lot 2 d'ELAG-4, abaissé à la mesure de fin de sprint. Le nom du
 # projet est substitué dans le fichier : la mesure et le contrôle utilisent le même.
+# Les octets excluent la ligne « SDLC version : … », dont la longueur suit le bump.
 BUDGET_NOM_PROJET="Test"
 BUDGET_LIGNES=368
-BUDGET_OCTETS=18162
+BUDGET_OCTETS=18099
 
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un
 # contrôle en échec (exit 1) : sans ces fichiers, aucun des contrôles n'a de sens.
 
-for cmd in grep sed tr diff sort comm uniq head basename date ls wc mktemp git; do
+for cmd in grep sed tr diff sort comm uniq head basename date ls wc mktemp; do
   command -v "$cmd" >/dev/null 2>&1 || {
     echo "❌ ERREUR — commande indisponible : $cmd"
     exit 2
@@ -433,8 +434,8 @@ check_c11() {
   # Bootstrap dans un répertoire jetable, supprimé à la sortie : rien n'est écrit
   # dans le dépôt validé.
   local tmp lignes octets detail
-  tmp=$(mktemp -d)
-  if ! ( cd "$tmp" && git init -q && git -c user.email=v@v -c user.name=v commit -q --allow-empty -m init \
+  tmp=$(mktemp -d) && [ -d "$tmp" ] || { report "C11 · Budget du CLAUDE.md bootstrappé (M-PROC-49)" 1 "❌ mktemp -d impossible — aucun bootstrap lancé"; return 1; }
+  if ! ( cd "$tmp" && git init -q && git -c user.email=v@v -c user.name=v -c core.hooksPath=/dev/null commit -q --allow-empty -m init \
          && bash "$ROOT/sdlc-init.sh" "$BUDGET_NOM_PROJET" >/dev/null 2>&1 ) || [ ! -f "$tmp/CLAUDE.md" ]; then
     rm -rf "$tmp"
     report "C11 · Budget du CLAUDE.md bootstrappé (M-PROC-49)" 1 "❌ bootstrap impossible ou CLAUDE.md absent
@@ -442,9 +443,11 @@ check_c11() {
     return 1
   fi
   lignes=$(wc -l < "$tmp/CLAUDE.md" | tr -d ' ')
-  octets=$(wc -c < "$tmp/CLAUDE.md" | tr -d ' ')
+  # Octets hors ligne « SDLC version : <version> » : sdlc-init.sh la réécrit à chaque
+  # bump et sa longueur varie avec le nom du sprint, sans rapport avec les règles.
+  octets=$(grep -v '^<!-- SDLC version : ' "$tmp/CLAUDE.md" | wc -c | tr -d ' ')
   rm -rf "$tmp"
-  detail="CLAUDE.md : ${lignes} lignes / ${BUDGET_LIGNES} · ${octets} octets / ${BUDGET_OCTETS}"
+  detail="CLAUDE.md : ${lignes} lignes / ${BUDGET_LIGNES} · ${octets} octets hors ligne de version / ${BUDGET_OCTETS}"
   if [ "$lignes" -le "$BUDGET_LIGNES" ] && [ "$octets" -le "$BUDGET_OCTETS" ]; then
     report "C11 · Budget du CLAUDE.md bootstrappé (M-PROC-49)" 0 "$detail"
     return 0

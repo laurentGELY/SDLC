@@ -118,10 +118,10 @@ Avant tout commit sur ce projet :
 - [ ] Décision ajoutée au tableau de compatibilité (universelle / conditionnelle)
 - [ ] `§Historique des versions` dans `README.md` mis à jour
 - [ ] `specs/SPEC.md §Modules` mis à jour si la carte des fichiers a changé
-- [ ] `bash sdlc-validate.sh` → tous ✅ (`M-PROC-40`, C9 : `M-PROC-45`, C10 : `M-PROC-46`, C11 : `M-PROC-49`)
+- [ ] `bash sdlc-validate.sh` → tous ✅ (`M-PROC-40`, C9 : `M-PROC-45`, C10 : `M-PROC-46`, C11 : `M-PROC-49`) — contrôles
       structurels du modèle (version, en-têtes, placeholders, parité
       template↔skill, schéma JSON hooks, carte des fichiers, unicité des IDs,
-      syntaxe shell, site `docs/` et livrables HTML à jour), auparavant vérifiés à l'œil un par un
+      syntaxe shell, site `docs/` et livrables HTML à jour, budget du `CLAUDE.md` bootstrappé), auparavant vérifiés à l'œil un par un
 - [ ] `bash tests/sdlc-validate-test.sh` → tous `[PASS]`, exit 0 — chaque contrôle vu rouge
       sur un défaut injecté dans une copie du dépôt (`M-PROC-40`, ECO-7/ECO-8) ; un contrôle
       ajouté ou modifié vient avec son cas
@@ -161,7 +161,7 @@ Choisir la forme d'une règle par le défaut qu'elle doit prévenir, pas à l'in
 
 | Échec visé | Forme qui marche (exemple SDLC) | Forme qui échoue |
 |---|---|---|
-| Viole une règle sciemment sous pression | Règle absolue énoncée une fois, doublée d'une garde mécanique quand elle existe (hook `pre-tool-bash.sh`, `M-ARCH-10`) — les tables de rationalisation (`M-PROC-31`) ont été retirées par ELAG-4 faute d'effet observé | Consigne molle (« préférer… », « envisager… ») |
+| Viole une règle sciemment sous pression | Règle absolue énoncée une fois, doublée d'une garde mécanique quand elle existe (hook `pre-tool-bash.sh`, `M-ARCH-10`) — les tables de rationalisation (`M-PROC-31`) ont été retirées par ELAG-4 (R-13 ; motif sous `M-PROC-31`, mise à jour du 19/11/2026) | Consigne molle (« préférer… », « envisager… ») |
 | Se conforme, mais la sortie a la mauvaise forme (verbeux, verdict enterré) | Recette positive — dire ce que la sortie EST, dans l'ordre (ex : gabarit du Bilan §0d du wrap-up) | Liste d'interdictions (« ne pas recopier », « ne jamais narrer ») |
 | Omet un élément requis d'un livrable qu'il produit déjà | Champ structurel obligatoire dans le gabarit (ex : les 4 champs Retenu/Écarté/Raison/Déclencheur de réouverture d'une entrée `07-DECISIONS-SDLC.md`) | Rappel en prose à côté du gabarit |
 | Le comportement doit dépendre d'une condition observable | Conditionnel sur un prédicat vérifiable (ex : un `HALT`, `CLAUDE.md §Règles absolues`) | Règle inconditionnelle + clauses d'exemption |

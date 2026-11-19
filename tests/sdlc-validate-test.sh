@@ -163,6 +163,8 @@ assert_red 10 "marqueur « SDLC version : » retiré de docs/SPEC.html"
 # C11 — le CLAUDE.md bootstrappé dépasse le budget (M-PROC-49) : une ligne de
 # plus dans 01 → rouge ; un octet de plus sans ligne nouvelle → rouge aussi (une
 # compression qui allonge les lignes ne passe pas) ; à la mesure exacte → vert.
+# Ces cas supposent budget = mesure (cliquet, M-PROC-49) : un retrait dans 01 sans
+# baisse des constantes les fait échouer — c'est voulu, abaisser BUDGET_* d'abord.
 F=$(make_fixture c11-ligne)
 printf 'Ligne ajoutée au-delà du budget.\n' >> "$F/01-Claude-md-TEMPLATE.md"
 run_validate "$F"
@@ -176,6 +178,13 @@ assert_red 11 "un octet de plus dans 01, même nombre de lignes"
 F=$(make_fixture c11-exact)
 run_validate "$F"
 assert_green 11 "CLAUDE.md bootstrappé à la mesure exacte du budget"
+
+# Un bump de version plus long réécrit la ligne « SDLC version : » du CLAUDE.md
+# produit : C11 doit rester vert, aucune règle n'a changé (C1/C9/C10 rougissent, normal).
+F=$(make_fixture c11-version)
+sed -i 's/^\*\*Version courante : [^*]*\*\*/**Version courante : v2.0+SPRINT-AU-NOM-TRES-LONG**/' "$F/README.md"
+run_validate "$F"
+assert_green 11 "bump vers un nom de version plus long, aucune règle modifiée"
 
 # ─── C3 · NON-AVEUGLEMENT ────────────────────────────────────────────────────
 # C3 exemptait autrefois des fichiers entiers (C3_EXCEPTIONS) : un vrai résidu

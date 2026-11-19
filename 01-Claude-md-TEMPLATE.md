@@ -174,7 +174,7 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
 ## Modifications spot sur fichiers existants
 
 Toute modification ciblée d'un fichier existant passe par un outil qui vérifie sa cible : `Edit` après lecture du fichier, ou script `sed`.
-Elle se termine par un grep de l'ancien motif → zéro résultat attendu ; sans ce grep, la modification n'est pas vérifiée.
+Après un `sed`, grep de l'ancien motif sur les lignes visées → plus d'occurrence (`Edit` échoue seul si le texte manque).
 Modification trop complexe pour une substitution → plusieurs éditions ciblées, chacune vérifiée ; jamais de régénération complète du fichier.
 
 ---

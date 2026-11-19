@@ -51,7 +51,7 @@ Cinq scripts bash à la racine, chacun autonome :
 | C8 | Syntaxe de tous les scripts shell |
 | C9 | Site `docs/` à jour : `meta.json` ↔ `README.md`, `versions.md` (`M-PROC-45`) |
 | C10 | Livrables HTML à jour : marqueur de version et carte des templates de `SPEC.html` et `MODE-OPERATOIRE.html` (`M-PROC-46`) |
-| C11 | Budget du `CLAUDE.md` produit par `sdlc-init.sh`, en lignes et en octets — cliquet (`M-PROC-49`) |
+| C11 | Budget du `CLAUDE.md` produit par `sdlc-init.sh`, en lignes et en octets (hors ligne de version) — cliquet (`M-PROC-49`) |
 
 Le script est un **registre** : ajouter un contrôle = une fonction `check_cN` et une ligne dans `CHECKS=(…)`.
 

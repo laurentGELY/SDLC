@@ -181,16 +181,16 @@ Format des entrées existantes (`## M-… · titre · version · date`, Contexte
 ## Dépendances
 
 **Inputs requis :**
-- [ ] **ELAG-1b livré** : `CLAUDE.md` produit par `sdlc-init.sh`, frontmatter des skills, `M-ARCH-10` dans `07`. Vérifier : `T=$(mktemp -d) && (cd "$T" && git init -q && git -c user.email=t@t -c user.name=t commit -q --allow-empty -m init && bash ~/Downloads/Sandbox/SDLC/sdlc-init.sh "Test" >/dev/null) && ls "$T"/CLAUDE.md && head -1 "$T"/.claude/skills/wrap-up/SKILL.md` → fichier présent et `---`. Absent → **BLOQUANT** (les renvois de `M-TMPL-10` vers des skills sans frontmatter ne se déclenchent pas)
-- [ ] Job search lisible à `06a30f7` : `git -C ~/Downloads/Sandbox/JobSearch cat-file -e 06a30f7:specs/Sprints/AUDIT-ELAGAGE-2.md && echo OK`
-- [ ] Audit ELAG-1 intact : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
-- [ ] Rapport `/doctor prompt-audit` « avant » sur un bootstrap neuf, collé par Laurent (Claude ne peut pas lancer la commande)
-- [ ] `bash sdlc-validate.sh` et `bash tests/sdlc-validate-test.sh` verts au démarrage
+- [x] **ELAG-1b livré** : `CLAUDE.md` produit par `sdlc-init.sh`, frontmatter des skills, `M-ARCH-10` dans `07`. Vérifier : `T=$(mktemp -d) && (cd "$T" && git init -q && git -c user.email=t@t -c user.name=t commit -q --allow-empty -m init && bash ~/Downloads/Sandbox/SDLC/sdlc-init.sh "Test" >/dev/null) && ls "$T"/CLAUDE.md && head -1 "$T"/.claude/skills/wrap-up/SKILL.md` → fichier présent et `---`. Absent → **BLOQUANT** (les renvois de `M-TMPL-10` vers des skills sans frontmatter ne se déclenchent pas)
+- [x] Job search lisible à `06a30f7` : `git -C ~/Downloads/Sandbox/JobSearch cat-file -e 06a30f7:specs/Sprints/AUDIT-ELAGAGE-2.md && echo OK`
+- [x] Audit ELAG-1 intact : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
+- [x] Rapport `/doctor prompt-audit` « avant » sur un bootstrap neuf, collé par Laurent (Claude ne peut pas lancer la commande)
+- [x] `bash sdlc-validate.sh` et `bash tests/sdlc-validate-test.sh` verts au démarrage
 
 **Outputs produits :**
-- [ ] Décisions `M-PROC-49`, `50`, `51`, `53`, `54`, `M-TMPL-10` dans `07` (+ tableau de compatibilité)
-- [ ] Contrôle de budget dans `sdlc-validate.sh`
-- [ ] ROADMAP : « Import élagage » en §Historique · « Import élagage 2 » (déclencheur : surveillance du Sprint 89 close — `/demarrage` tracé aux 2 sprints suivants dans Job search) · `M-PROC-52` · fusion des couches du wrap-up (`M-PROC-51` (1)) · `Claude.md` vivant du repo SDLC
+- [x] Décisions `M-PROC-49`, `50`, `51`, `53`, `54`, `M-TMPL-10` dans `07` (+ tableau de compatibilité)
+- [x] Contrôle de budget dans `sdlc-validate.sh`
+- [x] ROADMAP : « Import élagage » en §Historique · « Import élagage 2 » (déclencheur : surveillance du Sprint 89 close — `/demarrage` tracé aux 2 sprints suivants dans Job search) · `M-PROC-52` · fusion des couches du wrap-up (`M-PROC-51` (1)) · `Claude.md` vivant du repo SDLC
 
 **Règle :** avant de démarrer, vérifier que tous les inputs requis cochés existent et sont dans l'état attendu. Si un input manque ou a changé → signaler comme BLOQUANT avant toute analyse.
 
@@ -229,21 +229,21 @@ Nouveau contrôle `check_c<n>` (`n` = prochain numéro libre : 11 si SDLC-33 lot
 
 *(La Definition of Done — `STANDARDS.md §Definition of Done` — s'applique en plus.)*
 
-- [ ] Retraits : `grep -cE "Rationalisations à reconnaître|Analyse en une passe|Batching XS/S|Chargement chirurgical|Validation incrémentale|^\*\*Éviter :\*\* voir|régénérer le fichier complet|^## Auto-revue du plan|Détection récurrences" 01-Claude-md-TEMPLATE.md` → `0`
-- [ ] Gardées : `grep -cE "Source de vérité|Fichiers nécessaires" 01-Claude-md-TEMPLATE.md` → ≥ 2 (R-16, R-44) · `grep -c "wrap-up" 02-STANDARDS-TEMPLATE.md` → inchangé (R-83)
-- [ ] HALT conservés : `grep -cE "^- \*\*HALT-(DEP|3X|ARCH|SCOPE|TIMEOUT)\*\*" 01-Claude-md-TEMPLATE.md` → `5`
-- [ ] §Modifications spot ≤ 8 lignes : `awk '/^## Modifications spot/{f=1;next} /^## /{f=0} f' 01-Claude-md-TEMPLATE.md | grep -c .` → ≤ 8
-- [ ] `02` : `grep -c "Ce fichier ne s'affaiblit pas" 02-STANDARDS-TEMPLATE.md` → `0` ; R-91 : `grep -c "Déclencheur DEPENDENCY_MAP" 02-STANDARDS-TEMPLATE.md` → `0` · `01:499` : `grep -c "^Éviter : complexité prématurée" 01-Claude-md-TEMPLATE.md` → `0`
-- [ ] Taille : `wc -l < "$T1"/CLAUDE.md` ≤ `wc -l < "$T0"/CLAUDE.md` − 100 ; les deux mesures (lignes et octets) écrites dans `Corrections ajustées vs spec`
-- [ ] Traçabilité : chaque ligne de `diff <(cut -d: -f4- /tmp/avant.txt) <(cut -d: -f4- /tmp/apres.txt)` est rattachée à un `R-NN` de §Règles visées
-- [ ] Budget : `bash sdlc-validate.sh` → contrôle de budget OK ; `grep -nE "^BUDGET_(LIGNES|OCTETS)=" sdlc-validate.sh` = la mesure `T1` ; cas RED vert dans `bash tests/sdlc-validate-test.sh`
-- [ ] Décisions : `grep -cE "^## M-(PROC-(49|50|51|53|54)|TMPL-10) · " 07-DECISIONS-SDLC.md` → `6` · `grep -cE "^## M-PROC-(52|5[5-9]) · " 07-DECISIONS-SDLC.md` → `0`
-- [ ] `04` : `grep -cE "Règles visées|Modèle exécutant" 04-sprint-PDR-TEMPLATE.md` → `2`
-- [ ] ROADMAP : `grep -cE "Import élagage 2|M-PROC-52" docs/ROADMAP.md` → ≥ 2
-- [ ] Audit figé : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
-- [ ] Prompt-audit « après » joint, sans contradiction nouvelle
-- [ ] Tests niveau A : `bash sdlc-validate.sh` → tous les contrôles OK · `bash tests/sdlc-validate-test.sh` → tous OK
-- [ ] CHANGELOG mis à jour (`v2.0+ELAG-4`), C1 vert
+- [x] Retraits : `grep -cE "Rationalisations à reconnaître|Analyse en une passe|Batching XS/S|Chargement chirurgical|Validation incrémentale|^\*\*Éviter :\*\* voir|régénérer le fichier complet|^## Auto-revue du plan|Détection récurrences" 01-Claude-md-TEMPLATE.md` → `0`
+- [x] Gardées : `grep -cE "Source de vérité|Fichiers nécessaires" 01-Claude-md-TEMPLATE.md` → ≥ 2 (R-16, R-44) · `grep -c "wrap-up" 02-STANDARDS-TEMPLATE.md` → inchangé (R-83)
+- [x] HALT conservés : `grep -cE "^- \*\*HALT-(DEP|3X|ARCH|SCOPE|TIMEOUT)\*\*" 01-Claude-md-TEMPLATE.md` → `5`
+- [x] §Modifications spot ≤ 8 lignes : `awk '/^## Modifications spot/{f=1;next} /^## /{f=0} f' 01-Claude-md-TEMPLATE.md | grep -c .` → ≤ 8
+- [x] `02` : `grep -c "Ce fichier ne s'affaiblit pas" 02-STANDARDS-TEMPLATE.md` → `0` ; R-91 : `grep -c "Déclencheur DEPENDENCY_MAP" 02-STANDARDS-TEMPLATE.md` → `0` · `01:499` : `grep -c "^Éviter : complexité prématurée" 01-Claude-md-TEMPLATE.md` → `0`
+- [x] Taille : `wc -l < "$T1"/CLAUDE.md` ≤ `wc -l < "$T0"/CLAUDE.md` − 100 ; les deux mesures (lignes et octets) écrites dans `Corrections ajustées vs spec`
+- [x] Traçabilité : chaque ligne de `diff <(cut -d: -f4- /tmp/avant.txt) <(cut -d: -f4- /tmp/apres.txt)` est rattachée à un `R-NN` de §Règles visées
+- [x] Budget : `bash sdlc-validate.sh` → contrôle de budget OK ; `grep -nE "^BUDGET_(LIGNES|OCTETS)=" sdlc-validate.sh` = la mesure `T1` ; cas RED vert dans `bash tests/sdlc-validate-test.sh`
+- [x] Décisions : `grep -cE "^## M-(PROC-(49|50|51|53|54)|TMPL-10) · " 07-DECISIONS-SDLC.md` → `6` · `grep -cE "^## M-PROC-(52|5[5-9]) · " 07-DECISIONS-SDLC.md` → `0`
+- [x] `04` : `grep -cE "Règles visées|Modèle exécutant" 04-sprint-PDR-TEMPLATE.md` → `2`
+- [x] ROADMAP : `grep -cE "Import élagage 2|M-PROC-52" docs/ROADMAP.md` → ≥ 2
+- [x] Audit figé : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
+- [x] Prompt-audit « après » joint, sans contradiction nouvelle
+- [x] Tests niveau A : `bash sdlc-validate.sh` → tous les contrôles OK · `bash tests/sdlc-validate-test.sh` → tous OK
+- [x] CHANGELOG mis à jour (`v2.0+ELAG-4`), C1 vert
 
 ---
 
@@ -370,9 +370,18 @@ Synthèse : `CLAUDE.md` 499 lignes, 4 skills ; 9 constats, 6 signalements (group
 | M1 | `CLAUDE.md:44-93` | tables de rationalisation « HYPOTHÈSE », redites des HALT | R-13 (retrait) — confirmé |
 | M2 | `CLAUDE.md:254-273` | `sed` imposé, « régénérer le fichier complet » | R-37→R-39 (réécriture) — confirmé |
 | M3 | `CLAUDE.md:208` | « Mode /fast » entre en collision avec la commande intégrée `/fast` | hors §Règles visées → report |
-| M4 | `diagnostic/SKILL.md:6-17` | bloc de placeholders `[→ ADAPTER]` chargé dans le skill | hors §Règles visées → report |
+| M4 | `diagnostic/SKILL.md:6-17` | bloc de placeholders « → ADAPTER » chargé dans le skill | hors §Règles visées → report |
 | M5 | `CLAUDE.md:395,397`, `wrap-up` `:52,62`, `retrospective` `:268` | IDs du dépôt SDLC (`M-HOOKS-08`, `M-PROC-10`, `M-PROC-44`, `LL-T08`, `M-PROC-22`) introuvables dans le projet | hors §Règles visées → report |
 Signalements : F1 « Mode /fast » contre « jamais sauter l'analyse » (`:15-16` / `:208-211`) · F2 placeholders du rôle et des limites bash chargés à chaque session · F3 hook `PreCompact` dit actif, documenté optionnel · F4 « si une règle n'est pas ici, elle n'existe pas » contre les renvois à `STANDARDS.md` et aux skills · F5 « fait vérifié » d'une source externe non datée (`:236-250`, disparaît avec R-36) · F6 exemples d'un autre projet dans `retrospective` `:114,121` · versions des templates divergentes.
+
+
+### Prompt-audit « après » (Laurent, 19/11/2026 — bootstrap neuf `Test`, Claude Opus 5.5, `01` v2.8 à `08ac2bf`)
+Synthèse : 10 constats avec modification proposée, 8 signalés (groupe 1 : 3 ; groupe 2 : 15). Patch non appliqué (`M-PROC-54`).
+**Disparus par rapport à « avant »** : H2 (renvoi vers `04-…`), H3 (`[N]` de HALT-TIMEOUT), M1 (tables de rationalisation), M2 (`sed` imposé, régénération complète), F5 (« fait vérifié » non daté).
+**Constats sur du texte modifié par ELAG-4** : H6 — §Modifications spot, « grep de l'ancien motif → zéro résultat » faux si le motif existe ailleurs, et inutile après `Edit` (qui échoue si le texte est introuvable) : formulation héritée de R-38, sans contradiction nouvelle · F7 — plafond « ≤ 3 lignes » de l'auto-évaluation, jugé voulu · F8 — `M-TMPL-06` dans le renvoi de R-36, attribué au modèle SDLC (choix assumé du 19/11).
+**Déjà présents « avant » (texte non modifié)** : H1 (= H1), H3 et H2 (= M5, IDs du dépôt SDLC), H4 (= F4), H5 et F3 (= F2), F1 (= F1), F4 (= M3), F5 (DEPENDENCY_MAP de `03`, déjà reporté).
+**Nouveaux, sur du texte non modifié par ELAG-4** : H7 (commentaires de code, `01 §Code`), H8-H10 (skills `wrap-up` et `diagnostic`), F2 (correctif 🟡 de la revue adversariale contre l'aval), F6 (`read_file`) → hors périmètre, à reporter.
+**Verdict** : aucune contradiction nouvelle introduite par ELAG-4.
 
 ### Plan d'exécution
 1. **Lot 1** — `07` : `M-PROC-49`, `50`, `51`, `53`, `54`, `M-TMPL-10` au format des entrées existantes + 6 lignes du tableau de compatibilité · ROADMAP : `M-PROC-52`, fusion des couches du wrap-up (`M-PROC-51` (1)), `CLAUDE.md` vivant du repo SDLC en §Later (« Import élagage 2 » existe déjà, `docs/ROADMAP.md:35`) · LESSONS : entrée « Import élagage » ouverte. **Aval sur le texte des décisions, puis commit.**
@@ -400,3 +409,5 @@ Signalements : F1 « Mode /fast » contre « jamais sauter l'analyse » (`:15-16
 - **Lot 3 — R-12** : le prompt-audit « avant » (H3) montre que §Limites bash ne définit pas N ; la ligne porte `timeout 120`, sans renvoi.
 - **Lot 3 — R-63→R-65** : définition compacte gardée en §Test (là où elle est lue au moment de conclure) plutôt que dans le gabarit d'Analyse (R-48) ; renvoi vers `STANDARDS.md §Niveaux de test`.
 - **Lot 4 — bump et docs de version** : README (version), CHANGELOG `v2.0+ELAG-4`, `docs/meta.json`, `versions.md` et marqueurs HTML (C1/C9/C10) écrits par `/wrap-up` et non au lot 4, pour une seule écriture. `04` sans identifiant `M-…` dans ses nouveaux champs (constat M5 du prompt-audit : un projet cible ne les résout pas).
+- **Après prompt-audit — H6 (R-38)** : « grep de l'ancien motif → zéro résultat » remplacé par « après un `sed`, grep sur les lignes visées → plus d'occurrence (`Edit` échoue seul si le texte manque) ». Première rédaction +15 octets → refusée par C11 (cliquet) et raccourcie : T2 = `368 18161` ; `BUDGET_OCTETS=18161`.
+- **Wrap-up — C11 et la ligne de version** : au bump `v2.0+ELAG-1b` → `v2.0+ELAG-4`, `sdlc-init.sh` réécrit le marqueur « SDLC version » du `CLAUDE.md` produit : −1 octet, et le cas « +1 octet » ne rougissait plus (`tests/sdlc-validate-test.sh` 20/21). Un nom plus long aurait fait rougir C11 sans changement de règle. Correctif : octets comptés hors de cette ligne (`grep -v '^<!-- SDLC version : '`), `BUDGET_OCTETS=18099` ; cas `c11-version` ajouté, rouge avec le validateur de `HEAD` (18 177 > 18 162), vert après.

@@ -248,3 +248,9 @@ Date : 19/11/2026 (Sprint ELAG-1b, C2)
 Commande : `awk '…' 07-DECISIONS-SDLC.md | head -3 | grep -qE "$pattern"; echo $?` sous `set -o pipefail` → échec, alors que les petits fichiers passent
 Résultat observé : `head` ferme le tube après 3 lignes ; `awk`, qui écrit encore, meurt par SIGPIPE (141) et `pipefail` propage l'échec.
 Conclusion : faire s'arrêter le producteur lui-même (`awk '… { print; if (++n == 3) exit }'`) plutôt que `| head` dans un script en `pipefail`.
+
+## Symptôme : un contrôle de taille du fichier bootstrappé change de quelques octets sans modification du template
+Date : 19/11/2026 (Sprint ELAG-4, C11)
+Commande : `T=$(mktemp -d); (cd "$T" && git init -q && git -c user.email=t@t -c user.name=t commit -q --allow-empty -m i && bash sdlc-init.sh "Test" >/dev/null); wc -lc "$T"/CLAUDE.md; grep -v '^<!-- SDLC version : ' "$T"/CLAUDE.md | wc -c`
+Résultat observé : `sdlc-init.sh` substitue le nom du projet et réécrit la ligne « SDLC version : <version du README> » — « Budget » au lieu de « Test » donnait +2 octets, le bump `ELAG-1b` → `ELAG-4` −1 octet.
+Conclusion : mesurer et contrôler avec le même nom de projet, et hors des lignes que le bootstrap réécrit ; un cas de test qui modifie seulement la version doit laisser C11 vert.

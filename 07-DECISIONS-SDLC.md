@@ -637,6 +637,8 @@ source d'erreur (mauvaise ligne, contexte décalé, oubli d'occurrence). Un scri
 si le pattern a changé. La pratique existait déjà implicitement dans `sdlc-init.sh`
 (substitution des placeholders) mais n'était pas formalisée comme règle générale.
 
+→ Mise à jour 19/11/2026 (Sprint ELAG-4) : règle réécrite en 3 lignes (R-37→R-39, `M-PROC-54`) — outil libre (`Edit` après lecture ou `sed`), grep de l'ancien motif après un `sed`, et plusieurs éditions ciblées au lieu de « régénérer le fichier complet » (contradiction relevée par le prompt-audit de Job search, remontée 18/11-2, et par celui du 19/11, constat M2).
+
 ---
 
 ## M-PROC-12 · Init sprint : spec + mémoire + plan de développement · v1.5 · 05/06/2026
@@ -1512,6 +1514,8 @@ jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
 
 → Mise à jour 20/06/2026 (Sprint SDLC-20) : cette décision a fait l'objet de 2 revues critiques supplémentaires après sa mise en œuvre — voir `M-PROC-35` pour le détail des 3 passages et l'état final retenu (étiquette `[HYPOTHÈSE]`, contenu des paires inchangé).
 
+→ Mise à jour 19/11/2026 (Sprint ELAG-4) : tables retirées de `01` (R-13). Motif : absentes de Job search depuis juin ; les deux défauts HALT observés y ont été corrigés par un hook et des interdictions, pas par des tables (ELAG-2, verdict « confirmé provisoire ») ; prompt-audit du 19/11, constat M1 (rationalisations jamais observées, susceptibles d'orienter le modèle vers elles). Les 5 HALT restent.
+
 ---
 
 ## M-PROC-32 · Fusion clause anti-complaisance + renvoi croisé §Rôle/§Test · v1.9+SDLC-19 · 19/06/2026
@@ -1528,6 +1532,8 @@ jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
 
 **Déclencheur de réouverture :** aucun prévu — décision stable.
 
+
+→ Mise à jour 19/11/2026 (Sprint ELAG-4) : le renvoi croisé §Rôle/§Test est remplacé par un énoncé unique en §Test (R-62, « toute conclusion cite la commande, sa sortie, `chemin:ligne` ou le log ») et une ligne « Citabilité » en §Rôle qui y renvoie (`M-PROC-51` (3)).
 ---
 
 ## M-PROC-33 · Sélection de modèle pour sous-agent délégué · v1.9+SDLC-19 · 19/06/2026
@@ -2110,6 +2116,8 @@ marqueur de version incrémenté par édition) · `06-PDR-bootstrap.md`
 (pistes d'allègement exigées pour des croissances de contexte légitimes et mineures)
 sur 2 rétrospectives consécutives, recalibrer la valeur plutôt que la retirer.
 
+
+→ Mise à jour 19/11/2026 (Sprint ELAG-4) : la règle « ne pas affaiblir un seuil » n'a plus qu'un énoncé, `02 §Barre qualité` (R-92) ; R-07 quitte `01 §Règles absolues` et R-97 (« Ce fichier ne s'affaiblit pas ») quitte le plancher. Risque accepté : `02` n'est importé par rien dans un projet bootstrappé.
 ---
 
 ## M-PROC-43 · Durcissement PDR — placeholders, auto-revue, coût si faux, précédence ledger · v2.0+ECO-4 · 03/09/2026
@@ -2162,6 +2170,8 @@ précédence).
 des faux positifs sur du texte français légitime dans une spec réelle, resserrer les
 motifs plutôt que retirer le mécanisme.
 
+
+→ Mise à jour 19/11/2026 (Sprint ELAG-4) : l'auto-revue du plan en 3 passes (R-51) est fondue dans une auto-évaluation d'au plus 3 lignes de la Demande d'aval (`M-PROC-51` (2)) ; la section `§Auto-revue du plan` de `01` n'existe plus. Les motifs de `04 §Pas de placeholders` restent.
 ---
 
 ## M-TMPL-06 · Pattern `.claude/rules/` documenté pour projets cibles · v2.0+ECO-5 · 03/09/2026
@@ -2226,6 +2236,8 @@ repo) acquiert une vraie frontière par chemin de fichier (ex. un sous-dossier
 split scopé à cette section précise — pas une réouverture globale de la
 question.
 
+
+→ Mise à jour 19/11/2026 (Sprint ELAG-4) : la puce `.claude/rules/` de `01 §Tokens` (R-36) est réduite à une ligne de renvoi vers cette décision (`M-TMPL-10`) ; la taille du gabarit est désormais tenue par le contrôle C11 (`M-PROC-49`).
 ---
 
 ## M-PROC-44 · Garde-fou traçabilité `sprint-memory.md` · v2.0+SDLC-27 · 03/09/2026
@@ -2641,14 +2653,14 @@ schéma JSON de `PreToolUse` ou `PreCompact`, ou le format du frontmatter des sk
 mesuré que `01` ne fait que grossir : une seule baisse en 24 commits (§Mesures 1.2). Le cliquet M1
 (`02 §Cliquet`, `09 §Baseline`) est relatif (« pas plus de 10 % entre deux rétros ») et n'exige aucun
 retrait. Depuis ELAG-1b (`M-ARCH-10`), le `CLAUDE.md` d'un projet neuf est chargé à chaque session : 499
-lignes et 25 376 octets au démarrage d'ELAG-4 (`wc -lc` sur un bootstrap jetable), contre une cible de 200
+lignes et 25 376 octets au démarrage d'ELAG-4 (`wc -lc` sur un bootstrap jetable), contre une cible de 200 (seuil d'adhérence cité par `M-TMPL-06`)
 lignes. Job search a appliqué un plafond testé à son propre `CLAUDE.md` (Sprint 89, clos `c5ec95b`) : 200
 lignes et 8 192 octets.
 
 **Retenu :**
 1. Contrôle C11 de `sdlc-validate.sh` : bootstrap dans `mktemp -d`, puis `wc -l` et `wc -c` du `CLAUDE.md`
    produit, comparés à `BUDGET_LIGNES` et `BUDGET_OCTETS` (constantes en tête du script).
-2. **Cliquet** : les constantes valent la mesure de fin de lot 3 d'ELAG-4. Les baisser est libre ; les
+2. **Cliquet** : les constantes valent la mesure de fin d'ELAG-4 (368 lignes ; 18 099 octets, comptés hors ligne « SDLC version », dont la longueur suit le bump). Les baisser est libre ; les
    monter exige une nouvelle décision dans ce registre.
 3. Au plafond, « une entrée, une sortie » : tout ajout dans `01` retire ou déplace une règle de même
    taille, citée par son `R-NN`. Un déplacement compte seulement si la destination est effectivement
@@ -2658,7 +2670,7 @@ lignes et 8 192 octets.
 
 **Écarté :**
 - **Paliers 350 puis 200 dans ce sprint** (texte d'origine de la proposition) — écarté (décision du
-  19/11) : les retraits étayés par Job search donnent environ 120 lignes ; 350 exige des déplacements
+  19/11) : les retraits étayés par Job search retirent environ 120 lignes (131 mesurées) ; 350 exige des déplacements
   vers des skills qui n'existent pas encore (`/reprise` de SDLC-33, `/demarrage` d'« Import élagage 2 »).
   Les paliers reviennent aux sprints qui créent ces destinations.
 - **Plafond en mots** (M1 actuel) — écarté : relatif, et n'impose aucun retrait.
@@ -2809,7 +2821,7 @@ vers son générateur.
 **Retenu :** appliquée par ELAG-4 à trois groupes :
 - R-66→R-76 : une ligne de déclenchement par skill (`/wrap-up`, `/retrospective`) ; R-77 (« Avant tout
   commit ») inchangée.
-- R-12 (HALT-TIMEOUT) : une ligne, déclencheur `exit 124` → HALT, renvoi vers `§Limites bash`.
+- R-12 (HALT-TIMEOUT) : une ligne, `timeout 120` et `exit 124` → HALT ; sans renvoi vers `§Limites bash`, qui ne définit pas N (prompt-audit du 19/11, constat H3).
 - R-36 (découpage `.claude/rules/`) : une ligne de renvoi vers `M-TMPL-06` ; le contrôle C11
   (`M-PROC-49`) protège la taille du modèle.
 
