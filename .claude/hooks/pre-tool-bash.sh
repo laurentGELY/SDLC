@@ -37,7 +37,7 @@ data = json.load(sys.stdin)
 print(data.get('tool_input', {}).get('file_path', ''))
 " 2>/dev/null || echo "")
 
-# ─── M-HOOKS-04 — garde-fou étape 4a (Claude.md §Démarrage) ──────────────────────────────────
+# ─── M-HOOKS-04 — garde-fou étape 4a (CLAUDE.md §Démarrage) ──────────────────────────────────
 # Si une mémoire de sprint référence un spec absent du disque, bloquer toute action SAUF celle
 # qui créerait/éditerait ce spec lui-même (carve-out anti auto-verrouillage dès la conception —
 # cf. 07-DECISIONS-SDLC.md M-HOOKS-04).
@@ -64,7 +64,7 @@ if [ -f "$SPRINT_MEMORY" ]; then
     fi
     if [ "$CARVE_OUT" -eq 0 ]; then
       echo "BLOQUÉ : étape 4a non exécutée — $SPEC_PATH référencé dans $SPRINT_MEMORY mais absent du disque." >&2
-      echo "Créer ce fichier spec avant toute autre action (Claude.md §Démarrage 4a)." >&2
+      echo "Créer ce fichier spec avant toute autre action (CLAUDE.md §Démarrage 4a)." >&2
       echo "Commandes en lecture seule autorisées pendant ce blocage (simples, sans chaînage ni redirection) : git status/diff/log/show, ls, cat, pwd, find, grep, head, tail, wc, bash -n." >&2
       echo "Recours en dernier ressort (hors session Claude Code, si aucun outil ne débloque) : rm -f $SPRINT_MEMORY" >&2
       exit 2

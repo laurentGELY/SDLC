@@ -579,6 +579,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-46 | Contrôle C10 de `sdlc-validate.sh` — livrables HTML `SPEC.html`/`MODE-OPERATOIRE.html` à jour (marqueur de version, carte des templates) | ✓ | — |
 | M-PROC-47 | `README.md §Structure du repo` reste un arbre curaté (2 listes dans C6, pas 3) — corrigé sur les 2 inexactitudes réelles (scripts, `docs/`), close le `SDLC_CANDIDATE` ECO-1 | ✓ | — |
 | M-PROC-48 | Graduation `LL-T14` — tout total/comptage écrit dans un livrable vérifié par commande (extension de `§Vérification factuelle`) | ✓ | — |
+| M-ARCH-10 | Le bootstrap livre les mécanismes que la prose promet (`CLAUDE.md`, hook au schéma réel, `.gitignore`, frontmatter des skills, `pre-compact.sh`, marqueur de version, dates des gabarits) — vérifié par `tests/sdlc-init-test.sh` | ✓ | — |
 
 ---
 
@@ -2564,3 +2565,62 @@ externe cité plutôt qu'inventé.
 
 **Déclencheur de réouverture :** si un projet cible agent rapporte que les exemples ne
 couvrent pas ses besoins réels (ex. coûts, garde-fous de sortie) — évaluer une section dédiée.
+
+---
+
+## M-ARCH-10 · Le bootstrap livre les mécanismes que la prose promet · v2.0+ELAG-1b · 19/11/2026
+
+**Contexte :** l'audit ELAG-1 (`specs/Sprints/AUDIT-ELAGAGE-1.md`, 20/10/2026, proposition provisoire)
+a montré qu'un projet bootstrappé ne reçoit pas les mécanismes que la prose du modèle déclare : le
+fichier d'instructions s'appelait `Claude.md`, que Claude Code ne charge pas sous Linux ; le hook livré,
+copie inline de `sdlc-init.sh` restée sur l'ancien schéma (`input` au lieu de `tool_input`), ne bloquait
+rien ; pas de `.gitignore` ; skills sans frontmatter, donc non déclenchables par leur description ;
+dates du bootstrap figées dans les gabarits du wrap-up ; `pre-compact.sh` promis mais absent. Job search
+a confirmé ces défauts sur un projet réel (hook inerte 2 mois, `CLAUDE.md` renommé à la main, frontmatter
+revenu après une synchronisation — remontées du 21/10 et 18/11-4). Un bootstrap jetable du 19/11 a ajouté
+la regex de poussée forcée (3 poussées forcées passaient, 2 commandes légitimes étaient bloquées) et le
+marqueur de version périmé. Aucun contrôle ne voyait ces écarts : C5 compare `08` aux hooks du repo SDLC,
+pas au hook livré, et le smoke test de `sdlc-init.sh` ne pouvait pas échouer.
+
+**Retenu :** sprint Fix ELAG-1b, préalable à tout élagage.
+1. `sdlc-init.sh` déploie `01` en `CLAUDE.md` ; les renvois opérationnels suivent ; `/sdlc-sync` et
+   `sdlc-delta.sh` détectent l'ancien nom et proposent un renommage en deux temps (sûr sur un système
+   insensible à la casse). Le repo SDLC renomme aussi son propre fichier.
+2. **Source unique des hooks** : `sdlc-init.sh` extrait `pre-tool-bash.sh` et `pre-compact.sh` de
+   `08-hooks-TEMPLATE.md`, entre les marqueurs `<!-- hook:<nom>:début -->` / `<!-- hook:<nom>:fin -->`.
+   Plus de copie inline à resynchroniser.
+3. Regex `[UNIVERSEL]` de poussée forcée : option cherchée dans le seul segment du push ; bloque
+   `--force`/`-f` partout dans ce segment, `--force-with-lease` et `+refspec`.
+4. `.gitignore` créé ou complété (`.env`, `.claude/sprint-memory.md`, `.claude/settings.local.json`).
+5. Frontmatter `name`/`description` sur chaque template de skill et le squelette `diagnostic` ;
+   la description dit quand déclencher, jamais le déroulé. C2 lit la version après le frontmatter.
+6. Placeholders de date des gabarits du wrap-up conservés (`deploy_named`) ; marqueur
+   `SDLC version` réécrit à la version courante.
+7. `pre-compact.sh` installé avec ses entrées `PreCompact` (`manual`, `auto`).
+8. Smoke test de `sdlc-init.sh` au schéma réel, avec un cas autorisé et un cas bloqué ; le bootstrap
+   sort en erreur si le hook livré est inopérant.
+9. `tests/sdlc-init-test.sh` : bootstrap jetable, chaque mécanisme vérifié par comportement, au moins un
+   cas rouge par mécanisme ; lancé au §3.5 du wrap-up. Aucun `$<chiffre>` dans un skill livré (Claude Code
+   les remplace par les arguments du skill — remontée Job search 19/11-3).
+
+**Écarté :**
+- **`CLAUDE.md` d'une ligne `@Claude.md`** — écarté : `CLAUDE.md` et `Claude.md` ne peuvent pas coexister
+  sur un système insensible à la casse ; le bootstrap casserait là où il marche.
+- **Étendre C5 à la copie inline de `sdlc-init.sh`** (texte d'origine de la proposition) — écarté
+  (décision du 19/11) : garde trois copies du hook et compare des clés JSON, pas un comportement ; la regex
+  fausse avait des clés correctes et serait passée.
+- **Élaguer d'abord** — écarté : retirer une prose dont le mécanisme est cassé supprime la seule trace de
+  la règle.
+
+**Raison :** une règle écrite n'est pas une garde (`LL-T15`, 3 occurrences) ; seul un test de bout en bout
+sur un projet réellement bootstrappé voit ce que le projet reçoit.
+
+**Impact fichiers :** `sdlc-init.sh`, `sdlc-delta.sh`, `sdlc-project-check.sh`, `sdlc-validate.sh` (C2, C3),
+`tests/sdlc-init-test.sh` (nouveau), `tests/sdlc-validate-test.sh`, `01`, `02`, `03`, `04`, `04b`, `08`, `09`,
+`10`, `11`, skills vivants, `.claude/hooks/pre-tool-bash.sh`, `CLAUDE.md` du repo, docs d'état courant.
+
+**Effet de bord accepté :** dès ce sprint, un projet neuf charge les 499 lignes de `01` à chaque session ;
+ELAG-4 (Import élagage) les réduit.
+
+**Déclencheur de réouverture :** Claude Code change le nom ou la casse du fichier d'instructions chargé, le
+schéma JSON de `PreToolUse` ou `PreCompact`, ou le format du frontmatter des skills.

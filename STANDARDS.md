@@ -3,7 +3,7 @@
 <!-- SDLC version : v1.9 · aligné le 19/06/2026 -->
 
 > Référence technique permanente du dépôt.
-> Complémentaire à `Claude.md` — ne contient pas de workflow de sprint.
+> Complémentaire à `CLAUDE.md` — ne contient pas de workflow de sprint.
 > Mettre à jour dans le même commit que tout changement architectural.
 
 ---
@@ -63,7 +63,7 @@ types restent valides quand un script (`sdlc-init.sh`, `sdlc-delta.sh`,
 
 | Fichier | Rôle | Référencé par |
 |---------|------|----------------|
-| `07-DECISIONS-SDLC.md` | Registre des décisions structurantes du modèle | Tout PDR de gouvernance, `Claude.md §Rôle` |
+| `07-DECISIONS-SDLC.md` | Registre des décisions structurantes du modèle | Tout PDR de gouvernance, `CLAUDE.md §Rôle` |
 | `00-CONTEXT.md` | Carte des fichiers du projet toolkit | Bootstrap, `sdlc-sync`, sprints d'audit |
 
 **Règle :** toute modification d'un de ces fichiers → niveau B obligatoire + mise à jour de cette table dans le même commit.

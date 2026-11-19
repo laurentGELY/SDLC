@@ -18,7 +18,7 @@ Le tuning local du projet prime toujours sur le modèle générique.
 
 ```bash
 # Version actuelle du projet
-grep "SDLC version" CLAUDE.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+cat CLAUDE.md Claude.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Situation | Suite |
@@ -30,20 +30,33 @@ grep "SDLC version" CLAUDE.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 La version courante du modèle SDLC est indiquée dans l'en-tête de `CLAUDE.md`
 et `STANDARDS.md` des fichiers sources du projet SDLC.
 
+**Ancien nom `Claude.md` :** si `CLAUDE.md` est absent et `Claude.md` présent, le fichier
+d'instructions n'est pas chargé par Claude Code sous Linux (système sensible à la casse).
+Proposer le renommage en deux temps, sûr aussi sur macOS et Windows :
+`git mv Claude.md Claude.md.tmp && git mv Claude.md.tmp CLAUDE.md` — puis appliquer le delta
+au fichier renommé (`M-ARCH-10`).
+
 ---
 
 ## Étape A — Inventaire
 
 ```bash
 # Fichiers de gouvernance présents dans le projet
-ls CLAUDE.md STANDARDS.md CHANGELOG.md 2>/dev/null
+ls CLAUDE.md Claude.md STANDARDS.md CHANGELOG.md .gitignore 2>/dev/null
 ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md 2>/dev/null
 ls .claude/skills/wrap-up/SKILL.md \
    .claude/skills/retrospective/SKILL.md \
    .claude/skills/sdlc-sync/SKILL.md 2>/dev/null
-ls .claude/hooks/pre-tool-bash.sh .claude/settings.json 2>/dev/null
+ls .claude/hooks/pre-tool-bash.sh .claude/hooks/pre-compact.sh .claude/settings.json 2>/dev/null
+head -1 .claude/skills/*/SKILL.md   # « --- » attendu : frontmatter name/description
 ls specs/sprint-template.md specs/SPEC.md 2>/dev/null
 ```
+
+**Mécanismes du bootstrap à aligner (`M-ARCH-10`)** — chacun est un écart s'il manque :
+regex de poussée forcée du bloc `[UNIVERSEL]` de `08` (option cherchée dans le seul segment
+du push) · `.gitignore` avec `.env`, `.claude/sprint-memory.md`, `.claude/settings.local.json` ·
+frontmatter `name`/`description` de chaque skill · `pre-compact.sh` et ses entrées `PreCompact`.
+Un correctif local déjà présent et équivalent est classé « déjà aligné », jamais écrasé.
 
 Produire le tableau d'inventaire avant de continuer :
 

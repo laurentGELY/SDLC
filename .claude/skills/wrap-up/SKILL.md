@@ -303,6 +303,7 @@ Rapporter :
 ```bash
 bash sdlc-validate.sh    # contrôles structurels du modèle
 bash tests/sdlc-validate-test.sh   # suite de tests du validateur — chaque contrôle vu rouge
+bash tests/sdlc-init-test.sh       # bootstrap jetable — mécanismes livrés vérifiés (M-ARCH-10)
 git diff --stat          # uniquement les fichiers attendus
 git status               # rien d'oublié, rien d'en trop
 ```

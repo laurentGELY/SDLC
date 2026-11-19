@@ -125,6 +125,9 @@ Avant tout commit sur ce projet :
 - [ ] `bash tests/sdlc-validate-test.sh` → tous `[PASS]`, exit 0 — chaque contrôle vu rouge
       sur un défaut injecté dans une copie du dépôt (`M-PROC-40`, ECO-7/ECO-8) ; un contrôle
       ajouté ou modifié vient avec son cas
+- [ ] `bash tests/sdlc-init-test.sh` → tous `[PASS]`, exit 0 — un bootstrap jetable reçoit
+      `CLAUDE.md`, un hook qui bloque les poussées forcées, `pre-compact.sh`, `.gitignore`,
+      des skills à frontmatter (`M-ARCH-10`, ELAG-1b)
 - [ ] `docs/meta.json` (version) et `docs/pages/versions.md` (ligne du sprint)
       mis à jour — contrôlés par C9
 - [ ] Marqueur `SDLC version` de `docs/SPEC.html` et `docs/MODE-OPERATOIRE.html`

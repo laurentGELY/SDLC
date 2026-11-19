@@ -158,7 +158,7 @@ check_c3() {
   # (``` ou ~~~) et le code inline — formes de citation. Une ligne à nombre
   # impair de backticks est traitée comme prose : faux positif visible plutôt
   # que faux négatif silencieux.
-  local files=(00-CONTEXT.md 06-PDR-bootstrap.md 07-DECISIONS-SDLC.md README.md CHANGELOG.md Claude.md STANDARDS.md specs/SPEC.md)
+  local files=(00-CONTEXT.md 06-PDR-bootstrap.md 07-DECISIONS-SDLC.md README.md CHANGELOG.md CLAUDE.md STANDARDS.md specs/SPEC.md)
   local fail=0 detail="" f hits hit lineno line excepted ex exfile rest motif examined=0
   for f in "${files[@]}"; do
     [ -f "$ROOT/$f" ] || continue

@@ -309,7 +309,8 @@ ligne `**Tests**` du `CHANGELOG.md` — `N/A (gouvernance uniquement)` n'est
 plus une réponse valide pour un sprint touchant les fichiers du modèle.
 Si `tests/sdlc-validate-test.sh` existe aussi (même condition — repo modèle
 uniquement) : `bash tests/sdlc-validate-test.sh`, à chaque wrap-up, résultat
-(N/N cas) dans la même ligne `**Tests**`.
+(N/N cas) dans la même ligne `**Tests**`. Idem pour `tests/sdlc-init-test.sh`
+(bootstrap jetable : le projet reçoit les mécanismes promis — `M-ARCH-10`).
 Absents dans un projet cible : ne pas bloquer, passer à la checklist.
 
 Checklist :

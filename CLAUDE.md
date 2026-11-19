@@ -1,4 +1,4 @@
-# Claude.md — Projet toolkit SDLC · v1.0
+# CLAUDE.md — Projet toolkit SDLC · v1.0
 <!-- Adapté depuis 01-Claude-md-TEMPLATE.md (SDLC v1.9) · Sprint SDLC-14 (self-bootstrap) -->
 <!-- SDLC version : v1.9 · aligné le 19/06/2026 -->
 
