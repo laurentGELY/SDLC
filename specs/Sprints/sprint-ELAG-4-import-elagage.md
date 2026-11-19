@@ -316,9 +316,63 @@ wc -lc 01-Claude-md-TEMPLATE.md
 ---
 
 ## Plan de développement
-*(à compléter en début de session — étape 4d)*
+*(rédigé le 19/11/2026 en début de session, branche `elag-4` depuis `main` @ `8ca2808`)*
+
+### Inputs vérifiés au démarrage
+- ELAG-1b livré : bootstrap jetable → `CLAUDE.md` présent, `head -1 .claude/skills/wrap-up/SKILL.md` → `---` ✓
+- Job search lisible : `git -C ~/Downloads/Sandbox/JobSearch cat-file -e 06a30f7:specs/Sprints/AUDIT-ELAGAGE-2.md` → OK ✓
+- Audit figé : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide ✓
+- `bash sdlc-validate.sh` → `10/10 ✅` · `bash tests/sdlc-validate-test.sh` → `18/18 cas OK` ✓
+- Dernier ID : `M-PROC-48` · dernier contrôle : `check_c10` → le contrôle de budget sera **C11**
+- **Manquant : rapport `/doctor prompt-audit` « avant »** (seul l'humain peut le lancer). Il ne conditionne ni le lot 1 ni le lot 2 ; il est exigé **avant la première édition de `01` au lot 3** (il doit porter sur le `01` actuel).
+
+### Mesure de départ (T0)
+- Bootstrap neuf : `wc -lc "$T0"/CLAUDE.md` → `499 25376` · `STANDARDS.md` → `192 8991`
+- Comptage : `bash compter-regles.sh "$T0" "$SDLC" | wc -l` → `134` (= valeur d'ELAG-1) · script recopié depuis `AUDIT-ELAGAGE-1.md §1.4` dans le scratchpad, `Claude.md` → `CLAUDE.md`, non versionné
+- Durée d'un bootstrap : `time bash sdlc-init.sh "Test"` → `0,22 s` (le risque « validateur ralenti » est écarté, pas de réutilisation à prévoir)
+
+### Relevé R-NN → ligne actuelle (ancres de `012905d` re-greppées sur `8ca2808`)
+ELAG-1b n'a décalé aucune ancre de `01` : les lignes de la grille et du PDR correspondent au fichier actuel.
+| R-NN | `01` / `02` actuel | R-NN | `01` / `02` actuel |
+|---|---|---|---|
+| R-03 | `01:17` | R-41 | `01:281-282` |
+| R-07 | `01:26-28` | R-42 | `01:283-284` |
+| R-12 | `01:39-42` | R-48 | `01:313-319` (cible) |
+| R-13 | `01:44-93` (+ intro `95-97` gardée) | R-50 | `01:327-345` (cible) |
+| R-14 | `01:99` | R-51 | `01:347-356` |
+| R-15 | `01:110-113` | R-52 | `01:358-368` (cible) |
+| R-24 | `01:160-167` (cible) | R-59 | `01:428-429` |
+| R-28 | `01:217` | R-61 | `01:433` + `01:499` |
+| R-29 | `01:218` | R-62 | `01:439-445` (cible) |
+| R-32 | `01:228` | R-63→R-65 | `01:447-450` |
+| R-34 | `01:230` | R-66→R-76 | `01:460-473` |
+| R-36 | `01:236-250` | R-77 | `01:475-477` (inchangée) |
+| R-37→R-39 | `01:254-273` | R-91 | `02:77` |
+| R-40 | `01:280` | R-92 | `02:85-88` (cible) · R-97 `02:107` |
+
+### Modules touchés · risques
+- Cœur du changement : `01` (≈ 120 lignes retirées), `02` (2 lignes), `sdlc-validate.sh` (+ C11), `tests/sdlc-validate-test.sh` (+ 2 cas).
+- Gouvernance associée : `07` (6 décisions + 6 lignes du tableau de compatibilité), `04`, `09` + skill vivant, ROADMAP, LESSONS, README, CHANGELOG, `docs/` selon C9/C10.
+- **Taille : cœur M, totale L** (règle SDLC-11) — conforme au PDR.
+- Modules partagés : `01` et `02` sont copiés dans chaque projet bootstrappé → test B = `bash tests/sdlc-init-test.sh` (le test du bootstrap ne doit pas casser).
+- Risque écarté : aucun script ne grep le texte retiré — `grep -nE "Rationalisations|Chargement chirurgical|Modifications spot|HALT-TIMEOUT|Éviter|Validation incrémentale|Auto-revue|DEPENDENCY_MAP|ne s'affaiblit" tests/*.sh sdlc-*.sh` → vide (19/11).
+- Point à trancher au lot 3 (cf. Demande d'aval) : la « ligne de renvoi » qui remplace R-36 pointe vers `M-TMPL-06` (le contrôle C11 protège le template, pas le `CLAUDE.md` du projet cible).
+
+### Plan d'exécution
+1. **Lot 1** — `07` : `M-PROC-49`, `50`, `51`, `53`, `54`, `M-TMPL-10` au format des entrées existantes + 6 lignes du tableau de compatibilité · ROADMAP : `M-PROC-52`, fusion des couches du wrap-up (`M-PROC-51` (1)), `CLAUDE.md` vivant du repo SDLC en §Later (« Import élagage 2 » existe déjà, `docs/ROADMAP.md:35`) · LESSONS : entrée « Import élagage » ouverte. **Aval sur le texte des décisions, puis commit.**
+2. **Lot 2** — `check_c11` : bootstrap `mktemp -d` depuis `$ROOT/sdlc-init.sh`, `wc -l`/`wc -c` du `CLAUDE.md` produit, constantes `BUDGET_LIGNES=499` / `BUDGET_OCTETS=25376` (gel, `# M-PROC-49`) · cas RED (+1 ligne → ❌ C11) et cas vert (mesure exacte) dans `tests/sdlc-validate-test.sh`. Le cas RED est d'abord vu rouge. **Aval, commit, point de coupe.**
+3. **Lot 3** — (prérequis : prompt-audit « avant » reçu) retraits → fusions → réécritures, une édition par règle vérifiée par grep · mesure T1 · diff du comptage rattaché aux R-NN dans §Corrections ajustées · constantes abaissées à T1. **Aval avant de commencer, puis avant le commit.**
+4. **Lot 4** — `04` (2 champs), `09` + skill vivant (M1 → renvoi C11 pour le template, étape « modèle changé → prompt-audit »), `02 §Cliquet` ligne M1, versions (C2), README/CHANGELOG `v2.0+ELAG-4`, prompt-audit « après ». **Aval, commit, puis `/wrap-up`.**
+
+### Plan de test
+- **A — Ciblé** : les 15 critères d'acceptation du PDR, chacun par sa commande ; plus `bash sdlc-validate.sh` (11/11) et `bash tests/sdlc-validate-test.sh` (tous OK, dont les 2 cas C11).
+- **B — Non-régression** : `bash tests/sdlc-init-test.sh` → tous les cas OK (49 à ce jour) ; `diff <(cut -d: -f4- avant.txt) <(cut -d: -f4- apres.txt)` ne contient que des règles de §Règles visées ; HALT : 5 ; `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` vide.
+- **C — Intégration** : N/A (pas de système exécutable) ; tient lieu de C : prompt-audit « après » sur un bootstrap neuf, sans contradiction nouvelle.
 
 ---
 
 ## Corrections ajustées vs spec
 *(à compléter au fil de l'exécution)*
+
+- **Lot 1 — taille du `CLAUDE.md` de Job search** : le PDR écrit « réécrit de 369 à 92 lignes » (Sprint 89) ; à `06a30f7`, `git -C "$JS" show 06a30f7:CLAUDE.md | wc -l` → `94`. `M-PROC-54` cite 94 avec sa commande.
+- **Lot 1 — C18** : le PDR rattache C18 à la table ELAG-3 ; il est défini dans `AUDIT-ELAGAGE-2.md` (`grep -c C18` → 1 ; 0 dans `ELAG-3-table-verdict.md`), où c'est un compactage en renvoi. `M-TMPL-10` cite la bonne source.

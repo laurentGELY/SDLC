@@ -580,6 +580,12 @@ pas seulement l'auteur du modèle.
 | M-PROC-47 | `README.md §Structure du repo` reste un arbre curaté (2 listes dans C6, pas 3) — corrigé sur les 2 inexactitudes réelles (scripts, `docs/`), close le `SDLC_CANDIDATE` ECO-1 | ✓ | — |
 | M-PROC-48 | Graduation `LL-T14` — tout total/comptage écrit dans un livrable vérifié par commande (extension de `§Vérification factuelle`) | ✓ | — |
 | M-ARCH-10 | Le bootstrap livre les mécanismes que la prose promet (`CLAUDE.md`, hook au schéma réel, `.gitignore`, frontmatter des skills, `pre-compact.sh`, marqueur de version, dates des gabarits) — vérifié par `tests/sdlc-init-test.sh` | ✓ | — |
+| M-PROC-49 | Budget absolu du `CLAUDE.md` bootstrappé en lignes et en octets, contrôle C11 à cliquet ; au plafond, « une entrée, une sortie » citée par `R-NN` | ✓ | — |
+| M-PROC-50 | Compteurs d'usage par règle — close, non reconduite (l'auto-déclaration mesure les citations, pas l'usage) | ✓ | — |
+| M-PROC-51 | Fusion des couches de vérification — (2) auto-évaluation unique avant l'aval et (3) « conclure sans preuve » → R-62 adoptées ; (1) couches du wrap-up reportée | ✓ | — |
+| M-PROC-53 | Modèle exécutant dans l'en-tête du PDR ; `/doctor prompt-audit` (humain) à chaque changement de modèle et avant tout bump qui modifie `01` | ✓ | — |
+| M-PROC-54 | Élagage règle par règle (`Règles visées`, diff du comptage) ; réécriture d'ensemble admise seulement avec annexe I/T/A/O (provisoire) | ✓ | — |
+| M-TMPL-10 | Prose → renvoi d'une ligne quand un mécanisme vérifié porte la règle (résumés de skills, HALT-TIMEOUT, `.claude/rules/`) | ✓ | — |
 
 ---
 
@@ -2628,3 +2634,194 @@ ELAG-4 (Import élagage) les réduit.
 
 **Déclencheur de réouverture :** Claude Code change le nom ou la casse du fichier d'instructions chargé, le
 schéma JSON de `PreToolUse` ou `PreCompact`, ou le format du frontmatter des skills.
+
+## M-PROC-49 · Budget absolu du `CLAUDE.md` bootstrappé, en lignes et en octets · v2.0+ELAG-4 · 19/11/2026
+
+**Contexte :** l'audit ELAG-1 (`specs/Sprints/AUDIT-ELAGAGE-1.md §Propositions`, proposition provisoire) a
+mesuré que `01` ne fait que grossir : une seule baisse en 24 commits (§Mesures 1.2). Le cliquet M1
+(`02 §Cliquet`, `09 §Baseline`) est relatif (« pas plus de 10 % entre deux rétros ») et n'exige aucun
+retrait. Depuis ELAG-1b (`M-ARCH-10`), le `CLAUDE.md` d'un projet neuf est chargé à chaque session : 499
+lignes et 25 376 octets au démarrage d'ELAG-4 (`wc -lc` sur un bootstrap jetable), contre une cible de 200
+lignes. Job search a appliqué un plafond testé à son propre `CLAUDE.md` (Sprint 89, clos `c5ec95b`) : 200
+lignes et 8 192 octets.
+
+**Retenu :**
+1. Contrôle C11 de `sdlc-validate.sh` : bootstrap dans `mktemp -d`, puis `wc -l` et `wc -c` du `CLAUDE.md`
+   produit, comparés à `BUDGET_LIGNES` et `BUDGET_OCTETS` (constantes en tête du script).
+2. **Cliquet** : les constantes valent la mesure de fin de lot 3 d'ELAG-4. Les baisser est libre ; les
+   monter exige une nouvelle décision dans ce registre.
+3. Au plafond, « une entrée, une sortie » : tout ajout dans `01` retire ou déplace une règle de même
+   taille, citée par son `R-NN`. Un déplacement compte seulement si la destination est effectivement
+   chargée (skill déclenché par sa description, `.claude/rules/` avec `paths:`).
+4. Le contrôle remplace le seuil relatif de M1 pour le contexte permanent du **modèle** ; M1 reste la
+   mesure du projet cible (`02 §Cliquet`, `09`).
+
+**Écarté :**
+- **Paliers 350 puis 200 dans ce sprint** (texte d'origine de la proposition) — écarté (décision du
+  19/11) : les retraits étayés par Job search donnent environ 120 lignes ; 350 exige des déplacements
+  vers des skills qui n'existent pas encore (`/reprise` de SDLC-33, `/demarrage` d'« Import élagage 2 »).
+  Les paliers reviennent aux sprints qui créent ces destinations.
+- **Plafond en mots** (M1 actuel) — écarté : relatif, et n'impose aucun retrait.
+- **Plafond en nombre de règles** — écarté : l'unité de comptage d'ELAG-1 (§1.4) est une convention d'audit.
+- **Plafond sans retrait** — écarté : Job search l'a observé, un plafond seul pousse à compresser le
+  texte plutôt qu'à retirer des règles ; ELAG-4 retire d'abord, puis gèle.
+
+**Raison :** une garde exécutable tient là où la prose a laissé grossir le fichier (`LL-T15`). Lignes et
+octets ensemble : une compression qui allonge les lignes ne passe pas.
+
+**Impact fichiers :** `sdlc-validate.sh` (C11), `tests/sdlc-validate-test.sh`, `02-STANDARDS-TEMPLATE.md
+§Cliquet`, `09-retrospective-SKILL-TEMPLATE.md §Baseline` + skill vivant.
+
+**Prédiction :** le `CLAUDE.md` bootstrappé ne regrossit plus — vérifié par `bash sdlc-validate.sh`
+(C11 vert) à chaque commit qui touche `01` — échéance : rétro qui suit SDLC-33.
+
+**Déclencheur de réouverture :** la documentation Claude Code change sa cible de taille du fichier
+d'instructions, ou un sprint de déplacement crée la destination qui permet le palier suivant.
+
+## M-PROC-50 · Compteurs d'usage par règle — close, non reconduite · v2.0+ELAG-4 · 19/11/2026
+
+**Contexte :** proposition provisoire d'ELAG-1 : pendant la mesure, chaque `/wrap-up` de Job search
+ajoute une ligne d'usage citant les règles servies, gênantes ou non sollicitées par leur `R-NN`.
+Déclencheur prévu : « si les compteurs ont changé au moins une disposition, les rendre permanents ».
+ELAG-2 (20/10) puis ELAG-3 (14/11, 15 sprints dont 9 M/L) l'ont appliquée dans Job search. Résultat
+(`docs/LESSONS_LEARNED.md`, entrée « Remontée ELAG-3 ») : 17 servies, 36 non sollicitées, 97 non
+mesurables, 1 gênante.
+
+**Retenu :** close sans reconduction. La ligne d'usage désigne la dizaine de règles porteuses mais ne
+départage pas les autres. Elle ne peut pas juger une interdiction (qui sert quand rien ne se passe) ni une
+règle mécanisée (le mécanisme agit sans que l'agent la cite) : appliquée à la lettre, l'issue par défaut
+aurait retiré environ 140 règles. ELAG-3 a tranché sur la redondance et l'obsolescence, pas sur les
+compteurs : le déclencheur n'est pas atteint. Une règle est revue quand un incident la met en cause, pas
+par une collecte. Pour mémoire (remontée ELAG-2) : la ligne allait dans l'entrée `LESSONS_LEARNED`, pas
+dans `sprint-memory.md`, supprimé au commit.
+
+**Écarté :**
+- **Compteurs permanents dans le wrap-up du modèle** — écarté : la mesure n'a pas changé de disposition.
+- **Deuxième fenêtre de mesure** — écarté par Job search le 14/11 : la ligne mesure ce que l'agent cite,
+  pas ce qui sert.
+
+**Raison :** L1 de l'audit (auto-évaluation de l'agent peu fiable), confirmé sur un projet réel.
+
+**Impact fichiers :** aucun template.
+
+**Déclencheur de réouverture :** une méthode de mesure qui ne repose pas sur l'auto-déclaration de
+l'agent (trace d'outil, hook) devient disponible.
+
+## M-PROC-51 · Fusion des couches de vérification — adoptée en partie · v2.0+ELAG-4 · 19/11/2026
+
+**Contexte :** proposition provisoire d'ELAG-1 (§3.1 de l'audit) : trois groupes de couches qui ciblent
+le même défaut au même moment. (1) Revue d'objectif §0e du wrap-up, étape 0b et couche 3 de l'Adversarial
+Review. (2) Auto-revue du plan en 3 passes et verdict gate. (3) « Conclure sans preuve », énoncé quatre
+fois (R-03, R-15, R-40, R-42) en plus de la clause anti-complaisance (R-62). Job search : (2) absentes
+toutes deux, défaut des plans incomplets observé quand même ; (3) défaut observé malgré R-03 en prose,
+une seule ligne dans son `CLAUDE.md` v4.0 ; (1) aucune capture mesurée.
+
+**Retenu :**
+- (2) **Une seule auto-évaluation avant l'aval**, au plus 3 lignes, dans la Demande d'aval (R-51 → R-52).
+- (3) **R-62 devient l'énoncé unique** ; R-03 garde sa ligne en §Règles absolues ; R-15 se réduit à un
+  renvoi d'une ligne ; R-40 et R-42 sont retirées.
+- Appliquées dans `01` au lot 3 d'ELAG-4.
+
+**Écarté :**
+- **(1) Fusion des couches du wrap-up maintenant** — reportée : aucune capture tracée ni absence de
+  capture mesurée sur ces couches ; pas de fait, pas de changement (critère de disposition d'ELAG-4).
+- **Fusionner les contrôles de version C1/C2/C9/C10** — écarté : mécanismes sans coût de contexte, chacun
+  avec une capture.
+
+**Raison :** L1 de l'audit (effets non additifs des couches de prose) ; les deux fusions retenues sont
+celles que Job search a faites ou dont il a observé le défaut malgré la règle.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` (§Rôle, §Analyse, §Test). Le (1) toucherait `03` et le
+skill vivant `wrap-up`.
+
+**Déclencheur de réouverture :** pour (1), une capture tracée ou une absence de capture mesurée sur les
+couches 0b, 0e ou couche 3 (ROADMAP §Later) ; pour (2)/(3), un incident « plan non revu » ou « conclusion
+sans preuve » qui cite la règle fusionnée.
+
+## M-PROC-53 · Revue d'instructions à chaque changement de modèle · v2.0+ELAG-4 · 19/11/2026
+
+**Contexte :** proposition provisoire d'ELAG-1 : `/doctor prompt-audit` a trouvé dès sa première
+exécution des défauts de bootstrap invisibles à l'audit structurel (§3.3 de l'audit). Job search l'a
+pratiqué le 18/11 sur son projet et a trouvé 3 défauts du modèle (remontées 18/11-2, -3 et -4 : §Modifications
+spot contradictoire, liste « Éviter » en double, frontmatter des skills).
+
+**Retenu :**
+1. L'en-tête de chaque spec de sprint porte le **modèle exécutant** (`04-sprint-PDR-TEMPLATE.md`).
+2. `/doctor prompt-audit` sur un bootstrap neuf (`mktemp -d`), lancé par l'humain (Claude ne peut pas le
+   lancer), à chaque changement de modèle **et** avant tout bump qui modifie `01`. Rapport « avant » et
+   « après » consignés dans le spec du sprint.
+3. `/retrospective` : étape conditionnelle « modèle changé depuis la dernière rétro → demander le
+   prompt-audit à l'humain » (`09` + skill vivant).
+
+**Écarté :**
+- **Revue périodique au calendrier** — écarté : les instructions vieillissent avec le modèle qui les
+  lit, pas avec le temps.
+
+**Raison :** deux exécutions, deux lots de défauts réels que ni C1→C10 ni l'audit structurel ne voyaient.
+
+**Impact fichiers :** `04-sprint-PDR-TEMPLATE.md`, `09-retrospective-SKILL-TEMPLATE.md` + skill vivant.
+
+**Garde-fou :** les réécritures proposées par l'audit passent par `M-PROC-54` (une disposition par règle).
+
+**Déclencheur de réouverture :** la commande `/doctor prompt-audit` disparaît ou change de portée.
+
+## M-PROC-54 · Élagage règle par règle · v2.0+ELAG-4 · 19/11/2026
+
+**Contexte :** proposition provisoire d'ELAG-1 : les 50 lignes supprimées de `01` dans son histoire sont
+des réécritures, sans traçabilité règle par règle (§Mesures 1.2) ; une réécriture d'ensemble par un agent
+peut effondrer le contenu (L7 de l'audit). Job search a depuis réécrit son `CLAUDE.md` d'un bloc (Sprint
+89, 369 lignes → 94 à `06a30f7`, `wc -l`), avec une annexe qui classe chaque règle de l'ancien fichier :
+I gardée, T déplacée, A protégée par du code, O retirée.
+
+**Retenu :**
+1. Tout retrait, fusion ou déplacement cite un `R-NN` et une décision ; le PDR d'un sprint d'élagage
+   porte un champ `**Règles visées :**` (`04`). Un commit d'élagage ne change que ces règles ; une autre
+   règle à changer passe par §Corrections ajustées et un aval.
+2. Preuve : le diff du comptage avant/après (`compter-regles.sh`, `AUDIT-ELAGAGE-1.md §1.4`), comparé sur le
+   texte et non sur les numéros de ligne, ne contient que des règles visées.
+3. **Amendement provisoire** : une réécriture d'ensemble est admise si une annexe classe chaque règle de
+   l'ancien fichier (I/T/A/O) et que chaque règle T est retrouvée par grep à sa destination.
+
+**Écarté :**
+- **Interdiction absolue de la réécriture globale** (texte d'origine) — amendée : Job search a montré une
+  réécriture traçable ; son effet sur l'adhérence n'est pas encore observé, d'où l'amendement provisoire.
+- **Appliquer toute la grille ELAG-1** — écarté : 97 règles « non mesurables » dans Job search ; les
+  changer reviendrait à décider sans données.
+
+**Raison :** chaque retrait reste réversible par git et attribuable ; le motif « aucune décision source »
+ne suffit jamais seul (il était faux pour R-16 dans Job search).
+
+**Impact fichiers :** `04-sprint-PDR-TEMPLATE.md` (champ `Règles visées`).
+
+**Déclencheur de réouverture :** clôture de la surveillance du Sprint 89 de Job search (`/demarrage` tracé
+aux 2 sprints suivants, prompt-audit « après » sans contradiction) → l'amendement devient définitif ou
+tombe ; ouvre « Import élagage 2 » (ROADMAP §Later).
+
+## M-TMPL-10 · Prose → renvoi d'une ligne quand un mécanisme vérifié porte la règle · v2.0+ELAG-4 · 19/11/2026
+
+**Contexte :** proposition provisoire d'ELAG-1 : 20 règles `MÉCANISER` redisent en prose ce qu'un
+mécanisme fait déjà (skill, outil natif, contrôle). Les résumés des skills dans `01 §Wrap-up` (R-66→R-76)
+recopient leur procédure. Condition posée : le mécanisme marche dans un projet bootstrappé avant que la
+prose parte — remplie par ELAG-1b (`M-ARCH-10` : frontmatter des skills, vérifié par
+`tests/sdlc-init-test.sh`). Job search a compacté ces listes en renvois (C18, `AUDIT-ELAGAGE-2.md` @ `06a30f7`) et renvoyé R-91
+vers son générateur.
+
+**Retenu :** appliquée par ELAG-4 à trois groupes :
+- R-66→R-76 : une ligne de déclenchement par skill (`/wrap-up`, `/retrospective`) ; R-77 (« Avant tout
+  commit ») inchangée.
+- R-12 (HALT-TIMEOUT) : une ligne, déclencheur `exit 124` → HALT, renvoi vers `§Limites bash`.
+- R-36 (découpage `.claude/rules/`) : une ligne de renvoi vers `M-TMPL-06` ; le contrôle C11
+  (`M-PROC-49`) protège la taille du modèle.
+
+**Écarté :**
+- **Retirer la prose sans renvoi** — écarté : si le mécanisme casse, la règle disparaît sans trace.
+- **Appliquer aux 20 règles `MÉCANISER`** — écarté : seules celles qu'un fait de Job search étaye changent
+  (`M-PROC-54`).
+
+**Raison :** L1 et L6 de l'audit (la prose seule ne bloque pas ; le mécanisme si) ; un résumé de skill
+dans `CLAUDE.md` est chargé à chaque session pour une procédure qui ne sert qu'à la clôture.
+
+**Impact fichiers :** `01-Claude-md-TEMPLATE.md` (§HALT, §Tokens, §Wrap-up).
+
+**Déclencheur de réouverture :** un mécanisme visé est retiré ou cesse de marcher (skill renommé ou sans
+frontmatter, `tests/sdlc-init-test.sh` rouge).

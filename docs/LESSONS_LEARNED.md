@@ -48,6 +48,10 @@
 
 ## §Entrées par sprint
 
+### Sprint ELAG-4 — en cours (ouvert le 19/11/2026) — Import élagage : résultats d'ELAG-2/ELAG-3 appliqués règle par règle
+**Code :** lot 1 — `M-PROC-49`, `50`, `51`, `53`, `54`, `M-TMPL-10` tranchées dans `07` ; reports en ROADMAP §Later (`M-PROC-52`, `M-PROC-51` (1), `CLAUDE.md` vivant du repo). Mesure de départ : `CLAUDE.md` bootstrappé 499 lignes / 25 376 octets, 134 règles. *(à compléter au wrap-up)*
+**Processus :** *(à compléter au wrap-up)*
+
 ### Sprint ELAG-1b — 19/11/2026 — Fix bootstrap : le projet reçoit les mécanismes que la prose promet
 **Code :** 9 défauts du bootstrap corrigés et prouvés par `tests/sdlc-init-test.sh` (49 cas, vus rouges à 11/49 avant correctif) : `CLAUDE.md`, hooks extraits de `08` (source unique), regex de poussée forcée (3 faux négatifs, 2 faux positifs), `pre-compact.sh`, `.gitignore`, frontmatter des skills, dates en placeholder, marqueur courant, aucun `$<chiffre>` dans un skill ; le `Claude.md` du repo renommé lui aussi (`M-ARCH-10`).
 **Processus :** le frontmatter a révélé un défaut latent de C2 — `awk … | head -3` sous `pipefail` échouait par SIGPIPE sur un gros fichier (`07`) ; vu rouge par le cas de test ajouté avant la correction. Le script de renommage du lot 2 avait aussi effacé le repli `Claude.md` des commandes de détection (relu au wrap-up). Test C partiel : la liste des skills de la session affiche les descriptions.
