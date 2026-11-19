@@ -299,4 +299,4 @@ bash sdlc-validate.sh | tail -2 && bash tests/sdlc-validate-test.sh | tail -2
 - **C2 — SIGPIPE** : `awk … | head -3` échouait sur `07` (gros fichier) sous `pipefail` une fois le frontmatter géré ; awk s'arrête seul après 3 lignes.
 - **Repli `Claude.md` des commandes de détection** effacé par le script de renommage du lot 2 (README, `06`, page démarrage, HTML), vu et rétabli au wrap-up.
 - **Hors périmètre, consigné** : `sdlc-delta.sh` affiche « ABSENT » sous la version projet (défaut antérieur) → ROADMAP §Later ; marqueur `v1.9` du `CLAUDE.md` du repo (self-bootstrap non resynchronisé).
-- **Test C** : partiel en session (liste des skills avec descriptions) ; chargement de `CLAUDE.md` à observer au démarrage d'une session neuve.
+- **Test C** : validé — liste des skills avec leurs descriptions (session du sprint), puis `CLAUDE.md` présent dans le contexte initial d'une session neuve (19/11/2026, après le wrap-up).
