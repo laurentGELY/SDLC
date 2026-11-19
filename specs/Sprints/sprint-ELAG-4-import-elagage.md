@@ -376,3 +376,5 @@ ELAG-1b n'a décalé aucune ancre de `01` : les lignes de la grille et du PDR co
 
 - **Lot 1 — taille du `CLAUDE.md` de Job search** : le PDR écrit « réécrit de 369 à 92 lignes » (Sprint 89) ; à `06a30f7`, `git -C "$JS" show 06a30f7:CLAUDE.md | wc -l` → `94`. `M-PROC-54` cite 94 avec sa commande.
 - **Lot 1 — C18** : le PDR rattache C18 à la table ELAG-3 ; il est défini dans `AUDIT-ELAGAGE-2.md` (`grep -c C18` → 1 ; 0 dans `ELAG-3-table-verdict.md`), où c'est un compactage en renvoi. `M-TMPL-10` cite la bonne source.
+- **Lot 2 — nom du projet dans C11** : la substitution du nom de projet change la taille du fichier (« Budget » donnait 25 378 o contre 25 376 avec « Test ») ; constante `BUDGET_NOM_PROJET="Test"`, le nom de la commande de mesure du PDR.
+- **Lot 2 — docs au total figé** : `README.md:5`, `docs/pages/modules.md`, `00-CONTEXT.md:121` disaient « 10 contrôles » ; passés en formulation sans total (`LL-T14`), ligne C11 ajoutée à `modules.md`. Prévu au lot 4 par le PDR, avancé au lot 2 pour qu'aucun commit ne laisse une doc fausse.

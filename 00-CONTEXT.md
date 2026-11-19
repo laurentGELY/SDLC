@@ -118,7 +118,7 @@ Avant tout commit sur ce projet :
 - [ ] Décision ajoutée au tableau de compatibilité (universelle / conditionnelle)
 - [ ] `§Historique des versions` dans `README.md` mis à jour
 - [ ] `specs/SPEC.md §Modules` mis à jour si la carte des fichiers a changé
-- [ ] `bash sdlc-validate.sh` → tous ✅ (`M-PROC-40`, C9 : `M-PROC-45`, C10 : `M-PROC-46`) — 10 contrôles
+- [ ] `bash sdlc-validate.sh` → tous ✅ (`M-PROC-40`, C9 : `M-PROC-45`, C10 : `M-PROC-46`, C11 : `M-PROC-49`)
       structurels du modèle (version, en-têtes, placeholders, parité
       template↔skill, schéma JSON hooks, carte des fichiers, unicité des IDs,
       syntaxe shell, site `docs/` et livrables HTML à jour), auparavant vérifiés à l'œil un par un

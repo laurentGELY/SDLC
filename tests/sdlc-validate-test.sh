@@ -6,7 +6,7 @@
 # Chaque cas copie le dépôt dans un répertoire temporaire, y injecte un défaut
 # ciblé, lance le validateur sur la copie (SDLC_VALIDATE_ROOT) et vérifie que le
 # BON contrôle a parlé : exit 1 ET ligne « ❌ C<n> · » dans la sortie. Un exit 1
-# seul ne le prouve pas — dix contrôles tournent sans s'arrêter au premier échec.
+# seul ne le prouve pas — tous les contrôles tournent sans s'arrêter au premier échec.
 # Le dépôt réel n'est jamais modifié (M-PROC-30) : tout vit sous mktemp -d.
 #
 # Patron repris de obra/superpowers/tests/ (mktemp -d + trap + pass/fail).
@@ -158,6 +158,24 @@ F=$(make_fixture c10)
 sed -i 's/SDLC version : /SDLC-version-retiree : /' "$F/docs/SPEC.html"
 run_validate "$F"
 assert_red 10 "marqueur « SDLC version : » retiré de docs/SPEC.html"
+
+
+# C11 — le CLAUDE.md bootstrappé dépasse le budget (M-PROC-49) : une ligne de
+# plus dans 01 → rouge ; un octet de plus sans ligne nouvelle → rouge aussi (une
+# compression qui allonge les lignes ne passe pas) ; à la mesure exacte → vert.
+F=$(make_fixture c11-ligne)
+printf 'Ligne ajoutée au-delà du budget.\n' >> "$F/01-Claude-md-TEMPLATE.md"
+run_validate "$F"
+assert_red 11 "une ligne de plus dans 01-Claude-md-TEMPLATE.md"
+
+F=$(make_fixture c11-octet)
+sed -i '$ s/$/x/' "$F/01-Claude-md-TEMPLATE.md"
+run_validate "$F"
+assert_red 11 "un octet de plus dans 01, même nombre de lignes"
+
+F=$(make_fixture c11-exact)
+run_validate "$F"
+assert_green 11 "CLAUDE.md bootstrappé à la mesure exacte du budget"
 
 # ─── C3 · NON-AVEUGLEMENT ────────────────────────────────────────────────────
 # C3 exemptait autrefois des fichiers entiers (C3_EXCEPTIONS) : un vrai résidu

@@ -4,7 +4,8 @@
 # Sprint ECO-1 (M-PROC-40) · specs/Sprints/sprint-ECO-1-sdlc-validate.md
 #
 # Ce script valide le MODÈLE (ce dépôt), pas ses copies dans des projets cibles.
-# Lecture seule : aucune écriture de fichier, aucun appel réseau, idempotent.
+# Lecture seule : aucune écriture dans le dépôt validé, aucun appel réseau, idempotent
+# (C11 bootstrappe dans un mktemp -d supprimé aussitôt).
 # Résout ses chemins par rapport à sa propre position — pas au cwd de l'appelant.
 # SDLC_VALIDATE_ROOT, si défini, remplace cette racine : c'est ainsi que
 # tests/sdlc-validate-test.sh valide une copie modifiée du dépôt. Le script étant
@@ -18,11 +19,20 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"
 
+# ─── BUDGET DU CLAUDE.md BOOTSTRAPPÉ (C11) ───────────────────────────────────
+# M-PROC-49 — cliquet : baisser ces valeurs est libre ; les monter exige une
+# nouvelle décision dans 07-DECISIONS-SDLC.md. Valeurs = mesure du CLAUDE.md
+# produit par sdlc-init.sh (wc -l / wc -c sur un bootstrap jetable). Le nom du
+# projet est substitué dans le fichier : la mesure et le contrôle utilisent le même.
+BUDGET_NOM_PROJET="Test"
+BUDGET_LIGNES=499
+BUDGET_OCTETS=25376
+
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un
 # contrôle en échec (exit 1) : sans ces fichiers, aucun des contrôles n'a de sens.
 
-for cmd in grep sed tr diff sort comm uniq head basename date ls; do
+for cmd in grep sed tr diff sort comm uniq head basename date ls wc mktemp git; do
   command -v "$cmd" >/dev/null 2>&1 || {
     echo "❌ ERREUR — commande indisponible : $cmd"
     exit 2
@@ -414,6 +424,35 @@ check_c10() {
   return $fail
 }
 
+# Incident : `01` n'a baissé qu'une fois en 24 commits (AUDIT-ELAGAGE-1.md §1.2) ;
+#   le cliquet M1, relatif, n'imposait aucun retrait. Depuis ELAG-1b, ce fichier
+#   est chargé à chaque session d'un projet neuf (M-ARCH-10).
+check_c11() {
+  # Budget du CLAUDE.md produit par sdlc-init.sh, en lignes ET en octets (M-PROC-49).
+  # Bootstrap dans un répertoire jetable, supprimé à la sortie : rien n'est écrit
+  # dans le dépôt validé.
+  local tmp lignes octets detail
+  tmp=$(mktemp -d)
+  if ! ( cd "$tmp" && git init -q && git -c user.email=v@v -c user.name=v commit -q --allow-empty -m init \
+         && bash "$ROOT/sdlc-init.sh" "$BUDGET_NOM_PROJET" >/dev/null 2>&1 ) || [ ! -f "$tmp/CLAUDE.md" ]; then
+    rm -rf "$tmp"
+    report "C11 · Budget du CLAUDE.md bootstrappé (M-PROC-49)" 1 "❌ bootstrap impossible ou CLAUDE.md absent
+→ Correctif : lancer à la main sdlc-init.sh dans un dépôt git jetable et corriger l'erreur affichée."
+    return 1
+  fi
+  lignes=$(wc -l < "$tmp/CLAUDE.md" | tr -d ' ')
+  octets=$(wc -c < "$tmp/CLAUDE.md" | tr -d ' ')
+  rm -rf "$tmp"
+  detail="CLAUDE.md : ${lignes} lignes / ${BUDGET_LIGNES} · ${octets} octets / ${BUDGET_OCTETS}"
+  if [ "$lignes" -le "$BUDGET_LIGNES" ] && [ "$octets" -le "$BUDGET_OCTETS" ]; then
+    report "C11 · Budget du CLAUDE.md bootstrappé (M-PROC-49)" 0 "$detail"
+    return 0
+  fi
+  report "C11 · Budget du CLAUDE.md bootstrappé (M-PROC-49)" 1 "$detail
+→ Correctif : retirer ou déplacer une règle de même taille, citée par son R-NN — M-PROC-49 (une entrée, une sortie). Relever le budget exige une décision dans 07-DECISIONS-SDLC.md."
+  return 1
+}
+
 # ─── REGISTRE DE CONTRÔLES ────────────────────────────────────────────────────
 # Point d'extension pour les vagues 2/3 (ECO-2, ECO-3, …) :
 # 1) définir une fonction check_cN ci-dessus, qui appelle `report` et retourne 0/1
@@ -422,7 +461,7 @@ check_c10() {
 #    connu — [HYPOTHÈSE] ») et donner un « → Correctif : » à sa branche d'échec
 # 4) ajouter à tests/sdlc-validate-test.sh un cas qui injecte le défaut visé et
 #    vérifie « ❌ C<n> · » — un contrôle jamais vu rouge n'est pas un contrôle (ECO-7)
-CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9 check_c10)
+CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9 check_c10 check_c11)
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

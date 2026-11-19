@@ -32,12 +32,12 @@ Cinq scripts bash à la racine, chacun autonome :
 | Script | Rôle |
 |--------|------|
 | `sdlc-init.sh` | Bootstrap mécanique d'un nouveau projet — lancé depuis la racine du projet cible |
-| `sdlc-validate.sh` | Vérifie la cohérence du modèle lui-même (10 contrôles) — lecture seule, exit 0 si tout est ✅ (`M-PROC-40`) |
+| `sdlc-validate.sh` | Vérifie la cohérence du modèle lui-même (un contrôle par fonction `check_cN`) — lecture seule, exit 0 si tout est ✅ (`M-PROC-40`) |
 | `sdlc-delta.sh` | Pré-calcule l'écart de version d'un projet cible pour co-construire le PDR de `/sdlc-sync` (`M-PROC-25`) |
 | `sdlc-project-check.sh` | Génère ou met à jour `docs/CLAUDE_PROJECT.md` (fichiers de gouvernance à synchroniser dans Claude.ai) |
 | `sdlc-token-usage.sh` | Mesure la consommation de tokens réelle depuis les transcripts Claude Code (`M-PROC-36`) |
 
-### Les 10 contrôles de `sdlc-validate.sh`
+### Les contrôles de `sdlc-validate.sh`
 
 | # | Contrôle |
 |---|----------|
@@ -51,6 +51,7 @@ Cinq scripts bash à la racine, chacun autonome :
 | C8 | Syntaxe de tous les scripts shell |
 | C9 | Site `docs/` à jour : `meta.json` ↔ `README.md`, `versions.md` (`M-PROC-45`) |
 | C10 | Livrables HTML à jour : marqueur de version et carte des templates de `SPEC.html` et `MODE-OPERATOIRE.html` (`M-PROC-46`) |
+| C11 | Budget du `CLAUDE.md` produit par `sdlc-init.sh`, en lignes et en octets — cliquet (`M-PROC-49`) |
 
 Le script est un **registre** : ajouter un contrôle = une fonction `check_cN` et une ligne dans `CHECKS=(…)`.
 

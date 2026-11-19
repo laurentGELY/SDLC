@@ -2,7 +2,7 @@
 
 > **Ce que c'est :** un modèle de gouvernance pour projets pilotés par Claude Code — règles permanentes (`CLAUDE.md`), skills de clôture et de rétrospective, hooks — qui transforme chaque incident de session en règle vérifiable.
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
-> **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 10 contrôles).
+> **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh`, un contrôle par fonction `check_cN`).
 
 **Version courante : v2.0+ELAG-1b** · Licence MIT
 
