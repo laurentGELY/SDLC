@@ -76,6 +76,7 @@ Une dernière phase, tournée vers la fiabilité du modèle lui-même : un scrip
 | **+ECO-7** | Le validateur du modèle a maintenant sa propre suite de tests : chaque contrôle est vu en échec sur un défaut injecté. Le contrôle des placeholders (C3) lit ligne par ligne au lieu d'exempter trois fichiers entiers, et chaque échec indique le correctif |
 | **+ECO-8** | La suite de tests du validateur est lancée à chaque clôture de sprint, et le contrôle de syntaxe shell (C8) couvre désormais cette suite elle-même |
 | **+ELAG-1** | Audit d'élagage : chaque règle qu'un projet reçoit est classée (garder, fusionner, déplacer, mécaniser, retirer) — et un constat qui passe avant tout élagage : sous Linux, le fichier de règles n'est pas chargé (`Claude.md` au lieu de `CLAUDE.md`), et le hook livré ne bloque rien |
+| **+ELAG-1b** | Fix bootstrap : un projet neuf reçoit vraiment ce que la prose promet — `CLAUDE.md` chargé, hook qui bloque toutes les poussées forcées, `pre-compact.sh`, `.gitignore`, skills déclenchables par leur description. Un test de bout en bout le vérifie à chaque clôture. |
 | **C9** *(hors bump)* | `sdlc-validate.sh` contrôle désormais ce site : `docs/meta.json` doit égaler la version du README et `versions.md` mentionner le sprint courant (`M-PROC-45`) |
 
 Le dernier item est né d'un constat : ce site est resté figé à SDLC-25 pendant neuf versions, sans que rien ne le signale. Le modèle applique sa propre règle — *toute règle implicite devient un contrôle exécutable* — à sa propre documentation.

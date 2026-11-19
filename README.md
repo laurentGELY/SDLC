@@ -4,7 +4,7 @@
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
 > **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 10 contrôles).
 
-**Version courante : v2.0+ELAG-1** · Licence MIT
+**Version courante : v2.0+ELAG-1b** · Licence MIT
 
 ```mermaid
 flowchart LR
@@ -93,7 +93,7 @@ bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 
 ```bash
 # Détecter la situation
-cat CLAUDE.md CLAUDE.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
+cat CLAUDE.md Claude.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Action |
@@ -221,5 +221,6 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+ECO-7 | 23/09/2026 | Durcissement de `sdlc-validate.sh` — suite de tests `tests/sdlc-validate-test.sh` (1 cas RED par contrôle, 15/15), C3 au grain ligne (fin de l'exemption de 3 fichiers entiers), en-têtes d'incident et messages de correctif |
 | v2.0+ECO-8 | 24/09/2026 | Suite de tests du validateur lancée à chaque wrap-up (Étape 3.5, `03-wrap-up-SKILL-TEMPLATE.md` v2.0) et checklist `00-CONTEXT.md §4` · C8 couvre `tests/*.sh` (16/16) |
 | v2.0+ELAG-1 | 20/10/2026 | Spike d'élagage théorique (`specs/Sprints/AUDIT-ELAGAGE-1.md`) — grille des 134 règles d'un projet bootstrappé (`R-NN`, dispositions provisoires), 8 décisions rédigées non appliquées ; constat : `Claude.md` non chargé sous Linux (`CLAUDE.md` attendu) et hook livré inopérant → Fix bootstrap `ELAG-1b` en §Next · aucun template modifié |
+| v2.0+ELAG-1b | 19/11/2026 | Fix bootstrap (`M-ARCH-10`) — `CLAUDE.md` chargé, hooks extraits de `08` (source unique), regex de poussée forcée corrigée, `pre-compact.sh`, `.gitignore`, frontmatter des skills, dates en placeholder, marqueur courant · `tests/sdlc-init-test.sh` (49 cas) au wrap-up |
 
 </details>

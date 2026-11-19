@@ -24,7 +24,7 @@ Le script `sdlc-init.sh` copie les templates aux bons emplacements et crée les 
 D'abord, détecter la situation :
 
 ```bash
-cat CLAUDE.md CLAUDE.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
+cat CLAUDE.md Claude.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Action |

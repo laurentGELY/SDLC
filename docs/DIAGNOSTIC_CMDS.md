@@ -236,3 +236,15 @@ Date : 20/10/2026 (Sprint ELAG-1, `/doctor prompt-audit`)
 Commande : `ls CLAUDE.md Claude.md` · `grep -rlE "^@(Claude|STANDARDS)\.md" .`
 Résultat observé : seul `Claude.md` existe ; Claude Code charge `CLAUDE.md` — sur un système sensible à la casse (Linux), le fichier n'est pas chargé ; `STANDARDS.md` n'est importé par aucun fichier.
 Conclusion : vérifier le contexte initial de session (`/memory` ou `/doctor prompt-audit`) avant de supposer qu'une règle est chargée.
+
+## Symptôme : la commande de test d'un hook est elle-même bloquée par le hook vivant
+Date : 19/11/2026 (Sprint ELAG-1b)
+Commande : cas écrits dans un fichier (`tests/sdlc-init-test.sh`), chaîne construite en deux morceaux (`P="git pu""sh"; F="--for""ce"`), JSON produit par `python3 -c 'import json,sys; print(json.dumps({"tool_name":"Bash","tool_input":{"command":sys.argv[1]}}))' "$c" | bash <hook>; echo $?`
+Résultat observé : une commande Bash de session qui contient littéralement une poussée forcée est refusée par `.claude/hooks/pre-tool-bash.sh` avant même d'atteindre le hook testé ; le contenu d'un fichier n'est pas inspecté.
+Conclusion : tester un hook depuis un script, jamais par une commande tapée qui contient le motif bloqué.
+
+## Symptôme : un contrôle « awk … | head -N » échoue sur un gros fichier seulement
+Date : 19/11/2026 (Sprint ELAG-1b, C2)
+Commande : `awk '…' 07-DECISIONS-SDLC.md | head -3 | grep -qE "$pattern"; echo $?` sous `set -o pipefail` → échec, alors que les petits fichiers passent
+Résultat observé : `head` ferme le tube après 3 lignes ; `awk`, qui écrit encore, meurt par SIGPIPE (141) et `pipefail` propage l'échec.
+Conclusion : faire s'arrêter le producteur lui-même (`awk '… { print; if (++n == 3) exit }'`) plutôt que `| head` dans un script en `pipefail`.

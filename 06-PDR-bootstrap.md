@@ -207,7 +207,7 @@ le tuning local. **Le tuning local prime toujours.**
 ### Détection de version
 
 ```bash
-cat CLAUDE.md CLAUDE.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
+cat CLAUDE.md Claude.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Situation | Approche |

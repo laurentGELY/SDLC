@@ -1410,6 +1410,8 @@ extractions TOOL/FILE_PATH, en-tête mis à jour avec le schéma réel document�
 **Déclencheur de réouverture :** aucun prévu — schéma confirmé empiriquement, pas une
 hypothèse.
 
+
+→ Mise à jour 19/11/2026 : le correctif n'avait jamais atteint la copie inline du hook dans `sdlc-init.sh` — tout projet bootstrappé recevait un hook qui lisait `input` et ne bloquait rien. Depuis ELAG-1b (`M-ARCH-10`), le hook livré est extrait de `08-hooks-TEMPLATE.md` (source unique) et `tests/sdlc-init-test.sh` vérifie son comportement au schéma réel.
 ---
 
 ## M-HOOKS-06 · Allowlist Bash lecture seule pendant blocage M-HOOKS-04 · v1.9+SDLC-18 · 19/06/2026
@@ -1834,6 +1836,8 @@ fichiers. `docs/MODE-OPERATOIRE.html §Concepts clés` reçoit en complément un
 carte expliquant le mécanisme côté humain — absent jusqu'ici de toute
 documentation hors `Claude.md`.
 
+
+→ Mise à jour 19/11/2026 : `pre-compact.sh` est désormais installé par `sdlc-init.sh` (extrait de `08`, entrées `PreCompact` `manual` et `auto`) — la phrase de `01` qui présente le `CHECKPOINT` comme automatique est vraie dans un projet neuf (ELAG-1b, `M-ARCH-10`).
 ---
 
 ## M-PROC-40 · `sdlc-validate.sh` — vérification exécutable du modèle (8 contrôles, tier 1) · v2.0+ECO-1 · 02/09/2026

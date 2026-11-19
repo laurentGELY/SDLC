@@ -107,13 +107,13 @@ Un projet bootstrappé neuf contient `CLAUDE.md`, un `.gitignore`, un hook qui b
 ## Dépendances
 
 **Inputs requis :**
-- [ ] Dépôt à `012905d` ou descendant ; `bash sdlc-validate.sh` et `bash tests/sdlc-validate-test.sh` verts au démarrage
-- [ ] Aucun autre sprint en cours sur `sdlc-init.sh` ou les hooks (SDLC-33 lots 1-2 : après ce sprint)
+- [x] Dépôt à `012905d` ou descendant ; `bash sdlc-validate.sh` et `bash tests/sdlc-validate-test.sh` verts au démarrage
+- [x] Aucun autre sprint en cours sur `sdlc-init.sh` ou les hooks (SDLC-33 lots 1-2 : après ce sprint)
 
 **Outputs produits :**
-- [ ] `tests/sdlc-init-test.sh` (nouveau), lancé par la suite du wrap-up (§3.5)
-- [ ] `M-ARCH-10` adoptée dans `07`
-- [ ] ROADMAP : ELAG-1b en §Historique ; ELAG-4 débloqué (état observable : `ls "$B"/CLAUDE.md` après bootstrap)
+- [x] `tests/sdlc-init-test.sh` (nouveau), lancé par la suite du wrap-up (§3.5)
+- [x] `M-ARCH-10` adoptée dans `07`
+- [x] ROADMAP : ELAG-1b en §Historique ; ELAG-4 débloqué (état observable : `ls "$B"/CLAUDE.md` après bootstrap)
 
 **Règle :** avant de démarrer, vérifier que tous les inputs requis cochés existent et sont dans l'état attendu. Si un input manque ou a changé → signaler comme BLOQUANT avant toute analyse.
 
@@ -165,24 +165,24 @@ Un projet bootstrappé neuf contient `CLAUDE.md`, un `.gitignore`, un hook qui b
 
 *(La Definition of Done — `STANDARDS.md §Definition of Done` — s'applique en plus. `$B` = bootstrap jetable de §Contraintes.)*
 
-- [ ] `ls "$B"/CLAUDE.md && ! ls "$B"/Claude.md 2>/dev/null` → `CLAUDE.md` seul
-- [ ] `grep -c 'Claude\.md' 01-Claude-md-TEMPLATE.md 02-STANDARDS-TEMPLATE.md 03-wrap-up-SKILL-TEMPLATE.md 04-sprint-PDR-TEMPLATE.md 08-hooks-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md 11-help-SKILL-TEMPLATE.md sdlc-init.sh sdlc-project-check.sh` → `0` partout ; `04b` et `sdlc-delta.sh` : seulement la détection de repli
-- [ ] `grep -xF '.env' "$B"/.gitignore && grep -xF '.claude/sprint-memory.md' "$B"/.gitignore && grep -xF '.claude/settings.local.json' "$B"/.gitignore`
-- [ ] Hook livré : `bash tests/sdlc-init-test.sh` → 11 cas de hook conformes (7 bloqués en exit 2, 4 autorisés en exit 0) ; les mêmes 11 cas sur `.claude/hooks/pre-tool-bash.sh` du dépôt
-- [ ] Source unique (décision 3) : `grep -c "get('input'" sdlc-init.sh` → `0` et `grep -c "<<.*'HOOK'" sdlc-init.sh` → `0`
-- [ ] Smoke test : un hook volontairement inopérant (fixture du test) fait afficher « ❌ » et sortir `sdlc-init.sh` en erreur
-- [ ] `ls "$B"/.claude/hooks/pre-compact.sh` et `python3 -c "import json;print('PreCompact' in json.load(open('$B/.claude/settings.json'))['hooks'])"` → `True` (décision 2)
-- [ ] `head -1 "$B"/.claude/skills/{wrap-up,retrospective,sdlc-sync,diagnostic}/SKILL.md` → `---` quatre fois ; `name:` et `description:` présents dans chaque frontmatter
-- [ ] Dates : `grep -c "JJ/MM/AAAA\|AAAA-MM-JJ" "$B"/.claude/skills/wrap-up/SKILL.md` → `3`
-- [ ] Arguments de skill : `grep -nE '\$[0-9]' "$B"/.claude/skills/*/SKILL.md` → vide (cas RED : une fixture avec `awk '{print $2}'` fait échouer le test)
-- [ ] Bilan de report rédigé (§Bilan de report) et transmis à Laurent
-- [ ] Marqueur : `grep -c "SDLC version : $(grep -m1 -oE 'Version courante : [^ *]+' README.md | cut -d' ' -f4)" "$B"/CLAUDE.md "$B"/STANDARDS.md` → `1` chacun ; plus d'avertissement « Marqueur SDLC version non trouvé » dans la sortie de `sdlc-init.sh`
-- [ ] C2 : `bash sdlc-validate.sh` vert avec les 4 templates à frontmatter ; nouveau cas RED vert dans `bash tests/sdlc-validate-test.sh`
-- [ ] `/sdlc-sync` : `grep -n "Claude.md.tmp" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide
-- [ ] `grep -c "^## M-ARCH-10 · " 07-DECISIONS-SDLC.md` → `1` ; `grep -cE "^## M-(PROC-(49|5[0-9]|60)|TMPL-10|HOOKS-09) · " 07-DECISIONS-SDLC.md` → `0`
-- [ ] Audit figé : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
-- [ ] Tests niveau A : `bash sdlc-validate.sh` → tous les contrôles OK · `bash tests/sdlc-validate-test.sh` et `bash tests/sdlc-init-test.sh` → tous OK · `bash -n sdlc-init.sh .claude/hooks/pre-tool-bash.sh`
-- [ ] CHANGELOG mis à jour (`v2.0+ELAG-1b`), C1 vert
+- [x] `ls "$B"/CLAUDE.md && ! ls "$B"/Claude.md 2>/dev/null` → `CLAUDE.md` seul
+- [x] `grep -c 'Claude\.md' 01-Claude-md-TEMPLATE.md 02-STANDARDS-TEMPLATE.md 03-wrap-up-SKILL-TEMPLATE.md 04-sprint-PDR-TEMPLATE.md 08-hooks-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md 11-help-SKILL-TEMPLATE.md sdlc-init.sh sdlc-project-check.sh` → `0` partout ; `04b` et `sdlc-delta.sh` : seulement la détection de repli
+- [x] `grep -xF '.env' "$B"/.gitignore && grep -xF '.claude/sprint-memory.md' "$B"/.gitignore && grep -xF '.claude/settings.local.json' "$B"/.gitignore`
+- [x] Hook livré : `bash tests/sdlc-init-test.sh` → 11 cas de hook conformes (7 bloqués en exit 2, 4 autorisés en exit 0) ; les mêmes 11 cas sur `.claude/hooks/pre-tool-bash.sh` du dépôt
+- [x] Source unique (décision 3) : `grep -c "get('input'" sdlc-init.sh` → `0` et `grep -c "<<.*'HOOK'" sdlc-init.sh` → `0`
+- [x] Smoke test : un hook volontairement inopérant (fixture du test) fait afficher « ❌ » et sortir `sdlc-init.sh` en erreur
+- [x] `ls "$B"/.claude/hooks/pre-compact.sh` et `python3 -c "import json;print('PreCompact' in json.load(open('$B/.claude/settings.json'))['hooks'])"` → `True` (décision 2)
+- [x] `head -1 "$B"/.claude/skills/{wrap-up,retrospective,sdlc-sync,diagnostic}/SKILL.md` → `---` quatre fois ; `name:` et `description:` présents dans chaque frontmatter
+- [x] Dates : `grep -c "JJ/MM/AAAA\|AAAA-MM-JJ" "$B"/.claude/skills/wrap-up/SKILL.md` → `3`
+- [x] Arguments de skill : `grep -nE '\$[0-9]' "$B"/.claude/skills/*/SKILL.md` → vide (cas RED : une fixture avec `awk '{print $2}'` fait échouer le test)
+- [x] Bilan de report rédigé (§Bilan de report) et transmis à Laurent
+- [x] Marqueur : `grep -c "SDLC version : $(grep -m1 -oE 'Version courante : [^ *]+' README.md | cut -d' ' -f4)" "$B"/CLAUDE.md "$B"/STANDARDS.md` → `1` chacun ; plus d'avertissement « Marqueur SDLC version non trouvé » dans la sortie de `sdlc-init.sh`
+- [x] C2 : `bash sdlc-validate.sh` vert avec les 4 templates à frontmatter ; nouveau cas RED vert dans `bash tests/sdlc-validate-test.sh`
+- [x] `/sdlc-sync` : `grep -n "Claude.md.tmp" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide
+- [x] `grep -c "^## M-ARCH-10 · " 07-DECISIONS-SDLC.md` → `1` ; `grep -cE "^## M-(PROC-(49|5[0-9]|60)|TMPL-10|HOOKS-09) · " 07-DECISIONS-SDLC.md` → `0`
+- [x] Audit figé : `git diff --stat 573d1f3 -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
+- [x] Tests niveau A : `bash sdlc-validate.sh` → tous les contrôles OK · `bash tests/sdlc-validate-test.sh` et `bash tests/sdlc-init-test.sh` → tous OK · `bash -n sdlc-init.sh .claude/hooks/pre-tool-bash.sh`
+- [x] CHANGELOG mis à jour (`v2.0+ELAG-1b`), C1 vert
 
 ---
 
@@ -214,11 +214,11 @@ le renommage dans les docs d'état courant (README, `06`, pages du site, deux HT
 
 ## Bilan de report (file `doc/REMONTEE_SDLC.md` de Job search)
 
-À recopier par Laurent dans la file de Job search au wrap-up, avec les versions réelles des templates :
+À recopier par Laurent dans la file `doc/REMONTEE_SDLC.md` de Job search (versions réelles, wrap-up du 19/11/2026) :
 
 - **18/11-1** (wrap-up « produit chaque fichier en contenu complet, prêt à écraser ») : **rejetée pour le modèle**. La phrase n'a jamais existé dans `03-wrap-up-SKILL-TEMPLATE.md` (`git log -S "prêt à écraser" -- 03-wrap-up-SKILL-TEMPLATE.md` → aucun commit) : c'est une divergence locale, déjà corrigée par Job search au S89.
-- **18/11-4** (frontmatter de `sdlc-sync` revenu) : **adoptée** — `M-ARCH-10` point 4, template `04b` v… ; contrôlée par `tests/sdlc-init-test.sh`.
-- **ELAG-2 — défauts d'amorçage** (`CLAUDE.md`, hook lisant `tool_input`, frontmatter) : **adoptée** — `M-ARCH-10` points 1, 2, 4, `sdlc-init.sh`, templates `03`, `04b`, `08`, `09`, `11` v….
+- **18/11-4** (frontmatter de `sdlc-sync` revenu) : **adoptée** — `M-ARCH-10` point 5 (frontmatter), template `04b` v2.1 ; contrôlée par `tests/sdlc-init-test.sh`.
+- **ELAG-2 — défauts d'amorçage** (`CLAUDE.md`, hook lisant `tool_input`, frontmatter) : **adoptée** — `M-ARCH-10` points 1, 2, 5, `sdlc-init.sh`, templates `03` v2.1, `04b` v2.1, `08` v1.5, `09` v2.0, `11` v2.0.
 - **19/11-3** (`$1`, `$2` dans un skill) : **adoptée** sous forme de contrôle — `tests/sdlc-init-test.sh` ; aucun template à corriger aujourd'hui.
 - **S56-3** (`pkill -f`, `pgrep -f`) : **en attente** — SDLC-33 lot 2.
 
@@ -293,4 +293,10 @@ bash sdlc-validate.sh | tail -2 && bash tests/sdlc-validate-test.sh | tail -2
 ---
 
 ## Corrections ajustées vs spec
-*(à compléter au fil de l'exécution)*
+- **`10-AMONT-TEMPLATE.md`** renommé aussi (1 mention de `Claude.md`, absent de la liste du PDR) ; version v2.0.
+- **`docs/DIAGNOSTIC_CMDS.md`** classé historique (journal de diagnostics), pas renommé — le PDR le comptait parmi les docs d'état courant.
+- **Source unique étendue à `pre-compact.sh`** : son bloc complet est dans `08` ; extrait comme `pre-tool-bash.sh`, plutôt que copié depuis `.claude/hooks/`.
+- **C2 — SIGPIPE** : `awk … | head -3` échouait sur `07` (gros fichier) sous `pipefail` une fois le frontmatter géré ; awk s'arrête seul après 3 lignes.
+- **Repli `Claude.md` des commandes de détection** effacé par le script de renommage du lot 2 (README, `06`, page démarrage, HTML), vu et rétabli au wrap-up.
+- **Hors périmètre, consigné** : `sdlc-delta.sh` affiche « ABSENT » sous la version projet (défaut antérieur) → ROADMAP §Later ; marqueur `v1.9` du `CLAUDE.md` du repo (self-bootstrap non resynchronisé).
+- **Test C** : partiel en session (liste des skills avec descriptions) ; chargement de `CLAUDE.md` à observer au démarrage d'une session neuve.

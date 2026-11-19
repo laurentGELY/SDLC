@@ -25,10 +25,11 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (CLAUDE.md, STA
 | `specs/Sprints/audit-exemple-vs-modele-sdlc.md` | Rapport d'audit ponctuel — obsolète après intégration (déplacé depuis `docs/` — Sprint SDLC-07) |
 | `docs/MODE-OPERATOIRE.html` | HTML — non chargeable comme Project File |
 | `docs/SPEC.html` | HTML — non chargeable comme Project File |
-| `sdlc-init.sh` | Script bash — contexte limité dans Claude.ai, 453 lignes |
+| `sdlc-init.sh` | Script bash — contexte limité dans Claude.ai (taille : `wc -l sdlc-init.sh`) |
 | `sdlc-project-check.sh` | Script bash — contenu dans 06-PDR-bootstrap.md |
 | `sdlc-validate.sh` | Script bash — contexte limité dans Claude.ai, sa spec complète est dans `specs/Sprints/sprint-ECO-1-sdlc-validate.md` |
 | `tests/sdlc-validate-test.sh` | Script bash — suite de tests du validateur, spec dans `specs/Sprints/sprint-ECO-7-durcissement-validate.md` |
+| `tests/sdlc-init-test.sh` | Script bash — test de bout en bout du bootstrap, spec dans `specs/Sprints/sprint-ELAG-1b-fix-bootstrap.md` |
 | `04b-sdlc-sync-SKILL-TEMPLATE.md` | Skill secondaire — consulté ponctuellement |
 | `05-ROADMAP-TEMPLATE.md` | Template simple, peu de valeur contextuelle permanente |
 | `08-hooks-TEMPLATE.md` | Référence hooks — rarement consulté en session SDLC |

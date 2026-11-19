@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint ELAG-1b — fix-bootstrap] · 2026-11-19
+**Commit :** wrap-up de la branche `elag-1b` (lots `a9e58e9`, `dec1147`, `09b38fa`, `eb0b6a2`), intégrée à `main`
+**Bloquants en suspens :** aucun. Test C à finir par l'humain : ouvrir une session neuve dans ce dépôt et vérifier que `CLAUDE.md` (ex-`Claude.md`, renommé ce sprint) est chargé au démarrage.
+**Fil fonctionnel :** Un projet bootstrappé reçoit désormais `CLAUDE.md`, des hooks extraits de `08` (source unique) qui bloquent toutes les poussées forcées et laissent passer les commandes légitimes, `pre-compact.sh`, un `.gitignore`, des skills à frontmatter et des gabarits datés par placeholder — vérifié par `tests/sdlc-init-test.sh` (49 cas) à chaque wrap-up (`M-ARCH-10`). Prochain sprint prêt : ELAG-4 (`specs/Sprints/sprint-ELAG-4-import-elagage.md`, en §Next) ; effet de bord accepté jusque-là : un projet neuf charge les 499 lignes de `01`.
+
 ### [Session 19/11 — préparation ELAG-1b, ELAG-4, SDLC-33 + lot 0 de SDLC-33] · 2026-11-19
 **Commit :** `3038808` (3 PDR) · `ecb1b15` (lot 0 de SDLC-33, hors bump)
 **Bloquants en suspens :** `Claude.md` de ce dépôt toujours **non chargé** sous Linux (lire ce fichier et `Claude.md` à la main au démarrage) ; hook vivant : la regex `--force` bloque à tort une commande Bash qui contient littéralement une poussée forcée (construire la chaîne en deux morceaux). Les deux sont corrigés par ELAG-1b.
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** le hook installé par `sdlc-init.sh:336` est inopérant (lit `input`), et `Claude.md` n'est pas chargé sous Linux (`CLAUDE.md` attendu) — dans ce repo comme dans les projets bootstrappés. Correction prévue par `ELAG-1b` (§Next), aucune modification faite.
 **Fil fonctionnel :** `specs/Sprints/AUDIT-ELAGAGE-1.md` classe les 134 règles d'un projet bootstrappé (`R-NN` : 61 GARDER, 23 FUSIONNER, 23 DÉPLACER, 20 MÉCANISER, 7 retraits provisoires) et rédige 8 décisions provisoires (`M-ARCH-10`, `M-PROC-49`→`54`, `M-TMPL-10`), aucune reportée dans `07-DECISIONS-SDLC.md`. Ordre décidé : `ELAG-1b` Fix bootstrap → `ELAG-2` mesure d'usage dans Job search, avec cette grille → « Import élagage » (§Later).
 
+## §Archive
+
 ### [Sprint ECO-8 — suite-dans-wrapup] · 2026-09-24
 **Commit :** 16075ab
 **Bloquants en suspens :** aucun
 **Fil fonctionnel :** L'Étape 3.5 du wrap-up (skill vivant + `03-wrap-up-SKILL-TEMPLATE.md` v2.0) et la checklist `00-CONTEXT.md §4` lancent `bash tests/sdlc-validate-test.sh` (16/16) en plus de `bash sdlc-validate.sh` (10/10) ; C8 vérifie aussi `tests/*.sh`. Le `SDLC_CANDIDATE` d'ECO-7 est implémenté pour (a) et (b) ; (c) — établir l'état du repo avant toute lecture de source externe — reste ouvert dans `docs/LESSONS_LEARNED.md`.
-
-## §Archive
 
 ### [Sprint ECO-7 — durcissement-validate] · 2026-09-23
 **Commit :** 437ca42
