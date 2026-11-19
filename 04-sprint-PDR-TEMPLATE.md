@@ -1,11 +1,13 @@
 # Sprint N — [Titre]
-<!-- Template SDLC v2.5 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.6 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
 **Taille :** XS | S | M | L  ← XS < 1h · S < 3h · M < 1 jour · L > 1 jour
 **Surface :** [modules / fichiers principalement concernés]
 **Risque :** Faible | Moyen | Élevé
+**Modèle exécutant :** [modèle de la session, ex : claude-opus-5-5]  ← s'il a changé depuis le sprint précédent, l'humain lance `/doctor prompt-audit`
+**Règles visées :** [sprint d'élagage seulement : identifiants des règles retirées, fusionnées ou déplacées — sinon supprimer la ligne]
 
 ---
 
@@ -132,8 +134,8 @@ Scénario : [nom du comportement]
 
 ## Pas de placeholders
 
-*(Auto-revue avant la Demande d'aval — voir `01-Claude-md-TEMPLATE.md §Analyse
-§Auto-revue du plan`. Grep de vérification, aussi utilisé à l'Étape 3 du wrap-up :*
+*(Auto-évaluation de la Demande d'aval — voir `CLAUDE.md §Analyse §Demande d'aval`.
+Grep de vérification, aussi utilisé à l'Étape 3 du wrap-up :*
 `grep -En "TBD|à implémenter plus tard|gestion d'erreur appropriée|cas limites
 appropriés|similaire à la tâche" specs/Sprints/sprint-N-slug.md`*)*
 

@@ -161,7 +161,7 @@ Choisir la forme d'une règle par le défaut qu'elle doit prévenir, pas à l'in
 
 | Échec visé | Forme qui marche (exemple SDLC) | Forme qui échoue |
 |---|---|---|
-| Viole une règle sciemment sous pression | Règle absolue + table de rationalisation Pensée → Réalité (`01-Claude-md-TEMPLATE.md`, `M-PROC-31`) | Consigne molle (« préférer… », « envisager… ») |
+| Viole une règle sciemment sous pression | Règle absolue énoncée une fois, doublée d'une garde mécanique quand elle existe (hook `pre-tool-bash.sh`, `M-ARCH-10`) — les tables de rationalisation (`M-PROC-31`) ont été retirées par ELAG-4 faute d'effet observé | Consigne molle (« préférer… », « envisager… ») |
 | Se conforme, mais la sortie a la mauvaise forme (verbeux, verdict enterré) | Recette positive — dire ce que la sortie EST, dans l'ordre (ex : gabarit du Bilan §0d du wrap-up) | Liste d'interdictions (« ne pas recopier », « ne jamais narrer ») |
 | Omet un élément requis d'un livrable qu'il produit déjà | Champ structurel obligatoire dans le gabarit (ex : les 4 champs Retenu/Écarté/Raison/Déclencheur de réouverture d'une entrée `07-DECISIONS-SDLC.md`) | Rappel en prose à côté du gabarit |
 | Le comportement doit dépendre d'une condition observable | Conditionnel sur un prédicat vérifiable (ex : un `HALT`, `CLAUDE.md §Règles absolues`) | Règle inconditionnelle + clauses d'exemption |

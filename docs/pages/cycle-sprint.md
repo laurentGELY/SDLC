@@ -32,7 +32,7 @@ Voir [Garde-fous : HALT & verdicts](#garde-fous) pour le détail du verdict gate
 Entre l'analyse et la demande d'aval, deux contrôles ferment des défauts récurrents :
 
 - **Vérification factuelle** (`M-PROC-41`) — toute précondition qui ne se lit pas dans les fichiers du projet (schéma d'une plateforme externe, comportement d'un produit tiers…) est confirmée par une commande ou une recherche **avant** d'être écrite dans l'analyse. Sinon, elle est signalée comme hypothèse, jamais comme fait.
-- **Auto-revue du plan** (`M-PROC-43`) — trois passes faites par l'auteur du plan, jamais déléguées : couverture de la spec (chaque exigence pointe vers l'étape qui l'implémente), balayage des placeholders (« TBD », « gérer les cas limites », « similaire à la tâche N »…), cohérence des références. Un problème trouvé se corrige sur place, sans re-relecture.
+- **Auto-évaluation avant l'aval** (`M-PROC-51`) — au plus trois lignes dans la Demande d'aval : chaque exigence du PDR a son étape, aucun placeholder (« TBD », « gérer les cas limites », « similaire à la tâche N »…), mêmes noms d'une étape à l'autre. Elle remplace l'auto-revue en trois passes (`M-PROC-43`, fondue par ELAG-4).
 
 Le PDR interdit explicitement les placeholders : ce sont des échecs de plan, pas des choix de style.
 

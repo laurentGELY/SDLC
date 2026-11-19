@@ -111,7 +111,7 @@ toute dimension sans seuil a priori évident — mesurer l'existant et tenir la 
 
 | Dimension | Valeur mesurée | Direction | Date de mesure |
 |-----------|----------------|-----------|-----------------|
-| Contexte permanent (M1 — `wc -w CLAUDE.md STANDARDS.md`) | [À REMPLIR] | ne croît pas de plus de 10 % entre deux `/retrospective` | [À REMPLIR] |
+| Contexte permanent (M1 — `wc -w CLAUDE.md STANDARDS.md`) | [À REMPLIR] | ne croît pas de plus de 10 % entre deux `/retrospective` (le gabarit d'origine a son plafond absolu, tenu par le modèle SDLC) | [À REMPLIR] |
 | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] |
 
 ### Exceptions — une dérogation datée, pas un `# noqa` anonyme

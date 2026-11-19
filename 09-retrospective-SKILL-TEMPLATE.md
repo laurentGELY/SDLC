@@ -3,7 +3,7 @@ name: retrospective
 description: Analyse des patterns sur plusieurs sprints. Utiliser toutes les ~5 sprints, après un incident majeur, ou quand /wrap-up la recommande ; pas à chaque sprint.
 ---
 # retrospective — SKILL
-<!-- Template SDLC v2.0 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.1 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
 
 Analyse de patterns sur l'ensemble des sprints complétés.
 Déclencher toutes les ~5 sprints, ou immédiatement après un incident grave.
@@ -28,6 +28,7 @@ Identifier :
 - Les tags `[HOOK_CANDIDATE]` non résolus (champ "décision : en attente")
 - Les tags `[SDLC_CANDIDATE]` non résolus (champ "décision : en attente")
 - Les entrées `DÉCISION [valide jusqu'à : condition]` dont la condition n'est plus vraie
+- Si le modèle exécutant (en-tête des specs de sprint) a changé depuis la dernière `/retrospective` → demander à l'humain de lancer `/doctor prompt-audit` (Claude ne peut pas le lancer) et reporter ses constats à l'Étape 3
 
 ---
 
@@ -256,6 +257,7 @@ Comparer M1/M2 au sprint précédent ainsi mesuré (chercher dans
 depuis la dernière `/retrospective`, une piste d'allègement est **obligatoire**
 dans le rapport §Étape 3 — pas optionnelle. En dessous du seuil, noter la
 variation sans action requise.
+Le gabarit `CLAUDE.md` du modèle SDLC a son propre plafond absolu (contrôle de budget de `sdlc-validate.sh`) : M1 mesure ce que le projet y a ajouté depuis le bootstrap.
 
 ### Mesure dynamique — sdlc-token-usage.sh
 

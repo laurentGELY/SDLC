@@ -24,7 +24,7 @@ Un `HALT`, c'est un arrêt immédiat : l'agent s'arrête et attend l'humain. Ce 
 | **HALT-3X** | Même test échoue 3 fois consécutives sans diagnostic clair → lancer `/diagnostic` |
 | **HALT-ARCH** | Convention du modèle (numérotation, structure) contredite par le changement proposé |
 | **HALT-SCOPE** | Périmètre des fichiers dépasse significativement le `§Portée` du PDR |
-| **HALT-TIMEOUT** | Commande sans sortie depuis > 60s → préfixer avec `timeout 60`. Exit code 124 → HALT |
+| **HALT-TIMEOUT** | Commande préfixée `timeout 120` (gabarit ; 60 dans le dépôt SDLC) qui sort en exit code 124 → HALT |
 
 ## Le verdict gate
 
