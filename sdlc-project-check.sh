@@ -43,7 +43,7 @@ fi
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "🤖 AVIS CLAUDE REQUIS — compléter ${TARGET} :"
-echo "  • Description du projet (≤ 3 phrases — lire Claude.md §Rôle + SPEC.md §Vue)"
+echo "  • Description du projet (≤ 3 phrases — lire CLAUDE.md §Rôle + SPEC.md §Vue)"
 echo "  • Fichiers recommandés pour Claude.ai + justification 1 ligne chacun"
 echo "  • Fichiers à exclure + raison (éphémère / trop volumineux / hors contexte)"
 echo "  • Gaps : placeholders résiduels, sections manquantes, incohérences"
@@ -64,7 +64,7 @@ cat > "$TARGET" << HEREDOC
 ## Fichiers synchronisés
 | Fichier repo | Rôle dans Claude.ai | Synchronisé |
 |-------------|---------------------|-------------|
-| Claude.md | Instructions permanentes | ✓ |
+| CLAUDE.md | Instructions permanentes | ✓ |
 | [À REMPLIR] | [À REMPLIR] | ☐ |
 
 ## Fichiers exclus (et raison)

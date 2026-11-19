@@ -19,12 +19,22 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo "📊 DELTA SDLC — $PROJECT_NAME · $DATE"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
+# Fichier d'instructions : CLAUDE.md (nom chargé par Claude Code) ; Claude.md en repli —
+# ancien nom, jamais chargé sous Linux, à renommer (ELAG-1b, M-ARCH-10).
+if [ -f "$PROJECT_DIR/CLAUDE.md" ]; then
+  INSTR="$PROJECT_DIR/CLAUDE.md"; INSTR_NAME="CLAUDE.md"
+elif [ -f "$PROJECT_DIR/Claude.md" ]; then
+  INSTR="$PROJECT_DIR/Claude.md"; INSTR_NAME="Claude.md"
+else
+  INSTR="$PROJECT_DIR/CLAUDE.md"; INSTR_NAME="CLAUDE.md"
+fi
+
 # ── 1. Versions ───────────────────────────────────────────────────
 echo ""
 echo "VERSIONS"
 
 CURRENT_VERSION=$(grep -h "SDLC version" \
-    "$PROJECT_DIR/Claude.md" \
+    "$INSTR" \
     "$PROJECT_DIR/STANDARDS.md" 2>/dev/null \
   | grep -oP 'v[0-9]+\.[0-9]+' | head -1 \
   || echo "ABSENT")
@@ -56,7 +66,10 @@ check_file() {
   fi
 }
 
-check_file "Claude.md"                              "$PROJECT_DIR/Claude.md"
+check_file "$INSTR_NAME"                            "$INSTR"
+if [ "$INSTR_NAME" = "Claude.md" ]; then
+  echo "  ⚠️  Claude.md : ancien nom, non chargé par Claude Code sous Linux — renommer en CLAUDE.md (git mv en deux temps)"
+fi
 check_file "STANDARDS.md"                           "$PROJECT_DIR/STANDARDS.md"
 check_file "CHANGELOG.md"                           "$PROJECT_DIR/CHANGELOG.md"
 check_file "docs/ROADMAP.md"                         "$PROJECT_DIR/docs/ROADMAP.md"
@@ -93,11 +106,11 @@ else
   git status --short 2>/dev/null | sed 's/^/    /'
 fi
 
-# ── 4. Sections de Claude.md (tuning local à préserver) ──────────
+# ── 4. Sections du fichier d'instructions (tuning local à préserver) ──────────
 echo ""
-echo "SECTIONS Claude.md  (tuning local à préserver)"
-if [ -f "$PROJECT_DIR/Claude.md" ]; then
-  grep -n "^## " "$PROJECT_DIR/Claude.md" | sed 's/^/  /'
+echo "SECTIONS $INSTR_NAME  (tuning local à préserver)"
+if [ -f "$INSTR" ]; then
+  grep -n "^## " "$INSTR" | sed 's/^/  /'
 else
   echo "  ❌ Fichier absent"
 fi

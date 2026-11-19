@@ -4,9 +4,9 @@ Le détail de chaque template numéroté : son rôle, sa destination, et l'adapt
 
 ---
 
-## 01 · Claude.md
+## 01 · CLAUDE.md
 
-**Règles permanentes d'exécution** → `Claude.md` à la racine.
+**Règles permanentes d'exécution** → `CLAUDE.md` à la racine.
 
 Le fichier le plus important : rôle de l'agent, règles absolues, conditions `HALT`, séquence de démarrage de session, gestion des tokens, format de la mémoire de sprint, clause anti-complaisance des tests. Au bootstrap, on adapte `§Rôle`, `§Démarrage` et `§Limites bash` au projet. Voir [Garde-fous](#garde-fous).
 

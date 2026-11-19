@@ -95,15 +95,15 @@ Claude itère seul jusqu'à ce que la commande passe — il ne déclare pas "ter
 ### INV-2 · Circuit fermé
 **Principe :** toute règle implicite devient explicite.
 Si Claude applique un comportement non documenté, ce comportement doit devenir un hook,
-une entrée dans `DECISIONS.md`, ou une règle dans `Claude.md`. Rien ne reste implicite.
+une entrée dans `DECISIONS.md`, ou une règle dans `CLAUDE.md`. Rien ne reste implicite.
 
 ### INV-3 · Contexte chirurgical
 **Principe :** Claude charge uniquement les fichiers listés dans `§Handoff`, pas le repo entier.
-Le `§Handoff` de `Claude.md` est la liste exhaustive et suffisante pour démarrer une session.
+Le `§Handoff` de `CLAUDE.md` est la liste exhaustive et suffisante pour démarrer une session.
 
 ### INV-4 · Boucle de rétroaction
 **Principe :** toute observation terrain a un chemin vers une règle permanente.
-Circuit : incident → `LESSONS_LEARNED` → `/retrospective` → hook ou règle dans `Claude.md`.
+Circuit : incident → `LESSONS_LEARNED` → `/retrospective` → hook ou règle dans `CLAUDE.md`.
 Aucune observation ne se perd dans un fichier sans suite.
 
 ---
@@ -161,7 +161,7 @@ Choisir la forme d'une règle par le défaut qu'elle doit prévenir, pas à l'in
 | Viole une règle sciemment sous pression | Règle absolue + table de rationalisation Pensée → Réalité (`01-Claude-md-TEMPLATE.md`, `M-PROC-31`) | Consigne molle (« préférer… », « envisager… ») |
 | Se conforme, mais la sortie a la mauvaise forme (verbeux, verdict enterré) | Recette positive — dire ce que la sortie EST, dans l'ordre (ex : gabarit du Bilan §0d du wrap-up) | Liste d'interdictions (« ne pas recopier », « ne jamais narrer ») |
 | Omet un élément requis d'un livrable qu'il produit déjà | Champ structurel obligatoire dans le gabarit (ex : les 4 champs Retenu/Écarté/Raison/Déclencheur de réouverture d'une entrée `07-DECISIONS-SDLC.md`) | Rappel en prose à côté du gabarit |
-| Le comportement doit dépendre d'une condition observable | Conditionnel sur un prédicat vérifiable (ex : un `HALT`, `Claude.md §Règles absolues`) | Règle inconditionnelle + clauses d'exemption |
+| Le comportement doit dépendre d'une condition observable | Conditionnel sur un prédicat vérifiable (ex : un `HALT`, `CLAUDE.md §Règles absolues`) | Règle inconditionnelle + clauses d'exemption |
 
 Deux règles annexes, quelle que soit la forme retenue :
 - **Pas de clause de nuance** — « sauf si ça compte » rouvre la négociation qu'une

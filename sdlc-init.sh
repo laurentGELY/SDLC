@@ -42,8 +42,8 @@ if [ ! -d "${TARGET_DIR}/.git" ]; then
   exit 1
 fi
 
-if [ -f "${TARGET_DIR}/Claude.md" ]; then
-  echo "⚠️  Claude.md existe déjà dans ce repo."
+if [ -e "${TARGET_DIR}/CLAUDE.md" ] || [ -e "${TARGET_DIR}/Claude.md" ]; then
+  echo "⚠️  CLAUDE.md (ou l'ancien Claude.md) existe déjà dans ce repo."
   echo "   Pour un projet existant, utiliser /sdlc-sync dans Claude Code."
   read -p "   Continuer quand même ? (y/N) : " confirm
   if [ "${confirm}" != "y" ] && [ "${confirm}" != "Y" ]; then
@@ -64,7 +64,21 @@ deploy_template() {
     -e "s#\[Nom du projet\]#${PROJECT_NAME}#g" \
     -e "s#JJ/MM/AAAA#${DATE_TODAY}#g" \
     -e "s#AAAA-MM-JJ#${DATE_ISO}#g" \
+    -e "s#<!-- SDLC version : [^ ]* · aligné#<!-- SDLC version : ${SDLC_VERSION} · aligné#" \
     "${src}" > "${dst}"
+  echo "  ✅ ${dst}"
+}
+
+# Comme deploy_template, mais ne remplace que le nom du projet : les placeholders de
+# date des gabarits (ex. entrées LESSONS/CHANGELOG du skill wrap-up) restent des
+# placeholders, à remplir à chaque usage (ELAG-1b, M-ARCH-10).
+deploy_named() {
+  local src="$1"
+  local dst="$2"
+  local dir
+  dir="$(dirname "${dst}")"
+  mkdir -p "${dir}"
+  sed -e "s#\[Nom du projet\]#${PROJECT_NAME}#g" "${src}" > "${dst}"
   echo "  ✅ ${dst}"
 }
 
@@ -114,7 +128,7 @@ echo ""
 # ─── ÉTAPE 2 : FICHIERS RACINE ───────────────────────────────────────────────
 
 echo "📄 Fichiers racine..."
-deploy_template "${SCRIPT_DIR}/01-Claude-md-TEMPLATE.md"  "${TARGET_DIR}/Claude.md"
+deploy_template "${SCRIPT_DIR}/01-Claude-md-TEMPLATE.md"  "${TARGET_DIR}/CLAUDE.md"
 deploy_template "${SCRIPT_DIR}/02-STANDARDS-TEMPLATE.md"  "${TARGET_DIR}/STANDARDS.md"
 
 # CHANGELOG from scratch
@@ -130,7 +144,7 @@ Format : Semantic Versioning adapté aux sprints.
 
 ## [1.0] — ${DATE_ISO} · Sprint 0 · Bootstrap SDLC
 
-- **\`Claude.md\` v1.0** : instructions permanentes Claude Code — à compléter (§Rôle · §Limites bash)
+- **\`CLAUDE.md\` v1.0** : instructions permanentes Claude Code — à compléter (§Rôle · §Limites bash)
 - **\`STANDARDS.md\` v1.0** : Definition of Done · types de sprint · niveaux de test
 - **\`specs/sprint-template.md\`** : template PDR générique
 - **\`.claude/skills/wrap-up/SKILL.md\` v1.0** : procédure clôture sprint
@@ -292,7 +306,7 @@ echo ""
 # ─── ÉTAPE 5 : SKILLS ────────────────────────────────────────────────────────
 
 echo "📄 Skills Claude Code..."
-deploy_template "${SCRIPT_DIR}/03-wrap-up-SKILL-TEMPLATE.md" \
+deploy_named "${SCRIPT_DIR}/03-wrap-up-SKILL-TEMPLATE.md" \
   "${TARGET_DIR}/.claude/skills/wrap-up/SKILL.md"
 deploy_copy "${SCRIPT_DIR}/09-retrospective-SKILL-TEMPLATE.md" \
   "${TARGET_DIR}/.claude/skills/retrospective/SKILL.md"
@@ -390,6 +404,12 @@ cat > "${TARGET_DIR}/.claude/settings.local.json" << 'LOCAL'
 }
 LOCAL
 echo "  ✅ .claude/settings.local.json"
+
+# .gitignore — créé, ou complété sans doublon s'il existe (ELAG-1b, M-ARCH-10)
+for entry in .env .claude/sprint-memory.md .claude/settings.local.json; do
+  grep -qxF "${entry}" "${TARGET_DIR}/.gitignore" 2>/dev/null || echo "${entry}" >> "${TARGET_DIR}/.gitignore"
+done
+echo "  ✅ .gitignore (.env · .claude/sprint-memory.md · .claude/settings.local.json)"
 echo ""
 
 # ─── ÉTAPE 7 : VÉRIFICATIONS ─────────────────────────────────────────────────
@@ -425,10 +445,10 @@ else
 fi
 
 # Marqueur version
-if grep -q "SDLC version : ${SDLC_VERSION}" "${TARGET_DIR}/Claude.md"; then
+if grep -q "SDLC version : ${SDLC_VERSION}" "${TARGET_DIR}/CLAUDE.md"; then
   echo "  ✅ Marqueur SDLC version présent"
 else
-  echo "  ⚠️  Marqueur SDLC version non trouvé dans Claude.md"
+  echo "  ⚠️  Marqueur SDLC version non trouvé dans CLAUDE.md"
 fi
 
 echo ""
@@ -447,8 +467,8 @@ echo "ÉTAPE SUIVANTE — ouvrir Claude Code dans ce repo et demander :"
 echo ""
 echo "  Le bootstrap mécanique est fait (SDLC ${SDLC_VERSION})."
 echo "  Complète la gouvernance :"
-echo "  - §Rôle dans Claude.md"
-echo "  - §Limites bash dans Claude.md"
+echo "  - §Rôle dans CLAUDE.md"
+echo "  - §Limites bash dans CLAUDE.md"
 echo "  - §Démarrage §2 : commandes d'état du système"
 echo "  - specs/SPEC.md : structure du domaine"
 echo "  - .claude/skills/diagnostic/SKILL.md : commandes de diagnostic"
@@ -457,7 +477,7 @@ echo "    → décider lesquelles activer dans pre-tool-bash.sh"
 echo "    → documenter chaque choix dans docs/DECISIONS.md §D-HOOK-XX"
 echo ""
 echo "  Grep de validation final :"
-echo "  grep '\[→ ADAPTER\]' Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh"
+echo "  grep '\[→ ADAPTER\]' CLAUDE.md STANDARDS.md .claude/hooks/pre-tool-bash.sh"
 echo "  → zéro résultat attendu avant le commit."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""

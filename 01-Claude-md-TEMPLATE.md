@@ -1,5 +1,5 @@
-# Claude.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.6 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+# CLAUDE.md — [Nom du projet] · v1.0
+<!-- Template SDLC v2.7 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -39,7 +39,7 @@
 - **HALT-TIMEOUT** : commande de test/build sans sortie depuis > [N] secondes
   → Mécanisme : préfixer avec `timeout [N]` (ex: `timeout 120 pytest tests/ -q`)
   → Si exit code 124 (timeout dépassé) → HALT
-  → N à définir dans `Claude.md §Limites bash` du projet cible (défaut : 120s)
+  → N à définir dans `CLAUDE.md §Limites bash` du projet cible (défaut : 120s)
 
 **Rationalisations à reconnaître — par HALT :** *(formulations internes typiques par
 lesquelles un agent pourrait se convaincre d'ignorer un HALT, avec la réfutation en face)*
@@ -234,17 +234,17 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
   - Tâche de jugement (analyse comparative, arbitrage, rédaction de recommandation) → modèle standard
   - Jamais déléguer à un modèle plus capable que celui de la session courante sans aval explicite
 - **Découpage `.claude/rules/`** *(mécanisme de contexte — pas un hook, aucun
-  effet d'enforcement)* : si `Claude.md` dépasse ~200 lignes (seuil d'adhérence
+  effet d'enforcement)* : si `CLAUDE.md` dépasse ~200 lignes (seuil d'adhérence
   documenté par la plateforme — au-delà, les instructions sont moins
   fidèlement suivies) **ET** qu'une partie de son contenu a une frontière
   réelle par chemin de fichier (convention limitée à un répertoire ou un type
   de fichier, ex. `src/api/**`, `tests/**`) → extraire cette partie dans
   `.claude/rules/<nom>.md` avec un bloc frontmatter `paths:` scopé, plutôt que
-  la garder dans `Claude.md`. Ne jamais découper du contenu transverse au
+  la garder dans `CLAUDE.md`. Ne jamais découper du contenu transverse au
   processus (Règles absolues, Démarrage, Analyse) : ce contenu s'applique à
   chaque sprint indépendamment du fichier touché, donc n'a pas de frontière
   `paths:` naturelle — un fichier `.claude/rules/` **sans** `paths:` charge et
-  survit à la compaction exactement comme `Claude.md` (aucun gain à l'extraire
+  survit à la compaction exactement comme `CLAUDE.md` (aucun gain à l'extraire
   sans scope). Fait vérifié : seule une règle *scopée* `paths:` ne charge/ne
   persiste après compaction que si un fichier correspondant est lu
   (`code.claude.com/docs/en/context-window §What survives compaction`).

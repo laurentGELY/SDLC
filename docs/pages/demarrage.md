@@ -24,7 +24,7 @@ Le script `sdlc-init.sh` copie les templates aux bons emplacements et crée les 
 D'abord, détecter la situation :
 
 ```bash
-grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+cat CLAUDE.md CLAUDE.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Action |
@@ -46,7 +46,7 @@ Puis, dans Claude Code du projet cible :
 
 | Source (toolkit) | Destination (projet) |
 |------------------|----------------------|
-| `01-Claude-md-TEMPLATE.md` | `Claude.md` |
+| `01-Claude-md-TEMPLATE.md` | `CLAUDE.md` |
 | `02-STANDARDS-TEMPLATE.md` | `STANDARDS.md` |
 | `03-wrap-up-SKILL-TEMPLATE.md` | `.claude/skills/wrap-up/SKILL.md` |
 | `04-sprint-PDR-TEMPLATE.md` | `specs/sprint-template.md` |

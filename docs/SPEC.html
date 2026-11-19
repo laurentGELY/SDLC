@@ -562,7 +562,7 @@
       <div class="invariant-card">
         <div class="inv-number">02</div>
         <div class="inv-title">Circuit fermé</div>
-        <div class="inv-principle">Toute règle implicite devient explicite (hook, DECISIONS.md, ou Claude.md). Si une contrainte dépend de la mémoire du modèle entre sessions, elle n'existe pas opérationnellement.</div>
+        <div class="inv-principle">Toute règle implicite devient explicite (hook, DECISIONS.md, ou CLAUDE.md). Si une contrainte dépend de la mémoire du modèle entre sessions, elle n'existe pas opérationnellement.</div>
         <div class="inv-alarm">Signal d'alarme : observation dans LESSONS_LEARNED sans "Action proposée" → circuit ouvert.</div>
       </div>
       <div class="invariant-card">
@@ -574,7 +574,7 @@
       <div class="invariant-card">
         <div class="inv-number">04</div>
         <div class="inv-title">Boucle de rétroaction</div>
-        <div class="inv-principle">Toute observation de terrain a un chemin vers une règle permanente. L'ordre : incident → LESSONS_LEARNED → /retrospective → décision → hook ou Claude.md.</div>
+        <div class="inv-principle">Toute observation de terrain a un chemin vers une règle permanente. L'ordre : incident → LESSONS_LEARNED → /retrospective → décision → hook ou CLAUDE.md.</div>
         <div class="inv-alarm">Signal d'alarme : règle dans pre-tool-bash.sh sans entrée DECISIONS.md → règle implicite.</div>
       </div>
     </div>
@@ -604,7 +604,7 @@
         <div class="file-name">01-Claude-md-TEMPLATE.md</div>
         <div class="file-role">Instructions permanentes Claude Code</div>
         <div class="file-desc">Rôle, règles absolues, démarrage de session, mémoire de sprint, analyse (vérification factuelle, auto-revue du plan, verdict PASS / CONCERNS / FAIL), plan de test avec commande exacte, /wrap-up et /retrospective.</div>
-        <span class="file-dest">→ Claude.md (racine repo)</span>
+        <span class="file-dest">→ CLAUDE.md (racine repo)</span>
       </div>
       <div class="file-card">
         <span class="file-tag tag-adapt">adapter</span>
@@ -691,7 +691,7 @@
         <div class="file-number">11</div>
         <div class="file-name">11-help-SKILL-TEMPLATE.md</div>
         <div class="file-role">Skill /help</div>
-        <div class="file-desc">Recap en lecture seule — sprint-memory, ROADMAP §Now / §Next, classification de Claude.md — sans aucune suggestion.</div>
+        <div class="file-desc">Recap en lecture seule — sprint-memory, ROADMAP §Now / §Next, classification de CLAUDE.md — sans aucune suggestion.</div>
         <span class="file-dest">→ .claude/skills/help/SKILL.md</span>
       </div>
       <div class="file-card">
@@ -910,22 +910,22 @@
       <div class="workflow-phase">
         <div class="phase-name">Démarrage</div>
         <div class="phase-action">Lire sprint spec + état repo + mémoire de sprint</div>
-        <div class="phase-file">01 Claude.md §Démarrage</div>
+        <div class="phase-file">01 CLAUDE.md §Démarrage</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Analyse</div>
         <div class="phase-action">Compréhension + impact + plan de test</div>
-        <div class="phase-file">01 Claude.md §Analyse</div>
+        <div class="phase-file">01 CLAUDE.md §Analyse</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Vérification</div>
         <div class="phase-action">Faits confirmés par commande + auto-revue du plan en 3 passes</div>
-        <div class="phase-file">01 Claude.md §Vérification factuelle</div>
+        <div class="phase-file">01 CLAUDE.md §Vérification factuelle</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Aval</div>
         <div class="phase-action">Verdict PASS / CONCERNS / FAIL, puis confirmation explicite</div>
-        <div class="phase-file">01 Claude.md §Demande d'aval</div>
+        <div class="phase-file">01 CLAUDE.md §Demande d'aval</div>
       </div>
       <div class="workflow-phase">
         <div class="phase-name">Code + Test</div>
@@ -963,9 +963,9 @@
         <div class="step-desc">specs/sprint-template.md (depuis 04) · .claude/skills/sdlc-sync/SKILL.md (depuis 04b) · .claude/skills/retrospective/SKILL.md (depuis 09)</div>
       </div>
       <div class="bootstrap-step">
-        <div class="step-title">Adapter Claude.md et STANDARDS.md</div>
+        <div class="step-title">Adapter CLAUDE.md et STANDARDS.md</div>
         <div class="step-desc">Remplir §Rôle, §Démarrage §2, §Limites bash, §Fichier .env, et les seuils de §Barre qualité. Vider §Carte des étapes et §Modules partagés.</div>
-        <div class="step-cmd">grep "\[→ ADAPTER\]\|\[À REMPLIR\]" Claude.md STANDARDS.md → zéro résultat attendu</div>
+        <div class="step-cmd">grep "\[→ ADAPTER\]\|\[À REMPLIR\]" CLAUDE.md STANDARDS.md → zéro résultat attendu</div>
       </div>
       <div class="bootstrap-step">
         <div class="step-title">Adapter wrap-up SKILL</div>

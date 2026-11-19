@@ -31,7 +31,7 @@ Si Claude applique un comportement non documenté, ce comportement doit devenir 
 
 - un **hook** (blocage mécanique avant exécution),
 - une entrée dans **`DECISIONS.md`**,
-- ou une règle dans **`Claude.md`**.
+- ou une règle dans **`CLAUDE.md`**.
 
 Rien ne reste implicite. C'est ce qui rend une session reproductible : ce qui n'est pas écrit n'existe pas opérationnellement.
 

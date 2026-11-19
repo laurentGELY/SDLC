@@ -1,6 +1,6 @@
 # Standards : DoD, types, tests
 
-`STANDARDS.md` est la **référence technique permanente** du dépôt — complémentaire de `Claude.md`, sans workflow de sprint. Il répond à une question : *qu'est-ce qui définit un travail « terminé » ici ?*
+`STANDARDS.md` est la **référence technique permanente** du dépôt — complémentaire de `CLAUDE.md`, sans workflow de sprint. Il répond à une question : *qu'est-ce qui définit un travail « terminé » ici ?*
 
 ---
 
@@ -38,10 +38,10 @@ Le template `02-STANDARDS-TEMPLATE.md` porte une section **§Barre qualité** (`
 
 - **Seuils** — un tableau `Dimension / Règle / Vérifié par / S'exécute à`, complété au bootstrap (zéro placeholder avant le commit initial).
 - **Plancher** — non négociable, sans configuration : aucun commentaire de suppression nouveau (`@ts-ignore`, `# noqa`…), aucun stub livré comme fini, aucun test sauté sans raison au commit, aucun secret en source, et le fichier ne s'affaiblit pas pour faire passer un changement.
-- **Cliquet** — pour les dimensions sans seuil évident : mesurer la valeur du jour et tenir la ligne. Exemple fourni : le contexte permanent (M1, `wc -w Claude.md STANDARDS.md`) ne croît pas de plus de 10 % entre deux `/retrospective`.
+- **Cliquet** — pour les dimensions sans seuil évident : mesurer la valeur du jour et tenir la ligne. Exemple fourni : le contexte permanent (M1, `wc -w CLAUDE.md STANDARDS.md`) ne croît pas de plus de 10 % entre deux `/retrospective`.
 - **Exceptions** — une dérogation est une ligne datée avec propriétaire et date d'expiration, jamais un `# noqa` anonyme.
 
-Une règle absolue de `Claude.md` interdit d'affaiblir un seuil sans passer par la table d'exceptions.
+Une règle absolue de `CLAUDE.md` interdit d'affaiblir un seuil sans passer par la table d'exceptions.
 
 ## Règles d'archivage
 

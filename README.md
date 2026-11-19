@@ -1,6 +1,6 @@
 # SDLC Toolkit — Gouvernance Claude Code
 
-> **Ce que c'est :** un modèle de gouvernance pour projets pilotés par Claude Code — règles permanentes (`Claude.md`), skills de clôture et de rétrospective, hooks — qui transforme chaque incident de session en règle vérifiable.
+> **Ce que c'est :** un modèle de gouvernance pour projets pilotés par Claude Code — règles permanentes (`CLAUDE.md`), skills de clôture et de rétrospective, hooks — qui transforme chaque incident de session en règle vérifiable.
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
 > **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh` → 10 contrôles).
 
@@ -11,7 +11,7 @@ flowchart LR
     A["Incident terrain"] --> B["LESSONS_LEARNED"]
     B --> C["/retrospective<br/>détecte les récurrences"]
     C --> D["Hook ou règle permanente"]
-    D --> E["Claude.md · hooks"]
+    D --> E["CLAUDE.md · hooks"]
     E -. prévient .-> A
 ```
 
@@ -23,7 +23,7 @@ Bootstrapper un nouveau projet, aligner un projet existant, faire évoluer le mo
 
 Un projet gouverné par ce toolkit a :
 
-- Un `Claude.md` qui donne à Claude Code des règles permanentes d'exécution (rôle, limites, workflow)
+- Un `CLAUDE.md` qui donne à Claude Code des règles permanentes d'exécution (rôle, limites, workflow)
 - Un skill `/wrap-up` qui clôture chaque sprint en 6 étapes (bilan → rétro → doc → commit)
 - Un skill `/retrospective` qui détecte les patterns récurrents et propose des hooks ou règles
 - Un skill `/sdlc-sync` qui aligne le projet sur une version plus récente du modèle sans écraser le tuning local
@@ -31,7 +31,7 @@ Un projet gouverné par ce toolkit a :
 
 **Quatre invariants guident toute évolution :**
 - **INV-1 · Vérification exécutable** — tout test = une commande exacte, pas une description
-- **INV-2 · Circuit fermé** — toute règle implicite devient explicite (hook, `DECISIONS.md`, ou `Claude.md`)
+- **INV-2 · Circuit fermé** — toute règle implicite devient explicite (hook, `DECISIONS.md`, ou `CLAUDE.md`)
 - **INV-3 · Contexte chirurgical** — Claude charge uniquement les fichiers listés dans `§Handoff`, pas le repo entier
 - **INV-4 · Boucle de rétroaction** — toute observation terrain a un chemin vers une règle permanente
 
@@ -50,7 +50,7 @@ sdlc-toolkit/
 ├── README.md                        # Ce fichier — pitch + démarrage rapide
 ├── LICENSE                          # MIT
 ├── 00-CONTEXT.md                    # Contexte Claude.ai — invariants + carte des fichiers
-├── 01-Claude-md-TEMPLATE.md         # → Claude.md du projet cible
+├── 01-Claude-md-TEMPLATE.md         # → CLAUDE.md du projet cible
 ├── 02-STANDARDS-TEMPLATE.md         # → STANDARDS.md du projet cible
 ├── 03-wrap-up-SKILL-TEMPLATE.md     # → .claude/skills/wrap-up/SKILL.md
 ├── 04-sprint-PDR-TEMPLATE.md        # → specs/sprint-template.md (copie tel quel)
@@ -93,7 +93,7 @@ bash /chemin/vers/sdlc-toolkit/sdlc-init.sh "Nom du projet"
 
 ```bash
 # Détecter la situation
-grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+cat CLAUDE.md CLAUDE.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Action |
@@ -128,7 +128,7 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 
 | Source (toolkit) | Destination (projet) | Action au bootstrap |
 |------------------|----------------------|---------------------|
-| `01-Claude-md-TEMPLATE.md` | `Claude.md` | Adapter §Rôle · §Démarrage · §Limites bash |
+| `01-Claude-md-TEMPLATE.md` | `CLAUDE.md` | Adapter §Rôle · §Démarrage · §Limites bash |
 | `02-STANDARDS-TEMPLATE.md` | `STANDARDS.md` | Vider §Modules partagés · §Carte des étapes |
 | `03-wrap-up-SKILL-TEMPLATE.md` | `.claude/skills/wrap-up/SKILL.md` | Adapter §Étape 0b · §Étape 6 |
 | `04-sprint-PDR-TEMPLATE.md` | `specs/sprint-template.md` | Copier tel quel |

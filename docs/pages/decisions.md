@@ -19,7 +19,7 @@ Chaque décision porte un identifiant stable, préfixé par famille :
 | `M-TMPL-NN` | Contenu et rédaction des templates et skills |
 | `D-SYNC-NN` | Synchronisations de version appliquées à un projet |
 
-Ces identifiants sont **citables** depuis n'importe quel fichier : une règle de `Claude.md` peut renvoyer à `M-PROC-28`, un template à `M-SCOPE-04`. La référence croisée est le tissu conjonctif du modèle.
+Ces identifiants sont **citables** depuis n'importe quel fichier : une règle de `CLAUDE.md` peut renvoyer à `M-PROC-28`, un template à `M-SCOPE-04`. La référence croisée est le tissu conjonctif du modèle.
 
 ## Quelques décisions structurantes
 

@@ -18,7 +18,7 @@ Le point délicat : un projet a souvent *tuné* ses templates (adapté `§Rôle`
 
 ## /diagnostic — sur incident
 
-Déclenché sur un bug ou un comportement inattendu, et automatiquement par la condition `HALT-3X` (même test échoué 3 fois). Le skill impose une démarche ancrée sur la preuve, cohérente avec les principes anti-biais de `Claude.md` :
+Déclenché sur un bug ou un comportement inattendu, et automatiquement par la condition `HALT-3X` (même test échoué 3 fois). Le skill impose une démarche ancrée sur la preuve, cohérente avec les principes anti-biais de `CLAUDE.md` :
 
 - ancrer sur une preuve observable **avant** de théoriser — jamais l'inverse ;
 - traiter la description de l'utilisateur comme une hypothèse à vérifier, pas comme un fait de départ ;
@@ -28,7 +28,7 @@ Toute commande ayant localisé ou résolu un problème est archivée dans `DIAGN
 
 ## /help — recap en reprise de session
 
-Un skill **lecture seule, zéro suggestion** (`M-PROC-26`). En reprise de session, il produit un recap de « où on en est / où on va / quels outils sont disponibles » à partir de trois sources : `.claude/sprint-memory.md`, `docs/ROADMAP.md §Now/§Next`, et la classification du travail dans `Claude.md`.
+Un skill **lecture seule, zéro suggestion** (`M-PROC-26`). En reprise de session, il produit un recap de « où on en est / où on va / quels outils sont disponibles » à partir de trois sources : `.claude/sprint-memory.md`, `docs/ROADMAP.md §Now/§Next`, et la classification du travail dans `CLAUDE.md`.
 
 Sa contrainte définissante : il **ne suggère rien**. Il expose l'état, sans proposer d'action. C'est délibéré — le recap doit être un miroir neutre du contexte, pas un moteur de décisions qui biaiserait la reprise.
 

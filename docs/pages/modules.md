@@ -11,7 +11,7 @@ Cette carte est construite depuis l'état réel du repo (`ls *.md`), vérifiée 
 | # | Fichier | Rôle | Destination cible |
 |---|---------|------|-------------------|
 | 00 | `00-CONTEXT.md` | Contexte Claude.ai — invariants + carte | *(jamais copié)* |
-| 01 | `01-Claude-md-TEMPLATE.md` | Règles permanentes d'exécution | `Claude.md` |
+| 01 | `01-Claude-md-TEMPLATE.md` | Règles permanentes d'exécution | `CLAUDE.md` |
 | 02 | `02-STANDARDS-TEMPLATE.md` | DoD, types de sprint, niveaux de test | `STANDARDS.md` |
 | 03 | `03-wrap-up-SKILL-TEMPLATE.md` | Procédure de clôture de sprint | `.claude/skills/wrap-up/` |
 | 04 | `04-sprint-PDR-TEMPLATE.md` | Spec de sprint | `specs/sprint-template.md` |
@@ -65,7 +65,7 @@ Certains fichiers en référencent d'autres. Les connaître évite de casser une
 | `04-sprint-PDR` | `10` (si amont utilisé) | Chaque sprint |
 | `04b-sdlc-sync` | Tableau de compatibilité `07` | Évolution du modèle |
 | `09-retrospective` | `LESSONS_LEARNED.md` du projet | ~5 sprints |
-| `11-help` | `sprint-memory`, `ROADMAP`, `Claude.md` | À la demande |
+| `11-help` | `sprint-memory`, `ROADMAP`, `CLAUDE.md` | À la demande |
 
 ## Les modules partagés
 

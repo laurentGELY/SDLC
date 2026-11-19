@@ -1,5 +1,5 @@
 # sdlc-sync — SKILL
-<!-- Template SDLC v2.0 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.1 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Aligne la gouvernance du projet courant sur la version SDLC indiquée dans les sources.
@@ -14,7 +14,7 @@ Le tuning local du projet prime toujours sur le modèle générique.
 
 ```bash
 # Version actuelle du projet
-grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+grep "SDLC version" CLAUDE.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 ```
 
 | Résultat | Situation | Suite |
@@ -23,7 +23,7 @@ grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
 | `ABSENT` | Antérieur au modèle générique | Delta complet depuis zéro |
 | Version = courante | À jour | Confirmer à l'humain, s'arrêter |
 
-La version courante du modèle SDLC est indiquée dans l'en-tête de `Claude.md`
+La version courante du modèle SDLC est indiquée dans l'en-tête de `CLAUDE.md`
 et `STANDARDS.md` des fichiers sources du projet SDLC.
 
 ---
@@ -32,7 +32,7 @@ et `STANDARDS.md` des fichiers sources du projet SDLC.
 
 ```bash
 # Fichiers de gouvernance présents dans le projet
-ls Claude.md STANDARDS.md CHANGELOG.md 2>/dev/null
+ls CLAUDE.md STANDARDS.md CHANGELOG.md 2>/dev/null
 ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md 2>/dev/null
 ls .claude/skills/wrap-up/SKILL.md \
    .claude/skills/retrospective/SKILL.md \
@@ -120,7 +120,7 @@ Remontées ?  : [SDLC_CANDIDATE si trouvés — à reporter manuellement dans pr
 
 ### D2 — Marqueur de version
 
-Apposer dans `Claude.md` **et** `STANDARDS.md` :
+Apposer dans `CLAUDE.md` **et** `STANDARDS.md` :
 
 ```
 <!-- SDLC version : vZ.W · aligné le JJ/MM/AAAA -->
@@ -129,7 +129,7 @@ Apposer dans `Claude.md` **et** `STANDARDS.md` :
 ### D3 — Vérification finale
 
 ```bash
-grep "SDLC version" Claude.md STANDARDS.md   # doit afficher vZ.W dans les deux
+grep "SDLC version" CLAUDE.md STANDARDS.md   # doit afficher vZ.W dans les deux
 git diff --stat                               # uniquement fichiers de gouvernance attendus
 ```
 
@@ -162,7 +162,7 @@ docs(gouvernance): SDLC-Sync vX.Y → vZ.W
 - [ ] Inventaire complet produit avant toute modification
 - [ ] Liste de décisions validée par l'humain avant application
 - [ ] Zéro élément LAISSER modifié
-- [ ] Marqueur `<!-- SDLC version : vZ.W -->` dans `Claude.md` et `STANDARDS.md`
+- [ ] Marqueur `<!-- SDLC version : vZ.W -->` dans `CLAUDE.md` et `STANDARDS.md`
 - [ ] Entrée `D-SYNC-XX` dans `docs/DECISIONS.md`
 - [ ] `git diff --stat` : uniquement fichiers de gouvernance attendus
 - [ ] Commit conforme au format ci-dessus

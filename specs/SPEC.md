@@ -12,7 +12,7 @@ et une boucle de rétroaction terrain → règle permanente.
 
 **Quatre invariants** (détail complet : `00-CONTEXT.md §3`) :
 - **INV-1 · Vérification exécutable** — tout test = une commande exacte, jamais une estimation
-- **INV-2 · Circuit fermé** — toute règle implicite devient explicite (hook, `DECISIONS.md`, ou `Claude.md`)
+- **INV-2 · Circuit fermé** — toute règle implicite devient explicite (hook, `DECISIONS.md`, ou `CLAUDE.md`)
 - **INV-3 · Contexte chirurgical** — Claude Code charge uniquement les fichiers listés dans `§Handoff`, pas le repo entier
 - **INV-4 · Boucle de rétroaction** — toute observation terrain a un chemin vers une règle permanente
 
@@ -35,7 +35,7 @@ Flux complet, du bootstrap à l'évolution du modèle :
         ↓ alimente specs/SPEC.md + premier PDR
 Sprint 0 — bootstrap (sdlc-init.sh + 06-PDR-bootstrap.md)
         ↓
-Claude.md gouverne chaque session (01-Claude-md-TEMPLATE.md §Démarrage)
+CLAUDE.md gouverne chaque session (01-Claude-md-TEMPLATE.md §Démarrage)
         ↓
 Boucle de sprint : Analyse → Demande d'aval (verdict PASS/CONCERNS/FAIL)
                     → Code → Test → /wrap-up
@@ -80,7 +80,7 @@ consommateurs) se lit et se met à jour uniquement ici.
 
 | Module | Rôle | Destination dans le projet cible | Dépend de | Utilisé par |
 |--------|------|-----------------------------------|-----------|-------------|
-| `01-Claude-md-TEMPLATE.md` | Règles permanentes d'exécution | `Claude.md` (racine) | `02-STANDARDS-TEMPLATE.md` (DoD référencée) | Chaque session Claude Code |
+| `01-Claude-md-TEMPLATE.md` | Règles permanentes d'exécution | `CLAUDE.md` (racine) | `02-STANDARDS-TEMPLATE.md` (DoD référencée) | Chaque session Claude Code |
 | `02-STANDARDS-TEMPLATE.md` | DoD, types de sprint, niveaux de test | `STANDARDS.md` (racine) | — | `03-wrap-up`, `04-sprint-PDR-TEMPLATE.md` |
 | `03-wrap-up-SKILL-TEMPLATE.md` | Clôture de sprint | `.claude/skills/wrap-up/SKILL.md` | `02` (DoD), `09` (index patterns) | Fin de chaque sprint |
 | `04-sprint-PDR-TEMPLATE.md` | Spec de sprint — copier tel quel | `specs/sprint-template.md` | `10` (optionnel, si amont utilisé) | Chaque sprint, copié tel quel |
@@ -91,7 +91,7 @@ consommateurs) se lit et se met à jour uniquement ici.
 | `08-hooks-TEMPLATE.md` | Hooks bash PreToolUse | `.claude/hooks/` | — | Chaque commande bash en session |
 | `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `.claude/skills/retrospective/SKILL.md` | `docs/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
 | `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) | — | Project Claude.ai dédié, optionnel |
-| `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/skills/help/SKILL.md` | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `Claude.md` | À la demande |
+| `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/skills/help/SKILL.md` | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `CLAUDE.md` | À la demande |
 | `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | *(guide toolkit, pas copié)* | — | Comparaison SDLC vs framework tiers, ponctuel |
 | `00-CONTEXT.md` | Contexte Claude.ai — invariants + index des modules | *(jamais copié — propre à ce projet)* | — | Toute évolution du modèle (lu en premier) |
 | `README.md` | Pitch + démarrage rapide | — | — | Première lecture humaine du toolkit |

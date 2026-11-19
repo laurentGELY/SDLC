@@ -3,7 +3,7 @@
 <!-- Source de vérité pour reconstruire le projet Claude.ai si supprimé -->
 
 ## Description du projet Claude.ai
-Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STANDARDS, wrap-up, PDR, sdlc-sync, retrospective, hooks), scripts (sdlc-init.sh, sdlc-project-check.sh) et registre de décisions. Les sprints SDLC font évoluer ce modèle lui-même selon les invariants définis dans 00-CONTEXT.md. Référence canonique pour tout nouveau projet Claude Code utilisant ce modèle.
+Toolkit de gouvernance SDLC pour projets Claude Code : templates (CLAUDE.md, STANDARDS, wrap-up, PDR, sdlc-sync, retrospective, hooks), scripts (sdlc-init.sh, sdlc-project-check.sh) et registre de décisions. Les sprints SDLC font évoluer ce modèle lui-même selon les invariants définis dans 00-CONTEXT.md. Référence canonique pour tout nouveau projet Claude Code utilisant ce modèle.
 
 ## Fichiers synchronisés
 | Fichier repo | Rôle dans Claude.ai | Synchronisé |
@@ -11,7 +11,7 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (Claude.md, STA
 | `00-CONTEXT.md` | Conscience du projet : carte fichiers + invariants — premier fichier lu | ✓ |
 | `07-DECISIONS-SDLC.md` | Registre complet des décisions — référence anti-doublon (49 KB) | ✓ |
 | `CHANGELOG.md` | Historique des versions et sprints | ✓ |
-| `01-Claude-md-TEMPLATE.md` | Template principal Claude.md des projets cibles | ✓ |
+| `01-Claude-md-TEMPLATE.md` | Template principal CLAUDE.md des projets cibles | ✓ |
 | `02-STANDARDS-TEMPLATE.md` | Template STANDARDS (DoD, tests, observabilité) | ✓ |
 | `03-wrap-up-SKILL-TEMPLATE.md` | Skill /wrap-up — procédure de clôture de sprint | ✓ |
 | `04-sprint-PDR-TEMPLATE.md` | Template spec de sprint (PDR) | ✓ |

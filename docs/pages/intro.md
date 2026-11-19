@@ -26,7 +26,7 @@ Le SDLC Toolkit répond à ces trois dérives par un cadre : des fichiers perman
 
 Un projet gouverné par ce toolkit possède :
 
-- Un **`Claude.md`** — les règles permanentes d'exécution (rôle, limites, workflow, points d'arrêt `HALT`).
+- Un **`CLAUDE.md`** — les règles permanentes d'exécution (rôle, limites, workflow, points d'arrêt `HALT`).
 - Un skill **`/wrap-up`** — clôture chaque sprint en une séquence stricte : bilan → rétrospective → doc → commit.
 - Un skill **`/retrospective`** — détecte les patterns récurrents et propose de nouveaux hooks ou règles.
 - Un skill **`/sdlc-sync`** — aligne le projet sur une version plus récente du modèle sans écraser le réglage local.

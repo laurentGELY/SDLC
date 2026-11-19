@@ -1,5 +1,5 @@
 # help — SKILL
-<!-- Template SDLC v1.9 · Destination : .claude/skills/help/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.0 · Destination : .claude/skills/help/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Recap de contexte à la demande. Lecture seule — zéro écriture, zéro effet
@@ -22,7 +22,7 @@ grep -A 5 "## ▶ Now" docs/ROADMAP.md 2>/dev/null
 grep -A 8 "## ⏭ Next" docs/ROADMAP.md 2>/dev/null
 
 # 3. Outils disponibles — lire la table de classification
-grep -A 8 "Classifier le travail" Claude.md 2>/dev/null
+grep -A 8 "Classifier le travail" CLAUDE.md 2>/dev/null
 ```
 
 Produire le recap :
@@ -52,7 +52,7 @@ docs/ROADMAP.md §Next :
 /diagnostic     → bug ou comportement inattendu, sur incident
 
 Type de travail en cours → flux correspondant :
-[copier la ligne pertinente du tableau Claude.md §Démarrage si un sprint
+[copier la ligne pertinente du tableau CLAUDE.md §Démarrage si un sprint
  est actif, sinon omettre ce bloc]
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```

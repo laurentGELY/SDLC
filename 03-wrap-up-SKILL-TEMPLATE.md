@@ -1,5 +1,5 @@
 # wrap-up — SKILL
-<!-- Template SDLC v2.0 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.1 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -118,7 +118,7 @@ ni présumer du contexte déjà discuté. Chercher : bugs évidents, incohérenc
 code mort, edge cases visibles dans le diff seul.
 - Si le mode Agent (sous-agent Claude Code) est disponible → déléguer cette
   passe à un sous-agent qui ne reçoit que `git diff` en entrée (vraie cécité,
-  cohérent avec le seuil de délégation `Claude.md §Tokens`).
+  cohérent avec le seuil de délégation `CLAUDE.md §Tokens`).
 - Sinon → discipline simulée : déclarer explicitement
   "Relecture en cécité simulée — fil de conversation ignoré pour cette passe."
 
@@ -194,9 +194,9 @@ Format obligatoire (5 lignes max) :
 **Code :** [observations techniques — ou "RAS"]
 **Processus :** [observations de processus — ou "RAS"]
 **Lien pattern :** [confirme P-XX / infirme P-XX / aucun]
-**Action proposée :** [action + destination (ex: Claude.md §X)] → décision : [en attente]
+**Action proposée :** [action + destination (ex: CLAUDE.md §X)] → décision : [en attente]
 **Hook candidat :** [HOOK_CANDIDATE] [description action risquée] → ligne bash : `[commande grep/pattern]` — décision : [en attente]
-**SDLC candidat :** [SDLC_CANDIDATE] [description] → fichier cible : [ex: 03-wrap-up / 04-PDR / Claude.md template] · nature : [nouveau champ / règle renforcée / procédure modifiée] — décision : [en attente — à remonter manuellement dans projet SDLC]
+**SDLC candidat :** [SDLC_CANDIDATE] [description] → fichier cible : [ex: 03-wrap-up / 04-PDR / CLAUDE.md template] · nature : [nouveau champ / règle renforcée / procédure modifiée] — décision : [en attente — à remonter manuellement dans projet SDLC]
 ```
 
 Le champ `**Hook candidat :**` est optionnel — n'inclure que si l'Étape 1 a produit une réponse positive sur la 2e question.

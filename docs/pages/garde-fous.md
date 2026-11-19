@@ -6,7 +6,7 @@ Le modèle ne fait pas que recommander — il **arrête**. Deux mécanismes comp
 
 ## Les règles absolues
 
-Le socle non négociable de `Claude.md`. **Ne jamais :**
+Le socle non négociable de `CLAUDE.md`. **Ne jamais :**
 
 - écrire du code avant l'aval explicite de l'utilisateur ;
 - sauter l'analyse, même pour un petit fix ;

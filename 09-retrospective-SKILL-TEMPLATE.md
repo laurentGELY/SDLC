@@ -1,5 +1,5 @@
 # retrospective — SKILL
-<!-- Template SDLC v1.9 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.0 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
 
 Analyse de patterns sur l'ensemble des sprints complétés.
 Déclencher toutes les ~5 sprints, ou immédiatement après un incident grave.
@@ -77,7 +77,7 @@ Occurrences : [N] sur [liste sprints]
 Résumé : [description du pattern en 1 phrase]
 
 Destinations possibles :
-  A) Claude.md §[section pertinente] — règle permanente de comportement
+  A) CLAUDE.md §[section pertinente] — règle permanente de comportement
   B) STANDARDS.md §[section] — standard projet à appliquer à tous les sprints
   C) .claude/hooks/ — garde-fou automatique (nécessite M-PROC-X dans DECISIONS)
   D) docs/LESSONS_LEARNED.md §Règles — règle documentée, pas encore hookée
@@ -147,7 +147,7 @@ Pour chaque récurrence ou aggravation identifiée, proposer une action concrèt
 
 | Pattern | Action proposée | Destination | Priorité |
 |---------|----------------|-------------|----------|
-| [pattern] | [action] | Claude.md §X / hook / DECISIONS.md | Haute / Normale |
+| [pattern] | [action] | CLAUDE.md §X / hook / DECISIONS.md | Haute / Normale |
 
 **Règle de décision hooks :**
 - ≥ 2 occurrences `[HOOK_CANDIDATE]` identiques → proposer activation
@@ -239,8 +239,8 @@ reste de la rétro.
 ### Baseline statique — M1 / M2
 
 ```bash
-# M1 — plancher de contexte permanent (Claude.md + STANDARDS.md)
-wc -w Claude.md STANDARDS.md
+# M1 — plancher de contexte permanent (CLAUDE.md + STANDARDS.md)
+wc -w CLAUDE.md STANDARDS.md
 
 # M2 — coût de la procédure wrap-up
 wc -w .claude/skills/wrap-up/SKILL.md

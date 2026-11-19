@@ -17,7 +17,7 @@ C'est l'invariant `INV-4` en action, et sans doute le cœur de ce qui distingue 
               │
       ┌───────┴────────┐
       ▼                ▼
-   hook bash      règle Claude.md      ← la règle devient permanente
+   hook bash      règle CLAUDE.md      ← la règle devient permanente
    (mécanique)    (logique)
 ```
 
@@ -53,7 +53,7 @@ Voir [Le skill /retrospective](#skill-retro) pour la procédure complète.
 Une observation validée devient l'un des deux :
 
 - **un hook bash** — si elle peut être détectée mécaniquement avant l'exécution d'une commande (ex : `pip install` hors venv). Voir [Hooks](#hooks).
-- **une règle `Claude.md`** — si c'est une contrainte logique de raisonnement.
+- **une règle `CLAUDE.md`** — si c'est une contrainte logique de raisonnement.
 
 Une fois permanente, la règle est appliquée à chaque session sans effort. La boucle a bouclé : l'incident ne peut plus se reproduire silencieusement.
 

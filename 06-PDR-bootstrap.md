@@ -11,10 +11,10 @@
 ## Contexte
 
 Nouveau projet Claude Code démarrant sans infrastructure SDLC.
-Ce sprint installe la gouvernance complète (Claude.md, STANDARDS, wrap-up, PDR template,
+Ce sprint installe la gouvernance complète (CLAUDE.md, STANDARDS, wrap-up, PDR template,
 ROADMAP, DECISIONS, LESSONS_LEARNED) avant le premier sprint métier.
 
-Objectif : Claude Code peut démarrer une session, lire `Claude.md`,
+Objectif : Claude Code peut démarrer une session, lire `CLAUDE.md`,
 et exécuter `/wrap-up` sans ambiguïté à la fin de ce sprint.
 
 ---
@@ -47,7 +47,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 
 | Destination | Source template | Action |
 |-------------|-----------------|--------|
-| `Claude.md` | `01-Claude-md-TEMPLATE.md` | **Adapter** : §Rôle · §Démarrage §2 · §Limites bash · §Fichier .env |
+| `CLAUDE.md` | `01-Claude-md-TEMPLATE.md` | **Adapter** : §Rôle · §Démarrage §2 · §Limites bash · §Fichier .env |
 | `STANDARDS.md` | `02-STANDARDS-TEMPLATE.md` | **Adapter** : §Carte des étapes (vider) · §Modules partagés (vider) |
 | `CHANGELOG.md` | *(créer from scratch)* | **Créer** : header + première entrée Sprint 0 uniquement |
 
@@ -128,7 +128,7 @@ bash /chemin/vers/sdlc-toolkit/sdlc-project-check.sh "Nom du projet Claude.ai"
 ### Étape 2 — Vérifier les placeholders résiduels
 
 ```bash
-grep "\[→ ADAPTER\]\|\[Nom du projet\]\|\[À REMPLIR\]" Claude.md STANDARDS.md
+grep "\[→ ADAPTER\]\|\[Nom du projet\]\|\[À REMPLIR\]" CLAUDE.md STANDARDS.md
 # → zéro résultat attendu (mécaniques ET observabilité complétée)
 ```
 
@@ -138,8 +138,8 @@ Prompt à utiliser :
 
 ```
 Le bootstrap mécanique est fait. Complète la gouvernance :
-- §Rôle dans Claude.md
-- §Limites bash dans Claude.md
+- §Rôle dans CLAUDE.md
+- §Limites bash dans CLAUDE.md
 - §Démarrage §2 : commandes d'état du système
 - specs/SPEC.md : structure du domaine
 - .claude/skills/diagnostic/SKILL.md : commandes de diagnostic
@@ -148,7 +148,7 @@ Le bootstrap mécanique est fait. Complète la gouvernance :
   → documenter chaque choix dans docs/DECISIONS.md §D-HOOK-XX
 
 Grep de validation final :
-grep "\[→ ADAPTER\]" Claude.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
+grep "\[→ ADAPTER\]" CLAUDE.md STANDARDS.md .claude/hooks/pre-tool-bash.sh
 → zéro résultat attendu avant le commit.
 ```
 
@@ -161,8 +161,8 @@ Voir `docs/MODE-OPERATOIRE.html §Initialiser` pour le détail complet
 
 ## Critères d'acceptation (9)
 
-1. `grep "SDLC version" Claude.md STANDARDS.md` → affiche vX.Y
-2. `grep "\[→ ADAPTER\]" Claude.md STANDARDS.md` → vide
+1. `grep "SDLC version" CLAUDE.md STANDARDS.md` → affiche vX.Y
+2. `grep "\[→ ADAPTER\]" CLAUDE.md STANDARDS.md` → vide
 3. `grep "\[À REMPLIR\]" STANDARDS.md` → vide (§Observabilité et §Barre qualité complétées)
 4. `echo '{"tool":"bash","input":{"command":"echo ok"}}' | bash .claude/hooks/pre-tool-bash.sh` → exit 0
 5. `CHANGELOG.md` contient une entrée Sprint 0
@@ -207,7 +207,7 @@ le tuning local. **Le tuning local prime toujours.**
 ### Détection de version
 
 ```bash
-grep "SDLC version" Claude.md STANDARDS.md 2>/dev/null || echo "ABSENT"
+cat CLAUDE.md CLAUDE.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "ABSENT"
 ```
 
 | Résultat | Situation | Approche |
@@ -237,7 +237,7 @@ Laissés      : [tuning local conservé + description]
 Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]
 ```
 
-Puis apposer le marqueur dans `Claude.md` et `STANDARDS.md` :
+Puis apposer le marqueur dans `CLAUDE.md` et `STANDARDS.md` :
 ```
 <!-- SDLC version : vZ.W · aligné le JJ/MM/AAAA -->
 ```

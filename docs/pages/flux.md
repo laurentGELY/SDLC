@@ -13,7 +13,7 @@ Du bootstrap à l'évolution du modèle, voici le chemin complet — vérifié c
 Sprint 0 — bootstrap (sdlc-init.sh + 06-PDR-bootstrap.md)
         │
         ▼
-Claude.md gouverne chaque session (01-…§Démarrage)
+CLAUDE.md gouverne chaque session (01-…§Démarrage)
         │
         ▼
 Boucle de sprint :
@@ -48,9 +48,9 @@ Trois boucles imbriquées, à trois fréquences différentes :
 - **La boucle de rétrospective** (toutes les ~5 sprints) — analyse les patterns accumulés et fait remonter les évolutions. Voir [La boucle de rétroaction](#boucle).
 - **La boucle de synchronisation** (quand le modèle évolue) — réaligne chaque projet sur la version courante du toolkit. Voir [/sdlc-sync](#skill-autres).
 
-## Le point d'entrée : Claude.md §Démarrage
+## Le point d'entrée : CLAUDE.md §Démarrage
 
-Chaque session Claude Code commence par une séquence fixe déclarée dans `Claude.md §Démarrage` : sync git, vérification de la mémoire de sprint, lecture de la référence architecturale, création du fichier spec du sprint, initialisation de la mémoire, chargement chirurgical du `§Handoff`, puis écriture du plan de développement **avant tout code**.
+Chaque session Claude Code commence par une séquence fixe déclarée dans `CLAUDE.md §Démarrage` : sync git, vérification de la mémoire de sprint, lecture de la référence architecturale, création du fichier spec du sprint, initialisation de la mémoire, chargement chirurgical du `§Handoff`, puis écriture du plan de développement **avant tout code**.
 
 C'est cette séquence qui garantit qu'une session ne démarre jamais « à froid » : l'agent connaît toujours l'état du dépôt, le sprint actif et l'architecture avant d'agir.
 

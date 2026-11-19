@@ -1,10 +1,10 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.1 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.2 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
 > Référence technique permanente du dépôt.
-> Complémentaire à `Claude.md` — ne contient pas de workflow de sprint.
+> Complémentaire à `CLAUDE.md` — ne contient pas de workflow de sprint.
 > Mettre à jour dans le même commit que tout changement architectural.
 
 ---
@@ -113,7 +113,7 @@ toute dimension sans seuil a priori évident — mesurer l'existant et tenir la 
 
 | Dimension | Valeur mesurée | Direction | Date de mesure |
 |-----------|----------------|-----------|-----------------|
-| Contexte permanent (M1 — `wc -w Claude.md STANDARDS.md`) | [À REMPLIR] | ne croît pas de plus de 10 % entre deux `/retrospective` | [À REMPLIR] |
+| Contexte permanent (M1 — `wc -w CLAUDE.md STANDARDS.md`) | [À REMPLIR] | ne croît pas de plus de 10 % entre deux `/retrospective` | [À REMPLIR] |
 | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] | [À REMPLIR] |
 
 ### Exceptions — une dérogation datée, pas un `# noqa` anonyme

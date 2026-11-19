@@ -163,7 +163,7 @@ fi
 # FICHIER_CONFIG="config.yaml"  # [→ ADAPTER] nom du fichier de config principal
 # if echo "$CMD" | grep -qE "(sed|echo|tee).*${FICHIER_CONFIG}"; then
 #   echo "AVERTISSEMENT : modification directe de ${FICHIER_CONFIG} détectée." >&2
-#   echo "Règle Claude.md : noter la valeur précédente avant modification." >&2
+#   echo "Règle CLAUDE.md : noter la valeur précédente avant modification." >&2
 # fi
 
 exit 0

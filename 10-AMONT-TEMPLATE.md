@@ -1,5 +1,5 @@
 # AMONT — [Nom du projet] · Project Instructions Claude.ai
-<!-- Template SDLC v1.9 · Destination : Project Knowledge / Custom Instructions
+<!-- Template SDLC v2.0 · Destination : Project Knowledge / Custom Instructions
      d'un Project Claude.ai dédié à la phase amont — PAS copié dans le repo cible -->
 
 > Ce document instruit une session Claude.ai (pas Claude Code) dédiée à
@@ -61,7 +61,7 @@ Ce document devient l'input du Sprint 0. Correspondance :
 
 **Aucune étape de conversion manuelle requise.** Claude Code vérifie déjà
 systématiquement toute hypothèse d'un PDR contre le code réel
-(`HALT-ARCH`, `Claude.md §Règles absolues`) et toute dépendance déclarée
+(`HALT-ARCH`, `CLAUDE.md §Règles absolues`) et toute dépendance déclarée
 contre son état réel (`§Dépendances vérifiées`, tout PDR sprint) — que
 le PDR vienne de cette session amont ou d'ailleurs. Coller le contenu
 tel quel suffit.

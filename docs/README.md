@@ -71,6 +71,6 @@ Points de vigilance après le `sed` :
 - `CHANGELOG.md` / historique : une entrée décrit la *création* de `doc/` (fait historique) — la laisser telle quelle si vous voulez préserver la vérité du journal.
 - `sdlc-init.sh`, `sdlc-delta.sh`, `sdlc-project-check.sh` : vérifier que les `mkdir`/chemins pointent bien sur `docs/`.
 - `00-CONTEXT.md §1`, `specs/SPEC.md §Modules` : ajouter `docs/` (site) à la carte des fichiers.
-- `Claude.md §Démarrage` : les lectures `docs/ROADMAP.md` / `docs/SESSION_BRIDGE.md` doivent être cohérentes.
+- `CLAUDE.md §Démarrage` : les lectures `docs/ROADMAP.md` / `docs/SESSION_BRIDGE.md` doivent être cohérentes.
 
 > Enregistrer le site dans `00-CONTEXT.md §1` comme surface documentaire humaine (au même titre que `SPEC.html` / `MODE-OPERATOIRE.html`) — sinon c'est une surface non tracée, contraire à INV-2.
