@@ -1,5 +1,5 @@
 # Hooks Claude Code — Template Python · v1.0
-<!-- Template SDLC v1.4 · Destination : .claude/hooks/ dans le repo cible -->
+<!-- Template SDLC v1.5 · Destination : .claude/hooks/ dans le repo cible -->
 <!-- Généré au bootstrap · Complété au fil des sprints via boucle LESSONS_LEARNED -->
 
 > Les hooks rendent certaines règles non-négociables — indépendamment de la mémoire du modèle.
@@ -39,6 +39,7 @@ Copier dans le projet cible, puis activer les sections pertinentes.
 Grep de validation post-adaptation : `grep "\[ACTIVER" .claude/hooks/pre-tool-bash.sh`
 → zéro résultat attendu si toutes les décisions sont prises.
 
+<!-- hook:pre-tool-bash:début -->
 ```bash
 #!/bin/bash
 # Hook pre-tool-bash — [Nom du projet]
@@ -76,7 +77,10 @@ print(data.get('tool_name', ''))
 # Chaque blocage doit avoir une entrée dans docs/DECISIONS.md (préfixe D-HOOK-XX)
 
 # [UNIVERSEL] git push --force — destructif sur l'historique partagé
-if echo "$CMD" | grep -qE 'git\s+push.*(--force|-f)\s'; then
+# Option cherchée dans le seul segment du push (pas au-delà de ; & |) : bloque --force et -f
+# n'importe où dans ce segment, --force-with-lease et la forme +refspec ; laisse passer
+# « git push … && git worktree remove --force … » et « git push …; rm -f … » (ELAG-1b, M-ARCH-10).
+if echo "$CMD" | grep -qE 'git\s+push\b[^;&|]*(\s(--force|-f)\b|\s\+[^[:space:]])'; then
   echo "BLOQUÉ : git push --force interdit." >&2
   echo "Utiliser git revert pour annuler un commit déjà poussé." >&2
   exit 2
@@ -164,6 +168,7 @@ fi
 
 exit 0
 ```
+<!-- hook:pre-tool-bash:fin -->
 
 ---
 
@@ -269,6 +274,7 @@ gate (pas de sémantique allow/block utilisée ici, même si `PreCompact`
 supporte techniquement `{"decision":"block"}`). Référence : projet toolkit
 SDLC, `07-DECISIONS-SDLC.md M-HOOKS-08`.
 
+<!-- hook:pre-compact:début -->
 ```bash
 #!/bin/bash
 # Hook pre-compact — adapter le nom de projet en commentaire si besoin
@@ -316,6 +322,7 @@ fi
 
 exit 0
 ```
+<!-- hook:pre-compact:fin -->
 
 Si activé → ajouter dans `settings.json` :
 

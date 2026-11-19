@@ -75,7 +75,10 @@ fi
 # ─── BLOCAGES STRICTS ─────────────────────────────────────────────────────────────────────────
 
 # [UNIVERSEL] git push --force — destructif sur l'historique partagé
-if echo "$CMD" | grep -qE 'git\s+push.*(--force|-f)\s'; then
+# Option cherchée dans le seul segment du push (pas au-delà de ; & |) : bloque --force et -f
+# n'importe où dans ce segment, --force-with-lease et la forme +refspec ; laisse passer
+# « git push … && git worktree remove --force … » et « git push …; rm -f … » (ELAG-1b, M-ARCH-10).
+if echo "$CMD" | grep -qE 'git\s+push\b[^;&|]*(\s(--force|-f)\b|\s\+[^[:space:]])'; then
   echo "BLOQUÉ : git push --force interdit." >&2
   echo "Utiliser git revert pour annuler un commit déjà poussé." >&2
   exit 2

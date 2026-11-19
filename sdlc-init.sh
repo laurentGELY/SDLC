@@ -78,6 +78,25 @@ deploy_copy() {
   echo "  ✅ ${dst}"
 }
 
+# ─── HELPER : extraire un hook de 08-hooks-TEMPLATE.md ───────────────────────
+# Source unique des hooks livrés (ELAG-1b, M-ARCH-10) : le bloc bash compris entre
+# <!-- hook:<nom>:début --> et <!-- hook:<nom>:fin -->. Plus de copie inline à resynchroniser.
+
+extract_hook() {
+  local name="$1"
+  local dst="$2"
+  local src="${SCRIPT_DIR}/08-hooks-TEMPLATE.md"
+  if ! grep -qF "<!-- hook:${name}:début -->" "${src}" || ! grep -qF "<!-- hook:${name}:fin -->" "${src}"; then
+    echo "  ❌ Marqueurs hook:${name} absents de 08-hooks-TEMPLATE.md — bootstrap interrompu" >&2
+    exit 1
+  fi
+  awk -v b="<!-- hook:${name}:début -->" -v e="<!-- hook:${name}:fin -->" \
+    '$0 == b { f = 1; next } $0 == e { f = 0 } f && !/^```/' "${src}" \
+    | sed -e "s#\[Nom du projet\]#${PROJECT_NAME}#g" -e "s#\[AAAA-MM-JJ\]#${DATE_ISO}#g" > "${dst}"
+  chmod +x "${dst}"
+  echo "  ✅ ${dst} (extrait de 08-hooks-TEMPLATE.md)"
+}
+
 # ─── ÉTAPE 1 : STRUCTURE DES DOSSIERS ────────────────────────────────────────
 
 echo "📁 Création de la structure..."
@@ -317,50 +336,9 @@ echo "📄 Hooks Claude Code..."
 deploy_copy "${SCRIPT_DIR}/08-hooks-TEMPLATE.md" \
   "${TARGET_DIR}/.claude/hooks/hooks-reference.md"
 
-# Créer un pre-tool-bash.sh minimal avec seulement les blocages universels
-cat > "${TARGET_DIR}/.claude/hooks/pre-tool-bash.sh" << 'HOOK'
-#!/bin/bash
-# Hook pre-tool-bash — [À ADAPTER : remplacer par le nom du projet]
-# Version : 1.0.0 | [date bootstrap]
-# Sections activées : blocages universels uniquement
-# Pour activer d'autres sections → lire hooks-reference.md · documenter dans docs/DECISIONS.md §D-HOOK-XX
-#
-# Protocole : exit 0 = autoriser · exit 1 = bloquer silencieux · exit 2 = bloquer avec message
-
-set -euo pipefail
-
-INPUT=$(cat)
-CMD=$(echo "$INPUT" | python3 -c "
-import sys, json
-data = json.load(sys.stdin)
-print(data.get('input', {}).get('command', ''))
-" 2>/dev/null || echo "")
-
-# ─── BLOCAGES UNIVERSELS ──────────────────────────────────────────────────────
-
-if echo "$CMD" | grep -qE 'git\s+push.*(--force|-f)\s'; then
-  echo "BLOQUÉ : git push --force interdit." >&2
-  echo "Utiliser git revert pour annuler un commit déjà poussé." >&2
-  exit 2
-fi
-
-if echo "$CMD" | grep -qE 'rm\s+-rf\s+(/|\./)?(\.git|src|data|db|scripts)\b'; then
-  echo "BLOQUÉ : rm -rf sur dossier critique détecté." >&2
-  exit 2
-fi
-
-# ─── AVERTISSEMENTS ───────────────────────────────────────────────────────────
-
-if echo "$CMD" | grep -qE '^sudo\s+' && \
-   ! echo "$CMD" | grep -qE 'sudo\s+(apt|snap|systemctl)'; then
-  echo "AVERTISSEMENT : commande sudo hors apt/snap détectée." >&2
-fi
-
-exit 0
-HOOK
-
-chmod +x "${TARGET_DIR}/.claude/hooks/pre-tool-bash.sh"
-echo "  ✅ .claude/hooks/pre-tool-bash.sh (chmod +x · blocages universels)"
+# Hooks actifs : blocages universels (pre-tool-bash) et checkpoint de compaction (pre-compact)
+extract_hook pre-tool-bash "${TARGET_DIR}/.claude/hooks/pre-tool-bash.sh"
+extract_hook pre-compact "${TARGET_DIR}/.claude/hooks/pre-compact.sh"
 
 # settings.json
 cat > "${TARGET_DIR}/.claude/settings.json" << 'SETTINGS'
@@ -373,6 +351,26 @@ cat > "${TARGET_DIR}/.claude/settings.json" << 'SETTINGS'
           {
             "type": "command",
             "command": ".claude/hooks/pre-tool-bash.sh"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "manual",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-compact.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "auto",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-compact.sh"
           }
         ]
       }
@@ -411,13 +409,19 @@ else
   echo "  ✅ Aucun placeholder résiduel dans les fichiers clés"
 fi
 
-# Smoke test hook
-SMOKE=$(echo '{"tool":"bash","input":{"command":"echo ok"}}' \
+# Smoke test hook — schéma réel PreToolUse (tool_input), un cas autorisé et un cas bloqué.
+# Un hook qui lit une clé absente laisse tout passer en silence (M-HOOKS-05) :
+# seul le cas bloqué le révèle.
+INIT_ERRORS=0
+SMOKE_OK=$(echo '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"echo ok"}}' \
   | bash "${TARGET_DIR}/.claude/hooks/pre-tool-bash.sh" 2>/dev/null; echo $?)
-if [ "${SMOKE}" = "0" ]; then
-  echo "  ✅ Hook smoke test : exit 0"
+SMOKE_KO=$(echo '{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push --force origin main"}}' \
+  | bash "${TARGET_DIR}/.claude/hooks/pre-tool-bash.sh" 2>/dev/null; echo $?)
+if [ "${SMOKE_OK}" = "0" ] && [ "${SMOKE_KO}" = "2" ]; then
+  echo "  ✅ Hook smoke test : commande autorisée → exit 0 · poussée forcée → exit 2"
 else
-  echo "  ❌ Hook smoke test : exit ${SMOKE} — vérifier le script"
+  echo "  ❌ Hook smoke test : commande autorisée → exit ${SMOKE_OK} (0 attendu) · poussée forcée → exit ${SMOKE_KO} (2 attendu) — hook livré inopérant"
+  INIT_ERRORS=$((INIT_ERRORS + 1))
 fi
 
 # Marqueur version
@@ -428,6 +432,11 @@ else
 fi
 
 echo ""
+
+if [ "${INIT_ERRORS}" -gt 0 ]; then
+  echo "❌ Bootstrap incomplet : ${INIT_ERRORS} mécanisme(s) livré(s) inopérant(s) — voir les vérifications ci-dessus."
+  exit 1
+fi
 
 # ─── RÉSUMÉ ──────────────────────────────────────────────────────────────────
 

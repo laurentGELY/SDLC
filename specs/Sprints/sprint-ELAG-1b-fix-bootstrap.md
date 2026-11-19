@@ -254,7 +254,41 @@ bash sdlc-validate.sh | tail -2 && bash tests/sdlc-validate-test.sh | tail -2
 ---
 
 ## Plan de développement
-*(à compléter en début de session — étape 4d)*
+*(étape 4d — 19/11/2026)*
+
+**Dépendances vérifiées :**
+- [x] Dépôt à `d302d09` (descendant de `012905d`), arbre propre ; `bash sdlc-validate.sh` → 10/10 ; `bash tests/sdlc-validate-test.sh` → 16/16
+- [x] Aucun autre sprint en cours sur `sdlc-init.sh` ou les hooks (§Now vide, SDLC-33 lots 1-3 en §Later)
+- [x] Décisions 1 à 4 prises (§Décisions prises avant le handoff)
+
+**Taille :** cœur du changement M (hook, bootstrap, C2, test) ; total M-L une fois la gouvernance comptée (renommage dans une soixantaine de mentions de docs d'état courant, `07`, site, HTML) — `M-PROC-28`.
+
+**Constats de l'analyse, absents du PDR :**
+- **C3 sauterait le fichier renommé sans le dire** : sa liste (`sdlc-validate.sh:156`) cite `Claude.md` et fait `[ -f ] || continue`. Renommer sans mettre la liste à jour retire un fichier du contrôle en silence. → liste mise à jour dans le même commit que le renommage, et nombre de fichiers examinés comparé avant/après.
+- **`08` contient aussi le bloc complet de `pre-compact.sh`** (`08:272` environ) : la source unique (décision 3) couvre les deux hooks, chacun entre ses marqueurs ; le `pre-compact.sh` vivant ne diffère du bloc que par ses commentaires d'en-tête.
+- **Le hook vivant cite `Claude.md §Démarrage`** dans ses messages (`.claude/hooks/pre-tool-bash.sh:40, 67`) : à renommer avec le reste (lot 4).
+
+**Modules touchés :**
+| Lot | Fichiers |
+|---|---|
+| 1 | `tests/sdlc-init-test.sh` (nouveau) · `08-hooks-TEMPLATE.md` (marqueurs ×2, regex) · `.claude/hooks/pre-tool-bash.sh` (regex) · `sdlc-init.sh` (extraction des 2 hooks, `settings.json` avec `PreCompact`, smoke test) |
+| 2 | `sdlc-init.sh` (`CLAUDE.md`, garde de départ, marqueur de version, déploiement du wrap-up sans dates, `.gitignore`) · renvois dans `01`, `02`, `03`, `04`, `04b`, `08`, `09`, `11`, skills vivants `wrap-up`/`retrospective`, `sdlc-delta.sh`, `sdlc-project-check.sh` · docs d'état courant |
+| 3 | `sdlc-validate.sh` (C2) · `tests/sdlc-validate-test.sh` (cas RED C2) · frontmatter `03`, `04b`, `09`, `11`, squelette `diagnostic`, skills vivants |
+| 4 | `04b` (détection, renommage en deux temps) · `Claude.md` → `CLAUDE.md` de ce dépôt + `sdlc-validate.sh` C3 + messages du hook vivant · `07` (`M-ARCH-10`) · `03` §3.5 + skill vivant + `00-CONTEXT.md §4` (lancer `tests/sdlc-init-test.sh`) · ROADMAP, CHANGELOG, README, `docs/` (C9/C10), LESSONS |
+
+**Risques identifiés :** ceux du PDR, plus : C3 aveugle après renommage (parade ci-dessus) ; extraction cassée si un marqueur manque (message explicite + test) ; le hook vivant bloque les commandes de test qui contiennent une poussée forcée littérale (cas dans un fichier, chaînes en deux morceaux).
+
+**Plan d'exécution :**
+1. `tests/sdlc-init-test.sh` complet (les 9 points + garde `$<chiffre>` + smoke test sur hook inopérant), lancé sur l'état actuel → **vu rouge**, sortie consignée en mémoire de sprint.
+2. Lot 1 → test : section hook verte · `sdlc-validate.sh` + suite → commit.
+3. Lot 2 → test : sections fichiers vertes · grep des renvois → commit.
+4. Lot 3 → test : section skills verte · nouveau cas RED C2 → commit.
+5. Lot 4 → test complet vert · C3 : même nombre de fichiers examinés · commit, puis wrap-up.
+
+**Plan de test :**
+- A — Ciblé : `bash tests/sdlc-init-test.sh` · `bash sdlc-validate.sh` · `bash tests/sdlc-validate-test.sh` · `bash -n sdlc-init.sh .claude/hooks/pre-tool-bash.sh tests/sdlc-init-test.sh`
+- B — Non-régression : arborescence d'un bootstrap avant/après (`find . -type f | sort`), seuls les écarts attendus (`CLAUDE.md`, `.gitignore`, `pre-compact.sh`) ; les 4 cas autorisés du hook restent autorisés
+- C — Intégration (humain, session neuve) : ouvrir Claude Code dans un bootstrap jetable puis dans ce dépôt après le lot 4 → `CLAUDE.md` chargé, skills listés avec leur description
 
 ---
 
