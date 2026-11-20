@@ -28,9 +28,7 @@
   contredite par le changement proposé → signaler avant d'adapter le fichier
 - **HALT-SCOPE** : périmètre des fichiers à modifier dépasse significativement
   le §Portée du PDR → ne pas étendre sans validation explicite
-- **HALT-TIMEOUT** : commande sans sortie depuis > 60s → préfixer avec
-  `timeout 60`. Si exit code 124 → HALT. (N=60s : aucune commande de ce
-  projet ne dépasse l'édition de fichiers + git, pas de build/test long)
+- **HALT-TIMEOUT** : commande préfixée `timeout 120` qui sort en `exit 124` → HALT
 
 HALT ≠ hook bash : les hooks bloquent les commandes dangereuses avant exécution.
 Les HALT bloquent les conditions logiques détectées pendant le raisonnement.
@@ -56,12 +54,15 @@ de commande, entrée git, log — éviter les formulations non vérifiables
 
 **Source de vérité :** le dépôt git. Restaurer depuis git avant tout patch.
 
-**Référence architecturale :** `specs/SPEC.md` — exhaustive et toujours à jour.
+**Référence architecturale :** `specs/SPEC.md` fait foi pour l'architecture ; en cas d'écart
+avec le code, le code prime et la SPEC est corrigée dans le même commit.
 Sprint specs individuels dans `specs/Sprints/`.
 
 **Limites bash :** pas d'API authentifiée, pas de déploiement — édition de
-fichiers markdown + git uniquement. Pour toute action hors portée : fournir
-la commande exacte prête à copier avec le résultat attendu.
+fichiers markdown, git et scripts du dépôt (`sdlc-*.sh`, `tests/*.sh`). Pour
+toute action hors portée : fournir la commande exacte prête à copier sur une
+ligne, avec le résultat attendu ; au-delà d'une ligne, un script `~/<nom>.sh`
+lancé par une seule commande.
 
 **Secrets :** N/A — aucun `.env`, aucun secret dans ce projet.
 
@@ -169,14 +170,11 @@ Exception : si le header du fichier correspond au sprint spec en cours → repri
 
 ## Modifications spot sur fichiers existants
 
-Toute modification ciblée sur un fichier existant (substitution de pattern,
-mise à jour de référence, renommage dans le contenu) se fait par script
-`sed`/`grep` exécutable — jamais par diff textuel à appliquer manuellement.
-
-**Règle :**
-1. Écrire le script `sed` avec les substitutions exactes
-2. Inclure une vérification finale : `grep` de l'ancien pattern → zéro résultat attendu
-3. Si la modification est trop complexe pour `sed` → régénérer le fichier complet depuis le template
+Toute modification ciblée d'un fichier existant passe par un outil qui vérifie sa cible : `Edit`
+après lecture du fichier, ou script `sed` (jamais un diff textuel à appliquer à la main).
+Après un `sed`, grep de l'ancien motif sur les lignes visées → plus d'occurrence (`Edit` échoue
+seul si le texte manque). Modification trop complexe pour une substitution → plusieurs éditions
+ciblées, chacune vérifiée ; jamais de régénération complète du fichier.
 
 **Exemple minimal :**
 ```bash
@@ -205,7 +203,7 @@ Toujours partir du contenu réel des fichiers, pas d'une hypothèse mémoire.
 la taille totale une fois la gouvernance associée comptée (fichiers de
 registre, doc, specs à mettre à jour en plus du livrable principal) —
 déclarer les deux explicitement dans la spec plutôt que sous-estimer en
-ne comptant que le cœur (SDLC-11 · `M-PROC-28`, `/retrospective` SDLC-15).
+ne comptant que le cœur (`M-PROC-28`).
 
 ```
 ## Compréhension
@@ -252,7 +250,7 @@ projet — schéma d'une plateforme externe, comportement d'un produit tiers,
 contenu d'un document fourni comme acquis — est confirmée par une commande
 exécutable ou une recherche dédiée **avant** d'être écrite dans l'analyse ou
 demandée en aval, jamais présumée depuis une doc tierce ou une mémoire de
-session. *(`LL-T04`, gradué après 7 occurrences — SDLC-14/16/22/23/25/ECO-1/2.)*
+session. *(`LL-T04`)*
 
 Cette vérification ne s'arrête pas à l'analyse : tout total, comptage ou
 identifiant écrit dans un livrable, un commentaire de code ou une décision
@@ -260,8 +258,7 @@ identifiant écrit dans un livrable, un commentaire de code ou une décision
 commande (`grep -c`, `ls`, `wc`) au moment de l'écrire — jamais recopié de
 mémoire. Quand le total peut changer (registre extensible), préférer une
 formulation qui n'a pas besoin d'être mise à jour (`N/M`) à un nombre figé
-qui redeviendra faux. *(`LL-T14`, gradué après
-3 occurrences — SDLC-28/29/30.)*
+qui redeviendra faux. *(`LL-T14`)*
 - [ ] Chaque affirmation factuelle non vérifiable par lecture du repo → source citée
 - [ ] Si non vérifiable en session → signalé comme hypothèse explicite, pas comme fait
 - [ ] Tout total/comptage écrit dans un livrable ou un commentaire → vérifié par
@@ -346,20 +343,9 @@ Si tests OK → `/wrap-up`. Si anomalie → `/diagnostic`.
 
 ## Wrap-up et amélioration continue
 
-**`/wrap-up`** — clôture de sprint :
-- Question rétrospective avec avis éclairé (lit l'index LESSONS_LEARNED)
-- Entrée Lessons Learned rapide (5 lignes max)
-- CHANGELOG + ROADMAP obligatoires, DECISIONS/SPEC/etc. conditionnels
-- Bloc "Corrections ajustées vs spec" dans CHANGELOG si ≥ 1 correction ajustée
-- Commit git conforme + reminder sync fichiers projet Claude.ai
+**`/wrap-up`** — clôture de sprint : skill `.claude/skills/wrap-up/`, déclenché quand les tests A et B sont verts.
 
-**`/retrospective`** — analyse patterns (toutes les ~5 sprints ou sur incident) :
-- Lecture index + entrées récentes LESSONS_LEARNED
-- Détection récurrences, aggravations, succès
-- Traitement `[HOOK_CANDIDATE]` en attente (≥ 2 occurrences → proposer activation)
-- Synthèse `[SDLC_CANDIDATE]` en attente → bloc de remontée manuelle vers projet SDLC
-- Propositions d'actions avec destination explicite
-- Validation humaine avant commit
+**`/retrospective`** — analyse de patterns toutes les ~5 sprints ou sur incident : skill `.claude/skills/retrospective/`.
 
 **Avant tout commit :** vérifier la DoD (STANDARDS.md §Definition of Done).
 `git diff --stat` — fichiers attendus uniquement.

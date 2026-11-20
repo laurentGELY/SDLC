@@ -1,3 +1,7 @@
+---
+name: diagnostic
+description: Diagnostic d'incident sur le modèle SDLC. Utiliser quand un critère d'acceptation grep échoue de façon inattendue, qu'une convention (numérotation, structure) semble incohérente entre fichiers, qu'un PDR exécuté produit un résultat différent de l'attendu, ou sur HALT-3X.
+---
 # diagnostic — SKILL
 <!-- Projet toolkit SDLC · adapté, pas un template générique · créé Sprint SDLC-14 -->
 

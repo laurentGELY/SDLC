@@ -3,7 +3,7 @@ name: retrospective
 description: Analyse des patterns sur plusieurs sprints. Utiliser toutes les ~5 sprints, après un incident majeur, ou quand /wrap-up la recommande ; pas à chaque sprint.
 ---
 # retrospective — SKILL
-<!-- Template SDLC v1.8 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.2 · Destination : .claude/skills/retrospective/SKILL.md dans le repo cible -->
 
 Analyse de patterns sur l'ensemble des sprints complétés.
 Déclencher toutes les ~5 sprints, ou immédiatement après un incident grave.
