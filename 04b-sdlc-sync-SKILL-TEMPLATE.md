@@ -3,7 +3,7 @@ name: sdlc-sync
 description: Alignement du projet sur une nouvelle version du modèle SDLC. Utiliser quand le modèle a évolué ou sur demande.
 ---
 # sdlc-sync — SKILL
-<!-- Template SDLC v2.1 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.2 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Aligne la gouvernance du projet courant sur la version SDLC indiquée dans les sources.
@@ -46,7 +46,9 @@ ls CLAUDE.md Claude.md STANDARDS.md CHANGELOG.md .gitignore 2>/dev/null
 ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md 2>/dev/null
 ls .claude/skills/wrap-up/SKILL.md \
    .claude/skills/retrospective/SKILL.md \
-   .claude/skills/sdlc-sync/SKILL.md 2>/dev/null
+   .claude/skills/sdlc-sync/SKILL.md \
+   .claude/skills/reprise/SKILL.md 2>/dev/null
+for f in specs/Sprints/sprint-*.md; do head -1 "$f" | grep -qE '^Statut : ' || echo "sans marqueur : $f"; done
 ls .claude/hooks/pre-tool-bash.sh .claude/hooks/pre-compact.sh .claude/settings.json 2>/dev/null
 head -1 .claude/skills/*/SKILL.md   # « --- » attendu : frontmatter name/description
 ls specs/sprint-template.md specs/SPEC.md 2>/dev/null
@@ -56,6 +58,13 @@ ls specs/sprint-template.md specs/SPEC.md 2>/dev/null
 regex de poussée forcée du bloc `[UNIVERSEL]` de `08` (option cherchée dans le seul segment
 du push) · `.gitignore` avec `.env`, `.claude/sprint-memory.md`, `.claude/settings.local.json` ·
 frontmatter `name`/`description` de chaque skill · `pre-compact.sh` et ses entrées `PreCompact`.
+
+**Mémoire de reprise (`M-PROC-55`)** — trois mécanismes, chacun un écart s'il manque :
+skill `.claude/skills/reprise/SKILL.md` (copié de `13-reprise-SKILL-TEMPLATE.md`, adapter seulement
+les répertoires de sorties datées de `/reprise init`) · `.claude/reprise.md` dans le `.gitignore` ·
+marqueur `Statut` en ligne 1 des specs `specs/Sprints/sprint-*.md`. Specs sans marqueur → appliquer
+`/reprise` §Amorçage (liste `fichier → statut` soumise à l'humain avant écriture), puis `/reprise init`.
+Un équivalent local (ex. `doc/REPRISE.md`) est classé « déjà aligné », jamais écrasé.
 Un correctif local déjà présent et équivalent est classé « déjà aligné », jamais écrasé.
 
 Produire le tableau d'inventaire avant de continuer :

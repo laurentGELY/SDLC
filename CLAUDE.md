@@ -106,9 +106,12 @@ cat specs/Sprints/sprint-<N>-<slug>.md  # toujours · puis chaque fichier imméd
 
 # 4d. Écrire le §Plan de développement dans le spec avant tout code
 # → compléter modules touchés, risques, plan d'exécution, plan de test
+
+# 4e. Créer le bloc du sprint dans .claude/reprise.md (format : /reprise)
+# → « Reste pour clore » = critères d'acceptation du PDR
 ```
 
-Si aucun sprint spec n'est fourni → demander avant d'aller plus loin.
+Si aucun sprint spec n'est fourni → `/reprise` (plan des sprints ouverts), puis demander.
 Signaler toute anomalie avant de proposer un patch.
 
 **Si `.claude/sprint-memory.md` est non vide en début de session :**

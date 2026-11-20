@@ -186,13 +186,17 @@ sed -i 's/^\*\*Version courante : [^*]*\*\*/**Version courante : v2.0+SPRINT-AU-
 run_validate "$F"
 assert_green 11 "bump vers un nom de version plus long, aucune règle modifiée"
 
-# C4 — paire 13 ↔ skill reprise (M-PROC-55) : non installée ici (C4_EXCEPTIONS) ;
-# installée et divergente → rouge, l'exception ne masque pas une copie présente.
+# C4 — paire 13 ↔ skill reprise installée dans ce dépôt (M-PROC-55, SDLC-33 lot 1b) :
+# un ## ajouté d'un seul côté → rouge ; skill retirée → rouge (aucune exception C4).
 F=$(make_fixture c4-reprise)
-mkdir -p "$F/.claude/skills/reprise"
-{ cat "$F/13-reprise-SKILL-TEMPLATE.md"; printf '\n## Section parasite\n'; } > "$F/.claude/skills/reprise/SKILL.md"
+printf '\n## Section parasite\n' >> "$F/.claude/skills/reprise/SKILL.md"
 run_validate "$F"
-assert_red 4 "skill reprise installée avec un ## de plus que 13-reprise-SKILL-TEMPLATE.md"
+assert_red 4 "## ajouté à .claude/skills/reprise/SKILL.md seulement"
+
+F=$(make_fixture c4-reprise-absente)
+rm -r "$F/.claude/skills/reprise"
+run_validate "$F"
+assert_red 4 "skill reprise retirée du dépôt, sans exception C4"
 
 # C12 — marqueur « Statut » en ligne 1 des specs de sprint (M-PROC-55)
 F=$(make_fixture c12-absent)

@@ -69,7 +69,6 @@ C3_LINE_EXCEPTIONS=(
 C4_EXCEPTIONS=(
   "04b-sdlc-sync-SKILL-TEMPLATE.md|/sdlc-sync jamais installé ici — n'a pas d'objet appliqué au modèle sur lui-même"
   "11-help-SKILL-TEMPLATE.md|/help jamais installé dans ce repo (self-bootstrap SDLC-14)"
-  "13-reprise-SKILL-TEMPLATE.md|skill non installé dans le repo SDLC — M-PROC-55"
 )
 
 # C6 — aucune exception connue au premier lancement (liste initialisée vide,

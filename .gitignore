@@ -26,6 +26,11 @@ Thumbs.db
 # jamais versionnée.
 .claude/sprint-memory.md
 
+# ─── Mémoire de reprise (/reprise, SDLC-33, M-PROC-55) ───────────────────────
+# État des sprints ouverts, réécrit plusieurs fois par jour, unique pour toutes
+# les copies de travail (lu depuis la copie principale) — jamais versionné.
+.claude/reprise.md
+
 # ─── Notes personnelles de réflexion ─────────────────────────────────────────
 # Brouillon de pistes/évolutions à chaud, pas un livrable de gouvernance —
 # jamais versionné.

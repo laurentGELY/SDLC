@@ -36,11 +36,11 @@ echo "VERSIONS"
 CURRENT_VERSION=$(grep -h "SDLC version" \
     "$INSTR" \
     "$PROJECT_DIR/STANDARDS.md" 2>/dev/null \
-  | grep -oP 'v[0-9]+\.[0-9]+' | head -1 \
+  | grep -oP 'v[0-9]+\.[0-9]+(\+[A-Za-z0-9._-]+)?' | head -1 \
   || echo "ABSENT")
 
 TARGET_VERSION=$(grep "^\*\*Version courante" "$SDLC_SRC/README.md" 2>/dev/null \
-  | grep -oP 'v[0-9]+\.[0-9]+' | head -1 \
+  | grep -oP 'v[0-9]+\.[0-9]+(\+[A-Za-z0-9._-]+)?' | head -1 \
   || echo "INCONNU")
 
 echo "  Projet   : $CURRENT_VERSION"
@@ -81,6 +81,7 @@ check_file "docs/CLAUDE_PROJECT.md"                 "$PROJECT_DIR/docs/CLAUDE_PR
 check_file ".claude/skills/wrap-up/SKILL.md"       "$PROJECT_DIR/.claude/skills/wrap-up/SKILL.md"
 check_file ".claude/skills/retrospective/SKILL.md"  "$PROJECT_DIR/.claude/skills/retrospective/SKILL.md"
 check_file ".claude/skills/sdlc-sync/SKILL.md"     "$PROJECT_DIR/.claude/skills/sdlc-sync/SKILL.md"
+check_file ".claude/skills/reprise/SKILL.md"       "$PROJECT_DIR/.claude/skills/reprise/SKILL.md"
 check_file ".claude/hooks/pre-tool-bash.sh"         "$PROJECT_DIR/.claude/hooks/pre-tool-bash.sh"
 check_file ".claude/settings.json"                 "$PROJECT_DIR/.claude/settings.json"
 check_file "specs/sprint-template.md"              "$PROJECT_DIR/specs/sprint-template.md"
@@ -124,7 +125,8 @@ for f in \
   03-wrap-up-SKILL-TEMPLATE.md \
   04-sprint-PDR-TEMPLATE.md \
   04b-sdlc-sync-SKILL-TEMPLATE.md \
-  09-retrospective-SKILL-TEMPLATE.md; do
+  09-retrospective-SKILL-TEMPLATE.md \
+  13-reprise-SKILL-TEMPLATE.md; do
   if [ -f "$SDLC_SRC/$f" ]; then
     VER=$(grep -oP 'SDLC v[0-9]+\.[0-9]+' "$SDLC_SRC/$f" 2>/dev/null | head -1 || echo "?")
     echo "  ✅ $f  ($VER)"
