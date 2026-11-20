@@ -89,7 +89,7 @@ consommateurs) se lit et se met à jour uniquement ici.
 | `06-PDR-bootstrap.md` | Guide Sprint 0 | *(guide d'exécution, pas copié)* | `10` (référencé si phase amont) | Bootstrap initial uniquement |
 | `07-DECISIONS-SDLC.md` | Registre décisions sur le modèle | *(propre à ce projet)* | — | *(propre au projet toolkit, jamais copié)* |
 | `08-hooks-TEMPLATE.md` | Hooks bash PreToolUse | `.claude/hooks/` | — | Chaque commande bash en session |
-| `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `.claude/skills/retrospective/SKILL.md` | `docs/LESSONS_LEARNED.md` du projet cible | Toutes les ~5 sprints |
+| `09-retrospective-SKILL-TEMPLATE.md` | Analyse patterns | `.claude/skills/retrospective/SKILL.md` | `docs/LESSONS_LEARNED.md` et `docs/REMONTEE_SDLC.md` (file des remontées, M-PROC-61) du projet cible | Toutes les ~5 sprints |
 | `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) | — | Project Claude.ai dédié, optionnel |
 | `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/skills/help/SKILL.md` | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `CLAUDE.md` | À la demande |
 | `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | *(guide toolkit, pas copié)* | — | Comparaison SDLC vs framework tiers, ponctuel |

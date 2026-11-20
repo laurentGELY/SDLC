@@ -1,5 +1,5 @@
 # Sprint 0 — Bootstrap SDLC dans un nouveau projet
-<!-- Template SDLC v1.1 · Guide opérationnel pour Claude Code · Pas un template à adapter -->
+<!-- Template SDLC v1.2 · Guide opérationnel pour Claude Code · Pas un template à adapter -->
 
 **Type :** Doc
 **Taille :** M
@@ -59,6 +59,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `docs/DECISIONS.md` | *(créer from scratch)* | **Créer** : header + conventions de préfixes, zéro entrée D-XX |
 | `docs/LESSONS_LEARNED.md` | *(créer from scratch)* | **Créer** : §Index vide + format entrée sprint, zéro contenu |
 | `docs/DIAGNOSTIC_CMDS.md` | *(créer from scratch)* | **Créer** : header + format, zéro entrée |
+| `docs/REMONTEE_SDLC.md` | *(créé par `sdlc-init.sh`)* | **Créer** : 3 sections vides (Entrées · Remontées en attente · Décisions demandées au projet SDLC) — `M-PROC-61` |
 | `docs/SESSION_BRIDGE.md` | `03-wrap-up-SKILL-TEMPLATE.md` §Étape 5 | **Créé automatiquement** au premier `/wrap-up` — format accumulatif, entrées en tête |
 | `docs/CLAUDE_PROJECT.md` | `sdlc-project-check.sh` | **Généré** par le script — compléter l'avis Claude, valider, commiter |
 

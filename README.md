@@ -142,6 +142,7 @@ cat CLAUDE.md Claude.md STANDARDS.md 2>/dev/null | grep "SDLC version" || echo "
 | *(from scratch)* | `docs/DECISIONS.md` | Header + conventions préfixes |
 | *(from scratch)* | `docs/LESSONS_LEARNED.md` | §Index vide + format |
 | *(from scratch)* | `docs/DIAGNOSTIC_CMDS.md` | Header + format |
+| *(from scratch)* | `docs/REMONTEE_SDLC.md` | File des remontées vers le modèle, 3 sections vides (`M-PROC-61`) |
 | *(from scratch)* | `specs/SPEC.md` | Structure vide du domaine |
 | *(from scratch)* | `.claude/skills/diagnostic/SKILL.md` | Commandes de diagnostic |
 

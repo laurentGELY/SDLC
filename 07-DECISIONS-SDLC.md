@@ -229,6 +229,9 @@ Coût marginal faible (une question de plus en Étape 1, un champ optionnel en �
 **Invariant :** toute règle dans `pre-tool-bash.sh` doit avoir une entrée `docs/DECISIONS.md §D-HOOK-XX`.
 Un hook sans décision documentée est une règle implicite — interdit par le modèle.
 
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-34) : la section « Candidat hook » du gabarit d'analyse de `01` (R-49) est retirée — la collecte se fait au `/wrap-up` (Étape 1, question 2 ; Étape 2, champ `Hook candidat`), seule entrée de la boucle ; compensation du budget C11 (`M-PROC-49`).
+
 ---
 
 ## M-TMPL-02 · Champ Interdit dans PDR · v1.2 · 30/05/2026
@@ -587,6 +590,13 @@ pas seulement l'auteur du modèle.
 | M-PROC-54 | Élagage règle par règle (`Règles visées`, diff du comptage) ; réécriture d'ensemble admise seulement avec annexe I/T/A/O (provisoire) | ✓ | — |
 | M-TMPL-10 | Prose → renvoi d'une ligne quand un mécanisme vérifié porte la règle (résumés de skills, HALT-TIMEOUT, `.claude/rules/`) | ✓ | — |
 | M-PROC-55 | Mémoire de reprise multi-sprints : skill `/reprise` (`13`), `.claude/reprise.md` non versionné et unique (copie principale), marqueur `Statut` en ligne 1 des specs (C12), table des 3 mémoires | ✓ (marqueur, skill déployé, `.gitignore`) | usage actif de `/reprise` : sprints à déclencheur externe · option worktree et bloc de hook `[ACTIVER]` : dépôt exécuté par un service planifié |
+| M-PROC-56 | Maison des dettes : chaque dette `⚠️` du wrap-up cite sa garde, son action de reprise ou sa ligne ROADMAP observée ; colonne Déclencheur « · observé par : » | ✓ | — |
+| M-PROC-57 | Règle de doc mécanisable → test pre-commit (`08 §pre-commit git`, optionnel) ; références de section suivies par `grep`, porteurs d'ID inventoriés avant scission | ✓ | — |
+| M-PROC-58 | Une source par fait ; `specs/SPEC.md` fait foi, code prioritaire ; chiffre importé = hypothèse ; commande hors portée sur une ligne ou script | ✓ | — |
+| M-PROC-59 | Réglages locaux de chemin reconnus par `/sdlc-sync` (`docs/`↔`doc/`…), consignés dans `D-SYNC-XX` | ✓ | — |
+| M-PROC-60 | Vérifier pour de vrai : config en run réel, filet déclenché et refus observé | ✓ | niveau C sans effet externe : test C qui touche une ressource externe |
+| M-PROC-61 | File unique de remontées `docs/REMONTEE_SDLC.md` (3 sections), remontées en attente comptées à chaque rétro | ✓ | — |
+| M-HOOKS-09 | Garde avant règle (destination C par défaut) ; `pkill -f` et `pgrep -f` non ancré bloqués | ✓ | — |
 
 ---
 
@@ -1559,6 +1569,9 @@ jour cette entrée et `M-HOOKS-04`/`M-HOOKS-05`.
 **Impact fichiers :** `01-Claude-md-TEMPLATE.md §Tokens` (+4 lignes).
 
 **Déclencheur de réouverture :** si un cas réel de mauvaise sélection de modèle (sous- ou sur-dimensionné) est observé → affiner les deux catégories avec des exemples concrets sourcés.
+
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-34) : la règle quitte `01 §Tokens` (R-35) pour `04 §Handoff` (« Instructions spécifiques ») — elle s'adresse au choix fait à la délégation, que le Handoff prépare ; compensation du budget C11 (`M-PROC-49`).
 
 ---
 
@@ -2854,6 +2867,9 @@ dans `CLAUDE.md` est chargé à chaque session pour une procédure qui ne sert q
 **Déclencheur de réouverture :** un mécanisme visé est retiré ou cesse de marcher (skill renommé ou sans
 frontmatter, `tests/sdlc-init-test.sh` rouge).
 
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-34) : cliquet abaissé à la mesure, 336/16684 → 327/16597 (`sdlc-validate.sh`), après les ajouts des `M-PROC-57`, `58`, `60` dans `01` compensés par R-49 (retrait) et R-35 (déplacé vers `04`) : bilan net −9 lignes, −87 octets.
+
 ---
 
 ## M-PROC-55 · Mémoire de reprise multi-sprints — `/reprise`, `.claude/reprise.md`, marqueur `Statut` · v2.0+SDLC-33 · 20/11/2026
@@ -2901,3 +2917,208 @@ skill `/reprise` (v1.2.1) et `doc/REPRISE.md`, avec un marqueur `Statut` en lign
 **Déclencheur de réouverture :** tests terrain C1–C4 de `/reprise` (plan complet sans contexte, résistance
 au crash, suivi pas à pas, hygiène à 2 semaines) non tenus dans Job search 2 semaines après sa
 synchronisation.
+
+---
+
+## M-PROC-56 · Maison des dettes — chaque dette ouverte cite où elle est surveillée · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontées de Job search E1 D-1 (une ligne `⚠️` du bilan de wrap-up restée sans suite),
+E1 D-2 (déclencheurs ROADMAP non observables), E6 L5 (une même surveillance écrite à plusieurs endroits,
+close à l'un et reconduite à l'autre) et E6 L6 (déclencheur qui cite une ligne de log jamais relevée dans
+le code) — `specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md §Registre`, livrées par SDLC-34.
+
+**Retenu :**
+1. `03 §0d` : chaque ligne `⚠️` de `DETTE / EFFETS DE BORD` cite sa maison, par ordre de préférence —
+   garde automatique (test, hook) · action de `.claude/reprise.md` à déclencheur daté (R4) · ligne ROADMAP
+   à déclencheur observable et observateur nommé. Sans maison → clôture bloquée comme une entrée LESSONS
+   manquante. Rappel dans le bloc Amorce (`§Étape 5`, « DETTES OUVERTES »).
+2. Une surveillance a une seule maison, ailleurs un renvoi ; `grep -rn "<libellé>"` avant de la clore ou
+   de la reconduire (L5). Un déclencheur qui cite une ligne de log la relève d'abord dans le code (L6).
+3. `05` : colonne Déclencheur écrite `<déclencheur> · observé par : <script | section | /reprise | personne>`
+   — « personne » autorisé mais visible, compte comme dette sans maison (D-2 adaptée, K4).
+
+**Écarté :**
+- **Nouvelle colonne « Observateur » dans `05` (D-2 brute)** — écarté (K4) : élargit deux tableaux pour une
+  information d'une ligne ; la convention dans la colonne existante suffit.
+- **Contrôle mécanique des maisons** — écarté : aucun signal simple dans un projet cible ; à mécaniser sur
+  récidive (`[HOOK_CANDIDATE]`).
+
+**Raison :** une dette citée au bilan puis oubliée revient comme incident ; nommer sa maison au wrap-up
+rend l'oubli visible au moment où il coûte le moins.
+
+**Impact fichiers :** `03` v2.3 + skill vivant, `05` v1.3.
+
+**Déclencheur de réouverture :** une dette sans maison relevée à une rétro malgré la règle → contrôle du bilan.
+
+---
+
+## M-PROC-57 · Règle de doc mécanisable → pre-commit ; références de section suivies · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontées de Job search E4 D-4 (règle « si X change, mettre à jour Y » appliquée à la main
+au wrap-up ; le scanner pre-commit local tourne en < 0,1 s et a trouvé 2 écarts que la revue manuelle
+avait manqués), E4 D-6 et E6 L4 (référence vers une section déplacée restée cassée ; scission d'un fichier
+porteur d'identifiants sans inventaire des autres porteurs) — registre SDLC-33.
+
+**Retenu :**
+1. `08 §pre-commit git` (section optionnelle) : squelette générique, inventaire d'un répertoire comparé à sa
+   liste documentée ; testé dans un dépôt jetable (1 écart → commit refusé, 0 écart → commit accepté).
+   `03 §Étape 3` et `01 §Wrap-up` y renvoient.
+2. `01 §Modifications spot` : après le déplacement, la scission ou le renommage d'une section,
+   `grep -rn "<ancienne référence>"` → zéro ; avant une scission, inventaire des porteurs d'identifiants
+   (`grep -rl "^## [A-Z]-" .`).
+
+**Écarté :**
+- **pre-commit livré actif par `sdlc-init.sh`** — écarté : chaque projet a ses propres couples X → Y ; un
+  squelette sans répertoire adapté refuserait des commits sans raison.
+
+**Raison :** une règle dont la condition est détectable relève d'une garde (`M-HOOKS-09`), pas de la
+mémoire du wrap-up.
+
+**Impact fichiers :** `08` v1.7, `03` v2.3 + skill vivant, `01` v2.10.
+
+**Déclencheur de réouverture :** un écart X → Y manqué dans un projet qui a installé le pre-commit.
+
+---
+
+## M-PROC-58 · Une source par fait ; la SPEC fait foi ; chiffre importé = hypothèse ; commande sur une ligne · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontées de Job search E4 D-5 (fait d'exploitation recopié à plusieurs endroits, qui ont
+divergé), E4 D-7 (« SPEC exhaustive et toujours à jour » : promesse invérifiable, aucun arbitre en cas
+d'écart avec le code), E8 19/11-2 (3 chiffres faux en 3 jours venus d'audits ou de PDR, rétro du 19/11),
+P-19 (rétro du 14/11, 2 occurrences : collage multi-ligne cassé, heredoc coupé) et E5 R-JS-28 (code de
+règle cité à l'humain sans dire ce qu'il impose) — registre SDLC-33.
+
+**Retenu :**
+1. `02 §Règles d'archivage` « Un fait, une source » : un fait d'exploitation ou un inventaire s'écrit à un
+   seul endroit, ailleurs un renvoi ; un inventaire qu'un script peut produire est généré.
+2. `01 §Rôle` : `specs/SPEC.md` fait foi pour l'architecture ; en cas d'écart, le code prime et la SPEC est
+   corrigée dans le même commit (D-7).
+3. `04 §Contexte` : un chiffre repris d'un audit, d'un PDR ou d'une remontée cite sa source et reste une
+   hypothèse, re-mesurée avant de cadrer (19/11-2).
+4. `01 §Rôle` : commande hors portée prête à copier sur une ligne ; au-delà, un script `~/<nom>.sh` lancé
+   par une seule commande (P-19, reformulation sans ligne ajoutée). Un identifiant de règle cité à
+   l'humain est suivi d'une courte phrase qui dit ce qu'il impose (R-JS-28, même paragraphe).
+
+**Écarté :**
+- **Partie « script système livré avec son annulation et le relevé de l'état d'avant » (P-19)** — écartée :
+  propre aux scripts système ; dans `02` si un second projet en a besoin.
+
+**Raison :** chaque copie d'un fait est une occasion de divergence ; un chiffre recopié sans re-mesure
+transporte l'erreur de sa source.
+
+**Impact fichiers :** `01` v2.10 (budget C11 compensé : R-49 retiré, R-35 déplacé), `02` v2.5, `04` v2.8.
+
+**Déclencheur de réouverture :** un écart SPEC/code non corrigé dans le même commit, relevé à une rétro.
+
+---
+
+## M-PROC-59 · Réglages locaux de chemin dans `/sdlc-sync` · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontée de Job search E4 R6 et « divergence assumée » d'E2 : `/sdlc-sync` signalait comme
+écarts des chemins locaux stables (`doc/` au lieu de `docs/`, `specs/Sprints/sprint-template.md`,
+`DECISIONS-<famille>.md`, `doc/REPRISE.md`) — registre SDLC-33.
+
+**Retenu :** `04b §Étape A` — table « Réglages locaux de chemin » (chemin du modèle → variantes acceptées),
+détection par `ls`, variante consignée dans l'entrée `D-SYNC-XX` (ligne « Réglages locaux »), jamais
+signalée comme écart ; le delta s'applique au chemin local. `sdlc-delta.sh` accepte `doc/REMONTEE_SDLC.md`.
+
+**Écarté :**
+- **Adapter le skill par projet** — écarté (K5) : casse « zéro adaptation » et la synchronisation suivante.
+- **Imposer les chemins du modèle** — écarté : migration sans bénéfice pour le projet.
+
+**Raison :** un écart qui revient à chaque synchronisation sans être corrigé n'est pas un écart, c'est un
+réglage ; le traiter comme tel garde le rapport lisible.
+
+**Impact fichiers :** `04b` v2.3, `sdlc-delta.sh`.
+
+**Déclencheur de réouverture :** une variante non listée rencontrée en synchronisation → l'ajouter à la table.
+
+---
+
+## M-PROC-60 · Vérifier pour de vrai — config en run réel, niveau C sans effet externe, filet déclenché · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontées de Job search E5 R-JS-01 avec la règle de Laurent du 28/09 (valeur de config
+notée, valeur effective jamais vérifiée), E1 S56-1 (test d'intégration qui touche une ressource externe)
+et E5 R-JS-15 (filet de sécurité ajouté sans avoir jamais été vu refuser) — registre SDLC-33.
+
+**Retenu :**
+1. `01 §Règles absolues` : « …sans noter la valeur précédente ni vérifier la valeur effective dans un run
+   réel » — fusion dans la ligne existante, pas d'ajout.
+2. `02 §Niveaux de test`, ligne C : le run complet prouve qu'il n'écrit ni ne consomme rien à l'extérieur,
+   sinon il passe par un harnais qui remplace la collecte — dans `02` seul (K14).
+3. `02 §Definition of Done §Livrable` : tout filet ajouté ou modifié a été déclenché pour de vrai et son
+   refus observé — forme DoD de `M-ARCH-10` (renvoi, pas doublon).
+
+**Écarté :**
+- **Hook sur les fichiers de configuration** — écarté : aucun signal mécanique simple de « valeur effective ».
+
+**Raison :** une vérification qui ne regarde que l'intention (valeur écrite, test écrit, garde écrite)
+laisse passer exactement les défauts qu'elle prétend couvrir. Observé dès ce sprint : le hook vivant a
+refusé une commande de commit dont le message citait le motif qu'il bloque.
+
+**Impact fichiers :** `01` v2.10, `02` v2.5.
+
+**Déclencheur de réouverture :** récidive d'un des trois cas → `[HOOK_CANDIDATE]`.
+
+---
+
+## M-PROC-61 · File unique de remontées `docs/REMONTEE_SDLC.md` · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontée de Job search E8 P-20 : les `[SDLC_CANDIDATE]` dispersés dans les entrées
+LESSONS se perdaient entre deux rétros ; Job search a créé une file locale. Adaptée (K17) : chemin `docs/`,
+décisions côté modèle en `M-…` — registre SDLC-33.
+
+**Retenu :**
+1. `/wrap-up` (`03` Étapes 1-2) : chaque nouveau candidat s'écrit dans la file —
+   `[SDLC_CANDIDATE] JJ/MM-N — titre`, puis constat (avec preuve), fichier cible du modèle, nature,
+   proposition — et une ligne « Remontées en attente » ; l'entrée LESSONS garde un renvoi.
+2. File à 3 sections (« Entrées », « Remontées en attente », « Décisions demandées au projet SDLC »),
+   créée vide par `sdlc-init.sh`, inventoriée par `04b` et `sdlc-delta.sh` (variante `doc/`, `M-PROC-59`).
+3. `/retrospective` (`09` Étape 4) : compter les remontées en attente (indicateur suivi, avec sa tendance),
+   inscrire les bilans de report reçus, retirer les remontées traitées.
+4. Côté modèle : bilan de report au format `JJ/MM-N : adoptée (M-…, template X vY) | adaptée (…) |
+   rejetée (raison) | en attente (quoi)` (`docs/CLAUDE_PROJECT.md`).
+
+**Écarté :**
+- **Copier la file de Job search** — écarté (K13) : dépôt public.
+- **File dans ce dépôt** — écarté : le modèle reçoit les files des projets ; ses propres candidats vont en
+  ROADMAP §Later (note dans les skills vivants `wrap-up` et `retrospective`).
+
+**Raison :** une remontée n'a de valeur que si elle arrive et revient avec une issue ; une file unique avec
+un compteur rend la perte mesurable des deux côtés.
+
+**Impact fichiers :** `03` v2.3 + skill vivant, `09` v2.2 + skill vivant, `04b` v2.3, `sdlc-init.sh`,
+`sdlc-delta.sh`, `tests/sdlc-init-test.sh`, `docs/CLAUDE_PROJECT.md`.
+
+**Déclencheur de réouverture :** remontées en attente en hausse sur 2 rétros consécutives d'un projet source.
+
+---
+
+## M-HOOKS-09 · Garde avant règle — hook par défaut pour une commande dangereuse ; `pkill -f`, `pgrep -f` non ancré bloqués · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** remontées de Job search E1 D-3 (une règle écrite sur une commande dangereuse récidive là où
+une garde tient) et E1 S56-3 (`pkill -f` et `pgrep -f` à motif non ancré : le motif est comparé à toute la
+ligne de commande et attrape des processus étrangers) — registre SDLC-33.
+
+**Retenu :**
+1. `09 §Étape 2` (GRADUATION) : destination C (hook) par défaut quand la dette porte sur une commande
+   dangereuse ou qui consomme une ressource externe ; A/B en complément.
+2. `08` (bloc `[UNIVERSEL]`, extrait par `sdlc-init.sh`) et hook vivant 2.2.0 : `pkill` avec `-f`/`--full`
+   bloqué ; `pgrep` avec `-f`/`--full` bloqué si le motif ne commence pas par `^`. 4 cas (2 bloqués,
+   2 passants) sur le hook livré et le hook vivant, `tests/sdlc-init-test.sh`, chaînes en deux morceaux.
+
+**Écarté :**
+- **Avertissement non bloquant** — écarté : S56-3 demande le blocage, le coût d'un faux négatif est un
+  processus tué.
+- **Bloquer tout `pgrep -f`** — écarté : l'ancrage `^` suffit et garde l'usage légitime.
+
+**Limites connues :** une option placée entre `-f` et le motif (`pgrep -f -l x`) passe ; un motif passé
+par variable (`pgrep -f "$M"`) est bloqué même ancré — écrire le motif ancré en clair.
+
+**Raison :** une garde qui refuse au moment de l'action ne dépend ni de la mémoire du modèle ni de la
+relecture.
+
+**Impact fichiers :** `08` v1.7, `.claude/hooks/pre-tool-bash.sh` 2.2.0, `tests/sdlc-init-test.sh`,
+`09` v2.2 + skill vivant.
+
+**Déclencheur de réouverture :** un faux positif qui bloque un usage légitime → affiner la regex.

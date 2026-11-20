@@ -18,6 +18,14 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (CLAUDE.md, STA
 | `06-PDR-bootstrap.md` | Guide opérationnel Sprint 0 | ✓ |
 | `13-reprise-SKILL-TEMPLATE.md` | Skill /reprise — format de `.claude/reprise.md` et marqueur `Statut` (`M-PROC-55`) | ✓ |
 
+## Traitement des files de remontées (`M-PROC-61`)
+Chaque projet du modèle tient `docs/REMONTEE_SDLC.md` (variante `doc/`). Côté SDLC, en session Claude.ai
+de conception ou en sprint : lire la file reçue (entrées et tableau « Remontées en attente »), agréger
+dans un PDR, puis rendre un **bilan de report**, une ligne par remontée :
+`JJ/MM-N : adoptée (M-…, template X vY) | adaptée (…) | rejetée (raison) | en attente (quoi)`.
+Le projet source l'inscrit à sa rétro et retire les remontées traitées. La file d'un projet n'est jamais
+copiée dans ce dépôt (public).
+
 ## Fichiers exclus (et raison)
 | Fichier | Raison d'exclusion |
 |---------|-------------------|

@@ -3,7 +3,7 @@ name: help
 description: Récapitulatif de l'état du projet, en lecture seule. Utiliser quand l'utilisateur demande où en est le projet ou quoi faire ensuite.
 ---
 # help — SKILL
-<!-- Template SDLC v2.0 · Destination : .claude/skills/help/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.1 · Destination : .claude/skills/help/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Recap de contexte à la demande. Lecture seule — zéro écriture, zéro effet
@@ -52,6 +52,7 @@ docs/ROADMAP.md §Next :
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 /wrap-up        → clôture de sprint, en fin de sprint
 /retrospective  → analyse de patterns, toutes les ~5 sprints ou sur incident
+/reprise        → sprints ouverts et actions différées (.claude/reprise.md), à l'ouverture de session sans sprint désigné
 /sdlc-sync      → alignement gouvernance, quand le modèle SDLC évolue
 /diagnostic     → bug ou comportement inattendu, sur incident
 
@@ -75,3 +76,5 @@ un état plausible à sa place.
 - N'écrit dans aucun fichier
 - Ne remplace pas `/diagnostic` (réactif, sur incident) ni `/retrospective`
   (analyse de patterns) — `/help` est un point d'entrée, pas une analyse
+- Ne remplace pas `/reprise` : `/help` dit où on en est, `/reprise` vérifie les déclencheurs
+  des sprints ouverts et propose le plan du jour
