@@ -1,5 +1,5 @@
 # Audit externe — Template · v1.0
-<!-- Template SDLC v1.0 · Destination : guide toolkit — pas copié dans le projet cible -->
+<!-- Template SDLC v1.1 · Destination : guide toolkit — pas copié dans le projet cible -->
 <!-- Usage : comparer le modèle SDLC à un framework/outil tiers. Checklist de sections
      obligatoires + format de verdict standardisé — pas une super-structure à enrichir.
      Origine : docs/AUDIT-EXTERNE-gstack-vs-sdlc.md §7 (P-22), après 3 audits externes
@@ -12,7 +12,9 @@ Structure, concepts clés, mécanismes propres au framework audité.
 
 ## 2. Cartographie SDLC (rappel bref)
 Rappel court des mécanismes SDLC pertinents pour la comparaison — pas une
-redite complète de `00-CONTEXT.md`/`specs/SPEC.md`.
+redite complète de `00-CONTEXT.md`/`specs/SPEC.md`. Avant toute lecture de la source externe, établir
+l'état courant du dépôt — `git log --oneline -10`, `bash sdlc-validate.sh` — et le citer ici : un audit
+parti d'un état supposé amende ce qui a déjà changé (ECO-7, `LL-T04`).
 
 ## 3. Analyse comparative
 Tableau comparatif — 6 axes obligatoires (adapter le contenu, garder les axes) :

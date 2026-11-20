@@ -115,28 +115,8 @@ cat specs/Sprints/sprint-<N>-<slug>.md  # toujours · puis chaque fichier imméd
 Si aucun sprint spec n'est fourni → `/reprise` (plan des sprints ouverts), puis demander.
 Signaler toute anomalie avant de proposer un patch.
 
-**Si `.claude/sprint-memory.md` est non vide en début de session :**
-Afficher le contenu et poser le bloc suivant — **attendre la réponse avant de continuer** :
-
-```
-⚠️  MÉMOIRE SPRINT NON VIDE — sprint précédent non clôturé ?
-
-Causes possibles :
-  A) Wrap-up oublié à la fin du sprint précédent
-  B) Crash ou interruption de session
-  C) Sprint interrompu volontairement
-  D) Session tronquée — contexte dégradé
-
-Actions :
-  1) Lancer /wrap-up maintenant pour clore ce sprint proprement
-  2) Reprendre ce sprint là où il s'est arrêté
-  3) Abandonner ce sprint — supprimer le fichier et démarrer un nouveau
-  4) Reprendre depuis la dernière DÉCISION ou TEST OK valide
-     → lire sprint-memory.md, identifier le dernier point stable,
-       proposer la prochaine action minimale de continuation
-```
-
-Exception : si le header du fichier correspond au sprint spec en cours → reprise normale, pas d'anomalie, continuer sans bloquer.
+**`.claude/sprint-memory.md` non vide** et d'un autre sprint que la spec en cours → bloc
+à 4 options de `/reprise` (§Mémoire de sprint non vide) ; attendre la réponse avant de continuer.
 
 **Classifier le travail :**
 
@@ -238,12 +218,6 @@ ne comptant que le cœur (`M-PROC-28`).
 Règle : le niveau A est invalide sans commande exécutable.
 Une description ("vérifier que X fonctionne") n'est pas un test.
 
-## Candidat hook *(optionnel — remplir si une action risquée a été évitée ou détectée)*
-- Action concernée : [ex : pip install hors venv, écriture directe dans fichier protégé]
-- Pattern détectable : [ex : `pip install [^-]` sans VIRTUAL_ENV]
-- Fréquence estimée : [ponctuelle / récurrente]
-→ À soumettre à l'Étape 1 du wrap-up pour décision.
-
 ## Vérification factuelle *(obligatoire si l'analyse cite un mécanisme non vérifiable par simple lecture du repo)*
 Toute précondition factuelle qui ne se lit pas directement dans les fichiers du
 projet — schéma d'une plateforme externe, comportement d'un produit tiers,
@@ -307,17 +281,8 @@ de la coupure, il ne résume pas le contexte perdu. Étend `M-PROC-10` : la
 pause forcée par tranche horaire suit le même chemin de reprise que la
 session tronquée par crash, sans action manuelle requise pour amorcer la trace.
 
-**Perte accidentelle en cours de sprint :**
-Si `.claude/sprint-memory.md` est absent alors qu'un sprint est manifestement
-en cours (spec sprint active dans `specs/Sprints/`, ou `git diff HEAD` non vide
-sans commit de wrap-up récent) → ne pas continuer sans trace.
-Reconstruire un résumé minimal avant de poursuivre :
-```bash
-git diff HEAD                    # fichiers et changements en cours
-git log --oneline -3             # ancrage temporel
-```
-Format minimal acceptable : 3-5 entrées DÉCISION/TEST couvrant l'état connu.
-Signaler la reconstruction explicitement : `[RECONSTRUIT depuis git diff]`.
+Le futur de tous les sprints ouverts vit dans `.claude/reprise.md` (non versionné) — voir `/reprise`.
+Mémoire perdue en cours de sprint, ou reprise après compaction : `/reprise` §Mémoire de sprint perdue.
 
 ---
 

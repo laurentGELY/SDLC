@@ -3,7 +3,7 @@ name: wrap-up
 description: Clôture de sprint. Utiliser quand l'utilisateur dit « clôture », « wrap-up », « fin de sprint », ou quand les tests A et B du sprint sont verts.
 ---
 # wrap-up — SKILL
-<!-- Template SDLC v2.3 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.4 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -323,7 +323,7 @@ ce wrap-up → `[HOOK_CANDIDATE]`.
 |-----------|--------|
 | Nouvelle décision architecturale | Nouvelle entrée dans `docs/DECISIONS.md` |
 | Comportement système modifié | Mettre à jour `specs/SPEC.md` |
-| Module partagé ajouté/supprimé/renommé | Mettre à jour `STANDARDS.md` §Modules partagés **et** `docs/DEPENDENCY_MAP.md` — même commit |
+| Module partagé ajouté/supprimé/renommé | Mettre à jour `STANDARDS.md` §Modules partagés — même commit |
 | Entrée `[CLOS]` dans `docs/SESSION_BRIDGE.md`, ou > 5 entrées sans nettoyage | Nettoyer `docs/SESSION_BRIDGE.md` — supprimer les entrées `[CLOS]` · avertir si > 5 sans nettoyage |
 | Nouveau fichier de gouvernance créé ce sprint (`.claude/`, `docs/`, `specs/`) | Vérifier `docs/CLAUDE_PROJECT.md` — noter les fichiers manquants → §Étape 6 |
 | Template de skill modifié ce sprint (`03-wrap-up`, `09-retrospective`, etc.) | Répercuter les mêmes changements dans `.claude/skills/<skill>/SKILL.md` — même commit |
@@ -352,6 +352,7 @@ Absents dans un projet cible : ne pas bloquer, passer à la checklist.
 
 Checklist :
 - [ ] CHANGELOG : version +0.1 cohérente avec la précédente
+- [ ] Chaque total cité dans l'entrée CHANGELOG et dans SESSION_BRIDGE relancé par sa commande (`LL-T14`)
 - [ ] ROADMAP : aucun sprint futur écrasé
 - [ ] Tests : niveau A passé (obligatoire), B si module partagé touché
 - [ ] DoD : `STANDARDS.md §Definition of Done` vérifiée (en plus des critères
@@ -500,7 +501,7 @@ les fichiers projet Claude.ai sont **hors repo git** — mise à jour manuelle r
 ```
 Nouvelle feature ou fix         → CHANGELOG + SPEC si comportement change
 Tuning seuils/prompts           → CHANGELOG + DECISIONS (mesure avant/après)
-Module partagé ±                → STANDARDS §Modules + DEPENDENCY_MAP (même commit)
+Module partagé ±                → STANDARDS §Modules (même commit)
 Spike                           → DECISIONS uniquement (pas de code)
 Sprint Doc                      → CHANGELOG uniquement (zéro code)
 Incident / rollback             → LESSONS_LEARNED §Action proposée prioritaire

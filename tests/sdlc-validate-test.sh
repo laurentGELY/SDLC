@@ -217,6 +217,22 @@ printf '# Analyse sans marqueur\n' > "$F/specs/Sprints/ANALYSE-zz-sans-marqueur.
 run_validate "$F"
 assert_green 12 "fichier de specs/Sprints/ hors motif sprint-*.md, sans marqueur"
 
+# C12 — champ « Modèle exécutant » des specs ouvertes (M-PROC-53, LL-T16)
+F=$(make_fixture c12-modele-absent)
+printf 'Statut : ouvert\n# Sprint ZZ — test\n' > "$F/specs/Sprints/sprint-zz-test.md"
+run_validate "$F"
+assert_red 12 "spec ouverte sans ligne « **Modèle exécutant :** »"
+
+F=$(make_fixture c12-modele-placeholder)
+printf 'Statut : ouvert\n# Sprint ZZ — test\n**Modèle exécutant :** [modèle de la session, ex : claude-opus-5-5]\n' > "$F/specs/Sprints/sprint-zz-test.md"
+run_validate "$F"
+assert_red 12 "spec ouverte dont « Modèle exécutant » est resté au placeholder du gabarit"
+
+F=$(make_fixture c12-modele-clos)
+printf 'Statut : clos — 2026-11-20\n# Sprint ZZ — test\n' > "$F/specs/Sprints/sprint-zz-test.md"
+run_validate "$F"
+assert_green 12 "spec close sans « Modèle exécutant » (champ exigé des seules specs ouvertes)"
+
 # ─── C3 · NON-AVEUGLEMENT ────────────────────────────────────────────────────
 # C3 exemptait autrefois des fichiers entiers (C3_EXCEPTIONS) : un vrai résidu
 # y passait sans alerte. Ces cas prouvent que le grain ligne voit les résidus

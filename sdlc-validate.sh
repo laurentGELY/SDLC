@@ -465,7 +465,8 @@ check_c11() {
 #   Le marqueur est la source de /reprise init (M-PROC-55).
 check_c12() {
   # Ligne 1 de chaque specs/Sprints/sprint-*.md : « Statut : ouvert » ou
-  # « Statut : clos — AAAA-MM-JJ ». Les autres fichiers de specs/Sprints/ (audits,
+  # « Statut : clos — AAAA-MM-JJ » ; une spec ouverte porte « **Modèle exécutant :** » renseigné.
+  # Les autres fichiers de specs/Sprints/ (audits,
   # analyses, extraits) ne sont pas des specs de sprint et ne sont pas lus.
   local fail=0 detail="" f n=0
   for f in "$ROOT"/specs/Sprints/sprint-*.md; do
@@ -476,12 +477,19 @@ check_c12() {
       detail="$detail
 ❌ specs/Sprints/$(basename "$f") — ligne 1 : $(head -1 "$f" | cut -c1-60)"
     fi
+    # Spec ouverte : « **Modèle exécutant :** » renseigné (M-PROC-53, LL-T16) ; specs closes non lues.
+    if head -1 "$f" | grep -qx 'Statut : ouvert' \
+       && ! grep -qE '^\*\*Modèle exécutant :\*\* +[^[ ]' "$f"; then
+      fail=1
+      detail="$detail
+❌ specs/Sprints/$(basename "$f") — spec ouverte sans « **Modèle exécutant :** » renseigné"
+    fi
   done
   if [ "$fail" -eq 0 ]; then
-    report "C12 · Marqueur Statut en ligne 1 des specs de sprint (M-PROC-55)" 0 "$n spec(s) examinée(s)"
+    report "C12 · Marqueur Statut des specs de sprint (M-PROC-55) et Modèle exécutant des specs ouvertes (M-PROC-53)" 0 "$n spec(s) examinée(s)"
   else
-    report "C12 · Marqueur Statut en ligne 1 des specs de sprint (M-PROC-55)" 1 "$n spec(s) examinée(s)$detail
-→ Correctif : écrire « Statut : ouvert » (spec active) ou « Statut : clos — AAAA-MM-JJ » (date du commit de wrap-up) en ligne 1."
+    report "C12 · Marqueur Statut des specs de sprint (M-PROC-55) et Modèle exécutant des specs ouvertes (M-PROC-53)" 1 "$n spec(s) examinée(s)$detail
+→ Correctif : écrire « Statut : ouvert » (spec active) ou « Statut : clos — AAAA-MM-JJ » (date du commit de wrap-up) en ligne 1 ; une spec ouverte renseigne « **Modèle exécutant :** » (gabarit 04)."
   fi
   return $fail
 }

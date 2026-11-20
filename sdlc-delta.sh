@@ -33,11 +33,12 @@ fi
 echo ""
 echo "VERSIONS"
 
-CURRENT_VERSION=$(grep -h "SDLC version" \
-    "$INSTR" \
-    "$PROJECT_DIR/STANDARDS.md" 2>/dev/null \
-  | grep -oP 'v[0-9]+\.[0-9]+(\+[A-Za-z0-9._-]+)?' | head -1 \
-  || echo "ABSENT")
+# Sous pipefail, grep sort en 2 si l'un des deux fichiers manque, même quand il a trouvé la
+# version dans l'autre : on neutralise le code de sortie et « ABSENT » ne vaut que pour un
+# résultat vide (avant SDLC-35, « ABSENT » s'ajoutait sous la version trouvée).
+CURRENT_VERSION=$( { grep -h "SDLC version" "$INSTR" "$PROJECT_DIR/STANDARDS.md" 2>/dev/null || true; } \
+  | grep -oP 'v[0-9]+\.[0-9]+(\+[A-Za-z0-9._-]+)?' | head -1 || true)
+[ -n "$CURRENT_VERSION" ] || CURRENT_VERSION="ABSENT"
 
 TARGET_VERSION=$(grep "^\*\*Version courante" "$SDLC_SRC/README.md" 2>/dev/null \
   | grep -oP 'v[0-9]+\.[0-9]+(\+[A-Za-z0-9._-]+)?' | head -1 \

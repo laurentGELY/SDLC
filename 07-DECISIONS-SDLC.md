@@ -2871,6 +2871,9 @@ frontmatter, `tests/sdlc-init-test.sh` rouge).
 
 → Mise à jour 20/11/2026 (Sprint SDLC-34) : cliquet abaissé à la mesure, 336/16684 → 327/16597 (`sdlc-validate.sh`), après les ajouts des `M-PROC-57`, `58`, `60` dans `01` compensés par R-49 (retrait) et R-35 (déplacé vers `04`) : bilan net −9 lignes, −87 octets.
 
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-35) : le champ n'avait été rempli dans aucune spec, y compris celle d'ELAG-4 qui l'a créé (`LL-T16`, `/retrospective` du 20/11/2026) ; C12 refuse désormais une spec `Statut : ouvert` sans ligne `**Modèle exécutant :**` renseignée (placeholder du gabarit refusé), specs closes non lues — 3 cas dans `tests/sdlc-validate-test.sh`, vus rouges avant le contrôle.
+
 ---
 
 ## M-PROC-55 · Mémoire de reprise multi-sprints — `/reprise`, `.claude/reprise.md`, marqueur `Statut` · v2.0+SDLC-33 · 20/11/2026
