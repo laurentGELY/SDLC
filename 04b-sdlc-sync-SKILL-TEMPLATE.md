@@ -3,7 +3,7 @@ name: sdlc-sync
 description: Alignement du projet sur une nouvelle version du modèle SDLC. Utiliser quand le modèle a évolué ou sur demande.
 ---
 # sdlc-sync — SKILL
-<!-- Template SDLC v2.2 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.3 · Destination : .claude/skills/sdlc-sync/SKILL.md dans le repo cible -->
 <!-- Générique — copier tel quel, zéro adaptation -->
 
 Aligne la gouvernance du projet courant sur la version SDLC indiquée dans les sources.
@@ -43,7 +43,8 @@ au fichier renommé (`M-ARCH-10`).
 ```bash
 # Fichiers de gouvernance présents dans le projet
 ls CLAUDE.md Claude.md STANDARDS.md CHANGELOG.md .gitignore 2>/dev/null
-ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md 2>/dev/null
+ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md docs/REMONTEE_SDLC.md 2>/dev/null
+ls -d doc/ specs/Sprints/sprint-template.md doc/DECISIONS*.md doc/REPRISE.md doc/REMONTEE_SDLC.md 2>/dev/null   # réglages locaux (ci-dessous)
 ls .claude/skills/wrap-up/SKILL.md \
    .claude/skills/retrospective/SKILL.md \
    .claude/skills/sdlc-sync/SKILL.md \
@@ -65,6 +66,22 @@ les répertoires de sorties datées de `/reprise init`) · `.claude/reprise.md` 
 marqueur `Statut` en ligne 1 des specs `specs/Sprints/sprint-*.md`. Specs sans marqueur → appliquer
 `/reprise` §Amorçage (liste `fichier → statut` soumise à l'humain avant écriture), puis `/reprise init`.
 Un correctif ou un équivalent local déjà présent (ex. `doc/REPRISE.md`) est classé « déjà aligné », jamais écrasé.
+
+**File de remontées (`M-PROC-61`)** — `docs/REMONTEE_SDLC.md` à 3 sections (« Entrées », « Remontées en
+attente », « Décisions demandées au projet SDLC ») ; absente → la créer vide depuis `sdlc-init.sh`. Les
+`[SDLC_CANDIDATE]` encore portés par `docs/LESSONS_LEARNED.md` y sont reportés, l'entrée LESSONS gardant un renvoi.
+
+**Réglages locaux de chemin (`M-PROC-59`)** — une variante détectée par `ls` est un réglage local, jamais
+un écart : la consigner dans l'entrée `D-SYNC-XX` (ligne « Réglages locaux ») et appliquer le delta au
+chemin local. Le skill reste « zéro adaptation ».
+
+| Chemin du modèle | Variantes locales acceptées |
+|---|---|
+| `docs/` | `doc/` |
+| `specs/sprint-template.md` | `specs/Sprints/sprint-template.md` |
+| `docs/DECISIONS.md` | `doc/DECISIONS.md` · `DECISIONS-<famille>.md` |
+| `.claude/reprise.md` | `doc/REPRISE.md` |
+| `docs/REMONTEE_SDLC.md` | `doc/REMONTEE_SDLC.md` |
 
 Produire le tableau d'inventaire avant de continuer :
 
@@ -140,7 +157,8 @@ Ajouter dans `docs/DECISIONS.md` du projet :
 Appliqués    : [liste sections ajoutées/migrées]
 Ignorés      : [liste + raison]
 Laissés      : [tuning local conservé + description]
-Remontées ?  : [SDLC_CANDIDATE si trouvés — à reporter manuellement dans projet SDLC]
+Réglages locaux : [chemin du modèle → variante locale détectée, ou « aucun »]
+Remontées ?  : [SDLC_CANDIDATE si trouvés — inscrits dans docs/REMONTEE_SDLC.md]
 ```
 
 ### D2 — Marqueur de version

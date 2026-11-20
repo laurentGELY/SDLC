@@ -178,6 +178,11 @@ Grep de validation au bootstrap : `grep "\[À REMPLIR\]" STANDARDS.md` → zéro
 
 ## Règles d'archivage
 
+### Un fait, une source
+Un fait d'exploitation (horaire, matériel, modèle, chemin) ou un inventaire s'écrit à un seul endroit ;
+ailleurs, un renvoi. Un inventaire qu'un script peut produire est généré, jamais recopié
+(`M-PROC-58` du modèle SDLC).
+
 ### docs/DIAGNOSTIC_CMDS.md
 Toute commande `grep / tail / python3 / etc.` ayant localisé ou résolu un problème
 → archivée avant le wrap-up.

@@ -17,6 +17,7 @@ Statut : ouvert
 
 [Symptôme observé ou opportunité identifiée. Pourquoi ce sprint, pourquoi maintenant.
 2-4 phrases. Pas de solution ici — juste le problème ou l'opportunité.]
+<!-- Un chiffre repris d'un audit, d'un PDR ou d'une remontée cite sa source et reste une hypothèse : le re-mesurer avant de cadrer, et signaler l'écart avant le plan (M-PROC-58). -->
 
 ---
 

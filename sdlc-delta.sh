@@ -76,6 +76,12 @@ check_file "docs/ROADMAP.md"                         "$PROJECT_DIR/docs/ROADMAP.
 check_file "docs/DECISIONS.md"                       "$PROJECT_DIR/docs/DECISIONS.md"
 check_file "docs/LESSONS_LEARNED.md"                "$PROJECT_DIR/docs/LESSONS_LEARNED.md"
 check_file "docs/DIAGNOSTIC_CMDS.md"                "$PROJECT_DIR/docs/DIAGNOSTIC_CMDS.md"
+# File des remontées (M-PROC-61) — variante doc/ acceptée comme réglage local (M-PROC-59)
+if [ -f "$PROJECT_DIR/doc/REMONTEE_SDLC.md" ]; then
+  echo "  ✅ doc/REMONTEE_SDLC.md  (réglage local de chemin)"
+else
+  check_file "docs/REMONTEE_SDLC.md"                "$PROJECT_DIR/docs/REMONTEE_SDLC.md"
+fi
 check_file "docs/SESSION_BRIDGE.md"                 "$PROJECT_DIR/docs/SESSION_BRIDGE.md"
 check_file "docs/CLAUDE_PROJECT.md"                 "$PROJECT_DIR/docs/CLAUDE_PROJECT.md"
 check_file ".claude/skills/wrap-up/SKILL.md"       "$PROJECT_DIR/.claude/skills/wrap-up/SKILL.md"
