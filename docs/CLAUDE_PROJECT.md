@@ -5,6 +5,22 @@
 ## Description du projet Claude.ai
 Toolkit de gouvernance SDLC pour projets Claude Code : templates (CLAUDE.md, STANDARDS, wrap-up, PDR, sdlc-sync, retrospective, hooks), scripts (sdlc-init.sh, sdlc-project-check.sh) et registre de décisions. Les sprints SDLC font évoluer ce modèle lui-même selon les invariants définis dans 00-CONTEXT.md. Référence canonique pour tout nouveau projet Claude Code utilisant ce modèle.
 
+## Chemins réels du dépôt — à relire avant d'écrire un PDR (`M-PROC-62`)
+À recopier dans les instructions du projet Claude.ai. Un PDR rédigé dans Claude.ai cite les chemins et
+identifiants **régénérés** par ces commandes (lancées en Claude Code, sortie collée dans la session de
+conception), jamais de mémoire :
+
+```bash
+ls [0-9][0-9]*-*.md                                   # templates numérotés
+ls -d docs specs specs/Sprints .claude/skills/*      # dossiers (docs/, pas doc/)
+for f in ARCH TMPL PROC HOOKS; do grep -oE "^## M-$f-[0-9]+" 07-DECISIONS-SDLC.md | sed 's/## //' | sort -t- -k3n | tail -1; done
+grep -m1 -oE 'Version courante : [^ *]+' README.md
+```
+
+Repères stables : le registre de décisions est `07-DECISIONS-SDLC.md` (pas `docs/DECISIONS.md`), les specs
+vivent dans `specs/Sprints/sprint-<ID>-<slug>.md`. Toute affirmation d'un PDR sur le comportement de
+Claude Code (codes de sortie d'un hook, schéma JSON, chargement d'un fichier) porte sa source et sa date.
+
 ## Fichiers synchronisés
 | Fichier repo | Rôle dans Claude.ai | Synchronisé |
 |-------------|---------------------|-------------|

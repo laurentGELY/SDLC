@@ -597,6 +597,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-60 | Vérifier pour de vrai : config en run réel, filet déclenché et refus observé | ✓ | niveau C sans effet externe : test C qui touche une ressource externe |
 | M-PROC-61 | File unique de remontées `docs/REMONTEE_SDLC.md` (3 sections), remontées en attente comptées à chaque rétro | ✓ | — |
 | M-HOOKS-09 | Garde avant règle (destination C par défaut) ; `pkill -f` et `pgrep -f` non ancré bloqués | ✓ | — |
+| M-PROC-62 | Chemins réels régénérés (commandes) dans les instructions du projet Claude.ai avant tout PDR ; source datée pour toute affirmation sur Claude Code | ✓ projet SDLC uniquement | — |
 
 ---
 
@@ -3131,3 +3132,30 @@ relecture.
 `09` v2.2 + skill vivant.
 
 **Déclencheur de réouverture :** un faux positif qui bloque un usage légitime → affiner la regex.
+
+---
+
+## M-PROC-62 · Chemins réels régénérés dans les PDR rédigés dans Claude.ai · v2.0+SDLC-34 · 20/11/2026
+
+**Contexte :** `SDLC_CANDIDATE` gradué par la `/retrospective` du 20/11/2026 après 3 occurrences — PDR
+Claude.ai d'Audit-Strands, d'Import-Strands et d'ELAG-2 partis de chemins de mémoire (`doc/` au lieu de
+`docs/`, `DECISIONS-SDLC.md` au lieu de `07-…`, dernier `M-PROC` faux), rattrapés en 4d côté Claude Code
+(`LL-T04`). S'y joint le candidat d'Import-Strands « affirmation sur Claude Code = source datée »
+(`exit 1` présenté comme bloquant dans `08` depuis SDLC-18).
+
+**Retenu :** section « Chemins réels du dépôt » dans `docs/CLAUDE_PROJECT.md`, à recopier dans les
+instructions du projet Claude.ai : commandes qui régénèrent templates, dossiers, derniers identifiants par
+famille et version (un inventaire généré, jamais recopié — `M-PROC-58`), plus la règle de la source datée.
+
+**Écarté :**
+- **Liste figée de chemins** — écartée : elle redeviendrait fausse au prochain sprint (`LL-T14`).
+- **Rappel dans `04 §Contexte`** — écarté : `04` est diffusé aux projets cibles, le défaut est propre aux
+  PDR de ce dépôt rédigés dans Claude.ai.
+
+**Raison :** la vérification factuelle côté Claude Code rattrape ces erreurs, mais après la rédaction ;
+les régénérer en amont supprime l'aller-retour.
+
+**Impact fichiers :** `docs/CLAUDE_PROJECT.md`, `docs/LESSONS_LEARNED.md` (champs décision).
+
+**Déclencheur de réouverture :** un PDR Claude.ai postérieur au 20/11/2026 avec un chemin ou un identifiant
+faux relevé en 4d.
