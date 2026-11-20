@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-23
 # Sprint Doc — Import Strands Harness (R3 + R4)
 <!-- Destination : specs/Sprints/sprint-import-strands-harness.md dans le repo SDLC -->
 <!-- Précédent direct : M-PROC-38 (Import GSD Vague 1) — même logique de groupage par vague -->

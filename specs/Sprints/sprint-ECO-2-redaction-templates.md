@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-03
 # Sprint ECO-2 — Rédaction des templates : description = déclenchement, forme = fonction de l'échec
 
 <!-- PDR rédigé par Claude Code depuis specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-08/E-09/E-17 -->

@@ -393,20 +393,44 @@ echo "# Spec : specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md" >
 ## Plan de développement
 *(produit par Claude Code après analyse — à compléter en étape 4d, avant tout code)*
 
+*(20/11/2026, session Claude Code, dépôt @ `f3b3b11`)*
+
 **Dépendances vérifiées :**
-- [ ] [input requis] — état : [présent / absent / modifié depuis spec]
+- [x] Lot 0 livré — `ecb1b15` (ROADMAP §Next)
+- [x] ELAG-1b livré — wrap-up intégré à `main` (`docs/SESSION_BRIDGE.md §Actif`)
+- [x] ELAG-4 livré — `e18e6c0` (`v2.0+ELAG-4`) ; `check_c11` = budget (`sdlc-validate.sh:432`) → le contrôle `Statut` sera **C12**
+- [x] Derniers IDs : `M-PROC-54`, `M-HOOKS-08`, `M-ARCH-10` (grep `07`) → ce sprint numérote `M-PROC-55`→`61`, `M-HOOKS-09`
+- [x] Dernier template : `12-audit-externe-TEMPLATE.md` → `13-reprise-SKILL-TEMPLATE.md` libre
+- [x] Baseline verte : `sdlc-validate.sh` 11/11 · `tests/sdlc-validate-test.sh` 22/22 · `tests/sdlc-init-test.sh` 49/49
+- [x] Budget C11 : `BUDGET_LIGNES=368`, `BUDGET_OCTETS=18099` (`sdlc-validate.sh:30-31`) ; `01` = 368 lignes / 18 172 octets
+- [~] **Entrées du registre** : `/tmp/remontees/` absent. Source du lot 1 = `/reprise` **v1.2.1** de Job search (`.claude/skills/reprise/SKILL.md` @ `c5378e0`, source préférée K10, `$2` déjà corrigé) + `specs/Sprints/sprint-66-reprise.md`. La pièce jointe E2 (§4-§5) n'est pas disponible localement → recopie depuis v1.2.1, généricisée (voir Risques)
+- [x] Carve-out du hook vivant : `.claude/hooks/pre-tool-bash.sh:52` ; absent de `08` (K2 confirmé)
+- [x] 32/33 specs `specs/Sprints/sprint-*.md` sans marqueur `Statut` (seule SDLC-33 l'a)
 
 **Modules touchés :**
+- Lot 1 : `13` (nouveau), `01` (R-26 `:114-135`, R-56 `:289-299`, R-57 `:301-305` déplacés ; 4e ; `:111`), `02`, `03` + skill vivant, `04`, `05:12`, `08` (bloc `[ACTIVER si service planifié]`), hook vivant, `sdlc-init.sh` (skill, `.gitignore` `:413`), `sdlc-validate.sh` (C4 + C12, budget abaissé), `tests/sdlc-validate-test.sh`, `tests/sdlc-init-test.sh`, 32 specs (marquage rétroactif)
+- Lots 2-3 : `01`, `02`, `03`/`09` + skills vivants, `04`, `04b`, `05`, `08`, hook vivant, `sdlc-init.sh` (file `docs/REMONTEE_SDLC.md`), tests
+- Lot 4 : `07`, `06`, `11`, `00-CONTEXT.md`, `specs/SPEC.md`, README, CHANGELOG, `docs/` (meta, versions, 2 HTML, CLAUDE_PROJECT.md), ROADMAP, LESSONS
+- **Taille** : cœur L (lot 1 + lots 2-3) ; total XL une fois la gouvernance du lot 4 comptée (`M-PROC-28`) → point de coupe après le lot 1 maintenu
 
 **Risques identifiés :**
+- **E2 §4-§5 absente** → « recopier intégralement » impossible tel quel ; v1.2.1 est plus récente qu'E2 (20/10) et intègre L3. Généricisation : `doc/REPRISE.md` → `.claude/reprise.md`, `doc/ETAT.md` → `docs/ROADMAP.md §Now`, retrait des exemples Job search (noms d'employeurs, `data/diag`, section « Contrôles » du mail, « Laurent » → « l'humain ») — K13
+- **Critère `grep -c '^- \*\*R[1-6]'` → 6** : v1.2.1 écrit `- R1 — …` sans gras → les règles s'écriront `- **R1 — titre** : …`
+- **Skill vivant `wrap-up` adapté** (diff non nul avec `03`) : chaque modification appliquée aux deux, C4 ne compare que les `## `
+- **Budget C11** : le déplacement R-26/R-56/R-57 (~38 lignes) laisse `01` bien sous le budget ; abaisser `BUDGET_*` à la mesure (cliquet), et vérifier que les cas C11 de `tests/sdlc-validate-test.sh` suivent
+- **Marquage rétroactif** : liste `fichier → statut` à faire valider par l'humain avant écriture (le PDR l'exige) ; specs « suspendues » ou partielles à arbitrer
+- **`$<chiffre>`** dans `13` : interdit (test d'ELAG-1b) → `sed -n '1s/^worktree //p'`, aucun `awk '{print $2}'`
 
 **Plan d'exécution :**
-1.
-2.
+1. Lot 1 sur une branche `sdlc-33` : `13` (frontmatter + version, recopie généricisée de v1.2.1 + R-JS-06 + R-26/R-56/R-57 reçus) → `01` (retraits + renvois, 4e, `:111`) → `02` option worktree → `08` bloc optionnel → `03` + skill vivant → `04` en-tête → `05:12` → hook vivant → `sdlc-init.sh` → C4/C12 + tests RED → liste du marquage rétroactif soumise → écriture → budget abaissé → tests → commit lot 1
+2. **Point de coupe** consigné dans `sprint-memory.md` (critères §Point de coupe) ; si coupe : gouvernance de `13` puis wrap-up, lots 2-3 → SDLC-34
+3. Lot 2 → commit · Lot 3 → commit · Lot 4 (gouvernance, bump `v2.0+SDLC-33`) → `/wrap-up`
 
 **Plan de test :**
-- A — Ciblé : `bash sdlc-validate.sh && bash tests/sdlc-validate-test.sh && bash tests/sdlc-init-test.sh`
-- B — Non-régression : bootstrap jetable `sdlc-init.sh` + hook en isolation
+- A — Ciblé : `bash sdlc-validate.sh && bash tests/sdlc-validate-test.sh && bash tests/sdlc-init-test.sh && bash -n .claude/hooks/pre-tool-bash.sh` + chaque `grep` des §Critères d'acceptation du lot, sortie relevée
+- A — Résolution `MAIN` : dépôt jetable + `git worktree add`, la commande de `13` lancée depuis le worktree renvoie la copie principale
+- B — Non-régression : bootstrap jetable `sdlc-init.sh "Test"` (skill `reprise` présent, `.gitignore` complet, CLAUDE.md sous budget) ; hook vivant testé en isolation sur le carve-out `reprise.md` et sur `sprint-memory.md` (inchangé) ; `git diff --stat 012905d -- specs/Sprints/AUDIT-ELAGAGE-1.md` vide
+- C — N/A
 
 ---
 

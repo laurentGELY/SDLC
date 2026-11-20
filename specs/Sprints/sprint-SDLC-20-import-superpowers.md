@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-20
 # Sprint SDLC-20 — Doc : import sélectif audit Superpowers
 <!-- Numéro assigné en §Démarrage (4a) : PDR reçu avec XX non assigné volontairement.
      Dernier sprint constaté : SDLC-19 (clos, commit ce47424) → assigné SDLC-20.

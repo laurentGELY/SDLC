@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-04
 # Sprint SDLC-28 — `sprint-memory.md` documenté comme mécanisme de reprise (P-27) + clôture P-39
 
 **Type :** Doc

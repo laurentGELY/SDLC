@@ -622,6 +622,7 @@
 ├── 10-AMONT-TEMPLATE.md              <span class="comment"># Phase amont — Project Claude.ai, hors repo</span>
 ├── 11-help-SKILL-TEMPLATE.md
 ├── 12-audit-externe-TEMPLATE.md      <span class="comment"># Guide toolkit — audit d'un framework tiers</span>
+├── 13-reprise-SKILL-TEMPLATE.md
 ├── <span class="cmd">sdlc-init.sh</span>                      <span class="comment"># Script bootstrap — point d'entrée principal</span>
 ├── <span class="cmd">sdlc-validate.sh</span>                  <span class="comment"># Vérifie la cohérence du modèle</span>
 ├── sdlc-delta.sh · sdlc-project-check.sh · sdlc-token-usage.sh
@@ -1008,6 +1009,7 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
         <tr><td>10-AMONT-TEMPLATE.md</td><td>Project Knowledge Claude.ai (hors repo)</td><td>Optionnel — phase amont</td></tr>
         <tr><td>11-help-SKILL-TEMPLATE.md</td><td>.claude/skills/help/SKILL.md</td><td>Copier tel quel — non déposé par <code>sdlc-init.sh</code></td></tr>
         <tr><td>12-audit-externe-TEMPLATE.md</td><td><em>(guide toolkit)</em></td><td>Non copié — audit d'un framework tiers</td></tr>
+        <tr><td>13-reprise-SKILL-TEMPLATE.md</td><td>.claude/skills/reprise/SKILL.md</td><td>Copier tel quel — <code>.claude/reprise.md</code> au <code>.gitignore</code></td></tr>
         <tr><td><em>from scratch</em></td><td>CHANGELOG.md</td><td>Header + entrée Sprint 0</td></tr>
         <tr><td><em>from scratch</em></td><td>docs/DECISIONS.md</td><td>Header + conventions préfixes</td></tr>
         <tr><td><em>from scratch</em></td><td>docs/LESSONS_LEARNED.md</td><td>§Index vide + format</td></tr>
@@ -1080,7 +1082,7 @@ Remontées ?  : [candidats SDLC_CANDIDATE si trouvés]</pre>
       <div class="callout-icon">ℹ️</div>
       <div class="callout-body">
         <strong>Note sur /sdlc-init</strong>
-        <p>Ce skill n'existe pas dans un repo vide — le script <code>sdlc-init.sh</code> est le vrai point d'entrée pour un nouveau projet. Il dépose <code>/wrap-up</code>, <code>/retrospective</code>, <code>/sdlc-sync</code> et <code>/diagnostic</code> ; <code>/help</code> se copie depuis <code>11-help-SKILL-TEMPLATE.md</code>.</p>
+        <p>Ce skill n'existe pas dans un repo vide — le script <code>sdlc-init.sh</code> est le vrai point d'entrée pour un nouveau projet. Il dépose <code>/wrap-up</code>, <code>/retrospective</code>, <code>/sdlc-sync</code>, <code>/reprise</code> et <code>/diagnostic</code> ; <code>/help</code> se copie depuis <code>11-help-SKILL-TEMPLATE.md</code>.</p>
       </div>
     </div>
   </section>

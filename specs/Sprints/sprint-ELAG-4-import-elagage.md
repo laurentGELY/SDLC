@@ -1,3 +1,4 @@
+Statut : clos — 2026-11-19
 # Sprint ELAG-4 — Import élagage : appliquer au modèle les résultats d'ELAG-2 et ELAG-3
 <!-- Template SDLC v2.4 · rédigé le 19/11/2026 en session Claude Code · confronté à SDLC @ 012905d et Job search @ 06a30f7 · destination : specs/Sprints/sprint-ELAG-4-import-elagage.md (ce dépôt) -->
 <!-- Entrées : specs/Sprints/AUDIT-ELAGAGE-1.md @ 573d1f3 (grille R-NN, 8 décisions provisoires) · Job search @ 06a30f7 : specs/Sprints/AUDIT-ELAGAGE-2.md, specs/Sprints/ELAG-3-table-verdict.md, specs/Sprints/sprint-89-allegement-regles.md, doc/REMONTEE_SDLC_2026-11-18.md -->

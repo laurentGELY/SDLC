@@ -1,5 +1,5 @@
 # Sprint 0 — Bootstrap SDLC dans un nouveau projet
-<!-- Template SDLC v1.0 · Guide opérationnel pour Claude Code · Pas un template à adapter -->
+<!-- Template SDLC v1.1 · Guide opérationnel pour Claude Code · Pas un template à adapter -->
 
 **Type :** Doc
 **Taille :** M
@@ -70,6 +70,7 @@ Ils contiennent des placeholders `[entre crochets]` et des marqueurs `[→ ADAPT
 | `.claude/skills/retrospective/SKILL.md` | `09-retrospective-SKILL-TEMPLATE.md` | **Copier** tel quel — générique, zéro adaptation |
 | `.claude/skills/diagnostic/SKILL.md` | *(créer from scratch)* | **Créer** : liste des commandes de diagnostic du nouveau système |
 | `.claude/skills/help/SKILL.md` | `11-help-SKILL-TEMPLATE.md` | **Copier** tel quel — générique, zéro adaptation |
+| `.claude/skills/reprise/SKILL.md` | `13-reprise-SKILL-TEMPLATE.md` | **Copier** (déposé par `sdlc-init.sh`) — adapter seulement les répertoires de sorties datées de `/reprise init` ; `.claude/reprise.md` au `.gitignore` |
 
 ### Groupe 4 — Dossier `specs/`
 

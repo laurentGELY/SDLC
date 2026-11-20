@@ -105,7 +105,7 @@ echo "Fichiers"
 check "CLAUDE.md présent" test -f "$B/CLAUDE.md"
 check "Claude.md absent" test ! -e "$B/Claude.md"
 check "CLAUDE.md seul dans la liste des fichiers" bash -c "ls '$B' | grep -ix 'claude.md' | grep -qx 'CLAUDE.md' && [ \$(ls '$B' | grep -icx 'claude.md') -eq 1 ]"
-for line in ".env" ".claude/sprint-memory.md" ".claude/settings.local.json"; do
+for line in ".env" ".claude/sprint-memory.md" ".claude/reprise.md" ".claude/settings.local.json"; do
   check ".gitignore contient $line" grep -qxF "$line" "$B/.gitignore"
 done
 VERSION=$(grep -m1 -oE 'Version courante : [^ *]+' "$REPO_ROOT/README.md" | sed 's/Version courante : //')
@@ -113,7 +113,8 @@ check "marqueur de version courant ($VERSION) dans CLAUDE.md" grep -qF "SDLC ver
 check "marqueur de version courant ($VERSION) dans STANDARDS.md" grep -qF "SDLC version : $VERSION " "$B/STANDARDS.md"
 check "aucun avertissement « Marqueur SDLC version non trouvé »" bash -c "! grep -qF 'Marqueur SDLC version non trouvé' <<<\"\$1\"" _ "$BOOT_OUT"
 DATES=$(grep -cE 'JJ/MM/AAAA|AAAA-MM-JJ' "$B/.claude/skills/wrap-up/SKILL.md" 2>/dev/null)
-if [ "${DATES:-0}" -eq 3 ]; then pass "3 placeholders de date intacts dans les gabarits du wrap-up"; else fail "3 placeholders de date intacts dans les gabarits du wrap-up (trouvés : ${DATES:-0})"; fi
+# 4 = entrées LESSONS/CHANGELOG (3) + marqueur « Statut : clos — AAAA-MM-JJ » (SDLC-33, M-PROC-55)
+if [ "${DATES:-0}" -eq 4 ]; then pass "4 placeholders de date intacts dans les gabarits du wrap-up"; else fail "4 placeholders de date intacts dans les gabarits du wrap-up (trouvés : ${DATES:-0})"; fi
 
 # ─── HOOKS ───────────────────────────────────────────────────────────────────
 
@@ -154,7 +155,7 @@ fi
 
 echo ""
 echo "Skills"
-for s in wrap-up retrospective sdlc-sync diagnostic; do
+for s in wrap-up retrospective sdlc-sync diagnostic reprise; do
   f="$B/.claude/skills/$s/SKILL.md"
   check "$s : frontmatter en ligne 1" bash -c "[ \"\$(head -1 '$f')\" = '---' ]"
   check "$s : name et description non vides" python3 -c "

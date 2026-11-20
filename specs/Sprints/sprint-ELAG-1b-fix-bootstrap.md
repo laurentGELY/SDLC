@@ -1,3 +1,4 @@
+Statut : clos — 2026-11-19
 # Sprint ELAG-1b — Fix bootstrap : le projet bootstrappé reçoit les mécanismes que la prose promet
 <!-- Template SDLC v2.4 · rédigé le 19/11/2026 en session Claude Code · confronté à SDLC @ 012905d (README : v2.0+ELAG-1) et à un bootstrap jetable du même jour · destination : specs/Sprints/sprint-ELAG-1b-fix-bootstrap.md (ce dépôt) -->
 <!-- Entrées : specs/Sprints/AUDIT-ELAGAGE-1.md @ 573d1f3 (§1.1, §3.2, §3.3, M-ARCH-10 provisoire) · remontées Job search 21/10 (défauts d'amorçage) et 18/11-4 (frontmatter sdlc-sync revenu) · Job search b943413 (regex du hook) · PDR SDLC-33 (K9, K12) -->

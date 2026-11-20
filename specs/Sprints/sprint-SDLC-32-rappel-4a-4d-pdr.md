@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-22
 # Sprint SDLC-32 — Rappel 4a-4d dans le PDR, réévaluation `LL-T05`
 
 **Type :** Doc

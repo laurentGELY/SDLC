@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-04
 # Sprint SDLC-29 — `12-audit-externe-TEMPLATE.md` (P-22)
 
 **Type :** Doc

@@ -3,7 +3,7 @@ name: wrap-up
 description: Clôture de sprint. Utiliser quand l'utilisateur dit « clôture », « wrap-up », « fin de sprint », ou quand les tests A et B du sprint sont verts.
 ---
 # wrap-up — SKILL
-<!-- Template SDLC v2.1 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.2 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -105,6 +105,10 @@ Justification   : [citer ≥ 1 critère d'acceptation de la spec + son état obs
 
 Règle : un "fait à 90%" sans critère d'acceptation coché n'est pas ATTEINT.
 Le verdict est ancré sur la spec et le diff git — pas sur une impression de session.
+
+**Reste pour clore (`.claude/reprise.md`, M-PROC-55) :** si le bloc du sprint dans la reprise a encore
+une case `[ ]` dans « Reste pour clore » → refuser la clôture, citer les cases ouvertes, et ne
+continuer que sur confirmation explicite de l'humain.
 
 ---
 
@@ -268,6 +272,16 @@ Rapporter :
 — aucun marqueur périmé trouvé dans les fichiers touchés
 ```
 
+**Marqueur de spec et purge de la reprise (M-PROC-55) :**
+```bash
+SPEC=specs/Sprints/sprint-<N>-<slug>.md
+sed -i "1s/^Statut : ouvert\$/Statut : clos — $(date +%Y-%m-%d)/" "$SPEC" && head -1 "$SPEC"
+REPRISE="$(git worktree list --porcelain | sed -n '1s/^worktree //p')/.claude/reprise.md"
+grep -n "^### S<N> " "$REPRISE" 2>/dev/null || echo "— aucun bloc de reprise pour ce sprint"
+```
+Attendu : `Statut : clos — AAAA-MM-JJ` (date du commit de wrap-up). Supprimer le bloc du sprint dans
+`$REPRISE` (règle R3 de `/reprise`) après avoir versé dans la spec ce qui n'y figure pas encore.
+
 **Décisions évoluées (Q2) :**
 Lire `docs/DECISIONS.md`. Identifier les entrées existantes liées au travail de ce sprint.
 Si une décision existante a évolué → ajouter un sous-bloc sous l'entrée originale :
@@ -342,6 +356,13 @@ Corps du commit :
 rm -f .claude/sprint-memory.md && echo "✅ sprint-memory.md supprimé"
 ```
 Supprimer *après* le commit — jamais avant. Si le commit échoue, conserver le fichier.
+
+**Sprint mené dans un worktree — avant `git worktree remove` :**
+```bash
+git -C <worktree> status --ignored --porcelain
+```
+Tout fichier listé `!!` (ignoré par git : banc, sortie de mesure) est versé dans la spec ou déplacé
+avant la suppression — `git worktree remove` le détruirait sans trace.
 
 ---
 
@@ -420,7 +441,7 @@ Avant de valider l'entrée SESSION_BRIDGE, vérifier mentalement :
 sans accès à la conversation précédente ?"
 Si non → enrichir les champs "bloquants" ou "fil fonctionnel" jusqu'à ce que la réponse soit oui.
 
-**Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `docs/ROADMAP.md §Now`).
+**Ne pas inclure dans SESSION_BRIDGE :** liste de tâches ou next actions (rôle de `.claude/reprise.md`, et de `docs/ROADMAP.md §Now` pour le sprint en exécution).
 
 Le contenu est versionné dans le même commit que le wrap-up du sprint.
 

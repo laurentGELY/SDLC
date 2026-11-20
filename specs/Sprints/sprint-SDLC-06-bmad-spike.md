@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-18
 # Sprint SDLC-06 — Analyse tactique BMad Method
 <!-- Template SDLC v1.9 · Destination : specs/Sprints/sprint-SDLC-06-bmad-spike.md -->
 

@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-18
 # Sprint SDLC-08 — Import BMad : qualité & continuité
 <!-- Template SDLC v1.9 · Destination : specs/Sprints/sprint-SDLC-08-bmad-qualite-continuite.md -->
 

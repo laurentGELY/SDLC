@@ -1,3 +1,4 @@
+Statut : clos — 2026-10-20
 # Sprint ELAG-1 — Audit d'élagage théorique du modèle SDLC
 <!-- Template SDLC v2.4 · Destination : specs/Sprints/sprint-ELAG-1-audit-elagage-theorique.md (repo SDLC) -->
 <!-- PDR rédigé en session Claude.ai le 20/10/2026 — revue article AHE (arXiv 2604.25850) + littérature -->

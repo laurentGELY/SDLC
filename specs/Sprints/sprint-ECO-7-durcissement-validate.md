@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-23
 # Sprint ECO-7 — Durcissement de `sdlc-validate.sh`
 
 <!-- PDR conforme à 04-sprint-PDR-TEMPLATE.md v2.0 -->

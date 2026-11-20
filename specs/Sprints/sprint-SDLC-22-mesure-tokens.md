@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-21
 # Sprint SDLC-22 — Instrumentation conso token réelle
 
 **Type :** Feature

@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-03
 # Sprint ECO-4 — Durcissement PDR
 
 <!-- PDR rédigé par Claude Code depuis specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-06/§E-07/§E-13(b)/§E-14 -->

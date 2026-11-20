@@ -93,6 +93,7 @@ consommateurs) se lit et se met à jour uniquement ici.
 | `10-AMONT-TEMPLATE.md` | Phase amont Claude.ai | Project Knowledge Claude.ai dédié (hors repo cible) | — | Project Claude.ai dédié, optionnel |
 | `11-help-SKILL-TEMPLATE.md` | Recap lecture seule | `.claude/skills/help/SKILL.md` | `.claude/sprint-memory.md`, `docs/ROADMAP.md`, `CLAUDE.md` | À la demande |
 | `12-audit-externe-TEMPLATE.md` | Gabarit audit externe (framework tiers vs SDLC) | *(guide toolkit, pas copié)* | — | Comparaison SDLC vs framework tiers, ponctuel |
+| `13-reprise-SKILL-TEMPLATE.md` | Reprise des sprints ouverts — futur multi-sprints dans `.claude/reprise.md` (non versionné), marqueur `Statut` des specs (M-PROC-55) | `.claude/skills/reprise/SKILL.md` | `.claude/reprise.md`, `specs/Sprints/sprint-*.md` (ligne 1), `docs/ROADMAP.md`, `.claude/sprint-memory.md` de chaque worktree | Ouverture de session sans sprint désigné, `/reprise`, `/reprise init` |
 | `00-CONTEXT.md` | Contexte Claude.ai — invariants + index des modules | *(jamais copié — propre à ce projet)* | — | Toute évolution du modèle (lu en premier) |
 | `README.md` | Pitch + démarrage rapide | — | — | Première lecture humaine du toolkit |
 | `CHANGELOG.md` | Historique des sprints du toolkit lui-même | — | — | `/wrap-up` (propre au toolkit) |

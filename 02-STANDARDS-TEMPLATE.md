@@ -1,5 +1,5 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.3 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.4 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -45,6 +45,12 @@ n'est audité, aucun livrable n'existe encore sur le sujet investigué).
 **Spike :** output = décision documentée, jamais du code partiel. Durée bornée définie dans la spec.
 
 **SDLC-Sync :** output = gouvernance alignée sur la version SDLC courante. Tests : N/A (zéro code métier). Exécuter via le skill `/sdlc-sync` dans Claude Code. Voir `docs/MODE-OPERATOIRE.html` §Mettre à jour un projet existant.
+
+<!-- [→ ADAPTER] Garder si le dépôt est exécuté par un service planifié (cron, timer systemd) ; sinon supprimer ce paragraphe -->
+**Option worktree — dépôt exécuté par un service planifié :** le sprint se développe dans un worktree
+dédié (`git worktree add ../<projet>-<N> -b sprint-<N>`) ; la copie exécutée reste sur la branche de
+production et on n'y change jamais de branche. Garde mécanique : bloc `[ACTIVER si dépôt exécuté par un
+service planifié]` de `.claude/hooks/pre-tool-bash.sh` (M-PROC-55).
 
 ---
 

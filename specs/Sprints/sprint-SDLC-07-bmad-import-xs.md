@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-18
 # Sprint SDLC-07 — Import patterns BMad tactiques (XS)
 <!-- Template SDLC v1.9 · Destination : specs/Sprints/sprint-SDLC-07-bmad-import-xs.md -->
 

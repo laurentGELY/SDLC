@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-03
 # Sprint ECO-1 — `sdlc-validate.sh` : vérification exécutable du modèle
 
 <!-- PDR conforme à 04-sprint-PDR-TEMPLATE.md v2.0 -->

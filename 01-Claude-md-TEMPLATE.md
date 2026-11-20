@@ -1,5 +1,5 @@
 # CLAUDE.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.8 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -106,33 +106,16 @@ cat specs/Sprints/sprint-<N>-<slug>.md  # toujours · puis chaque fichier imméd
 
 # 4d. Écrire le §Plan de développement dans le spec avant tout code
 # → compléter modules touchés, risques, plan d'exécution, plan de test
+
+# 4e. Créer le bloc du sprint dans .claude/reprise.md (format : /reprise)
+# → « Reste pour clore » = critères d'acceptation du PDR
 ```
 
-Si aucun sprint spec n'est fourni → demander avant d'aller plus loin.
+Si aucun sprint spec n'est fourni → `/reprise` (plan des sprints ouverts), puis demander.
 Signaler toute anomalie avant de proposer un patch.
 
-**Si `.claude/sprint-memory.md` est non vide en début de session :**
-Afficher le contenu et poser le bloc suivant — **attendre la réponse avant de continuer** :
-
-```
-⚠️  MÉMOIRE SPRINT NON VIDE — sprint précédent non clôturé ?
-
-Causes possibles :
-  A) Wrap-up oublié à la fin du sprint précédent
-  B) Crash ou interruption de session
-  C) Sprint interrompu volontairement
-  D) Session tronquée — contexte dégradé
-
-Actions :
-  1) Lancer /wrap-up maintenant pour clore ce sprint proprement
-  2) Reprendre ce sprint là où il s'est arrêté
-  3) Abandonner ce sprint — supprimer le fichier et démarrer un nouveau
-  4) Reprendre depuis la dernière DÉCISION ou TEST OK valide
-     → lire sprint-memory.md, identifier le dernier point stable,
-       proposer la prochaine action minimale de continuation
-```
-
-Exception : si le header du fichier correspond au sprint spec en cours → reprise normale, pas d'anomalie, continuer sans bloquer.
+**`.claude/sprint-memory.md` non vide** et d'un autre sprint que la spec en cours → bloc
+à 4 options de `/reprise` (§Mémoire de sprint non vide) ; attendre la réponse avant de continuer.
 
 **Classifier le travail :**
 
@@ -286,23 +269,8 @@ de la coupure, il ne résume pas le contexte perdu. Étend `M-PROC-10` : la
 pause forcée par tranche horaire suit le même chemin de reprise que la
 session tronquée par crash, sans action manuelle requise pour amorcer la trace.
 
-**Perte accidentelle en cours de sprint :**
-Si `.claude/sprint-memory.md` est absent alors qu'un sprint est manifestement
-en cours (spec sprint active dans `specs/Sprints/`, ou `git diff HEAD` non vide
-sans commit de wrap-up récent) → ne pas continuer sans trace.
-Reconstruire un résumé minimal avant de poursuivre :
-```bash
-git diff HEAD                    # fichiers et changements en cours
-git log --oneline -3             # ancrage temporel
-```
-Format minimal acceptable : 3-5 entrées DÉCISION/TEST couvrant l'état connu.
-Signaler la reconstruction explicitement : `[RECONSTRUIT depuis git diff]`.
-
-**Précédence après compaction ou reprise :** `sprint-memory.md` (ligne d'identité +
-entrées) et `git log` font foi sur le souvenir de session — un commit qu'ils
-nomment existe dans git même si le contexte courant ne se souvient plus de
-l'avoir créé. En cas de doute entre une impression de session et une trace
-écrite, vérifier par `git log`/`git diff` avant d'agir sur cette impression.
+Le futur de tous les sprints ouverts vit dans `.claude/reprise.md` (non versionné) — voir `/reprise`.
+Mémoire perdue en cours de sprint, ou reprise après compaction : `/reprise` §Mémoire de sprint perdue.
 
 ---
 

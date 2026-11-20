@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-25
 # Sprint SDLC-GSD-V2 — Import GSD : patterns impact fort (Vague 2)
 <!-- SDLC v1.9+SDLC-GSD-V1 · specs/Sprints/sprint-SDLC-GSD-V2.md -->
 

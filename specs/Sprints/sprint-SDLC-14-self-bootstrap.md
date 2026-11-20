@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-19
 # Sprint SDLC-14 — Bootstrap adapté du projet toolkit + rattrapage gouvernance
 <!-- Template SDLC v1.9 · specs/Sprints/sprint-SDLC-14-self-bootstrap.md -->
 <!-- Renuméroté depuis "SDLC-15" — voir §Corrections ajustées vs spec -->

@@ -25,7 +25,7 @@ numérique du repo) :
 `05-ROADMAP-TEMPLATE.md` → `06-PDR-bootstrap.md` → `07-DECISIONS-SDLC.md` →
 `08-hooks-TEMPLATE.md` → `09-retrospective-SKILL-TEMPLATE.md` →
 `10-AMONT-TEMPLATE.md` → `11-help-SKILL-TEMPLATE.md` →
-`12-audit-externe-TEMPLATE.md`.
+`12-audit-externe-TEMPLATE.md` → `13-reprise-SKILL-TEMPLATE.md`.
 
 **Fichiers humains (local uniquement, non synchronisés dans Claude.ai) :**
 

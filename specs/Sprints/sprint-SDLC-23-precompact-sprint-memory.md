@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-21
 # Sprint SDLC-23 — Hook PreCompact × sprint-memory.md
 
 **Type :** Feature

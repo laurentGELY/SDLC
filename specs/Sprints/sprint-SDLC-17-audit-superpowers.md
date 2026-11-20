@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-19
 # Sprint SDLC-17 — Audit externe : obra/superpowers vs modèle SDLC
 <!-- Destination : specs/Sprints/sprint-SDLC-17-audit-superpowers.md -->
 <!-- Gabarit dérivé de 04-sprint-PDR-TEMPLATE.md v1.9 — instance remplie, pas un template générique -->

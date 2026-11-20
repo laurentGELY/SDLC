@@ -23,12 +23,13 @@ ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"
 # M-PROC-49 — cliquet : baisser ces valeurs est libre ; les monter exige une
 # nouvelle décision dans 07-DECISIONS-SDLC.md. Valeurs = mesure du CLAUDE.md
 # produit par sdlc-init.sh (wc -l / wc -c sur un bootstrap jetable) — gel 499/25376
-# au lot 2 d'ELAG-4, abaissé à la mesure de fin de sprint. Le nom du
+# au lot 2 d'ELAG-4, abaissé à la mesure de fin de sprint (368/18099), puis à 336/16684
+# au lot 1 de SDLC-33 (R-26, R-56, R-57 déplacés vers /reprise). Le nom du
 # projet est substitué dans le fichier : la mesure et le contrôle utilisent le même.
 # Les octets excluent la ligne « SDLC version : … », dont la longueur suit le bump.
 BUDGET_NOM_PROJET="Test"
-BUDGET_LIGNES=368
-BUDGET_OCTETS=18099
+BUDGET_LIGNES=336
+BUDGET_OCTETS=16684
 
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un
@@ -68,6 +69,7 @@ C3_LINE_EXCEPTIONS=(
 C4_EXCEPTIONS=(
   "04b-sdlc-sync-SKILL-TEMPLATE.md|/sdlc-sync jamais installé ici — n'a pas d'objet appliqué au modèle sur lui-même"
   "11-help-SKILL-TEMPLATE.md|/help jamais installé dans ce repo (self-bootstrap SDLC-14)"
+  "13-reprise-SKILL-TEMPLATE.md|skill non installé dans le repo SDLC — M-PROC-55"
 )
 
 # C6 — aucune exception connue au premier lancement (liste initialisée vide,
@@ -214,7 +216,7 @@ check_c3() {
 # Incident : M-TMPL-04 — un template et son skill vivant ont divergé sans que
 #   personne ne le voie ; aucune relecture ne compare les deux copies.
 check_c4() {
-  # Parité structurelle (liste ordonnée des titres ^## ) entre 4 paires
+  # Parité structurelle (liste ordonnée des titres ^## ) entre 5 paires
   # template ↔ skill vivant. Une paire sans skill installée est signalée
   # ⚠️ non applicable si listée dans C4_EXCEPTIONS — pas un échec.
   local pairs=(
@@ -222,6 +224,7 @@ check_c4() {
     "04b-sdlc-sync-SKILL-TEMPLATE.md|.claude/skills/sdlc-sync/SKILL.md"
     "09-retrospective-SKILL-TEMPLATE.md|.claude/skills/retrospective/SKILL.md"
     "11-help-SKILL-TEMPLATE.md|.claude/skills/help/SKILL.md"
+    "13-reprise-SKILL-TEMPLATE.md|.claude/skills/reprise/SKILL.md"
   )
   local fail=0 detail="" p tmpl live known ex extmpl
   for p in "${pairs[@]}"; do
@@ -457,6 +460,32 @@ check_c11() {
   return 1
 }
 
+# Incident : E2 (projet source du modèle) — sans marqueur, l'inventaire des sprints ouverts
+#   croisait ROADMAP, mémoires et commits à la main ; un sprint sans bloc de reprise passait
+#   inaperçu. Le marqueur est la source de /reprise init (M-PROC-55).
+check_c12() {
+  # Ligne 1 de chaque specs/Sprints/sprint-*.md : « Statut : ouvert » ou
+  # « Statut : clos — AAAA-MM-JJ ». Les autres fichiers de specs/Sprints/ (audits,
+  # analyses, extraits) ne sont pas des specs de sprint et ne sont pas lus.
+  local fail=0 detail="" f n=0
+  for f in "$ROOT"/specs/Sprints/sprint-*.md; do
+    [ -f "$f" ] || continue
+    n=$((n + 1))
+    if ! head -1 "$f" | grep -qE '^Statut : (ouvert|clos — [0-9]{4}-[0-9]{2}-[0-9]{2})$'; then
+      fail=1
+      detail="$detail
+❌ specs/Sprints/$(basename "$f") — ligne 1 : $(head -1 "$f" | cut -c1-60)"
+    fi
+  done
+  if [ "$fail" -eq 0 ]; then
+    report "C12 · Marqueur Statut en ligne 1 des specs de sprint (M-PROC-55)" 0 "$n spec(s) examinée(s)"
+  else
+    report "C12 · Marqueur Statut en ligne 1 des specs de sprint (M-PROC-55)" 1 "$n spec(s) examinée(s)$detail
+→ Correctif : écrire « Statut : ouvert » (spec active) ou « Statut : clos — AAAA-MM-JJ » (date du commit de wrap-up) en ligne 1."
+  fi
+  return $fail
+}
+
 # ─── REGISTRE DE CONTRÔLES ────────────────────────────────────────────────────
 # Point d'extension pour les vagues 2/3 (ECO-2, ECO-3, …) :
 # 1) définir une fonction check_cN ci-dessus, qui appelle `report` et retourne 0/1
@@ -465,7 +494,7 @@ check_c11() {
 #    connu — [HYPOTHÈSE] ») et donner un « → Correctif : » à sa branche d'échec
 # 4) ajouter à tests/sdlc-validate-test.sh un cas qui injecte le défaut visé et
 #    vérifie « ❌ C<n> · » — un contrôle jamais vu rouge n'est pas un contrôle (ECO-7)
-CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9 check_c10 check_c11)
+CHECKS=(check_c1 check_c2 check_c3 check_c4 check_c5 check_c6 check_c7 check_c8 check_c9 check_c10 check_c11 check_c12)
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

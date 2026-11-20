@@ -63,6 +63,7 @@ sdlc-toolkit/
 ├── 10-AMONT-TEMPLATE.md             # → Project Knowledge Claude.ai (hors repo)
 ├── 11-help-SKILL-TEMPLATE.md        # → .claude/skills/help/SKILL.md
 ├── 12-audit-externe-TEMPLATE.md     # Guide toolkit — audit framework tiers vs SDLC, pas copié
+├── 13-reprise-SKILL-TEMPLATE.md     # → .claude/skills/reprise/SKILL.md
 ├── sdlc-init.sh · sdlc-validate.sh · sdlc-delta.sh · sdlc-project-check.sh · sdlc-token-usage.sh
 │                                     # Scripts — voir docs/MODE-OPERATOIRE.html §Vérifier le modèle
 ├── tests/                           # sdlc-validate-test.sh — suite de tests du validateur

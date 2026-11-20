@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-21
 # Sprint SDLC-Audit-GSTACK — Audit externe GSTACK vs modèle SDLC
 <!-- Template SDLC v2.0 · specs/Sprints/sprint-SDLC-Audit-GSTACK.md -->
 

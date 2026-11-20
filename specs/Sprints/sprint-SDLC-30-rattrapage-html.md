@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-22
 # Sprint SDLC-30 — Rattrapage `SPEC.html` / `MODE-OPERATOIRE.html` + contrôle C10
 
 **Type :** Doc

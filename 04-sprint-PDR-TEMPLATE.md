@@ -1,6 +1,8 @@
+Statut : ouvert
 # Sprint N — [Titre]
-<!-- Template SDLC v2.6 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.7 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
+<!-- Ligne 1 = marqueur « Statut : ouvert » (passé à « Statut : clos — AAAA-MM-JJ » par /wrap-up, M-PROC-55). C2 lit 3 lignes (Statut, titre, version) : marge nulle, tout nouveau champ d'en-tête impose d'élargir C2. -->
 
 **Type :** Feature | Fix | Tuning | Doc | Spike | Dette  ← choisir un
 **Taille :** XS | S | M | L  ← XS < 1h · S < 3h · M < 1 jour · L > 1 jour

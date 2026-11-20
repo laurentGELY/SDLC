@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-24
 # Sprint ECO-8 — Suite de tests du validateur branchée au wrap-up + C8 étendu à `tests/`
 
 <!-- PDR conforme à 04-sprint-PDR-TEMPLATE.md v2.0 -->

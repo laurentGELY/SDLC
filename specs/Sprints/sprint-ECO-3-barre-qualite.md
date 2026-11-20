@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-03
 # Sprint ECO-3 — Barre qualité chiffrée et cliquet de contexte
 
 <!-- PDR rédigé par Claude Code depuis specs/Sprints/ANALYSE-SKILLS-ECOSYSTEM.md §E-03/E-04/E-11 -->

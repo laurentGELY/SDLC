@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-03
 # Sprint ECO-5 — Documentation du pattern `.claude/rules/` (rescopé depuis P-20)
 
 **Type :** Doc

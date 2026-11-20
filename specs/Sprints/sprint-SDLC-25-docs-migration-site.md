@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-21
 # Sprint SDLC-25 — Migration `doc/` → `docs/` + publication du site de documentation (GitHub Pages)
 <!-- PDR construit en amont (Claude.ai) · Destination : specs/Sprints/sprint-SDLC-25-docs-migration-site.md -->
 <!-- Renuméroté SDLC-24 → SDLC-25 : SDLC-24 déjà pris par sprint clos 2026-06-22 (fix schéma JSON 08-hooks-TEMPLATE.md) -->

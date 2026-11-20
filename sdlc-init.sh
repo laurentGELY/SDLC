@@ -121,6 +121,7 @@ mkdir -p \
   "${TARGET_DIR}/.claude/skills/retrospective" \
   "${TARGET_DIR}/.claude/skills/sdlc-sync" \
   "${TARGET_DIR}/.claude/skills/diagnostic" \
+  "${TARGET_DIR}/.claude/skills/reprise" \
   "${TARGET_DIR}/.claude/hooks"
 echo "  ✅ Dossiers créés"
 echo ""
@@ -150,6 +151,7 @@ Format : Semantic Versioning adapté aux sprints.
 - **\`.claude/skills/wrap-up/SKILL.md\` v1.0** : procédure clôture sprint
 - **\`.claude/skills/sdlc-sync/SKILL.md\` v1.0** : skill alignement modèle SDLC
 - **\`.claude/skills/retrospective/SKILL.md\` v1.0** : procédure rétrospective
+- **\`.claude/skills/reprise/SKILL.md\` v1.0** : reprise des sprints ouverts (\`.claude/reprise.md\`, non versionné)
 - **\`.claude/hooks/pre-tool-bash.sh\` v1.0** : hook PreToolUse Bash
 - **\`.claude/settings.json\`** : configuration hooks Claude Code
 - **\`docs/ROADMAP.md\` v1.0** : structure Now/Next/Later
@@ -312,6 +314,9 @@ deploy_copy "${SCRIPT_DIR}/09-retrospective-SKILL-TEMPLATE.md" \
   "${TARGET_DIR}/.claude/skills/retrospective/SKILL.md"
 deploy_copy "${SCRIPT_DIR}/04b-sdlc-sync-SKILL-TEMPLATE.md" \
   "${TARGET_DIR}/.claude/skills/sdlc-sync/SKILL.md"
+# /reprise — futur des sprints ouverts dans .claude/reprise.md (M-PROC-55)
+deploy_copy "${SCRIPT_DIR}/13-reprise-SKILL-TEMPLATE.md" \
+  "${TARGET_DIR}/.claude/skills/reprise/SKILL.md"
 
 # Diagnostic skill — squelette, Claude Code le complète
 cat > "${TARGET_DIR}/.claude/skills/diagnostic/SKILL.md" << DIAG_SKILL
@@ -410,10 +415,10 @@ LOCAL
 echo "  ✅ .claude/settings.local.json"
 
 # .gitignore — créé, ou complété sans doublon s'il existe (ELAG-1b, M-ARCH-10)
-for entry in .env .claude/sprint-memory.md .claude/settings.local.json; do
+for entry in .env .claude/sprint-memory.md .claude/reprise.md .claude/settings.local.json; do
   grep -qxF "${entry}" "${TARGET_DIR}/.gitignore" 2>/dev/null || echo "${entry}" >> "${TARGET_DIR}/.gitignore"
 done
-echo "  ✅ .gitignore (.env · .claude/sprint-memory.md · .claude/settings.local.json)"
+echo "  ✅ .gitignore (.env · .claude/sprint-memory.md · .claude/reprise.md · .claude/settings.local.json)"
 echo ""
 
 # ─── ÉTAPE 7 : VÉRIFICATIONS ─────────────────────────────────────────────────

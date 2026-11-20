@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-25
 # Sprint SDLC-Audit-GSD-lite — Analyse externe GSD-lite
 <!-- SDLC v1.9 · specs/Sprints/sprint-audit-gsd-lite.md -->
 

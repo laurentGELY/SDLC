@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-19
 # Sprint SDLC-16 — Audit complet SDLC-07→15 + documentation rétroactive vérifiée
 <!-- Template SDLC v1.9 · specs/Sprints/sprint-SDLC-16-audit-complet.md -->
 <!-- Fichier créé rétroactivement après l'exécution du sprint — voir §Corrections ajustées vs spec -->

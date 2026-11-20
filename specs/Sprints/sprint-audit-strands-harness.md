@@ -1,3 +1,4 @@
+Statut : clos — 2026-09-23
 # Sprint — Audit externe Strands Harness vs SDLC
 <!-- Destination : specs/Sprints/sprint-audit-strands-harness.md dans le repo SDLC -->
 <!-- Précédent direct : specs/Sprints/sprint-audit-gsd-lite.md (même type de sprint, même format à reproduire) -->

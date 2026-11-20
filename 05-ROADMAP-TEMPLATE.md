@@ -1,5 +1,5 @@
 # ROADMAP — [Nom du projet] · v1.0
-<!-- Template SDLC v1.1 · Copier dans docs/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
+<!-- Template SDLC v1.2 · Copier dans docs/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
 
 ---
 
@@ -9,7 +9,7 @@
 |------|------|--------|--------|
 | Sprint 1 — [Titre à définir] | Feature | M | 🔄 En cours |
 
-**Règle :** un seul item actif à la fois dans §Now.
+**Règle :** un seul sprint **en exécution** par copie de travail ; un sprint en attente d'un déclencheur reste en §Now avec ⏸ + déclencheur + pointeur `.claude/reprise.md`.
 
 ---
 

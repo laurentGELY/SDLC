@@ -1,5 +1,5 @@
 # Hooks Claude Code — Template Python · v1.0
-<!-- Template SDLC v1.5 · Destination : .claude/hooks/ dans le repo cible -->
+<!-- Template SDLC v1.6 · Destination : .claude/hooks/ dans le repo cible -->
 <!-- Généré au bootstrap · Complété au fil des sprints via boucle LESSONS_LEARNED -->
 
 > Les hooks rendent certaines règles non-négociables — indépendamment de la mémoire du modèle.
@@ -135,6 +135,22 @@ fi
 #   echo "BLOQUÉ : écriture directe dans fichier de données protégé détectée." >&2
 #   echo "Ces fichiers ne sont écrits que par le pipeline principal." >&2
 #   exit 2
+# fi
+
+# [ACTIVER si dépôt exécuté par un service planifié] changement de branche dans la copie principale
+# Décommenter si un cron / timer exécute ce dépôt : la copie principale reste sur la branche de
+# production, les sprints se développent dans un worktree (STANDARDS.md §Types de sprint, M-PROC-55).
+# Copie principale = git-dir égal au git-common-dir. Laisse passer « git checkout -- <fichier> » et
+# « git -C <worktree> switch … ». Limite : « cd <worktree> && git switch … » est refusé à tort.
+# → Documenter dans DECISIONS.md §D-HOOK-07
+#
+# if echo "$CMD" | grep -qE '(^|[;&|]\s*)git\s+(switch|checkout)\b' && \
+#    ! echo "$CMD" | grep -qE 'git\s+checkout\s+(--\s|-p\b|\.(\s|$))'; then
+#   if [ "$(git rev-parse --git-dir 2>/dev/null)" = "$(git rev-parse --git-common-dir 2>/dev/null)" ]; then
+#     echo "BLOQUÉ : changement de branche dans la copie principale (exécutée par le service planifié)." >&2
+#     echo "Développer dans un worktree : git worktree add ../<projet>-<N> -b sprint-<N>" >&2
+#     exit 2
+#   fi
 # fi
 
 # ─── AVERTISSEMENTS NON BLOQUANTS ────────────────────────────────────────────

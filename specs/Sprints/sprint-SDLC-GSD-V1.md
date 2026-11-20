@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-24
 # Sprint SDLC-GSD-V1 — Import GSD : patterns friction nulle (Vague 1)
 <!-- SDLC v1.9 · specs/Sprints/sprint-SDLC-GSD-V1.md -->
 

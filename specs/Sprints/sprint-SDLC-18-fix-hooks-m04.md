@@ -1,3 +1,4 @@
+Statut : clos — 2026-06-19
 # Sprint SDLC-18 — Fix : garde-fou M-HOOKS-04 + vérification schéma JSON PreToolUse
 <!-- Numéro assigné en §Démarrage (4a) : PDR reçu avec XX non assigné volontairement.
      Dernier sprint constaté : SDLC-17 → assigné SDLC-18.
