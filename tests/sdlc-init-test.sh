@@ -191,6 +191,7 @@ delta() { bash "$REPO_ROOT/sdlc-delta.sh" "$1" 2>&1; }
 check "projet à jour → « Déjà à jour »" bash -c "$(declare -f delta); REPO_ROOT='$REPO_ROOT'; delta '$B' | grep -q 'Déjà à jour'"
 OLD="$TEST_ROOT/delta-old"; cp -r "$B" "$OLD"
 sed -i 's/SDLC version : v[^ ]*/SDLC version : v2.0+OLD-0/' "$OLD/CLAUDE.md" "$OLD/STANDARDS.md"
+check "fixture « en retard » : version réécrite dans CLAUDE.md et STANDARDS.md" bash -c "grep -q 'v2.0+OLD-0' '$OLD/CLAUDE.md' && grep -q 'v2.0+OLD-0' '$OLD/STANDARDS.md'"
 check "projet en retard → inventaire, docs/REMONTEE_SDLC.md présent" bash -c "$(declare -f delta); REPO_ROOT='$REPO_ROOT'; delta '$OLD' | grep -q '✅ docs/REMONTEE_SDLC.md'"
 NOSTD="$TEST_ROOT/delta-nostd"; cp -r "$OLD" "$NOSTD"; rm "$NOSTD/STANDARDS.md"
 check "STANDARDS.md absent → version lue, aucune ligne « ABSENT » sous la version" bash -c "$(declare -f delta); REPO_ROOT='$REPO_ROOT'; out=\$(delta '$NOSTD'); grep -q 'Projet   : v2.0+OLD-0' <<<\"\$out\" && ! grep -qx 'ABSENT' <<<\"\$out\""

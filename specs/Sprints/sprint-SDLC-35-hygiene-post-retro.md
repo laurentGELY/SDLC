@@ -1,4 +1,4 @@
-Statut : ouvert
+Statut : clos — 2026-11-20
 # Sprint SDLC-35 — Hygiène post-rétro : Fix post-rétro 20/11 + reste de l'alignement du `CLAUDE.md` de ce dépôt
 <!-- PDR rédigé en session Claude Code le 20/11/2026 depuis docs/ROADMAP.md (§Next « Fix post-rétro 20/11 », §Later « Aligner le CLAUDE.md de ce dépôt ») · dépôt @ a02862c -->
 
@@ -48,16 +48,16 @@ Rendre mécaniques les vérifications que la rétro a trouvées manquantes, rép
 
 ## Critères d'acceptation
 
-- [ ] (a) `bash tests/sdlc-validate-test.sh` contient ≥ 2 nouveaux cas C12 (spec ouverte sans champ → rouge ; champ placeholder → rouge), vus rouges avant le correctif · `bash sdlc-validate.sh` → C12 vert sur le dépôt (cette spec porte le champ)
-- [ ] (b) `grep -n "LL-T14" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
-- [ ] (c) bootstrap jetable sans `STANDARDS.md` : `bash sdlc-delta.sh <projet> | grep -cx ABSENT` → 0 ; cas de test ajoutés à `tests/sdlc-init-test.sh`, vus rouges avant le correctif
-- [ ] (d) `grep -n "git log" 12-audit-externe-TEMPLATE.md` non vide
-- [ ] (e) `grep -c "DEPENDENCY_MAP" 03-wrap-up-SKILL-TEMPLATE.md` → 0
-- [ ] (f, g) `grep -c "MÉMOIRE SPRINT NON VIDE\|Perte accidentelle en cours de sprint" CLAUDE.md` → 0 · `grep -c "/reprise" CLAUDE.md` en hausse
-- [ ] (h) `grep -c "Candidat hook" CLAUDE.md` → 0
-- [ ] `wc -l 03-wrap-up-SKILL-TEMPLATE.md` ≤ 511
-- [ ] Tests niveau A : `bash sdlc-validate.sh` 12/12 · `bash tests/sdlc-validate-test.sh` · `bash tests/sdlc-init-test.sh` tous OK · `bash -n sdlc-delta.sh sdlc-validate.sh`
-- [ ] CHANGELOG `v2.0+SDLC-35`, C1 vert
+- [x] (a) `bash tests/sdlc-validate-test.sh` contient ≥ 2 nouveaux cas C12 (spec ouverte sans champ → rouge ; champ placeholder → rouge), vus rouges avant le correctif · `bash sdlc-validate.sh` → C12 vert sur le dépôt (cette spec porte le champ)
+- [x] (b) `grep -n "LL-T14" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
+- [x] (c) bootstrap jetable sans `STANDARDS.md` : `bash sdlc-delta.sh <projet> | grep -cx ABSENT` → 0 ; cas de test ajoutés à `tests/sdlc-init-test.sh`, vus rouges avant le correctif
+- [x] (d) `grep -n "git log" 12-audit-externe-TEMPLATE.md` non vide
+- [x] (e) `grep -c "DEPENDENCY_MAP" 03-wrap-up-SKILL-TEMPLATE.md` → 0
+- [x] (f, g) `grep -c "MÉMOIRE SPRINT NON VIDE\|Perte accidentelle en cours de sprint" CLAUDE.md` → 0 · `grep -c "/reprise" CLAUDE.md` en hausse
+- [x] (h) `grep -c "Candidat hook" CLAUDE.md` → 0
+- [x] `wc -l 03-wrap-up-SKILL-TEMPLATE.md` ≤ 511
+- [x] Tests niveau A : `bash sdlc-validate.sh` 12/12 · `bash tests/sdlc-validate-test.sh` · `bash tests/sdlc-init-test.sh` tous OK · `bash -n sdlc-delta.sh sdlc-validate.sh`
+- [x] CHANGELOG `v2.0+SDLC-35`, C1 vert
 
 ## Pas de placeholders
 
@@ -105,3 +105,10 @@ echo "# Spec : specs/Sprints/sprint-SDLC-35-hygiene-post-retro.md" >> .claude/sp
 
 ## Corrections ajustées vs spec
 *(complété au wrap-up — §Étape 3)*
+
+*(20/11/2026 — wrap-up)*
+
+1. **Revue en aveugle : 5 correctifs** — cas C12 vert « spec ouverte renseignée » ; regex élargie (tabulation acceptée ; « — », « ? », `TBD` refusés) + cas rouge `TBD` ; garde vérifiant que le `sed` de la fixture « en retard » a agi ; formulation exacte de la note `M-PROC-53` (2 cas vus rouges avant le contrôle, pas 3) ; deux notes de `07` rangées sous `M-TMPL-10` déplacées sous `M-PROC-49` (SDLC-34) et `M-PROC-53`. 5 constats écartés sur vérification.
+2. **Cas C12** : 3 prévus au critère (a), 5 livrés (3 rouges, 2 verts).
+3. **Hors périmètre, corrigé** : la note SDLC-34 du cliquet C11 (`M-PROC-49`), mal rangée depuis le wrap-up de SDLC-34.
+4. Tests : `tests/sdlc-validate-test.sh` 27 → 32, `tests/sdlc-init-test.sh` 67 → 72.

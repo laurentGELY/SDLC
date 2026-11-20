@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-35 — hygiene-post-retro] · 2026-11-20
+**Commit :** wrap-up de la branche `sdlc-35` (lot `df4d063`), intégrée à `main` en fast-forward
+**Bloquants en suspens :** aucun.
+**Fil fonctionnel :** Après la `/retrospective` et le prompt-audit du 20/11, C12 exige « Modèle exécutant » dans toute spec ouverte, `sdlc-delta.sh` est réparé et testé, le wrap-up fait relancer chaque total cité, et le `CLAUDE.md` de ce dépôt est aligné sur `01` v2.10 (338 lignes, plus de doublon avec `/reprise`). Prochain sprint prêt : P-15 (wrap-up et rétro en fichiers d'étapes, `03` à 511 lignes) ; échéance du 2026-12-04 dans `.claude/reprise.md` (validation terrain dans Job search).
+
 ### [Sprint SDLC-34 — suite-agregation-remontees] · 2026-11-20
 **Commit :** wrap-up de la branche `sdlc-34` (lots `1af91e1`, `72abdc6`, `999b68d`), intégrée à `main` en fast-forward et poussée
 **Bloquants en suspens :** aucun.
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun.
 **Fil fonctionnel :** Le modèle a une mémoire de reprise multi-sprints : le skill `/reprise` (`13`) tient dans `.claude/reprise.md` (non versionné, unique pour toutes les copies de travail) ce qui reste à faire pour chaque sprint ouvert, et chaque spec porte `Statut : ouvert|clos — date` en ligne 1, contrôlé par C12 ; il est installé dans ce dépôt (premier usage : `/reprise init`), déployé aux projets neufs (`sdlc-init.sh`) et mis à jour (`/sdlc-sync` `04b` v2.2, `sdlc-delta.sh`, qui lit maintenant la version complète). Le `CLAUDE.md` d'un projet neuf fait 336 lignes (cliquet C11) ; prochain sprint prêt : SDLC-34 (lots 2-3 de SDLC-33, en §Next) — seul écart connu : le `CLAUDE.md` de ce dépôt garde R-26/R-56/R-57 en double avec `/reprise` (ROADMAP §Later, ligne créée ce sprint).
 
+## §Archive
+
 ### [Sprint ELAG-4 — import-elagage] · 2026-11-19
 **Commit :** `e18e6c0` — wrap-up de la branche `elag-4` (lots `2e911ef`, `1e8a8b9`, `00586fb`, `08ac2bf`), intégrée à `main` en fast-forward et poussée le 19/11 · `9cedd2d` (20/11) : site `docs/` aligné sur ELAG-4 (`SPEC.html`, `standards.md`, `decisions.md`), hors bump
 **Bloquants en suspens :** aucun.
 **Fil fonctionnel :** Le `CLAUDE.md` d'un projet neuf fait 368 lignes (499 avant), élagué règle par règle selon les verdicts de Job search, et le contrôle C11 de `sdlc-validate.sh` (cliquet, `M-PROC-49`, octets comptés hors ligne de version) empêche toute croissance : tout ajout dans `01` retire ou déplace une règle de même taille, citée par son `R-NN`. Prochain sprint prêt : SDLC-33 lots 1 à 3 (en §Next) ; les constats hors périmètre des deux prompt-audits attendent en §Later. Seul écart connu avec le modèle : le `CLAUDE.md` de ce dépôt (384 lignes) garde les règles retirées de `01` (ROADMAP §Later).
-
-## §Archive
 
 ### [Sprint ELAG-1b — fix-bootstrap] · 2026-11-19
 **Commit :** wrap-up de la branche `elag-1b` (lots `a9e58e9`, `dec1147`, `09b38fa`, `eb0b6a2`), intégrée à `main`

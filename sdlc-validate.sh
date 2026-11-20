@@ -479,7 +479,8 @@ check_c12() {
     fi
     # Spec ouverte : « **Modèle exécutant :** » renseigné (M-PROC-53, LL-T16) ; specs closes non lues.
     if head -1 "$f" | grep -qx 'Statut : ouvert' \
-       && ! grep -qE '^\*\*Modèle exécutant :\*\* +[^[ ]' "$f"; then
+       && { ! grep -qE '^\*\*Modèle exécutant :\*\*[[:space:]]+[^[[:space:]—?]' "$f" \
+            || grep -qE '^\*\*Modèle exécutant :\*\*[[:space:]]+(TBD|à remplir)' "$f"; }; then
       fail=1
       detail="$detail
 ❌ specs/Sprints/$(basename "$f") — spec ouverte sans « **Modèle exécutant :** » renseigné"

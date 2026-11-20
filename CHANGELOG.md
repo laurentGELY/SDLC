@@ -2,6 +2,16 @@
 
 ---
 
+## [v2.0+SDLC-35] — 2026-11-20 · Sprint Fix S/M · Hygiène post-rétro : C12 « Modèle exécutant », `sdlc-delta.sh`, relance des totaux, `CLAUDE.md` aligné
+- **`sdlc-validate.sh`** C12 : une spec `Statut : ouvert` porte `**Modèle exécutant :**` renseigné (placeholder, « — », « ? », `TBD` refusés ; specs closes non lues) — `LL-T16`, « → Mise à jour » sous `M-PROC-53` · **`tests/sdlc-validate-test.sh`** : 5 cas C12 (3 rouges, 2 verts)
+- **`sdlc-delta.sh`** : « ABSENT » ne s'ajoute plus sous la version trouvée quand `STANDARDS.md` manque (`pipefail`) — `LL-T15` · **`tests/sdlc-init-test.sh`** : 4 cas `sdlc-delta.sh` (à jour, en retard, `STANDARDS.md` absent, variante `doc/`) + garde de la fixture
+- **`03-wrap-up-SKILL-TEMPLATE.md` v2.4** et skill vivant : case §3.5 « chaque total cité relancé par sa commande » (`LL-T14`) ; mentions de `docs/DEPENDENCY_MAP.md` retirées · **`12-audit-externe-TEMPLATE.md` v1.1** : état du dépôt établi avant la source externe (ECO-7 (c))
+- **`CLAUDE.md` de ce dépôt** : R-26 et R-56 réduits aux renvois de `01` v2.10 vers `/reprise`, section « Candidat hook » (R-49) retirée — 373 → 338 lignes
+- **`07-DECISIONS-SDLC.md`** : « → Mise à jour » sous `M-PROC-53` ; note SDLC-34 du cliquet C11 replacée sous `M-PROC-49` (rangée par erreur sous `M-TMPL-10`)
+- **Tests** : `bash sdlc-validate.sh` 12/12 · `bash tests/sdlc-validate-test.sh` 32/32 · `bash tests/sdlc-init-test.sh` 72/72 · `bash -n sdlc-delta.sh sdlc-validate.sh` · cas rouges vus rouges avant correctif (C12 : 28/30 ; `sdlc-delta.sh` : 70/71)
+- **Corrections ajustées vs spec** — 5 correctifs de la revue en aveugle (cas C12 vert renseigné, regex élargie + cas `TBD`, garde de fixture, formulation exacte de `07`, deux notes de `07` mal rangées dont une de SDLC-34) · cas C12 : 3 prévus, 5 livrés
+  - Fichiers à relire dans Claude.ai : `03`, `07`, `CHANGELOG.md`
+
 ## [v2.0+SDLC-34] — 2026-11-20 · Sprint Feature L · Suite de l'agrégation des remontées Job search : gardes, maison des dettes, file de remontées, une source par fait
 - **`03-wrap-up-SKILL-TEMPLATE.md` v2.3** et skill vivant : maison de chaque dette au §0d et dans l'Amorce (D-1, L5, L6 — `M-PROC-56`), `[SDLC_CANDIDATE]` écrits dans `docs/REMONTEE_SDLC.md` (P-20 — `M-PROC-61`), règle de doc mécanisable → pre-commit (D-4 — `M-PROC-57`), repli du grep de bloc de reprise réparé
 - **`09-retrospective-SKILL-TEMPLATE.md` v2.2** et skill vivant : destination C (hook) par défaut pour une commande dangereuse (D-3 — `M-HOOKS-09`), Étape 4 sur la file : remontées en attente comptées, bilans de report inscrits, traitées retirées

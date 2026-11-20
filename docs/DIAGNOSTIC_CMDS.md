@@ -272,3 +272,15 @@ Date : 20/11/2026 (Sprint SDLC-34)
 Commande : message de commit écrit dans un fichier, puis `git commit -F <fichier>` ; tests de regex par un script où le mot est construit en deux morceaux (`K="pk""ill"`) et chaque cas comparé à son code attendu (`echo "$c" | grep -qE "$RE"; echo $?`)
 Résultat observé : le hook lit le texte brut de la commande — un `git commit -m` ou un heredoc qui contient le motif est bloqué (exit 2) ; le script de cas a montré les trous `-9f`, chemin absolu et backticks avant correction.
 Conclusion : après l'ajout d'un garde, écrire sa documentation par fichier (Write, `-F`) et tester ses regex par un tableau de cas « attendu / obtenu », pas par une commande isolée.
+
+## Symptôme : `sdlc-delta.sh` affiche « ABSENT » sous une version pourtant trouvée
+Date : 20/11/2026 (Sprint SDLC-35)
+Commande : copie d'un bootstrap jetable, `rm <copie>/STANDARDS.md`, puis `bash sdlc-delta.sh <copie> | sed -n '/VERSIONS/,/Toolkit/p'`
+Résultat observé : `Projet : v2.0+SDLC-29` suivi d'une ligne `ABSENT` — sous `set -o pipefail`, `grep -h motif a b` sort en 2 si `b` manque même quand `a` correspond, et `|| echo ABSENT` s'ajoute au résultat.
+Conclusion : sous `pipefail`, neutraliser le code de sortie d'un `grep` multi-fichiers (`{ grep … || true; }`) et dériver la valeur par défaut d'un résultat vide, jamais d'un `||` en fin de pipeline.
+
+## Symptôme : une note « → Mise à jour » de `07-DECISIONS-SDLC.md` atterrit sous la mauvaise décision
+Date : 20/11/2026 (Sprint SDLC-35)
+Commande : `awk '/^## /{h=$0} /^→ Mise à jour <date>/{print NR": "h}' 07-DECISIONS-SDLC.md`
+Résultat observé : deux notes visant `M-PROC-49` et `M-PROC-53` rangées sous `M-TMPL-10` — l'insertion se calait sur le prochain `---`, que certaines entrées n'ont pas.
+Conclusion : repérer la fin d'une entrée par le titre `## ` suivant ; après insertion, relancer la commande ci-dessus pour vérifier l'entrée parente.

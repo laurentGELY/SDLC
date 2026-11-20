@@ -63,6 +63,11 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-35 — 20/11/2026 — Hygiène post-rétro (Fix post-rétro 20/11 + alignement du `CLAUDE.md`)
+**Code :** C12 exige « Modèle exécutant » renseigné dans les specs ouvertes (5 cas) · `sdlc-delta.sh` : « ABSENT » ne s'ajoute plus sous une version trouvée (`pipefail` + `grep` multi-fichiers), 4 cas + garde de fixture · `03` v2.4, `12` v1.1 · `CLAUDE.md` 373 → 338 lignes
+**Processus :** cas rouges vus rouges avant chaque correctif · la revue en aveugle a trouvé 5 défauts réels, dont deux notes « Mise à jour » de `07` rangées sous M-TMPL-10 par une insertion calée sur le prochain `---` (non uniforme dans `07`) — l'une datait de SDLC-34, déjà poussée · rétro : RAS
+**Lien pattern :** confirme `LL-T14` (« 3 cas vus rouges » écrit dans `07` alors qu'un cas était vert) · applique `LL-T16` (première spec à porter « Modèle exécutant », contrôlée par C12) · `LL-T10` : 0 faux constat sur 10 relevé comme tel (5 écartés sur vérification)
+
 ### Sprint SDLC-34 — 20/11/2026 — Suite de l'agrégation des remontées Job search (lots 2, 3, 4 de SDLC-33)
 **Code :** maison des dettes, file `docs/REMONTEE_SDLC.md`, hook `pkill -f`/`pgrep -f` non ancré, squelette pre-commit, réglages locaux de chemin, `M-PROC-56`→`61` + `M-HOOKS-09` · `CLAUDE.md` bootstrappé 336/16 684 → 327/16 597 (R-49 retiré, R-35 déplacé vers `04`) · défaut SDLC-33 de `03:280` corrigé
 **Processus :** ajouts de `01` du lot 3 avancés au commit du lot 2 pour garder le cliquet C11 monotone et ses cas « rouge » verts à chaque commit · le hook neuf a refusé la commande de commit dont le message citait son motif (`git commit -F`) · revue en aveugle : 10 correctifs sur 12 constats, dont 3 trous de regex du hook

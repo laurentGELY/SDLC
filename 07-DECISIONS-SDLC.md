@@ -2719,6 +2719,7 @@ d'instructions, ou un sprint de déplacement crée la destination qui permet le 
 
 → Mise à jour 20/11/2026 (Sprint SDLC-33) : cliquet abaissé à la mesure, 368/18099 → 336/16684 (`sdlc-validate.sh`), après le déplacement de R-26, R-56, R-57 vers `/reprise` — une sortie sans entrée.
 
+→ Mise à jour 20/11/2026 (Sprint SDLC-34) : cliquet abaissé à la mesure, 336/16684 → 327/16597 (`sdlc-validate.sh`), après les ajouts des `M-PROC-57`, `58`, `60` dans `01` compensés par R-49 (retrait) et R-35 (déplacé vers `04`) : bilan net −9 lignes, −87 octets.
 
 ## M-PROC-50 · Compteurs d'usage par règle — close, non reconduite · v2.0+ELAG-4 · 19/11/2026
 
@@ -2807,6 +2808,8 @@ spot contradictoire, liste « Éviter » en double, frontmatter des skills).
 
 **Déclencheur de réouverture :** la commande `/doctor prompt-audit` disparaît ou change de portée.
 
+→ Mise à jour 20/11/2026 (Sprint SDLC-35) : le champ n'avait été rempli dans aucune spec, y compris celle d'ELAG-4 qui l'a créé (`LL-T16`, `/retrospective` du 20/11/2026) ; C12 refuse désormais une spec `Statut : ouvert` sans ligne `**Modèle exécutant :**` renseignée (placeholder du gabarit refusé), specs closes non lues — 5 cas dans `tests/sdlc-validate-test.sh` (3 rouges, 2 verts) — les 2 premiers rouges vus rouges avant le contrôle, le 3e (`TBD`) ajouté avec le durcissement issu de la revue en aveugle.
+
 ## M-PROC-54 · Élagage règle par règle · v2.0+ELAG-4 · 19/11/2026
 
 **Contexte :** proposition provisoire d'ELAG-1 : les 50 lignes supprimées de `01` dans son histoire sont
@@ -2867,12 +2870,6 @@ dans `CLAUDE.md` est chargé à chaque session pour une procédure qui ne sert q
 
 **Déclencheur de réouverture :** un mécanisme visé est retiré ou cesse de marcher (skill renommé ou sans
 frontmatter, `tests/sdlc-init-test.sh` rouge).
-
-
-→ Mise à jour 20/11/2026 (Sprint SDLC-34) : cliquet abaissé à la mesure, 336/16684 → 327/16597 (`sdlc-validate.sh`), après les ajouts des `M-PROC-57`, `58`, `60` dans `01` compensés par R-49 (retrait) et R-35 (déplacé vers `04`) : bilan net −9 lignes, −87 octets.
-
-
-→ Mise à jour 20/11/2026 (Sprint SDLC-35) : le champ n'avait été rempli dans aucune spec, y compris celle d'ELAG-4 qui l'a créé (`LL-T16`, `/retrospective` du 20/11/2026) ; C12 refuse désormais une spec `Statut : ouvert` sans ligne `**Modèle exécutant :**` renseignée (placeholder du gabarit refusé), specs closes non lues — 3 cas dans `tests/sdlc-validate-test.sh`, vus rouges avant le contrôle.
 
 ---
 

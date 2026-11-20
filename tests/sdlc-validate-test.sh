@@ -233,6 +233,16 @@ printf 'Statut : clos — 2026-11-20\n# Sprint ZZ — test\n' > "$F/specs/Sprint
 run_validate "$F"
 assert_green 12 "spec close sans « Modèle exécutant » (champ exigé des seules specs ouvertes)"
 
+F=$(make_fixture c12-modele-tbd)
+printf 'Statut : ouvert\n# Sprint ZZ — test\n**Modèle exécutant :** TBD\n' > "$F/specs/Sprints/sprint-zz-test.md"
+run_validate "$F"
+assert_red 12 "spec ouverte dont « Modèle exécutant » vaut TBD"
+
+F=$(make_fixture c12-modele-renseigne)
+printf 'Statut : ouvert\n# Sprint ZZ — test\n**Modèle exécutant :**\tclaude-opus-5-5\n' > "$F/specs/Sprints/sprint-zz-test.md"
+run_validate "$F"
+assert_green 12 "spec ouverte avec « Modèle exécutant » renseigné (séparé par une tabulation)"
+
 # ─── C3 · NON-AVEUGLEMENT ────────────────────────────────────────────────────
 # C3 exemptait autrefois des fichiers entiers (C3_EXCEPTIONS) : un vrai résidu
 # y passait sans alerte. Ces cas prouvent que le grain ligne voit les résidus
