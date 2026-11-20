@@ -5,9 +5,9 @@
 ## §Actif
 
 ### [Sprint ELAG-4 — import-elagage] · 2026-11-19
-**Commit :** wrap-up de la branche `elag-4` (lots `2e911ef`, `1e8a8b9`, `00586fb`, `08ac2bf`), intégrée à `main` en fast-forward
+**Commit :** `e18e6c0` — wrap-up de la branche `elag-4` (lots `2e911ef`, `1e8a8b9`, `00586fb`, `08ac2bf`), intégrée à `main` en fast-forward et poussée le 19/11 · `9cedd2d` (20/11) : site `docs/` aligné sur ELAG-4 (`SPEC.html`, `standards.md`, `decisions.md`), hors bump
 **Bloquants en suspens :** aucun.
-**Fil fonctionnel :** Le `CLAUDE.md` d'un projet neuf fait 368 lignes (499 avant), élagué règle par règle selon les verdicts de Job search, et le contrôle C11 de `sdlc-validate.sh` (cliquet, `M-PROC-49`, octets comptés hors ligne de version) empêche toute croissance : tout ajout dans `01` retire ou déplace une règle de même taille, citée par son `R-NN`. Prochain sprint prêt : SDLC-33 lots 1 à 3 (en §Next) ; les constats hors périmètre des deux prompt-audits attendent en §Later.
+**Fil fonctionnel :** Le `CLAUDE.md` d'un projet neuf fait 368 lignes (499 avant), élagué règle par règle selon les verdicts de Job search, et le contrôle C11 de `sdlc-validate.sh` (cliquet, `M-PROC-49`, octets comptés hors ligne de version) empêche toute croissance : tout ajout dans `01` retire ou déplace une règle de même taille, citée par son `R-NN`. Prochain sprint prêt : SDLC-33 lots 1 à 3 (en §Next) ; les constats hors périmètre des deux prompt-audits attendent en §Later. Seul écart connu avec le modèle : le `CLAUDE.md` de ce dépôt (384 lignes) garde les règles retirées de `01` (ROADMAP §Later).
 
 ### [Sprint ELAG-1b — fix-bootstrap] · 2026-11-19
 **Commit :** wrap-up de la branche `elag-1b` (lots `a9e58e9`, `dec1147`, `09b38fa`, `eb0b6a2`), intégrée à `main`
