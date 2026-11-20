@@ -459,9 +459,9 @@ check_c11() {
   return 1
 }
 
-# Incident : E2 (projet source du modèle) — sans marqueur, l'inventaire des sprints ouverts
-#   croisait ROADMAP, mémoires et commits à la main ; un sprint sans bloc de reprise passait
-#   inaperçu. Le marqueur est la source de /reprise init (M-PROC-55).
+# Incident : remontée E2 de SDLC-33 (specs/Sprints/sprint-SDLC-33-*.md §Registre) — sans
+#   marqueur, l'inventaire des sprints ouverts croisait ROADMAP, mémoires et commits à la main.
+#   Le marqueur est la source de /reprise init (M-PROC-55).
 check_c12() {
   # Ligne 1 de chaque specs/Sprints/sprint-*.md : « Statut : ouvert » ou
   # « Statut : clos — AAAA-MM-JJ ». Les autres fichiers de specs/Sprints/ (audits,

@@ -64,8 +64,7 @@ skill `.claude/skills/reprise/SKILL.md` (copié de `13-reprise-SKILL-TEMPLATE.md
 les répertoires de sorties datées de `/reprise init`) · `.claude/reprise.md` dans le `.gitignore` ·
 marqueur `Statut` en ligne 1 des specs `specs/Sprints/sprint-*.md`. Specs sans marqueur → appliquer
 `/reprise` §Amorçage (liste `fichier → statut` soumise à l'humain avant écriture), puis `/reprise init`.
-Un équivalent local (ex. `doc/REPRISE.md`) est classé « déjà aligné », jamais écrasé.
-Un correctif local déjà présent et équivalent est classé « déjà aligné », jamais écrasé.
+Un correctif ou un équivalent local déjà présent (ex. `doc/REPRISE.md`) est classé « déjà aligné », jamais écrasé.
 
 Produire le tableau d'inventaire avant de continuer :
 

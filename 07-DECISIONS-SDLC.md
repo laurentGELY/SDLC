@@ -586,6 +586,7 @@ pas seulement l'auteur du modèle.
 | M-PROC-53 | Modèle exécutant dans l'en-tête du PDR ; `/doctor prompt-audit` (humain) à chaque changement de modèle et avant tout bump qui modifie `01` | ✓ | — |
 | M-PROC-54 | Élagage règle par règle (`Règles visées`, diff du comptage) ; réécriture d'ensemble admise seulement avec annexe I/T/A/O (provisoire) | ✓ | — |
 | M-TMPL-10 | Prose → renvoi d'une ligne quand un mécanisme vérifié porte la règle (résumés de skills, HALT-TIMEOUT, `.claude/rules/`) | ✓ | — |
+| M-PROC-55 | Mémoire de reprise multi-sprints : skill `/reprise` (`13`), `.claude/reprise.md` non versionné et unique (copie principale), marqueur `Statut` en ligne 1 des specs (C12), table des 3 mémoires | ✓ (marqueur, skill déployé, `.gitignore`) | usage actif de `/reprise` : sprints à déclencheur externe · option worktree et bloc de hook `[ACTIVER]` : dépôt exécuté par un service planifié |
 
 ---
 
@@ -616,6 +617,9 @@ Non versionné → zéro bruit git. Destruction post-commit → force la migrati
 **Enrichissements oracle retenus :**
 - Flag `EN ATTENTE [humain]` sur QUESTION et BLOQUANT → action items automatiques au wrap-up
 - Champ `→ fichiers :` optionnel sur DÉCISION → reprise de contexte rapide post-crash
+
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-33) : le bloc « MÉMOIRE SPRINT NON VIDE » (R-26) et la reconstruction depuis git (R-56) quittent `01` pour le skill `/reprise` (`13-reprise-SKILL-TEMPLATE.md` §Mémoire de sprint non vide, §Mémoire de sprint perdue) ; `01` garde un renvoi d'une ligne (`M-PROC-55`).
 
 ---
 
@@ -1152,6 +1156,9 @@ validée avant l'entrée dans le projet.
 
 **Script :** `sdlc-delta.sh` dans le toolkit (M-ENV-01).
 
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-33) : `sdlc-delta.sh` lit la version complète (`v2.0+<SPRINT>`) ; la regex tronquait le suffixe et déclarait « déjà à jour » tout projet aligné sur une v2.0+*, quel que soit l'écart. Il vérifie aussi `.claude/skills/reprise/SKILL.md` et liste `13`.
+
 ---
 
 ## M-SCOPE-03 · Pas de "modes" nommés dans Claude.md §Rôle · v1.9+SDLC-10 · 18/06/2026
@@ -1377,6 +1384,9 @@ prévue pour `LL-T05`.
 
 **Déclencheur de réouverture :** si l'allowlist Bash lecture seule (`[HOOK_CANDIDATE]`
 ci-dessus) est activée par `/retrospective` → revoir cette entrée en conséquence.
+
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-33) : le carve-out du hook vivant couvre aussi `*/.claude/reprise.md` (mémoire de reprise, `M-PROC-55`) ; `08` inchangé sur ce point (le hook qu'il livre n'a pas la garde M-HOOKS-04).
 
 ---
 
@@ -2172,6 +2182,9 @@ motifs plutôt que retirer le mécanisme.
 
 
 → Mise à jour 19/11/2026 (Sprint ELAG-4) : l'auto-revue du plan en 3 passes (R-51) est fondue dans une auto-évaluation d'au plus 3 lignes de la Demande d'aval (`M-PROC-51` (2)) ; la section `§Auto-revue du plan` de `01` n'existe plus. Les motifs de `04 §Pas de placeholders` restent.
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-33) : la précédence de la trace écrite après compaction (R-57) est déplacée dans `/reprise` §Mémoire de sprint perdue ; renvoi d'une ligne dans `01 §Mémoire de sprint` (`M-PROC-55`).
+
 ---
 
 ## M-TMPL-06 · Pattern `.claude/rules/` documenté pour projets cibles · v2.0+ECO-5 · 03/09/2026
@@ -2690,6 +2703,9 @@ octets ensemble : une compression qui allonge les lignes ne passe pas.
 **Déclencheur de réouverture :** la documentation Claude Code change sa cible de taille du fichier
 d'instructions, ou un sprint de déplacement crée la destination qui permet le palier suivant.
 
+→ Mise à jour 20/11/2026 (Sprint SDLC-33) : cliquet abaissé à la mesure, 368/18099 → 336/16684 (`sdlc-validate.sh`), après le déplacement de R-26, R-56, R-57 vers `/reprise` — une sortie sans entrée.
+
+
 ## M-PROC-50 · Compteurs d'usage par règle — close, non reconduite · v2.0+ELAG-4 · 19/11/2026
 
 **Contexte :** proposition provisoire d'ELAG-1 : pendant la mesure, chaque `/wrap-up` de Job search
@@ -2837,3 +2853,51 @@ dans `CLAUDE.md` est chargé à chaque session pour une procédure qui ne sert q
 
 **Déclencheur de réouverture :** un mécanisme visé est retiré ou cesse de marcher (skill renommé ou sans
 frontmatter, `tests/sdlc-init-test.sh` rouge).
+
+---
+
+## M-PROC-55 · Mémoire de reprise multi-sprints — `/reprise`, `.claude/reprise.md`, marqueur `Statut` · v2.0+SDLC-33 · 20/11/2026
+
+**Contexte :** remontée E2 de Job search (20/10 → 19/11, décisions D1–D6 tranchées le 19/11) et retour
+L3 (rétro du 01/11) — `specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md §Registre`. Le
+modèle connaissait deux horizons d'état (session : `SESSION_BRIDGE` ; sprint : `sprint-memory.md`) et
+pas le multi-sprints : un sprint en attente d'un déclencheur, ou mené dans un worktree, n'avait aucun
+endroit où écrire « ce qui reste, quand, comment le vérifier ». Job search l'a résolu localement par un
+skill `/reprise` (v1.2.1) et `doc/REPRISE.md`, avec un marqueur `Statut` en ligne 1 des specs ; le contrôle
+« sprints ouverts sur le même objet » y a détecté au premier passage un recouvrement de trois sprints (L3).
+
+**Retenu :**
+1. Template `13-reprise-SKILL-TEMPLATE.md` → `.claude/skills/reprise/SKILL.md`, déployé par `sdlc-init.sh`,
+   inventorié par `/sdlc-sync` (`04b`) et `sdlc-delta.sh`, installé dans ce dépôt (paire C4 comparée).
+   Recopie générique de v1.2.1 : règles R1–R6 (R2 couvre aussi les processus qui survivent à la session,
+   R-JS-06), cycle de vie d'un bloc (ouverture à l'étape 4e, clôture par `/wrap-up`, hygiène), procédure
+   du matin avec contrôle « même objet », `/reprise init`, amorçage d'un projet existant.
+2. `.claude/reprise.md` non versionné (`.gitignore`) et unique : résolu depuis la copie principale
+   (`git worktree list --porcelain | sed -n '1s/^worktree //p'`, aucun `$<chiffre>` — 19/11-3).
+3. Marqueur `Statut : ouvert` / `Statut : clos — AAAA-MM-JJ` en ligne 1 des specs (`04`), posé par
+   `/wrap-up` (`03`), contrôlé par **C12** ; les 32 specs existantes de ce dépôt marquées rétroactivement.
+4. R-26, R-56, R-57 déplacés de `01` vers `13` (budget C11, `M-PROC-49`) ; `/wrap-up` refuse la clôture
+   si « Reste pour clore » a une case ouverte autre que `wrap-up`, et inventorie `--ignored` avant
+   `git worktree remove` (L2).
+5. Option worktree conditionnelle (`02`) + bloc de hook `[ACTIVER si dépôt exécuté par un service planifié]`
+   (`08`) — fusion de S56-2 et R-JS-02.
+
+**Écarté :**
+- **Versionner `reprise.md`** — écarté : réécrit plusieurs fois par jour (R1), il serait toujours en retard
+  sur l'état réel ou multiplierait les commits ; versionné, chaque branche ou worktree en aurait une copie
+  divergente ; le dépôt est public.
+- **Fichier de règles à identifiants stables (`REGLES_SDLC.md`, brouillon du 09/11 de Job search, jamais
+  créé)** — écarté : `07` tient ce rôle ; ses R7/R8/C4 sont repris sans numéro dans §Cycle de vie d'un bloc.
+- **Hook d'écriture de `reprise.md` (R1/R2 automatiques)** — écarté (E2-D6) : `[HOOK_CANDIDATE]` si un oubli
+  est constaté.
+
+**Raison :** le futur des sprints ouverts est un état, pas un journal (`sprint-memory.md`) ni un contexte
+(`SESSION_BRIDGE`) ; le marqueur donne à `/reprise init` une source vérifiable par regex.
+
+**Impact fichiers :** `13` (nouveau), `01` v2.9, `02` v2.4, `03` v2.2 + skill vivant, `04` v2.7, `04b` v2.2,
+`05` v1.2, `06` v1.1, `08` v1.6, `sdlc-init.sh`, `sdlc-validate.sh` (C4, C12), `sdlc-delta.sh`, hook vivant,
+`.claude/skills/reprise/SKILL.md`, `CLAUDE.md` et `.gitignore` de ce dépôt.
+
+**Déclencheur de réouverture :** tests terrain C1–C4 de `/reprise` (plan complet sans contexte, résistance
+au crash, suivi pas à pas, hygiène à 2 semaines) non tenus dans Job search 2 semaines après sa
+synchronisation.

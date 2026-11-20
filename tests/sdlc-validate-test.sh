@@ -199,13 +199,16 @@ run_validate "$F"
 assert_red 4 "skill reprise retirée du dépôt, sans exception C4"
 
 # C12 — marqueur « Statut » en ligne 1 des specs de sprint (M-PROC-55)
+# Spec visée : la première de la fixture (aucun nom en dur, résiste aux renommages).
 F=$(make_fixture c12-absent)
-sed -i '1d' "$F/specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md"
+S12=$(ls "$F"/specs/Sprints/sprint-*.md | head -1)
+sed -i '1d' "$S12"
 run_validate "$F"
-assert_red 12 "ligne 1 « Statut : ouvert » retirée d'une spec de sprint"
+assert_red 12 "ligne 1 « Statut : … » retirée d'une spec de sprint"
 
 F=$(make_fixture c12-date)
-sed -i '1s/.*/Statut : clos — 20\/11\/2026/' "$F/specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md"
+S12=$(ls "$F"/specs/Sprints/sprint-*.md | head -1)
+sed -i '1s/.*/Statut : clos — 20\/11\/2026/' "$S12"
 run_validate "$F"
 assert_red 12 "date de clôture au format JJ/MM/AAAA au lieu de AAAA-MM-JJ"
 

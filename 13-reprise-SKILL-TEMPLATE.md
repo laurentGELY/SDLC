@@ -80,9 +80,9 @@ Règles :
 - 2026-10-21 09:42 · S12 · `python3 scripts/migrer_tracker.py data/export_20261019.csv --appliquer`
   · effet attendu : colonnes migrées dans le tracker
   · vérifier : sauvegarde datée du tracker présente + `grep -c ';v2;' data/tracker.csv` > 0
-- 2026-10-21 10:05 · S12 · boucle d'attente `until test -f data/fin.flag; do sleep 60; done` (arrière-plan)
-  · arrêt : `pkill -f '^until test -f data/fin.flag'` (ou fermer le terminal qui la porte)
-  · vérifier : `pgrep -f '^until test -f data/fin.flag'` → vide une fois close
+- 2026-10-21 10:05 · S12 · boucle d'attente `until test -f data/fin.flag; do sleep 60; done &` → PID 48213 (relevé par `echo $!`)
+  · arrêt : `kill 48213`
+  · vérifier : `ps -p 48213` → aucune ligne une fois close
 ```
 
 « vérifier » est une observation exécutable (fichier présent, `grep`, `jq`, ligne de log), pas une
@@ -152,7 +152,8 @@ for f in specs/Sprints/sprint-*.md; do head -1 "$f" | grep -qE '^Statut : ouvert
 4. **Même objet** : signaler deux sprints ouverts qui touchent le même objet (mêmes fichiers dans
    « Reste pour clore », même section de ROADMAP, même module ou même prompt), même si leur
    `Dépend de` vaut « — » : leur relation (absorption, ordre ou partage) doit être écrite dans
-   `Dépend de`. *(Cas réel : trois sprints sur la même section, absorption vue 5 jours après.)*
+   `Dépend de`. *(Remontée L3, M-PROC-55 : trois sprints sur la même section d'un projet du modèle,
+   absorption vue 5 jours après.)*
 5. Ordonner : d'abord selon `Dépend de`, puis clôturables, débloquables, en cours, bloqués (avec leur
    date de déblocage).
 6. Présenter le plan du jour, sprint par sprint, en étapes numérotées. Commandes reprises **verbatim** ;

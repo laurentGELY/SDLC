@@ -16,6 +16,7 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (CLAUDE.md, STA
 | `03-wrap-up-SKILL-TEMPLATE.md` | Skill /wrap-up — procédure de clôture de sprint | ✓ |
 | `04-sprint-PDR-TEMPLATE.md` | Template spec de sprint (PDR) | ✓ |
 | `06-PDR-bootstrap.md` | Guide opérationnel Sprint 0 | ✓ |
+| `13-reprise-SKILL-TEMPLATE.md` | Skill /reprise — format de `.claude/reprise.md` et marqueur `Statut` (`M-PROC-55`) | ✓ |
 
 ## Fichiers exclus (et raison)
 | Fichier | Raison d'exclusion |
@@ -34,6 +35,8 @@ Toolkit de gouvernance SDLC pour projets Claude Code : templates (CLAUDE.md, STA
 | `05-ROADMAP-TEMPLATE.md` | Template simple, peu de valeur contextuelle permanente |
 | `08-hooks-TEMPLATE.md` | Référence hooks — rarement consulté en session SDLC |
 | `09-retrospective-SKILL-TEMPLATE.md` | Skill secondaire — consulté ponctuellement |
+| `.claude/reprise.md` | État local des sprints ouverts — non versionné (`.gitignore`), jamais synchronisé |
+| `.claude/skills/reprise/SKILL.md` | Copie adaptée de `13` (synchronisé) — redondant dans Claude.ai |
 | `README.md` | Redondant avec 00-CONTEXT.md pour Claude.ai |
 
 ## Dernière vérification : 02/07/2026 · Sprint SDLC-25 wrap-up
@@ -54,3 +57,6 @@ Delta vérifié : `tests/sdlc-validate-test.sh` (nouveau) ajouté aux fichiers e
 
 ## Dernière vérification : 24/09/2026 · Sprint ECO-8 wrap-up
 Delta vérifié : aucun nouveau fichier de gouvernance (seul `specs/Sprints/sprint-ECO-8-suite-dans-wrapup.md`, non listé individuellement). Fichiers déjà synchronisés modifiés ce sprint (`00-CONTEXT.md`, `03-wrap-up-SKILL-TEMPLATE.md`, `07-DECISIONS-SDLC.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").
+
+## Dernière vérification : 20/11/2026 · Sprint SDLC-33 wrap-up
+Delta vérifié : `13-reprise-SKILL-TEMPLATE.md` (nouveau) ajouté aux fichiers synchronisés ; `.claude/reprise.md` (jamais synchronisé) et `.claude/skills/reprise/SKILL.md` ajoutés aux exclus. Fichiers déjà synchronisés modifiés ce sprint (`00-CONTEXT.md`, `01`, `03`, `04`, `06`, `07-DECISIONS-SDLC.md`, `CHANGELOG.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").

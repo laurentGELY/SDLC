@@ -254,3 +254,15 @@ Date : 19/11/2026 (Sprint ELAG-4, C11)
 Commande : `T=$(mktemp -d); (cd "$T" && git init -q && git -c user.email=t@t -c user.name=t commit -q --allow-empty -m i && bash sdlc-init.sh "Test" >/dev/null); wc -lc "$T"/CLAUDE.md; grep -v '^<!-- SDLC version : ' "$T"/CLAUDE.md | wc -c`
 Résultat observé : `sdlc-init.sh` substitue le nom du projet et réécrit la ligne « SDLC version : <version du README> » — « Budget » au lieu de « Test » donnait +2 octets, le bump `ELAG-1b` → `ELAG-4` −1 octet.
 Conclusion : mesurer et contrôler avec le même nom de projet, et hors des lignes que le bootstrap réécrit ; un cas de test qui modifie seulement la version doit laisser C11 vert.
+
+## Symptôme : `sdlc-delta.sh` dit « Déjà à jour » pour un projet aligné sur une version ancienne
+Date : 20/11/2026 (Sprint SDLC-33)
+Commande : `grep -h "SDLC version" <projet>/CLAUDE.md | grep -oP 'v[0-9]+\.[0-9]+(\+[A-Za-z0-9._-]+)?'` à comparer à `grep -m1 -oE 'Version courante : [^ *]+' README.md`
+Résultat observé : l'ancienne regex `v[0-9]+\.[0-9]+` lisait `v2.0` des deux côtés (`v2.0+SDLC-29` contre `v2.0+ELAG-4`) et arrêtait le script avant l'inventaire.
+Conclusion : comparer la version complète, suffixe `+<SPRINT>` compris ; tester le script sur un projet volontairement en retard, pas seulement sur un projet à jour.
+
+## Symptôme : `/reprise` lit ou écrit un `reprise.md` différent selon la copie de travail
+Date : 20/11/2026 (Sprint SDLC-33)
+Commande : `git worktree list --porcelain | sed -n '1s/^worktree //p'` depuis la copie principale puis depuis un worktree → même chemin attendu
+Résultat observé : un chemin relatif `.claude/reprise.md` désigne le fichier du worktree courant ; la 1re ligne `worktree` du porcelain est toujours la copie principale.
+Conclusion : toujours résoudre `$REPRISE` par cette commande ; jamais `awk '{print $2}'` dans un skill (Claude Code remplace `$2` par l'argument).

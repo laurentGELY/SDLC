@@ -1,4 +1,4 @@
-Statut : ouvert
+Statut : clos — 2026-11-20
 # Sprint SDLC-33 — Agrégation des remontées Job search (28/09 → 19/11/2026)
 <!-- PDR rédigé le 19/11/2026 en session Claude.ai (projet SDLC) · confronté au dépôt laurentGELY/SDLC @ 012905d · mis à jour le 19/11 avec doc/LESSONS_LEARNED.md v2.0.19 et la table de verdict ELAG-3 de Job search · corrigé le 19/11 en session Claude Code après confrontation au dépôt Job search @ c5378e0 (voir §Corrections du 19/11) · destination : specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md -->
 
@@ -164,18 +164,18 @@ Le lot 1 (fonction nouvelle, à valider sur le terrain) et les lots 2-3 (règles
 ## Dépendances
 
 **Inputs requis :**
-- [ ] Dépôt à `012905d` ou descendant, `bash sdlc-validate.sh` vert, `bash tests/sdlc-validate-test.sh` vert.
-- [ ] **ELAG-1b livré** (commit présent dans `git log`) **avant les lots 1 et 2** : ils modifient `sdlc-init.sh` (skills déployés, `.gitignore`) et les hooks, qu'ELAG-1b réécrit.
-- [ ] **ELAG-4 livré avant les lots 1 à 3** : contrôle de budget en place, `01` allégé, `01:263` réécrit (ordre décidé le 19/11).
-- [ ] *Lot 0 exécutable sans l'un ni l'autre.* Si ELAG-1b ou ELAG-4 manque au démarrage des lots 1 à 3 → BLOQUANT, signaler et s'arrêter après le lot 0.
-- [ ] Aval de Laurent sur le lot 0 (décision 1 de `claude/REPRISE-ELAG-DGOV.md §5`).
+- [x] Dépôt à `012905d` ou descendant, `bash sdlc-validate.sh` vert, `bash tests/sdlc-validate-test.sh` vert.
+- [x] **ELAG-1b livré** (commit présent dans `git log`) **avant les lots 1 et 2** : ils modifient `sdlc-init.sh` (skills déployés, `.gitignore`) et les hooks, qu'ELAG-1b réécrit.
+- [x] **ELAG-4 livré avant les lots 1 à 3** : contrôle de budget en place, `01` allégé, `01:263` réécrit (ordre décidé le 19/11).
+- [x] *Lot 0 exécutable sans l'un ni l'autre.* Si ELAG-1b ou ELAG-4 manque au démarrage des lots 1 à 3 → BLOQUANT, signaler et s'arrêter après le lot 0.
+- [x] Aval de Laurent sur le lot 0 (décision 1 de `claude/REPRISE-ELAG-DGOV.md §5`).
 
 **Outputs produits :**
-- [ ] `13-reprise-SKILL-TEMPLATE.md` + déploiement par `sdlc-init.sh`
-- [ ] décisions `M-PROC-55`→`M-PROC-61` et `M-HOOKS-09` dans `07`, avec lignes du tableau de compatibilité
-- [ ] file `docs/REMONTEE_SDLC.md` décrite dans les templates `wrap-up` et `retrospective`
-- [ ] ROADMAP : « Import élagage » pointé sur ELAG-4 ; « Import D-GOV-01 » en §Later
-- [ ] bilan de report au format de la file (§Annexe)
+- [x] `13-reprise-SKILL-TEMPLATE.md` + déploiement par `sdlc-init.sh`
+- [x] décisions `M-PROC-55`→`M-PROC-61` et `M-HOOKS-09` dans `07`, avec lignes du tableau de compatibilité *(M-PROC-55 fait ; 56→61 et M-HOOKS-09 → SDLC-34)*
+- [→ SDLC-34] file `docs/REMONTEE_SDLC.md` décrite dans les templates `wrap-up` et `retrospective`
+- [x] ROADMAP : « Import élagage » pointé sur ELAG-4 ; « Import D-GOV-01 » en §Later
+- [→ SDLC-34] bilan de report au format de la file (§Annexe)
 
 **Règle :** avant de démarrer, vérifier que tous les inputs requis cochés existent et sont dans l'état attendu. Si un input manque ou a changé → signaler comme BLOQUANT avant toute analyse.
 
@@ -223,7 +223,7 @@ Appliquer le tableau E2 §6, avec les corrections K1, K2, K7, K12, K16. Spec com
 | `01-Claude-md-TEMPLATE.md` | (a) `§Démarrage` : étape **4e** — créer le bloc du sprint dans `$REPRISE`, « Reste pour clore » = critères d'acceptation du PDR · (b) `01:173` « Si aucun sprint spec n'est fourni → demander » devient « … → `/reprise` (plan des sprints ouverts), puis demander » · (c) **R-26** (bloc `MÉMOIRE SPRINT NON VIDE`, `01:176-207` environ), **R-56**, **R-57** (`§Mémoire de sprint`) : déplacés dans `13`, remplacés par un renvoi d'une ligne ; l'exception « une `sprint-memory.md` par copie de travail » est écrite dans `13` · (d) `§Mémoire de sprint` : 2 lignes « Le futur de tous les sprints ouverts vit dans `.claude/reprise.md` (non versionné) — voir `/reprise` » · bilan net en lignes rapporté (doit être négatif : `M-PROC-49`) |
 | `02-STANDARDS-TEMPLATE.md` | **Option worktree** (fusion S56-2 + R-JS-02, conditionnelle, section `§Types de sprint` ou nouvelle sous-section courte) : « si le dépôt est exécuté par un service planifié, le sprint se développe dans un worktree dédié ; la copie exécutée reste sur la branche de production, on n'y change jamais de branche » |
 | `08-hooks-TEMPLATE.md` | Bloc optionnel `[ACTIVER si dépôt exécuté par un service planifié]` : refuser `git switch` / `git checkout <branche>` dans la copie principale (dans Job search : règle la plus servie, 12 sprints sur 15, protégée par hook) ; dans le bloc extrait par `sdlc-init.sh` (marqueurs d'ELAG-1b), commenté par défaut |
-| `03-wrap-up-SKILL-TEMPLATE.md` **+** `.claude/skills/wrap-up/SKILL.md` | Écrire `Statut : clos — AAAA-MM-JJ` en ligne 1 de la spec · contrôle de complétude : refuser la clôture si « Reste pour clore » a une case `[ ]`, sauf confirmation explicite · purger le bloc (R3) · **ajout L2** : sprint mené dans un worktree → avant `git worktree remove`, `git -C <worktree> status --ignored --porcelain` ; tout résultat ignoré par git (banc, sortie de mesure) est versé dans la spec ou déplacé avant suppression · `03:418` « next actions (rôle de `docs/ROADMAP.md §Now`) » → « (rôle de `.claude/reprise.md`, et de `ROADMAP §Now` pour le sprint en exécution) » |
+| `03-wrap-up-SKILL-TEMPLATE.md` **+** `.claude/skills/wrap-up/SKILL.md` | Écrire `Statut : clos — AAAA-MM-JJ` en ligne 1 de la spec · contrôle de complétude : refuser la clôture si « Reste pour clore » a une case non cochée, sauf confirmation explicite · purger le bloc (R3) · **ajout L2** : sprint mené dans un worktree → avant `git worktree remove`, `git -C <worktree> status --ignored --porcelain` ; tout résultat ignoré par git (banc, sortie de mesure) est versé dans la spec ou déplacé avant suppression · `03:418` « next actions (rôle de `docs/ROADMAP.md §Now`) » → « (rôle de `.claude/reprise.md`, et de `ROADMAP §Now` pour le sprint en exécution) » |
 | `04-sprint-PDR-TEMPLATE.md` | Ligne 1 : `Statut : ouvert` ; titre en ligne 2 ; commentaire de version en ligne 3, incrémenté ; commentaire « C2 lit 3 lignes : marge nulle, tout nouveau champ d'en-tête impose d'élargir C2 » |
 | `05-ROADMAP-TEMPLATE.md` | `05:12` → « un seul sprint **en exécution** par copie de travail ; un sprint en attente d'un déclencheur reste en §Now avec ⏸ + déclencheur + pointeur `.claude/reprise.md` » |
 | `.claude/hooks/pre-tool-bash.sh` (hook vivant seul — K2) | Ajouter `\|\| "$FILE_PATH" == */.claude/reprise.md` à la condition du carve-out (`:52`) |
@@ -276,32 +276,32 @@ Appliquer le tableau E2 §6, avec les corrections K1, K2, K7, K12, K16. Spec com
 
 *(La DoD — `STANDARDS.md §Definition of Done` — s'applique en plus.)*
 
-- [ ] Lot 0 : `grep -c "Remontée ELAG-3" docs/LESSONS_LEARNED.md` → ≥ 1 · `grep -n "Import D-GOV-01" docs/ROADMAP.md` non vide · `grep -n "Import élagage 2" docs/ROADMAP.md` non vide · `grep -n "ELAG-3-table-verdict" docs/ROADMAP.md` non vide · `awk '/^## 🗂 Later/,/^## §Seuils/' docs/ROADMAP.md | grep -c "^| ELAG-3"` → 0
-- [ ] `test -f specs/Sprints/ELAG-3-table-verdict-jobsearch.md && grep -c '^| R-' specs/Sprints/ELAG-3-table-verdict-jobsearch.md` → 156 · `grep -cE "sprint-ELAG-1b-fix-bootstrap|sprint-ELAG-4-import-elagage" docs/ROADMAP.md` → ≥ 2 · `grep -n "R-32 retirée" docs/ROADMAP.md` non vide
-- [ ] `grep -n "même objet" 13-reprise-SKILL-TEMPLATE.md` non vide · `grep -n -- "--ignored" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
-- [ ] `grep -nE '\$[0-9]' 13-reprise-SKILL-TEMPLATE.md 03-wrap-up-SKILL-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md` → vide · `grep -n "sed -n '1s/^worktree //p'" 13-reprise-SKILL-TEMPLATE.md` non vide
-- [ ] `head -1 04-sprint-PDR-TEMPLATE.md | grep -E '^Statut : ouvert$'` · `sed -n 3p 04-sprint-PDR-TEMPLATE.md | grep -E '<!--.*v[0-9]+\.[0-9]+'`
-- [ ] `test -f 13-reprise-SKILL-TEMPLATE.md && grep -c '^- \*\*R[1-6]' 13-reprise-SKILL-TEMPLATE.md` → 6 · `head -1 13-reprise-SKILL-TEMPLATE.md` → `---`
-- [ ] R-26/R-56/R-57 déplacés : `grep -c "MÉMOIRE SPRINT NON VIDE" 01-Claude-md-TEMPLATE.md` → 0 et ≥ 1 dans `13-reprise-SKILL-TEMPLATE.md`
-- [ ] `grep -n "reprise.md" .claude/hooks/pre-tool-bash.sh` non vide · `grep -n "reprise" sdlc-init.sh` → déploiement **et** `.gitignore`
-- [ ] Bootstrap jetable (`git init` + commit vide, puis `bash sdlc-init.sh "Test"`) : `.claude/skills/reprise/SKILL.md` présent, `grep -qx '.claude/reprise.md' .gitignore`, `docs/REMONTEE_SDLC.md` présent avec ses 3 sections
-- [ ] Résolution depuis un worktree secondaire (dépôt jetable) : `MAIN` renvoie la copie principale, y compris quand le skill reçoit un argument
-- [ ] `grep -n "toujours à jour" 01-Claude-md-TEMPLATE.md` → vide · `grep -n "fait foi" 01-Claude-md-TEMPLATE.md` non vide
-- [ ] `grep -n "observé par" 05-ROADMAP-TEMPLATE.md` non vide · `grep -n "un seul item actif à la fois" 05-ROADMAP-TEMPLATE.md` → vide
-- [ ] `grep -nE "maison.*(garde|reprise|ROADMAP)" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
-- [ ] File : `grep -c "REMONTEE_SDLC.md" 03-wrap-up-SKILL-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md .claude/skills/retrospective/SKILL.md` → ≥ 1 dans chacun · `grep -n "remontées en attente" 09-retrospective-SKILL-TEMPLATE.md` non vide
-- [ ] `grep -n "hypothèse" 04-sprint-PDR-TEMPLATE.md` non vide (19/11-2)
-- [ ] `grep -n "sur une ligne" 01-Claude-md-TEMPLATE.md` non vide et `grep -c "~/<nom>.sh" 01-Claude-md-TEMPLATE.md` → 1 (P-19, sans ligne ajoutée)
-- [ ] Marqueur sur toutes les specs : `for f in specs/Sprints/sprint-*.md; do head -1 "$f" | grep -qE '^Statut : (ouvert|clos — [0-9]{4}-[0-9]{2}-[0-9]{2})$' || echo "$f"; done` → vide
-- [ ] Aucun contenu Job search brut commité : `grep -n "Énoncé\|Emplacement actuel" specs/Sprints/ELAG-3-table-verdict-jobsearch.md` → vide
-- [ ] Budget `01` : contrôle de budget d'ELAG-4 vert ; `wc -lc` du `CLAUDE.md` bootstrappé avant/après consigné, bilan net ≤ 0
-- [ ] Hook : `pkill -f foo` → `2` · `pgrep -f '^foo'` → passant (cas de `tests/sdlc-init-test.sh`, chaînes en deux morceaux)
-- [ ] `grep -n "Réglages locaux" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide · `grep -n "REMONTEE_SDLC" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide
-- [ ] `grep -cE '^## M-PROC-(55|56|57|58|59|60|61) · ' 07-DECISIONS-SDLC.md` → 7 · `grep -c '^## M-HOOKS-09 · ' 07-DECISIONS-SDLC.md` → 1
-- [ ] `git diff --stat 012905d -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
-- [ ] Tests niveau A : `bash sdlc-validate.sh` → tous les contrôles OK (`C<n>` compris) · `bash tests/sdlc-validate-test.sh` et `bash tests/sdlc-init-test.sh` → tous OK, dont les nouveaux cas RED C4 et `C<n>` · `bash -n .claude/hooks/pre-tool-bash.sh`
-- [ ] Bilan de report remis (une ligne par proposition de l'Annexe)
-- [ ] CHANGELOG mis à jour (`v2.0+SDLC-33`), C1 vert
+- [x] Lot 0 : `grep -c "Remontée ELAG-3" docs/LESSONS_LEARNED.md` → ≥ 1 · `grep -n "Import D-GOV-01" docs/ROADMAP.md` non vide · `grep -n "Import élagage 2" docs/ROADMAP.md` non vide · `grep -n "ELAG-3-table-verdict" docs/ROADMAP.md` non vide · `awk '/^## 🗂 Later/,/^## §Seuils/' docs/ROADMAP.md | grep -c "^| ELAG-3"` → 0
+- [x] `test -f specs/Sprints/ELAG-3-table-verdict-jobsearch.md && grep -c '^| R-' specs/Sprints/ELAG-3-table-verdict-jobsearch.md` → 156 · `grep -cE "sprint-ELAG-1b-fix-bootstrap|sprint-ELAG-4-import-elagage" docs/ROADMAP.md` → ≥ 2 · `grep -n "R-32 retirée" docs/ROADMAP.md` non vide *(vérifié à `ecb1b15` : 156 · 2 · 1 ; depuis, les lignes §Next d'ELAG-1b/ELAG-4 sont passées en §Historique)*
+- [x] `grep -n "même objet" 13-reprise-SKILL-TEMPLATE.md` non vide · `grep -n -- "--ignored" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
+- [x] `grep -nE '\$[0-9]' 13-reprise-SKILL-TEMPLATE.md 03-wrap-up-SKILL-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md` → vide · `grep -n "sed -n '1s/^worktree //p'" 13-reprise-SKILL-TEMPLATE.md` non vide
+- [x] `head -1 04-sprint-PDR-TEMPLATE.md | grep -E '^Statut : ouvert$'` · `sed -n 3p 04-sprint-PDR-TEMPLATE.md | grep -E '<!--.*v[0-9]+\.[0-9]+'`
+- [x] `test -f 13-reprise-SKILL-TEMPLATE.md && grep -c '^- \*\*R[1-6]' 13-reprise-SKILL-TEMPLATE.md` → 6 · `head -1 13-reprise-SKILL-TEMPLATE.md` → `---`
+- [x] R-26/R-56/R-57 déplacés : `grep -c "MÉMOIRE SPRINT NON VIDE" 01-Claude-md-TEMPLATE.md` → 0 et ≥ 1 dans `13-reprise-SKILL-TEMPLATE.md`
+- [x] `grep -n "reprise.md" .claude/hooks/pre-tool-bash.sh` non vide · `grep -n "reprise" sdlc-init.sh` → déploiement **et** `.gitignore`
+- [x] Bootstrap jetable (`git init` + commit vide, puis `bash sdlc-init.sh "Test"`) : `.claude/skills/reprise/SKILL.md` présent, `grep -qx '.claude/reprise.md' .gitignore`, `docs/REMONTEE_SDLC.md` présent avec ses 3 sections *(skill et `.gitignore` vérifiés ; `docs/REMONTEE_SDLC.md` → SDLC-34)*
+- [x] Résolution depuis un worktree secondaire (dépôt jetable) : `MAIN` renvoie la copie principale, y compris quand le skill reçoit un argument
+- [→ SDLC-34] `grep -n "toujours à jour" 01-Claude-md-TEMPLATE.md` → vide · `grep -n "fait foi" 01-Claude-md-TEMPLATE.md` non vide
+- [x] `grep -n "observé par" 05-ROADMAP-TEMPLATE.md` non vide · `grep -n "un seul item actif à la fois" 05-ROADMAP-TEMPLATE.md` → vide *(« un seul item actif » → vide fait ; « observé par » → SDLC-34)*
+- [→ SDLC-34] `grep -nE "maison.*(garde|reprise|ROADMAP)" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
+- [→ SDLC-34] File : `grep -c "REMONTEE_SDLC.md" 03-wrap-up-SKILL-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md .claude/skills/retrospective/SKILL.md` → ≥ 1 dans chacun · `grep -n "remontées en attente" 09-retrospective-SKILL-TEMPLATE.md` non vide
+- [→ SDLC-34] `grep -n "hypothèse" 04-sprint-PDR-TEMPLATE.md` non vide (19/11-2)
+- [→ SDLC-34] `grep -n "sur une ligne" 01-Claude-md-TEMPLATE.md` non vide et `grep -c "~/<nom>.sh" 01-Claude-md-TEMPLATE.md` → 1 (P-19, sans ligne ajoutée)
+- [x] Marqueur sur toutes les specs : `for f in specs/Sprints/sprint-*.md; do head -1 "$f" | grep -qE '^Statut : (ouvert|clos — [0-9]{4}-[0-9]{2}-[0-9]{2})$' || echo "$f"; done` → vide
+- [x] Aucun contenu Job search brut commité : `grep -n "Énoncé\|Emplacement actuel" specs/Sprints/ELAG-3-table-verdict-jobsearch.md` → vide
+- [x] Budget `01` : contrôle de budget d'ELAG-4 vert ; `wc -lc` du `CLAUDE.md` bootstrappé avant/après consigné, bilan net ≤ 0
+- [→ SDLC-34] Hook : `pkill -f foo` → `2` · `pgrep -f '^foo'` → passant (cas de `tests/sdlc-init-test.sh`, chaînes en deux morceaux)
+- [→ SDLC-34] `grep -n "Réglages locaux" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide · `grep -n "REMONTEE_SDLC" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide
+- [x] `grep -cE '^## M-PROC-(55|56|57|58|59|60|61) · ' 07-DECISIONS-SDLC.md` → 7 · `grep -c '^## M-HOOKS-09 · ' 07-DECISIONS-SDLC.md` → 1 *(M-PROC-55 présent ; 56→61 et M-HOOKS-09 → SDLC-34)*
+- [x] `git diff --stat 012905d -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
+- [x] Tests niveau A : `bash sdlc-validate.sh` → tous les contrôles OK (`C<n>` compris) · `bash tests/sdlc-validate-test.sh` et `bash tests/sdlc-init-test.sh` → tous OK, dont les nouveaux cas RED C4 et `C<n>` · `bash -n .claude/hooks/pre-tool-bash.sh`
+- [→ SDLC-34] Bilan de report remis (une ligne par proposition de l'Annexe)
+- [x] CHANGELOG mis à jour (`v2.0+SDLC-33`), C1 vert
 
 ---
 
@@ -436,6 +436,20 @@ echo "# Spec : specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md" >
 
 ## Corrections ajustées vs spec
 *(complété au wrap-up — §Étape 3)*
+
+*(20/11/2026 — wrap-up au périmètre coupé)*
+
+1. **Coupe après le lot 1 (+1b)**, décidée par Laurent au point de coupe : SDLC-33 = lot 0 + lot 1 + lot 1b + gouvernance de `13`. Lots 2, 3 et reste du lot 4 → **SDLC-34** (ROADMAP §Next) ; leurs propositions dans §Annexe restent à l'issue prévue, non appliquées. Les critères d'acceptation des lots 2-4 non cochés passent à SDLC-34.
+2. **Source de `13`** : E2 §4-§5 indisponible localement (`/tmp/remontees/` absent) → `/reprise` v1.2.1 de Job search (`c5378e0`, K10), rendu générique (chemins, exemples, « l'humain »).
+3. **Lot 1b (hors PDR, demandé par Laurent)** : `/reprise` installé dans ce dépôt (exception C4 retirée), `.gitignore` et `CLAUDE.md` de ce dépôt ; déploiement aux projets mis à jour par `04b` v2.2 et `sdlc-delta.sh`. Le PDR interdisait « un `reprise.md` dans ce dépôt » : levé, le fichier est gitignoré.
+4. **`sdlc-delta.sh`** : défaut préexistant corrigé (version tronquée à `v2.0`, tout projet en v2.0+* « déjà à jour »).
+5. **Gouvernance de `13` avancée au lot 1** : C6 et C10 rougissaient sans elle (`00-CONTEXT`, `06`, README, `SPEC.md`, 2 HTML).
+6. **Critère « `grep -n "sed -n '1s/^worktree //p'"` »** : ne trouve rien sans `-F` (rc=1 sur ligne présente) → vérifié par `grep -F`.
+7. **R7/R8/C4** du brouillon `REGLES_SDLC.md` (collé en session, jamais créé dans Job search) repris sans numéro dans §Cycle de vie d'un bloc ; le critère « 6 règles R » tient.
+8. **Test du wrap-up** : 4 placeholders de date au lieu de 3 (marqueur `Statut : clos — AAAA-MM-JJ`).
+9. **Contrôle « Reste pour clore »** (lot 1) : refusait sur la case `wrap-up` elle-même au premier usage → « autre que `wrap-up` ».
+10. **Revue en aveugle** : 7 correctifs (doublon `04b`, consigne `MODE-OPERATOIRE`, exemple `until` → PID, `grep "^### <ID> "`, tests C12 sans nom en dur, garde `08` sur `checkout <ref> --`, sources citées) ; ligne ROADMAP §Later « `CLAUDE.md` de ce dépôt » créée.
+11. **Budget `01`** : `wc -lc` 368 l / 18 172 o → 336 l / 16 757 o ; `CLAUDE.md` bootstrappé 336 l / 16 684 o hors ligne de version ; bilan net −32 lignes.
 
 ---
 

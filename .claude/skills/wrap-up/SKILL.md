@@ -107,7 +107,7 @@ Règle : un "fait à 90%" sans critère d'acceptation coché n'est pas ATTEINT.
 Le verdict est ancré sur la spec et le diff git — pas sur une impression de session.
 
 **Reste pour clore (`.claude/reprise.md`, M-PROC-55) :** si le bloc du sprint dans la reprise a encore
-une case `[ ]` dans « Reste pour clore » → refuser la clôture, citer les cases ouvertes, et ne
+une case `[ ]` dans « Reste pour clore » autre que `wrap-up` (statut *clôturable* de `/reprise`) → refuser la clôture, citer les cases ouvertes, et ne
 continuer que sur confirmation explicite de l'humain.
 
 ---
@@ -283,7 +283,7 @@ Rapporter :
 SPEC=specs/Sprints/sprint-<N>-<slug>.md
 sed -i "1s/^Statut : ouvert\$/Statut : clos — $(date +%Y-%m-%d)/" "$SPEC" && head -1 "$SPEC"
 REPRISE="$(git worktree list --porcelain | sed -n '1s/^worktree //p')/.claude/reprise.md"
-grep -n "^### S<N> " "$REPRISE" 2>/dev/null || echo "— aucun bloc de reprise pour ce sprint"
+grep -n "^### <ID> " "$REPRISE"   # <ID> = identifiant du sprint tel qu'écrit dans le bloc (ex. S12, SDLC-33) 2>/dev/null || echo "— aucun bloc de reprise pour ce sprint"
 ```
 Attendu : `Statut : clos — AAAA-MM-JJ` (date du commit de wrap-up). Supprimer le bloc du sprint dans
 `$REPRISE` (règle R3 de `/reprise`) après avoir versé dans la spec ce qui n'y figure pas encore.

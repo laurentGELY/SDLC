@@ -140,12 +140,12 @@ fi
 # [ACTIVER si dépôt exécuté par un service planifié] changement de branche dans la copie principale
 # Décommenter si un cron / timer exécute ce dépôt : la copie principale reste sur la branche de
 # production, les sprints se développent dans un worktree (STANDARDS.md §Types de sprint, M-PROC-55).
-# Copie principale = git-dir égal au git-common-dir. Laisse passer « git checkout -- <fichier> » et
-# « git -C <worktree> switch … ». Limite : « cd <worktree> && git switch … » est refusé à tort.
+# Copie principale = git-dir égal au git-common-dir. Laisse passer « git checkout [<ref>] -- <fichier> »,
+# « git checkout -p » et « git -C <worktree> switch … ». Limite : « cd <worktree> && git switch … » est refusé à tort.
 # → Documenter dans DECISIONS.md §D-HOOK-07
 #
 # if echo "$CMD" | grep -qE '(^|[;&|]\s*)git\s+(switch|checkout)\b' && \
-#    ! echo "$CMD" | grep -qE 'git\s+checkout\s+(--\s|-p\b|\.(\s|$))'; then
+#    ! echo "$CMD" | grep -qE 'git\s+checkout\b[^;&|]*(\s--(\s|$)|\s-p\b|\s\.(\s|$))'; then
 #   if [ "$(git rev-parse --git-dir 2>/dev/null)" = "$(git rev-parse --git-common-dir 2>/dev/null)" ]; then
 #     echo "BLOQUÉ : changement de branche dans la copie principale (exécutée par le service planifié)." >&2
 #     echo "Développer dans un worktree : git worktree add ../<projet>-<N> -b sprint-<N>" >&2

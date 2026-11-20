@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-33 — agregation-remontees-jobsearch (coupé après le lot 1b)] · 2026-11-20
+**Commit :** wrap-up de la branche `sdlc-33` (lots `84b5e57`, `f4fbdb6`, lot 0 `ecb1b15`), à intégrer à `main` en fast-forward ; push par l'humain
+**Bloquants en suspens :** aucun.
+**Fil fonctionnel :** Le modèle a une mémoire de reprise multi-sprints : le skill `/reprise` (`13`) tient dans `.claude/reprise.md` (non versionné, unique pour toutes les copies de travail) ce qui reste à faire pour chaque sprint ouvert, et chaque spec porte `Statut : ouvert|clos — date` en ligne 1, contrôlé par C12 ; il est installé dans ce dépôt (premier usage : `/reprise init`), déployé aux projets neufs (`sdlc-init.sh`) et mis à jour (`/sdlc-sync` `04b` v2.2, `sdlc-delta.sh`, qui lit maintenant la version complète). Le `CLAUDE.md` d'un projet neuf fait 336 lignes (cliquet C11) ; prochain sprint prêt : SDLC-34 (lots 2-3 de SDLC-33, en §Next) — seul écart connu : le `CLAUDE.md` de ce dépôt garde R-26/R-56/R-57 en double avec `/reprise` (ROADMAP §Later, ligne créée ce sprint).
+
 ### [Sprint ELAG-4 — import-elagage] · 2026-11-19
 **Commit :** `e18e6c0` — wrap-up de la branche `elag-4` (lots `2e911ef`, `1e8a8b9`, `00586fb`, `08ac2bf`), intégrée à `main` en fast-forward et poussée le 19/11 · `9cedd2d` (20/11) : site `docs/` aligné sur ELAG-4 (`SPEC.html`, `standards.md`, `decisions.md`), hors bump
 **Bloquants en suspens :** aucun.
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun. Test C validé le 19/11/2026 : dans une session neuve, `CLAUDE.md` (ex-`Claude.md`, renommé ce sprint) fait partie du contexte initial.
 **Fil fonctionnel :** Un projet bootstrappé reçoit désormais `CLAUDE.md`, des hooks extraits de `08` (source unique) qui bloquent toutes les poussées forcées et laissent passer les commandes légitimes, `pre-compact.sh`, un `.gitignore`, des skills à frontmatter et des gabarits datés par placeholder — vérifié par `tests/sdlc-init-test.sh` (49 cas) à chaque wrap-up (`M-ARCH-10`). Prochain sprint prêt : ELAG-4 (`specs/Sprints/sprint-ELAG-4-import-elagage.md`, en §Next) ; effet de bord accepté jusque-là : un projet neuf charge les 499 lignes de `01`.
 
+## §Archive
+
 ### [Session 19/11 — préparation ELAG-1b, ELAG-4, SDLC-33 + lot 0 de SDLC-33] · 2026-11-19
 **Commit :** `3038808` (3 PDR) · `ecb1b15` (lot 0 de SDLC-33, hors bump)
 **Bloquants en suspens :** `Claude.md` de ce dépôt toujours **non chargé** sous Linux (lire ce fichier et `Claude.md` à la main au démarrage) ; hook vivant : la regex `--force` bloque à tort une commande Bash qui contient littéralement une poussée forcée (construire la chaîne en deux morceaux). Les deux sont corrigés par ELAG-1b.
 **Fil fonctionnel :** Remontées de Job search confrontées à son dépôt (`~/Downloads/Sandbox/JobSearch`, lisible en local) et réparties entre trois PDR, toutes questions tranchées par Laurent le 19/11 : `specs/Sprints/sprint-ELAG-1b-fix-bootstrap.md` (9 défauts du bootstrap mesurés sur un bootstrap jetable), `specs/Sprints/sprint-ELAG-4-import-elagage.md` (dispositions règle par règle, 8 décisions d'ELAG-1, contrôle de budget), `specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md` (PDR Claude.ai corrigé, lot 0 fait). Job search tient désormais une file unique `doc/REMONTEE_SDLC.md` ; chaque PDR porte son bilan de report. **Ordre :** ELAG-1b → ELAG-4 → SDLC-33 lots 1 à 3. **Prochaine action :** démarrer ELAG-1b (§Démarrage, puis écrire `tests/sdlc-init-test.sh` et le voir rouge avant tout correctif).
-
-## §Archive
 
 ### [Sprint ELAG-1 — audit-elagage-theorique] · 2026-10-20
 **Commit :** `docs(sdlc): Spike ELAG-1 — audit d'élagage théorique` (`git log --oneline -1 -- specs/Sprints/AUDIT-ELAGAGE-1.md`)

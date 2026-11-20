@@ -4,7 +4,7 @@
 > **Pourquoi :** extrait d'un pipeline LLM en production quotidienne, où les mêmes erreurs d'agent revenaient d'un sprint à l'autre faute de mémoire entre les sessions.
 > **État :** plus de 25 sprints, un registre de décisions versionné, et un contrôle exécutable du modèle lui-même (`bash sdlc-validate.sh`, un contrôle par fonction `check_cN`).
 
-**Version courante : v2.0+ELAG-4** · Licence MIT
+**Version courante : v2.0+SDLC-33** · Licence MIT
 
 ```mermaid
 flowchart LR
@@ -224,5 +224,6 @@ Ouvrir directement dans un navigateur (fichiers locaux, non synchronisés dans C
 | v2.0+ELAG-1 | 20/10/2026 | Spike d'élagage théorique (`specs/Sprints/AUDIT-ELAGAGE-1.md`) — grille des 134 règles d'un projet bootstrappé (`R-NN`, dispositions provisoires), 8 décisions rédigées non appliquées ; constat : `Claude.md` non chargé sous Linux (`CLAUDE.md` attendu) et hook livré inopérant → Fix bootstrap `ELAG-1b` en §Next · aucun template modifié |
 | v2.0+ELAG-1b | 19/11/2026 | Fix bootstrap (`M-ARCH-10`) — `CLAUDE.md` chargé, hooks extraits de `08` (source unique), regex de poussée forcée corrigée, `pre-compact.sh`, `.gitignore`, frontmatter des skills, dates en placeholder, marqueur courant · `tests/sdlc-init-test.sh` (49 cas) au wrap-up |
 | v2.0+ELAG-4 | 19/11/2026 | Import élagage — `01` v2.8 élagué règle par règle (`CLAUDE.md` bootstrappé 499 → 368 lignes), contrôle C11 de budget à cliquet (`M-PROC-49`), `M-PROC-49`→`54` et `M-TMPL-10` tranchées, prompt-audit avant/après |
+| v2.0+SDLC-33 | 20/11/2026 | Mémoire de reprise multi-sprints — skill `/reprise` (`13`), `.claude/reprise.md` non versionné, marqueur `Statut` des specs (C12), R-26/R-56/R-57 déplacés (`CLAUDE.md` bootstrappé 368 → 336 lignes), déploiement aux projets mis à jour (`04b`, `sdlc-delta.sh`), `M-PROC-55` |
 
 </details>
