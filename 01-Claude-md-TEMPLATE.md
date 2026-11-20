@@ -1,5 +1,5 @@
 # CLAUDE.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.9 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.10 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -15,7 +15,7 @@
 - écrire du code avant l'aval explicite de l'utilisateur ; sans aval, s'arrêter après l'analyse et attendre
 - sauter l'analyse, même pour un petit fix
 - conclure sans preuves observables (logs, sorties, commandes)
-- modifier un fichier de configuration sans noter la valeur précédente
+- modifier un fichier de configuration sans noter la valeur précédente ni vérifier la valeur effective dans un run réel
 - lancer un refactor hors périmètre sans validation explicite
 - commencer à coder sans avoir exécuté les étapes 4a/4b/4c, initialisé `.claude/sprint-memory.md` (4b) et écrit le §Plan de développement dans le spec (4d)
   - **Pensée :** "Les instructions d'init du PDR couvrent déjà l'essentiel, pas besoin de
@@ -48,16 +48,16 @@ Les deux sont complémentaires.
 L'utilisateur est gestionnaire de produit et de projet technique.
 Tu prends en charge : architecture, dev, tuning, debug, QA, doc, git.
 
-**Citabilité :** toute affirmation factuelle suit la clause anti-complaisance de §Test.
+**Citabilité :** toute affirmation factuelle suit la clause anti-complaisance de §Test. Un identifiant de règle ou de décision cité à l'humain est suivi d'une courte phrase qui dit ce qu'il impose.
 
 **Source de vérité :** le dépôt git. Restaurer depuis git avant tout patch.
 
-**Référence architecturale :** `specs/SPEC.md` — exhaustive et toujours à jour.
+**Référence architecturale :** `specs/SPEC.md` fait foi pour l'architecture ; en cas d'écart avec le code, le code prime et la SPEC est corrigée dans le même commit.
 Sprint specs individuels dans `specs/Sprints/`.
 
 <!-- [→ ADAPTER] Lister les limites bash spécifiques à l'environnement -->
 **Limites bash :** [lister les actions impossibles — ex : interagir avec une UI, appels authentifiés, etc.]
-Pour toute action hors portée : fournir la commande exacte prête à copier avec le résultat attendu.
+Pour toute action hors portée : fournir la commande exacte prête à copier sur une ligne, avec le résultat attendu ; au-delà d'une ligne, un script `~/<nom>.sh` lancé par une seule commande.
 
 <!-- [→ ADAPTER si applicable] Variables d'environnement critiques -->
 **Fichier `.env` :** critique, chmod 600, jamais versionné (gitignore absolu).
@@ -145,11 +145,6 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
   avec path:ligne). Le contenu brut n'entre jamais dans le contexte parent.
   Si le mode Agent n'est pas disponible → grep ciblé, jamais lecture intégrale.
 - **Oracle en amont** : toute question anticipable résolue avant handoff — zéro Oracle en session sauf blocage imprévu
-- **Sélection de modèle sous-agent** : distincte du critère de volume ci-dessus — porte sur
-  la nature de la tâche déléguée, pas sur sa taille.
-  - Tâche mécanique (lecture, extraction, synthèse factuelle sans jugement) → modèle réduit
-  - Tâche de jugement (analyse comparative, arbitrage, rédaction de recommandation) → modèle standard
-  - Jamais déléguer à un modèle plus capable que celui de la session courante sans aval explicite
 - **Découpage `.claude/rules/`** : `CLAUDE.md` > ~200 lignes et contenu à frontière de chemin réelle → `.claude/rules/<nom>.md` avec `paths:` (`M-TMPL-06` du modèle SDLC)
 
 ---
@@ -158,6 +153,7 @@ un module partagé (§Modules partagés de STANDARDS.md) ou nécessite un test n
 
 Toute modification ciblée d'un fichier existant passe par un outil qui vérifie sa cible : `Edit` après lecture du fichier, ou script `sed`.
 Après un `sed`, grep de l'ancien motif sur les lignes visées → plus d'occurrence (`Edit` échoue seul si le texte manque).
+Idem pour une référence à une section déplacée, scindée ou renommée : `grep -rn "<ancienne référence>" .claude/ CLAUDE.md STANDARDS.md specs/` → zéro ; avant une scission, inventorier les porteurs d'identifiants (`grep -rl "^## [A-Z]-" .`).
 Modification trop complexe pour une substitution → plusieurs éditions ciblées, chacune vérifiée ; jamais de régénération complète du fichier.
 
 ---
@@ -198,12 +194,6 @@ Toujours partir du code réel, pas d'une hypothèse mémoire.
 
 Règle : le niveau A est invalide sans commande exécutable.
 Une description ("vérifier que X fonctionne") n'est pas un test.
-
-## Candidat hook *(optionnel — remplir si une action risquée a été évitée ou détectée)*
-- Action concernée : [ex : pip install hors venv, écriture directe dans fichier protégé]
-- Pattern détectable : [ex : `pip install [^-]` sans VIRTUAL_ENV]
-- Fréquence estimée : [ponctuelle / récurrente]
-→ À soumettre à l'Étape 1 du wrap-up pour décision.
 
 ## Vérification factuelle *(obligatoire si l'analyse cite un mécanisme non vérifiable par simple lecture du repo)*
 Toute précondition factuelle qui ne se lit pas directement dans les fichiers du
@@ -314,6 +304,7 @@ Si tests OK → `/wrap-up`. Si bug → `/diagnostic`.
 **Avant tout commit :** vérifier la DoD (STANDARDS.md §Definition of Done).
 `git diff --stat` — fichiers attendus uniquement.
 CHANGELOG version cohérente, ROADMAP sans sprint futur écrasé.
+Règle « si X change, mettre à jour Y » avec X détectable → test pre-commit (`hooks-reference.md` §pre-commit), pas seulement au wrap-up.
 
 ---
 

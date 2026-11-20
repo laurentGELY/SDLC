@@ -26,7 +26,7 @@ tail -150 docs/LESSONS_LEARNED.md
 Identifier :
 - Le nombre de sprints couverts depuis la dernière `/retrospective`
 - Les tags `[HOOK_CANDIDATE]` non résolus (champ "décision : en attente")
-- Les tags `[SDLC_CANDIDATE]` non résolus (champ "décision : en attente")
+- Les remontées en attente de `docs/REMONTEE_SDLC.md` (tableau « Remontées en attente ») et les bilans de report reçus du projet SDLC
 - Les entrées `DÉCISION [valide jusqu'à : condition]` dont la condition n'est plus vraie
 - Si le modèle exécutant (en-tête des specs de sprint) a changé depuis la dernière `/retrospective` → demander à l'humain de lancer `/doctor prompt-audit` (Claude ne peut pas le lancer) et reporter ses constats à l'Étape 3
 
@@ -84,7 +84,8 @@ Résumé : [description du pattern en 1 phrase]
 Destinations possibles :
   A) CLAUDE.md §[section pertinente] — règle permanente de comportement
   B) STANDARDS.md §[section] — standard projet à appliquer à tous les sprints
-  C) .claude/hooks/ — garde-fou automatique (nécessite M-PROC-X dans DECISIONS)
+  C) .claude/hooks/ — garde-fou automatique (nécessite M-PROC-X dans DECISIONS) — **par défaut** si la
+     dette porte sur une commande dangereuse ou qui consomme une ressource externe (M-HOOKS-09) ; A/B en complément
   D) docs/LESSONS_LEARNED.md §Règles — règle documentée, pas encore hookée
 
 → Décision demandée : quelle destination ? (A / B / C / D / différer)
@@ -165,7 +166,15 @@ Attendre la validation humaine avant tout commit.
 
 ## Étape 4 — Remontées modèle SDLC
 
-Scanner tous les `[SDLC_CANDIDATE]` non résolus dans `docs/LESSONS_LEARNED.md`.
+Lire la file `docs/REMONTEE_SDLC.md` (`M-PROC-61` · variante locale `doc/`) :
+*Ce dépôt est le modèle : pas de file locale — ses candidats vont en ROADMAP §Later ; les files reçues des projets se traitent en sprint (bilan de report).*
+1. **Compter les remontées en attente** (lignes du tableau « Remontées en attente ») — indicateur suivi,
+   reporté dans §Métriques de rétro avec sa tendance ; en hausse sur 2 rétros consécutives → le signaler
+   au projet SDLC (déclencheur de réouverture de `M-PROC-61`).
+2. **Inscrire les bilans de report reçus** (`JJ/MM-N : adoptée | adaptée | rejetée | en attente`) dans
+   l'entrée concernée, puis **retirer les remontées traitées** (adoptée, adaptée, rejetée) du tableau.
+3. Rassembler les entrées « à reporter » dans le bloc ci-dessous ; les décisions à demander vont dans
+   « Décisions demandées au projet SDLC ».
 
 Produire un bloc de synthèse :
 
@@ -174,7 +183,7 @@ Produire un bloc de synthèse :
 🏗️  REMONTÉES MODÈLE SDLC — à reporter manuellement
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-[SDLC_CANDIDATE] Sprint N — [description]
+[SDLC_CANDIDATE] JJ/MM-N — [titre]
 → Fichier cible : [ex: 03-wrap-up-SKILL-TEMPLATE.md]
 → Nature : [nouveau champ / règle renforcée / procédure modifiée]
 → Contexte : [2 phrases — pourquoi ce sprint a révélé ce besoin]
@@ -210,7 +219,7 @@ ultérieures sans relire toutes les entrées.
 
 - Sprints couverts : [N à M] ([X] sprints)
 - HOOK_CANDIDATE en attente : [N] · activés ce cycle : [N] · rejetés : [N]
-- SDLC_CANDIDATE en attente : [N] · remontés ce cycle : [N]
+- Remontées en attente (`docs/REMONTEE_SDLC.md`) : [N] · tendance vs rétro précédente : [+/−N] · reportées ce cycle : [N] · bilans reçus : [N]
 - Décisions invalidées détectées : [N]
 - Patterns nouveaux : [N] · patterns résolus : [N]
 - Dernière /retrospective : [JJ/MM/AAAA] · Sprints N→M
@@ -282,7 +291,7 @@ comme nouveau pattern à elle seule).
 | 5 sprints sans rétro | Déclencher `/retrospective` |
 | Incident grave (rollback, perte données) | Déclencher immédiatement |
 | ≥ 3 `[HOOK_CANDIDATE]` en attente | Déclencher |
-| ≥ 1 `[SDLC_CANDIDATE]` en attente depuis > 3 sprints | Déclencher |
+| ≥ 1 remontée en attente dans `docs/REMONTEE_SDLC.md` depuis > 3 sprints | Déclencher |
 
 ---
 

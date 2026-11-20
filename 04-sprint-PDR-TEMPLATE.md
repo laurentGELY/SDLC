@@ -1,6 +1,6 @@
 Statut : ouvert
 # Sprint N — [Titre]
-<!-- Template SDLC v2.7 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
+<!-- Template SDLC v2.8 · Destination : specs/Sprints/sprint-N-slug.md dans le repo cible -->
 <!-- Ce template est générique — ne pas adapter, utiliser tel quel -->
 <!-- Ligne 1 = marqueur « Statut : ouvert » (passé à « Statut : clos — AAAA-MM-JJ » par /wrap-up, M-PROC-55). C2 lit 3 lignes (Statut, titre, version) : marge nulle, tout nouveau champ d'en-tête impose d'élargir C2. -->
 
@@ -202,6 +202,10 @@ Si l'un de ces signaux apparaît pendant l'exécution, checkpoint immédiat dans
 
 **Instructions spécifiques :**
 -
+- *Sous-agent* (`M-PROC-33`, déplacé de `CLAUDE.md §Tokens`) : modèle choisi selon la nature de la tâche
+  déléguée, pas sa taille — mécanique (lecture, extraction, synthèse factuelle sans jugement) → modèle
+  réduit ; jugement (analyse comparative, arbitrage, recommandation) → modèle standard ; jamais un
+  modèle plus capable que celui de la session courante sans aval explicite.
 
 **Grep de vérification préalable :**
 ```bash

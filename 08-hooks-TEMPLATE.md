@@ -1,5 +1,5 @@
 # Hooks Claude Code — Template Python · v1.0
-<!-- Template SDLC v1.6 · Destination : .claude/hooks/ dans le repo cible -->
+<!-- Template SDLC v1.7 · Destination : .claude/hooks/ dans le repo cible -->
 <!-- Généré au bootstrap · Complété au fil des sprints via boucle LESSONS_LEARNED -->
 
 > Les hooks rendent certaines règles non-négociables — indépendamment de la mémoire du modèle.
@@ -20,6 +20,7 @@
 | `PreToolUse` Bash — `pre-tool-bash.sh` | Avertissement | message `AVERTISSEMENT` sur stderr, la commande s'exécute | §1, bloc `AVERTISSEMENTS NON BLOQUANTS` |
 | `PostToolUse` Edit/Write *(optionnel)* | Transformation | reformate/corrige le fichier écrit (`\|\| true` : jamais bloquant) | §PostToolUse |
 | `PreCompact` *(optionnel)* | Observation | checkpoint dans `.claude/sprint-memory.md`, toujours `exit 0` — pas un gate | §PreCompact |
+| pre-commit git *(optionnel)* | Garde bloquante | `exit` non nul : commit refusé (git, pas Claude Code) | §pre-commit git |
 
 ## Arborescence attendue
 
@@ -90,6 +91,19 @@ fi
 if echo "$CMD" | grep -qE 'rm\s+-rf\s+(/|\./)?(\.git|src|data|db|scripts)\b'; then
   echo "BLOQUÉ : rm -rf sur dossier critique détecté." >&2
   echo "Supprimer les fichiers individuellement ou demander confirmation." >&2
+  exit 2
+fi
+
+# [UNIVERSEL] pkill -f / pgrep -f à motif non ancré — -f compare le motif à toute la ligne de
+# commande : il attrape des processus étrangers, la session Claude Code comprise (M-HOOKS-09, S56-3)
+if echo "$CMD" | grep -qE '(^|[;&|[:space:](])pkill\b[^;&|]*\s(-[a-zA-Z]*f[a-zA-Z]*|--full)\b'; then
+  echo "BLOQUÉ : pkill -f interdit (motif comparé à toute la ligne de commande)." >&2
+  echo "Relever le PID avec un motif ancré (pgrep -f '^motif'), puis kill <PID>." >&2
+  exit 2
+fi
+if echo "$CMD" | grep -qE "(^|[;&|[:space:](])pgrep\b[^;&|]*\s(-[a-zA-Z]*f[a-zA-Z]*|--full)\s+['\"]?[^'\"^[:space:]-]"; then
+  echo "BLOQUÉ : pgrep -f avec un motif non ancré par ^." >&2
+  echo "Ancrer le motif : pgrep -f '^python3 scripts/x.py'." >&2
   exit 2
 fi
 
@@ -356,6 +370,34 @@ Si activé → ajouter dans `settings.json` :
 ```
 
 → Documenter la décision dans `docs/DECISIONS.md` §D-HOOK-XX.
+
+---
+
+## §pre-commit git — règles de doc mécanisables *(optionnel, M-PROC-57)*
+
+Une règle « si X change, mettre à jour Y » dont X est détectable (fichier ajouté, clé modifiée)
+s'applique à chaque commit par un test pre-commit, pas seulement au wrap-up. Squelette générique :
+l'inventaire d'un répertoire comparé à sa liste documentée. Repère terrain (Job search) : < 0,1 s,
+2 écarts trouvés que la revue manuelle avait manqués.
+
+Installation : `.git/hooks/pre-commit` (non versionné, `chmod +x`) ou répertoire versionné déclaré
+par `git config core.hooksPath .githooks`. Un `exit` non nul refuse le commit. Vérifier le refus une
+fois pour de vrai (fichier non documenté ajouté → commit refusé) avant de s'y fier.
+
+```bash
+#!/bin/bash
+# pre-commit — inventaire de REP comparé à DOC (M-PROC-57)
+# [→ ADAPTER] REP : répertoire inventorié · DOC : fichier qui le documente · MOTIF : forme d'une mention
+REP="scripts"; DOC="STANDARDS.md"; MOTIF='`scripts/[^`]+`'
+export LC_ALL=C
+absents=$(comm -23 <(ls "$REP" | sort) <(grep -oE "$MOTIF" "$DOC" | sed 's|.*/||; s|`||g' | sort -u))
+if [ -n "$absents" ]; then
+  echo "BLOQUÉ : présents dans $REP/ mais absents de $DOC :" >&2
+  echo "$absents" | sed 's/^/  - /' >&2
+  exit 1
+fi
+exit 0
+```
 
 ---
 

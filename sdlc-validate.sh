@@ -24,12 +24,13 @@ ROOT="${SDLC_VALIDATE_ROOT:-$SCRIPT_DIR}"
 # nouvelle décision dans 07-DECISIONS-SDLC.md. Valeurs = mesure du CLAUDE.md
 # produit par sdlc-init.sh (wc -l / wc -c sur un bootstrap jetable) — gel 499/25376
 # au lot 2 d'ELAG-4, abaissé à la mesure de fin de sprint (368/18099), puis à 336/16684
-# au lot 1 de SDLC-33 (R-26, R-56, R-57 déplacés vers /reprise). Le nom du
+# au lot 1 de SDLC-33 (R-26, R-56, R-57 déplacés vers /reprise), puis à 327/16597 au
+# lot 2 de SDLC-34 (R-49 retiré, R-35 déplacé vers 04 §Handoff). Le nom du
 # projet est substitué dans le fichier : la mesure et le contrôle utilisent le même.
 # Les octets excluent la ligne « SDLC version : … », dont la longueur suit le bump.
 BUDGET_NOM_PROJET="Test"
-BUDGET_LIGNES=336
-BUDGET_OCTETS=16684
+BUDGET_LIGNES=327
+BUDGET_OCTETS=16597
 
 # ─── PRÉ-VOL — fichiers/commandes indispensables au script lui-même ──────────
 # Une absence ici est une erreur d'exécution du script (exit 2), pas un

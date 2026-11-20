@@ -3,7 +3,7 @@ name: wrap-up
 description: Clôture de sprint. Utiliser quand l'utilisateur dit « clôture », « wrap-up », « fin de sprint », ou quand les tests A et B du sprint sont verts.
 ---
 # wrap-up — SKILL
-<!-- Template SDLC v2.2 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
+<!-- Template SDLC v2.3 · Destination : .claude/skills/wrap-up/SKILL.md dans le repo cible -->
 <!-- Adapter uniquement les sections marquées [→ ADAPTER] -->
 
 Procédure de clôture de sprint. Exécuter dans l'ordre strict.
@@ -86,11 +86,20 @@ HORS SCOPE (fait mais non prévu)
 ➕ [item] — impact éventuel
 
 DETTE / EFFETS DE BORD
-⚠️  [modification non prévue avec impact potentiel]
+⚠️  [modification non prévue avec impact potentiel] → maison : [garde <test|hook> | reprise.md <action datée> | ROADMAP <ligne> · observé par : <qui>]
 
 Objectifs réalisés : X / Y
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+**Maison des dettes** (`M-PROC-56`) — chaque ligne `⚠️` cite sa maison, par ordre de préférence :
+(1) garde automatique (test, hook) qui échoue quand le risque se matérialise ; (2) action de
+`.claude/reprise.md` avec déclencheur daté et vérifiable (R4 de `/reprise`) ; (3) ligne ROADMAP avec
+déclencheur observable **et** observateur nommé (`observé par :`). Une dette sans maison, ou observée
+par « personne », bloque la clôture comme une entrée LESSONS manquante. Une surveillance s'écrit dans
+sa seule maison, ailleurs un renvoi ; avant de la clore ou de la reconduire : `grep -rn "<libellé>" .`
+de toutes ses mentions. Un déclencheur qui cite une ligne de log la relève d'abord dans le code
+(`fichier:ligne`).
 
 ### 0e. Revue objectif sprint
 
@@ -188,7 +197,7 @@ appliquée manuellement que Claude Code aurait dû bloquer automatiquement ?"**
 
 **"Y a-t-il quelque chose dans ce sprint qui devrait changer le modèle SDLC lui-même —
 un template, une procédure, un invariant ?"**
-*(Si oui → sera capturé comme `[SDLC_CANDIDATE]` à l'étape 2 · remontée manuelle dans projet SDLC)*
+*(Si oui → sera capturé comme `[SDLC_CANDIDATE]` dans la file `docs/REMONTEE_SDLC.md` à l'étape 2 — `M-PROC-61`)*
 
 ---
 
@@ -209,6 +218,14 @@ Format obligatoire (5 lignes max) :
 
 Le champ `**Hook candidat :**` est optionnel — n'inclure que si l'Étape 1 a produit une réponse positive sur la 2e question.
 Le champ `**SDLC candidat :**` est optionnel — n'inclure que si l'Étape 1 a produit une réponse positive sur la 3e question.
+Il ne garde qu'un renvoi (`→ docs/REMONTEE_SDLC.md [SDLC_CANDIDATE] JJ/MM-N`) : le contenu va dans la file.
+
+**File de remontées `docs/REMONTEE_SDLC.md`** (`M-PROC-61` · variante locale `doc/`) — chaque nouveau
+candidat y ajoute une entrée `[SDLC_CANDIDATE] JJ/MM-N — titre`, puis 2 à 4 lignes : constat (avec
+preuve : commit, fichier, incident) · fichier cible du modèle · nature (règle, contrôle, procédure) ·
+proposition ; et une ligne au tableau « Remontées en attente » (statut : à reporter). La file a
+3 sections : entrées · « Remontées en attente » (à reporter · report à confirmer · non tranché
+localement) · « Décisions demandées au projet SDLC ». Absente → la créer avec ces 3 sections.
 Omettre les lignes entières si RAS.
 
 ---
@@ -277,7 +294,8 @@ Rapporter :
 SPEC=specs/Sprints/sprint-<N>-<slug>.md
 sed -i "1s/^Statut : ouvert\$/Statut : clos — $(date +%Y-%m-%d)/" "$SPEC" && head -1 "$SPEC"
 REPRISE="$(git worktree list --porcelain | sed -n '1s/^worktree //p')/.claude/reprise.md"
-grep -n "^### <ID> " "$REPRISE"   # <ID> = identifiant du sprint tel qu'écrit dans le bloc (ex. S12, SDLC-33) 2>/dev/null || echo "— aucun bloc de reprise pour ce sprint"
+# <ID> = identifiant du sprint tel qu'écrit dans le bloc (ex. S12, SDLC-33)
+grep -n "^### <ID> " "$REPRISE" 2>/dev/null || echo "— aucun bloc de reprise pour ce sprint"
 ```
 Attendu : `Statut : clos — AAAA-MM-JJ` (date du commit de wrap-up). Supprimer le bloc du sprint dans
 `$REPRISE` (règle R3 de `/reprise`) après avoir versé dans la spec ce qui n'y figure pas encore.
@@ -293,6 +311,11 @@ Rapporter :
 ✅ §[titre décision] — sous-bloc "→ Mise à jour" ajouté
 — aucune décision existante impactée
 ```
+
+**Règle de doc mécanisable** (`M-PROC-57`) — une règle « si X change, mettre à jour Y » dont X est
+détectable (fichier ajouté, clé modifiée) s'applique par un test pre-commit (`hooks-reference.md`
+§pre-commit, squelette d'inventaire), pas seulement ici. Une telle règle appliquée à la main pendant
+ce wrap-up → `[HOOK_CANDIDATE]`.
 
 ### Conditionnels (déclencher si applicable)
 
@@ -379,6 +402,9 @@ Commit : [hash court]
 
 BLOQUANTS EN SUSPENS
 🔴 [décision attendue — de qui] *(vide si aucun)*
+
+DETTES OUVERTES
+⚠️  [dette] → maison : [garde | reprise.md | ROADMAP · observé par] *(vide si aucune — sans maison : clôture bloquée, §0d)*
 
 FIL FONCTIONNEL
 [2 phrases max : état du système livrable après ce sprint — ce qui est opérationnel]
@@ -479,6 +505,6 @@ Spike                           → DECISIONS uniquement (pas de code)
 Sprint Doc                      → CHANGELOG uniquement (zéro code)
 Incident / rollback             → LESSONS_LEARNED §Action proposée prioritaire
 [HOOK_CANDIDATE] en Étape 1     → LESSONS_LEARNED champ Hook candidat → décision différée à /retrospective
-[SDLC_CANDIDATE] en Étape 1     → LESSONS_LEARNED champ SDLC candidat → remontée manuelle projet SDLC
+[SDLC_CANDIDATE] en Étape 1     → docs/REMONTEE_SDLC.md (entrée + « Remontées en attente ») · LESSONS : renvoi
 Sprint Fix hook                 → 08-hooks-TEMPLATE.md §1 à synchroniser (schéma, extractions, smoke test)
 ```

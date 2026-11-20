@@ -1,5 +1,5 @@
 # STANDARDS.md — [Nom du projet] · v1.0
-<!-- Template SDLC v2.4 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
+<!-- Template SDLC v2.5 · Copier dans le repo cible · Adapter les sections marquées [→ ADAPTER] -->
 <!-- SDLC version : v2.0+SDLC-29 · aligné le JJ/MM/AAAA -->
 <!-- Absence de ce marqueur = projet antérieur au modèle SDLC générique · voir sdlc-init.sh et docs/MODE-OPERATOIRE.html -->
 
@@ -16,6 +16,7 @@
 - Aucun fichier hors portée dans le diff (`git diff --stat`)
 - Tests exécutés et passés, ou N/A justifié (niveau A systématique, B si module partagé touché, C si risque élevé)
 - CHANGELOG, DECISIONS.md, STANDARDS.md mis à jour si impactés
+- Tout filet de sécurité ajouté ou modifié (hook, garde, test bloquant) a été déclenché pour de vrai et son refus observé (forme DoD de `M-ARCH-10` du modèle SDLC)
 
 ### Clôture
 - `/wrap-up` terminé (Lessons Learned + CHANGELOG + ROADMAP + commit)
@@ -60,7 +61,7 @@ service planifié]` de `.claude/hooks/pre-tool-bash.sh` (M-PROC-55).
 |--------|------------------|-------|------------|
 | **A — Ciblé** | Systématique | Commande exacte sur le module modifié | Résultat attendu, zéro erreur |
 | **B — Non-régression** | Module partagé touché | Vérification des consommateurs | Comportement identique à avant |
-| **C — Intégration** | Risque élevé, changement architectural | Run complet du système | Output valide de bout en bout |
+| **C — Intégration** | Risque élevé, changement architectural | Run complet du système | Output valide de bout en bout, et preuve qu'il n'écrit ni ne consomme rien à l'extérieur (messagerie, API, état distant) — sinon passer par un harnais qui remplace la collecte |
 
 **Anti-faux-positif niveau A sur pipeline :** un test A est invalide si le corpus d'entrée contient zéro items traités — vérifier le compteur de sortie, pas seulement exit 0. Définir la condition dans `**Volumétrie minimum :**` du PDR sprint si applicable.
 

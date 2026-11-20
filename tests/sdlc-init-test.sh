@@ -63,6 +63,7 @@ hook_rc() {
 no_digit_args() { ! grep -nE '\$[0-9]' "$1"/*/SKILL.md; }
 
 P="git pu""sh"; F="--for""ce"
+K="pk""ill"; G="pg""rep"   # M-HOOKS-09 (S56-3)
 BLOCKED=(
   "$P $F"
   "$P origin main $F"
@@ -71,12 +72,16 @@ BLOCKED=(
   "$P origin main -f"
   "$P ${F}-with-lease origin main"
   "$P origin +main"
+  "$K -f foo"
+  "$G -f foo"
 )
 ALLOWED=(
   "$P origin main"
   "$P origin main && git worktree remove $F ../x"
   "$P origin main; rm -f origin.txt"
   "echo ok"
+  "$K foo"
+  "$G -f '^foo'"
 )
 
 hook_cases() { # hook_cases <hook> <étiquette>
@@ -105,6 +110,9 @@ echo "Fichiers"
 check "CLAUDE.md présent" test -f "$B/CLAUDE.md"
 check "Claude.md absent" test ! -e "$B/Claude.md"
 check "CLAUDE.md seul dans la liste des fichiers" bash -c "ls '$B' | grep -ix 'claude.md' | grep -qx 'CLAUDE.md' && [ \$(ls '$B' | grep -icx 'claude.md') -eq 1 ]"
+for sec in "## Entrées" "## Remontées en attente" "## Décisions demandées au projet SDLC"; do
+  check "docs/REMONTEE_SDLC.md contient « $sec »" grep -qxF "$sec" "$B/docs/REMONTEE_SDLC.md"
+done
 for line in ".env" ".claude/sprint-memory.md" ".claude/reprise.md" ".claude/settings.local.json"; do
   check ".gitignore contient $line" grep -qxF "$line" "$B/.gitignore"
 done

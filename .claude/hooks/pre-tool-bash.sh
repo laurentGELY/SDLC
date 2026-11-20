@@ -1,6 +1,6 @@
 #!/bin/bash
 # Hook pre-tool-bash — Projet toolkit SDLC
-# Version : 2.1.0 | 2026-06-19 | Sprint SDLC-18 (fix-hooks-m04)
+# Version : 2.2.0 | 2026-11-20 | Sprint SDLC-34 (pkill/pgrep, M-HOOKS-09)
 # Déclenché avant tout Bash/Edit/Write par Claude Code (matcher étendu — settings.json).
 # Bloque les commandes incompatibles avec les contraintes du projet.
 #
@@ -16,7 +16,7 @@
 #    "tool_input":{"command":"..."}} ou {"tool_input":{"file_path":"...", ...}}
 # Ancien schéma supposé ({"tool":"bash","input":{"command":"..."}}) confirmé erroné — $CMD
 # était toujours vide depuis SDLC-14, les blocages [UNIVERSEL] ne matchaient jamais rien.
-# Historique des règles : 07-DECISIONS-SDLC.md (M-HOOKS-01→06)
+# Historique des règles : 07-DECISIONS-SDLC.md (M-HOOKS-01→09)
 
 set -euo pipefail
 
@@ -88,6 +88,19 @@ fi
 if echo "$CMD" | grep -qE 'rm\s+-rf\s+(/|\./)?(\.git|specs|doc|exemples)\b'; then
   echo "BLOQUÉ : rm -rf sur dossier critique détecté." >&2
   echo "Supprimer les fichiers individuellement ou demander confirmation." >&2
+  exit 2
+fi
+
+# [UNIVERSEL] pkill -f / pgrep -f à motif non ancré — -f compare le motif à toute la ligne de
+# commande : il attrape des processus étrangers, la session Claude Code comprise (M-HOOKS-09, S56-3)
+if echo "$CMD" | grep -qE '(^|[;&|[:space:](])pkill\b[^;&|]*\s(-[a-zA-Z]*f[a-zA-Z]*|--full)\b'; then
+  echo "BLOQUÉ : pkill -f interdit (motif comparé à toute la ligne de commande)." >&2
+  echo "Relever le PID avec un motif ancré (pgrep -f '^motif'), puis kill <PID>." >&2
+  exit 2
+fi
+if echo "$CMD" | grep -qE "(^|[;&|[:space:](])pgrep\b[^;&|]*\s(-[a-zA-Z]*f[a-zA-Z]*|--full)\s+['\"]?[^'\"^[:space:]-]"; then
+  echo "BLOQUÉ : pgrep -f avec un motif non ancré par ^." >&2
+  echo "Ancrer le motif : pgrep -f '^python3 scripts/x.py'." >&2
   exit 2
 fi
 

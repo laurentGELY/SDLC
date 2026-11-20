@@ -158,6 +158,7 @@ Format : Semantic Versioning adapté aux sprints.
 - **\`docs/DECISIONS.md\` v1.0** : registre décisions architecturales
 - **\`docs/LESSONS_LEARNED.md\`** : registre apprentissages
 - **\`docs/DIAGNOSTIC_CMDS.md\`** : archive commandes diagnostic
+- **\`docs/REMONTEE_SDLC.md\`** : file des remontées vers le modèle SDLC
 - **\`specs/SPEC.md\`** : structure architecture — à compléter par Claude Code
 - **Tests** : N/A (bootstrap doc)
 CHANGELOG
@@ -255,6 +256,39 @@ Conclusion : <ce que ça a confirmé ou infirmé>
 *Vide au bootstrap.*
 DIAG
 echo "  ✅ docs/DIAGNOSTIC_CMDS.md"
+
+# REMONTEE_SDLC — file des remontées vers le modèle (M-PROC-61), vide, 3 sections
+cat > "${TARGET_DIR}/docs/REMONTEE_SDLC.md" << REMONTEE
+<!-- VERSION : 1.0 | ${DATE_TODAY} | ${PROJECT_NAME} -->
+
+# REMONTEE_SDLC — remontées vers le modèle SDLC
+
+File unique des \`[SDLC_CANDIDATE]\` (M-PROC-61). Alimentée par /wrap-up (Étape 2), traitée par
+/retrospective (Étape 4). L'entrée LESSONS_LEARNED n'en garde qu'un renvoi.
+
+---
+
+## Entrées
+
+Format : \`[SDLC_CANDIDATE] JJ/MM-N — titre\`, puis 2 à 4 lignes : constat (avec preuve : commit,
+fichier, incident) · fichier cible du modèle · nature (règle, contrôle, procédure) · proposition.
+
+*Vide au bootstrap.*
+
+## Remontées en attente
+
+| ID | Titre | Fichier cible | Statut |
+|----|-------|---------------|--------|
+| — | — | — | — |
+
+Statuts : à reporter · report à confirmer · non tranché localement. Une remontée traitée (bilan de
+report reçu : adoptée, adaptée, rejetée) est retirée de ce tableau à la rétro.
+
+## Décisions demandées au projet SDLC
+
+*Vide au bootstrap.*
+REMONTEE
+echo "  ✅ docs/REMONTEE_SDLC.md"
 echo ""
 
 # ─── ÉTAPE 4 : DOSSIER specs/ ────────────────────────────────────────────────

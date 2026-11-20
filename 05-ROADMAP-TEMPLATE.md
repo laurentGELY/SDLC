@@ -1,5 +1,5 @@
 # ROADMAP — [Nom du projet] · v1.0
-<!-- Template SDLC v1.2 · Copier dans docs/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
+<!-- Template SDLC v1.3 · Copier dans docs/ROADMAP.md du repo cible · Adapter le contenu, pas la structure -->
 
 ---
 
@@ -21,6 +21,9 @@
 | Item | Type | Taille | Débloque | Bloqué par | Déclencheur |
 |------|------|--------|----------|------------|-------------|
 | — | — | — | — | — | — |
+
+**Colonne Déclencheur** (§Next et §Later) : `<déclencheur> · observé par : <script | section | /reprise | personne>`.
+« personne » est autorisé mais visible, et compte comme dette sans maison au wrap-up (`M-PROC-56`).
 
 **Règle de passage Next → Now :** bloquants levés + spec rédigée ou rédigeable en < 30 min.
 
