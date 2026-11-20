@@ -2918,6 +2918,9 @@ skill `/reprise` (v1.2.1) et `doc/REPRISE.md`, avec un marqueur `Statut` en lign
 au crash, suivi pas à pas, hygiène à 2 semaines) non tenus dans Job search 2 semaines après sa
 synchronisation.
 
+
+→ Mise à jour 20/11/2026 (Sprint SDLC-34) : `11-help` v2.1 route `/reprise` (outil listé ; « `/help` ne remplace pas `/reprise` ») — point du lot 4 de SDLC-33 reporté.
+
 ---
 
 ## M-PROC-56 · Maison des dettes — chaque dette ouverte cite où elle est surveillée · v2.0+SDLC-34 · 20/11/2026
@@ -3020,7 +3023,8 @@ transporte l'erreur de sa source.
 
 **Retenu :** `04b §Étape A` — table « Réglages locaux de chemin » (chemin du modèle → variantes acceptées),
 détection par `ls`, variante consignée dans l'entrée `D-SYNC-XX` (ligne « Réglages locaux »), jamais
-signalée comme écart ; le delta s'applique au chemin local. `sdlc-delta.sh` accepte `doc/REMONTEE_SDLC.md`.
+signalée comme écart ; le delta s'applique au chemin local. `sdlc-delta.sh` accepte `doc/REMONTEE_SDLC.md` ; pour les autres fichiers, son « ABSENT »
+sur un projet en `doc/` se lit avec la table de `04b` (variante, pas écart).
 
 **Écarté :**
 - **Adapter le skill par projet** — écarté (K5) : casse « zéro adaptation » et la synchronisation suivante.
@@ -3037,7 +3041,7 @@ réglage ; le traiter comme tel garde le rapport lisible.
 
 ## M-PROC-60 · Vérifier pour de vrai — config en run réel, niveau C sans effet externe, filet déclenché · v2.0+SDLC-34 · 20/11/2026
 
-**Contexte :** remontées de Job search E5 R-JS-01 avec la règle de Laurent du 28/09 (valeur de config
+**Contexte :** remontées de Job search E5 R-JS-01 avec la règle du mainteneur du 28/09 (valeur de config
 notée, valeur effective jamais vérifiée), E1 S56-1 (test d'intégration qui touche une ressource externe)
 et E5 R-JS-15 (filet de sécurité ajouté sans avoir jamais été vu refuser) — registre SDLC-33.
 
@@ -3087,8 +3091,9 @@ décisions côté modèle en `M-…` — registre SDLC-33.
 **Raison :** une remontée n'a de valeur que si elle arrive et revient avec une issue ; une file unique avec
 un compteur rend la perte mesurable des deux côtés.
 
-**Impact fichiers :** `03` v2.3 + skill vivant, `09` v2.2 + skill vivant, `04b` v2.3, `sdlc-init.sh`,
-`sdlc-delta.sh`, `tests/sdlc-init-test.sh`, `docs/CLAUDE_PROJECT.md`.
+**Impact fichiers :** `03` v2.3 + skill vivant, `09` v2.2 + skill vivant, `04b` v2.3, `06` v1.2, `sdlc-init.sh`,
+`sdlc-delta.sh`, `tests/sdlc-init-test.sh`, `docs/CLAUDE_PROJECT.md`, `specs/SPEC.md`, README,
+`docs/SPEC.html`, `docs/MODE-OPERATOIRE.html`.
 
 **Déclencheur de réouverture :** remontées en attente en hausse sur 2 rétros consécutives d'un projet source.
 
@@ -3113,7 +3118,11 @@ ligne de commande et attrape des processus étrangers) — registre SDLC-33.
 - **Bloquer tout `pgrep -f`** — écarté : l'ancrage `^` suffit et garde l'usage légitime.
 
 **Limites connues :** une option placée entre `-f` et le motif (`pgrep -f -l x`) passe ; un motif passé
-par variable (`pgrep -f "$M"`) est bloqué même ancré — écrire le motif ancré en clair.
+par variable (`pgrep -f "$M"`) est bloqué même ancré — écrire le motif ancré en clair. `pkill -f` est
+bloqué même ancré (asymétrie voulue : tuer passe par un PID relevé, `pgrep -f '^…'` puis `kill`). Le
+hook lit le texte de la commande : le motif cité dans une chaîne (message de commit, `echo`) est bloqué
+— passer par un fichier (`git commit -F`) ; après `pkill`, tout argument de forme `-…f…` compte comme
+option. Couverts : options groupées (`-9f`), chemin absolu, substitution entre backticks.
 
 **Raison :** une garde qui refuse au moment de l'action ne dépend ni de la mémoire du modèle ni de la
 relecture.

@@ -96,12 +96,12 @@ fi
 
 # [UNIVERSEL] pkill -f / pgrep -f à motif non ancré — -f compare le motif à toute la ligne de
 # commande : il attrape des processus étrangers, la session Claude Code comprise (M-HOOKS-09, S56-3)
-if echo "$CMD" | grep -qE '(^|[;&|[:space:](])pkill\b[^;&|]*\s(-[a-zA-Z]*f[a-zA-Z]*|--full)\b'; then
+if echo "$CMD" | grep -qE '(^|[;&|[:space:](`/])pkill\b[^;&|]*\s(-[a-zA-Z0-9]*f[a-zA-Z0-9]*|--full)\b'; then
   echo "BLOQUÉ : pkill -f interdit (motif comparé à toute la ligne de commande)." >&2
   echo "Relever le PID avec un motif ancré (pgrep -f '^motif'), puis kill <PID>." >&2
   exit 2
 fi
-if echo "$CMD" | grep -qE "(^|[;&|[:space:](])pgrep\b[^;&|]*\s(-[a-zA-Z]*f[a-zA-Z]*|--full)\s+['\"]?[^'\"^[:space:]-]"; then
+if echo "$CMD" | grep -qE "(^|[;&|[:space:](\`/])pgrep\b[^;&|]*\s(-[a-zA-Z0-9]*f[a-zA-Z0-9]*|--full)\s+['\"]?[^'\"^[:space:]-]"; then
   echo "BLOQUÉ : pgrep -f avec un motif non ancré par ^." >&2
   echo "Ancrer le motif : pgrep -f '^python3 scripts/x.py'." >&2
   exit 2
@@ -387,10 +387,13 @@ fois pour de vrai (fichier non documenté ajouté → commit refusé) avant de s
 ```bash
 #!/bin/bash
 # pre-commit — inventaire de REP comparé à DOC (M-PROC-57)
-# [→ ADAPTER] REP : répertoire inventorié · DOC : fichier qui le documente · MOTIF : forme d'une mention
-REP="scripts"; DOC="STANDARDS.md"; MOTIF='`scripts/[^`]+`'
+# [→ ADAPTER] REP : répertoire inventorié (fichiers de premier niveau, arbre de travail)
+#             DOC : fichier qui le documente, chaque fichier mentionné sous la forme `REP/nom`
+REP="scripts"; DOC="STANDARDS.md"
 export LC_ALL=C
-absents=$(comm -23 <(ls "$REP" | sort) <(grep -oE "$MOTIF" "$DOC" | sed 's|.*/||; s|`||g' | sort -u))
+absents=$(comm -23 \
+  <(find "$REP" -maxdepth 1 -type f -printf '%f\n' | sort) \
+  <(grep -oE "\`$REP/[^\`/]+\`" "$DOC" | sed "s|^\`$REP/||; s|\`\$||" | sort -u))
 if [ -n "$absents" ]; then
   echo "BLOQUÉ : présents dans $REP/ mais absents de $DOC :" >&2
   echo "$absents" | sed 's/^/  - /' >&2

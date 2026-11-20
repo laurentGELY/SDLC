@@ -74,6 +74,8 @@ BLOCKED=(
   "$P origin +main"
   "$K -f foo"
   "$G -f foo"
+  "$K -9f foo"
+  "/usr/bin/$G -f foo"
 )
 ALLOWED=(
   "$P origin main"

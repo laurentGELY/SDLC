@@ -232,8 +232,8 @@ ajouter les nouvelles lignes P-XX en fin de tableau.
 
 ## Étape 6 — Mise à jour champs décision
 
-Pour chaque `[HOOK_CANDIDATE]` ou `[SDLC_CANDIDATE]` traité, mettre à jour le champ
-`décision :` dans `docs/LESSONS_LEARNED.md` :
+Pour chaque `[HOOK_CANDIDATE]` traité, mettre à jour le champ `décision :` dans
+`docs/LESSONS_LEARNED.md` (un `[SDLC_CANDIDATE]` se suit dans la file, Étape 4) :
 
 ```
 → décision : [activé sprint N / reporté / rejeté — raison]

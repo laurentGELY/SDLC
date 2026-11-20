@@ -48,6 +48,12 @@
 
 ## §Entrées par sprint
 
+### Sprint SDLC-34 — 20/11/2026 — Suite de l'agrégation des remontées Job search (lots 2, 3, 4 de SDLC-33)
+**Code :** maison des dettes, file `docs/REMONTEE_SDLC.md`, hook `pkill -f`/`pgrep -f` non ancré, squelette pre-commit, réglages locaux de chemin, `M-PROC-56`→`61` + `M-HOOKS-09` · `CLAUDE.md` bootstrappé 336/16 684 → 327/16 597 (R-49 retiré, R-35 déplacé vers `04`) · défaut SDLC-33 de `03:280` corrigé
+**Processus :** ajouts de `01` du lot 3 avancés au commit du lot 2 pour garder le cliquet C11 monotone et ses cas « rouge » verts à chaque commit · le hook neuf a refusé la commande de commit dont le message citait son motif (`git commit -F`) · revue en aveugle : 10 correctifs sur 12 constats, dont 3 trous de regex du hook
+**Lien pattern :** confirme `LL-T10` (1 faux constat sur 12 faute d'accès au dépôt : `hooks-reference.md`) · respecte `LL-T06` (blocages testés en isolation)
+**Action proposée :** aucune — rétro « RAS » côté humain
+
 ### Sprint SDLC-33 — 20/11/2026 — Mémoire de reprise multi-sprints (coupé après le lot 1b)
 **Code :** `/reprise` (`13`) recopié de v1.2.1 de Job search (E2 §4-§5 indisponible) · R-26/R-56/R-57 déplacés, `CLAUDE.md` bootstrappé 368 → 336 l · C12 + 32 specs marquées · `/reprise` installé ici et déployé aux projets mis à jour (`04b`, `sdlc-delta.sh`) · défaut préexistant de `sdlc-delta.sh` : version tronquée à `v2.0`, tout projet v2.0+* « déjà à jour »
 **Processus :** point de coupe tenu après le lot 1 (+1b) ; premier usage réel de `/reprise init` et du contrôle « Reste pour clore » au wrap-up, qui refusait sur la case `wrap-up` elle-même (corrigé) · revue en aveugle : 7 correctifs sur 10 constats, dont une ligne ROADMAP annoncée par `SESSION_BRIDGE` mais jamais créée

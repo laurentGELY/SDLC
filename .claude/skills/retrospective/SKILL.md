@@ -26,7 +26,7 @@ tail -150 docs/LESSONS_LEARNED.md
 Identifier :
 - Le nombre de sprints couverts depuis la dernière `/retrospective`
 - Les tags `[HOOK_CANDIDATE]` non résolus (champ "décision : en attente")
-- Les remontées en attente de `docs/REMONTEE_SDLC.md` (tableau « Remontées en attente ») et les bilans de report reçus du projet SDLC
+- Les candidats SDLC de ce dépôt (ROADMAP §Later) et les files `docs/REMONTEE_SDLC.md` reçues des projets (bilans de report à rendre)
 - Les entrées `DÉCISION [valide jusqu'à : condition]` dont la condition n'est plus vraie
 - Si le modèle exécutant (en-tête des specs de sprint) a changé depuis la dernière `/retrospective` → demander à l'humain de lancer `/doctor prompt-audit` (Claude ne peut pas le lancer) et reporter ses constats à l'Étape 3
 
@@ -219,7 +219,7 @@ ultérieures sans relire toutes les entrées.
 
 - Sprints couverts : [N à M] ([X] sprints)
 - HOOK_CANDIDATE en attente : [N] · activés ce cycle : [N] · rejetés : [N]
-- Remontées en attente (`docs/REMONTEE_SDLC.md`) : [N] · tendance vs rétro précédente : [+/−N] · reportées ce cycle : [N] · bilans reçus : [N]
+- Candidats SDLC en ROADMAP §Later : [N] · files reçues des projets traitées ce cycle : [N] · bilans de report rendus : [N]
 - Décisions invalidées détectées : [N]
 - Patterns nouveaux : [N] · patterns résolus : [N]
 - Dernière /retrospective : [JJ/MM/AAAA] · Sprints N→M
@@ -233,8 +233,8 @@ ajouter les nouvelles lignes P-XX en fin de tableau.
 
 ## Étape 6 — Mise à jour champs décision
 
-Pour chaque `[HOOK_CANDIDATE]` ou `[SDLC_CANDIDATE]` traité, mettre à jour le champ
-`décision :` dans `docs/LESSONS_LEARNED.md` :
+Pour chaque `[HOOK_CANDIDATE]` traité, mettre à jour le champ `décision :` dans
+`docs/LESSONS_LEARNED.md` (un `[SDLC_CANDIDATE]` se suit dans la file, Étape 4) :
 
 ```
 → décision : [activé sprint N / reporté / rejeté — raison]
@@ -291,7 +291,7 @@ comme nouveau pattern à elle seule).
 | 5 sprints sans rétro | Déclencher `/retrospective` |
 | Incident grave (rollback, perte données) | Déclencher immédiatement |
 | ≥ 3 `[HOOK_CANDIDATE]` en attente | Déclencher |
-| ≥ 1 remontée en attente dans `docs/REMONTEE_SDLC.md` depuis > 3 sprints | Déclencher |
+| ≥ 1 file de remontées reçue d'un projet sans bilan de report depuis > 3 sprints | Déclencher |
 
 ---
 

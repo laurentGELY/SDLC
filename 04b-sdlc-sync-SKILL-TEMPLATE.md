@@ -44,7 +44,7 @@ au fichier renommé (`M-ARCH-10`).
 # Fichiers de gouvernance présents dans le projet
 ls CLAUDE.md Claude.md STANDARDS.md CHANGELOG.md .gitignore 2>/dev/null
 ls docs/DECISIONS.md docs/ROADMAP.md docs/LESSONS_LEARNED.md docs/DIAGNOSTIC_CMDS.md docs/REMONTEE_SDLC.md 2>/dev/null
-ls -d doc/ specs/Sprints/sprint-template.md doc/DECISIONS*.md doc/REPRISE.md doc/REMONTEE_SDLC.md 2>/dev/null   # réglages locaux (ci-dessous)
+ls -d doc/ specs/Sprints/sprint-template.md doc/DECISIONS*.md docs/DECISIONS-*.md doc/REPRISE.md doc/REMONTEE_SDLC.md 2>/dev/null   # réglages locaux (ci-dessous)
 ls .claude/skills/wrap-up/SKILL.md \
    .claude/skills/retrospective/SKILL.md \
    .claude/skills/sdlc-sync/SKILL.md \
@@ -68,7 +68,7 @@ marqueur `Statut` en ligne 1 des specs `specs/Sprints/sprint-*.md`. Specs sans m
 Un correctif ou un équivalent local déjà présent (ex. `doc/REPRISE.md`) est classé « déjà aligné », jamais écrasé.
 
 **File de remontées (`M-PROC-61`)** — `docs/REMONTEE_SDLC.md` à 3 sections (« Entrées », « Remontées en
-attente », « Décisions demandées au projet SDLC ») ; absente → la créer vide depuis `sdlc-init.sh`. Les
+attente », « Décisions demandées au projet SDLC ») ; absente → la créer avec ses 3 sections (gabarit : bloc `REMONTEE` de `sdlc-init.sh`). Les
 `[SDLC_CANDIDATE]` encore portés par `docs/LESSONS_LEARNED.md` y sont reportés, l'entrée LESSONS gardant un renvoi.
 
 **Réglages locaux de chemin (`M-PROC-59`)** — une variante détectée par `ls` est un réglage local, jamais

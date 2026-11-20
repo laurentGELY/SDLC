@@ -277,9 +277,9 @@ fichier, incident) · fichier cible du modèle · nature (règle, contrôle, pro
 
 ## Remontées en attente
 
-| ID | Titre | Fichier cible | Statut |
-|----|-------|---------------|--------|
-| — | — | — | — |
+| ID | Titre | Fichier cible | Depuis (sprint) | Statut |
+|----|-------|---------------|-----------------|--------|
+| — | — | — | — | — |
 
 Statuts : à reporter · report à confirmer · non tranché localement. Une remontée traitée (bilan de
 report reçu : adoptée, adaptée, rejetée) est retirée de ce tableau à la rétro.

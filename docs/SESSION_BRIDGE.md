@@ -4,6 +4,11 @@
 
 ## §Actif
 
+### [Sprint SDLC-34 — suite-agregation-remontees] · 2026-11-20
+**Commit :** wrap-up de la branche `sdlc-34` (lots `1af91e1`, `72abdc6`, `999b68d`), intégrée à `main` en fast-forward et poussée
+**Bloquants en suspens :** aucun.
+**Fil fonctionnel :** Les remontées Job search agrégées par SDLC-33 sont toutes livrées ou tranchées (bilan de report 51/51 dans la spec SDLC-34) : chaque dette ouverte au wrap-up cite sa maison, les `[SDLC_CANDIDATE]` d'un projet vont dans `docs/REMONTEE_SDLC.md` (créée au bootstrap, comptée à chaque rétro), le hook bloque `pkill -f`/`pgrep -f` non ancré, `/sdlc-sync` reconnaît les chemins locaux ; le `CLAUDE.md` d'un projet neuf fait 327 lignes (cliquet C11). Aucun sprint prêt en §Next ; seul écart connu : le `CLAUDE.md` de ce dépôt garde R-26/R-56/R-57/R-49/R-35 (ROADMAP §Later) ; validation terrain dans Job search attendue (échéance du 2026-12-04 dans `.claude/reprise.md`).
+
 ### [Sprint SDLC-33 — agregation-remontees-jobsearch (coupé après le lot 1b)] · 2026-11-20
 **Commit :** wrap-up de la branche `sdlc-33` (lots `84b5e57`, `f4fbdb6`, lot 0 `ecb1b15`), à intégrer à `main` en fast-forward ; push par l'humain
 **Bloquants en suspens :** aucun.
@@ -14,12 +19,12 @@
 **Bloquants en suspens :** aucun.
 **Fil fonctionnel :** Le `CLAUDE.md` d'un projet neuf fait 368 lignes (499 avant), élagué règle par règle selon les verdicts de Job search, et le contrôle C11 de `sdlc-validate.sh` (cliquet, `M-PROC-49`, octets comptés hors ligne de version) empêche toute croissance : tout ajout dans `01` retire ou déplace une règle de même taille, citée par son `R-NN`. Prochain sprint prêt : SDLC-33 lots 1 à 3 (en §Next) ; les constats hors périmètre des deux prompt-audits attendent en §Later. Seul écart connu avec le modèle : le `CLAUDE.md` de ce dépôt (384 lignes) garde les règles retirées de `01` (ROADMAP §Later).
 
+## §Archive
+
 ### [Sprint ELAG-1b — fix-bootstrap] · 2026-11-19
 **Commit :** wrap-up de la branche `elag-1b` (lots `a9e58e9`, `dec1147`, `09b38fa`, `eb0b6a2`), intégrée à `main`
 **Bloquants en suspens :** aucun. Test C validé le 19/11/2026 : dans une session neuve, `CLAUDE.md` (ex-`Claude.md`, renommé ce sprint) fait partie du contexte initial.
 **Fil fonctionnel :** Un projet bootstrappé reçoit désormais `CLAUDE.md`, des hooks extraits de `08` (source unique) qui bloquent toutes les poussées forcées et laissent passer les commandes légitimes, `pre-compact.sh`, un `.gitignore`, des skills à frontmatter et des gabarits datés par placeholder — vérifié par `tests/sdlc-init-test.sh` (49 cas) à chaque wrap-up (`M-ARCH-10`). Prochain sprint prêt : ELAG-4 (`specs/Sprints/sprint-ELAG-4-import-elagage.md`, en §Next) ; effet de bord accepté jusque-là : un projet neuf charge les 499 lignes de `01`.
-
-## §Archive
 
 ### [Session 19/11 — préparation ELAG-1b, ELAG-4, SDLC-33 + lot 0 de SDLC-33] · 2026-11-19
 **Commit :** `3038808` (3 PDR) · `ecb1b15` (lot 0 de SDLC-33, hors bump)

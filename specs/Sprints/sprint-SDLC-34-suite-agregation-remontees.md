@@ -1,4 +1,4 @@
-Statut : ouvert
+Statut : clos — 2026-11-20
 # Sprint SDLC-34 — Suite de l'agrégation des remontées Job search (lots 2, 3, 4 de SDLC-33)
 <!-- PDR repris mot pour mot de specs/Sprints/sprint-SDLC-33-agregation-remontees-jobsearch.md (sections « Lot 2 », « Lot 3 », « Lot 4 », critères d'acceptation [→ SDLC-34], §Annexe) après la coupe du 20/11 · ouvert le 2026-11-20 · dépôt @ e42175f -->
 
@@ -74,21 +74,21 @@ Contraintes, interdits et références `K<n>` : ceux de `sprint-SDLC-33 §Contra
 
 *(La DoD — `STANDARDS.md §Definition of Done` — s'applique en plus. Critères `[→ SDLC-34]` de SDLC-33, recopiés ; bump et IDs adaptés par §Adaptations.)*
 
-- [ ] `grep -n "toujours à jour" 01-Claude-md-TEMPLATE.md` → vide · `grep -n "fait foi" 01-Claude-md-TEMPLATE.md` non vide
-- [ ] `grep -n "observé par" 05-ROADMAP-TEMPLATE.md` non vide
-- [ ] `grep -nE "maison.*(garde|reprise|ROADMAP)" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
-- [ ] File : `grep -c "REMONTEE_SDLC.md" 03-wrap-up-SKILL-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md .claude/skills/retrospective/SKILL.md` → ≥ 1 dans chacun · `grep -n "remontées en attente" 09-retrospective-SKILL-TEMPLATE.md` non vide
-- [ ] Bootstrap jetable (`git init` + commit vide, puis `bash sdlc-init.sh "Test"`) : `docs/REMONTEE_SDLC.md` présent avec ses 3 sections
-- [ ] `grep -n "hypothèse" 04-sprint-PDR-TEMPLATE.md` non vide (19/11-2)
-- [ ] `grep -n "sur une ligne" 01-Claude-md-TEMPLATE.md` non vide et `grep -c "~/<nom>.sh" 01-Claude-md-TEMPLATE.md` → 1 (P-19, sans ligne ajoutée)
-- [ ] Hook : `pkill -f foo` → `2` · `pgrep -f '^foo'` → passant (cas de `tests/sdlc-init-test.sh`, chaînes en deux morceaux)
-- [ ] `grep -n "Réglages locaux" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide · `grep -n "REMONTEE_SDLC" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide
-- [ ] `grep -cE '^## M-PROC-(55|56|57|58|59|60|61) · ' 07-DECISIONS-SDLC.md` → 7 · `grep -c '^## M-HOOKS-09 · ' 07-DECISIONS-SDLC.md` → 1
-- [ ] Budget `01` : C11 vert ; `wc -lc` du `CLAUDE.md` bootstrappé avant/après consigné, bilan net ≤ 0
-- [ ] `git diff --stat 012905d -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
-- [ ] Tests niveau A : `bash sdlc-validate.sh` → tous OK · `bash tests/sdlc-validate-test.sh` et `bash tests/sdlc-init-test.sh` → tous OK · `bash -n .claude/hooks/pre-tool-bash.sh`
-- [ ] Bilan de report remis (une ligne par proposition de l'Annexe)
-- [ ] CHANGELOG mis à jour (`v2.0+SDLC-34`), C1 vert
+- [x] `grep -n "toujours à jour" 01-Claude-md-TEMPLATE.md` → vide · `grep -n "fait foi" 01-Claude-md-TEMPLATE.md` non vide
+- [x] `grep -n "observé par" 05-ROADMAP-TEMPLATE.md` non vide
+- [x] `grep -nE "maison.*(garde|reprise|ROADMAP)" 03-wrap-up-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md` non vide dans les deux
+- [x] File : `grep -c "REMONTEE_SDLC.md" 03-wrap-up-SKILL-TEMPLATE.md 09-retrospective-SKILL-TEMPLATE.md .claude/skills/wrap-up/SKILL.md .claude/skills/retrospective/SKILL.md` → ≥ 1 dans chacun · `grep -n "remontées en attente" 09-retrospective-SKILL-TEMPLATE.md` non vide
+- [x] Bootstrap jetable (`git init` + commit vide, puis `bash sdlc-init.sh "Test"`) : `docs/REMONTEE_SDLC.md` présent avec ses 3 sections
+- [x] `grep -n "hypothèse" 04-sprint-PDR-TEMPLATE.md` non vide (19/11-2)
+- [x] `grep -n "sur une ligne" 01-Claude-md-TEMPLATE.md` non vide et `grep -c "~/<nom>.sh" 01-Claude-md-TEMPLATE.md` → 1 (P-19, sans ligne ajoutée)
+- [x] Hook : `pkill -f foo` → `2` · `pgrep -f '^foo'` → passant (cas de `tests/sdlc-init-test.sh`, chaînes en deux morceaux)
+- [x] `grep -n "Réglages locaux" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide · `grep -n "REMONTEE_SDLC" 04b-sdlc-sync-SKILL-TEMPLATE.md` non vide
+- [x] `grep -cE '^## M-PROC-(55|56|57|58|59|60|61) · ' 07-DECISIONS-SDLC.md` → 7 · `grep -c '^## M-HOOKS-09 · ' 07-DECISIONS-SDLC.md` → 1
+- [x] Budget `01` : C11 vert ; `wc -lc` du `CLAUDE.md` bootstrappé avant/après consigné, bilan net ≤ 0
+- [x] `git diff --stat 012905d -- specs/Sprints/AUDIT-ELAGAGE-1.md` → vide
+- [x] Tests niveau A : `bash sdlc-validate.sh` → tous OK · `bash tests/sdlc-validate-test.sh` et `bash tests/sdlc-init-test.sh` → tous OK · `bash -n .claude/hooks/pre-tool-bash.sh`
+- [x] Bilan de report remis (une ligne par proposition de l'Annexe)
+- [x] CHANGELOG mis à jour (`v2.0+SDLC-34`), C1 vert
 
 ---
 
@@ -177,6 +177,76 @@ echo "# Spec : specs/Sprints/sprint-SDLC-34-suite-agregation-remontees.md" >> .c
 
 ## Corrections ajustées vs spec
 *(complété au wrap-up — §Étape 3)*
+
+*(20/11/2026 — wrap-up)*
+
+1. **Ajouts de `01` du lot 3 (D-7, R-JS-28, P-19) livrés au commit du lot 2** : les cas « C11 rouge » de `tests/sdlc-validate-test.sh` supposent budget = mesure ; abaisser le cliquet au lot 2 puis le remonter au lot 3 l'aurait violé. Le lot 3 n'a touché que `02`, `04`, `04b`, `sdlc-delta.sh`.
+2. **Compensation C11** (aval humain) : R-49 « Candidat hook » retiré (collecte déjà au wrap-up), R-35 sélection de modèle déplacé vers `04 §Handoff` ; écartés : illustration de R-06, R-33. `wc -lc` du `CLAUDE.md` bootstrappé hors ligne de version : 336 l / 16 684 o → 327 l / 16 597 o, bilan net −9 lignes, −87 octets.
+3. **D-6** : chemins du grep réduits à `specs/` (au lieu de `specs/sprint-template.md`), plus large et plus court.
+4. **Hors PDR, avec aval** : défaut SDLC-33 corrigé dans `03` et le skill vivant (commentaire qui avalait `2>/dev/null || echo …`).
+5. **Hors PDR** : `sdlc-delta.sh` contrôle `docs/REMONTEE_SDLC.md` (variante `doc/`) ; skills vivants `wrap-up`/`retrospective` adaptés (ce dépôt est le modèle, pas de file locale : candidats en ROADMAP §Later).
+6. **Lot 4 découpé comme SDLC-33** : fichiers du modèle au commit du lot 4, bump `v2.0+SDLC-34` et gouvernance de clôture au wrap-up.
+7. **Revue adverse** : 12 constats en aveugle → 10 correctifs (regex du hook élargies `-9f`/chemin absolu/backticks + 2 cas, limites documentées dans `M-HOOKS-09`, skills vivants, `04b`, `07` Impact et mise à jour `M-PROC-55`, squelette pre-commit v2, colonne « Depuis (sprint) ») ; 2 écartés (`hooks-reference.md` est le nom installé ; marqueur `SDLC version` substitué au bootstrap) ; couche 2 : champ « SDLC candidat » de `03` et Étape 6 de `09` alignés sur la file.
+8. **Refus réel du hook vivant** sur la commande de commit du lot 2 (message citant le motif) → `git commit -F` ; vaut observation de R-JS-15.
+9. Tests : `tests/sdlc-init-test.sh` 52 → 67 cas.
+
+---
+
+## Bilan de report — remontées Job search agrégées par SDLC-33 + SDLC-34
+
+*(Remis le 20/11/2026 au projet source, format `M-PROC-61`. Une ligne par proposition de l'§Annexe ; versions = templates au wrap-up de SDLC-34.)*
+
+- E1 D-1 aucune dette orpheline : adoptée (M-PROC-56, `03` v2.3)
+- E1 D-2 déclencheurs observables : adaptée (K4 : convention « · observé par : » dans la colonne Déclencheur, pas de colonne nouvelle — M-PROC-56, `05` v1.3)
+- E1 D-3 garde avant règle : adoptée (M-HOOKS-09, `09` v2.2)
+- E1 S56-1 test C sans effet externe : adoptée (M-PROC-60, `02` v2.5 seul — K14)
+- E1 S56-2 dépôt exécuté par un service planifié : adaptée (fusion avec R-JS-02 : option worktree `02` v2.4 et bloc de hook `[ACTIVER]` `08` v1.6 — M-PROC-55, SDLC-33)
+- E1 S56-3 `pkill -f` / `pgrep -f` : adoptée (M-HOOKS-09, `08` v1.7 ; limites écrites : option entre `-f` et le motif non vue, motif par variable bloqué)
+- E1 config vérifiée en run réel : adoptée (fusion avec R-JS-01 dans la ligne existante — M-PROC-60, `01` v2.10)
+- E1 application locale (§4) : rejetée (propre à Job search)
+- E2 `reprise.md` + `/reprise` + marqueur `Statut` : adoptée (M-PROC-55, `13` v1.0, SDLC-33)
+- E2 marqueur vérifiable par regex : adoptée (contrôle C12 + marquage rétroactif — M-PROC-55, SDLC-33)
+- E2 hook R1/R2 : rejetée (D6 : `[HOOK_CANDIDATE]` si un oubli est constaté)
+- E2 fichier généré modifié à la main : en attente (1 occurrence — reste dans LESSONS Job search)
+- E2 sprint 61 sans spec (`LL-T05`) : en attente (tracée en LESSONS au lot 0, à qualifier en rétro)
+- E3 diff annexe A + §3.3 : adoptée (lot 0, `ecb1b15`, amendé par E5-E8)
+- E3 D-GOV-01 : en attente (sprint « Import D-GOV-01 », ROADMAP §Later)
+- E3 `§Validation` remplace la grille L : en attente (hypothèse retenue pour Import D-GOV-01)
+- E3 défauts bootstrap + détection de version : adoptée (ELAG-1b, M-ARCH-10)
+- E3 lectures R-83/R-03/R-51/R-52/R-92, `M-PROC-50` : adoptée (ELAG-4)
+- E4 D-4 règle de doc mécanisable : adoptée (M-PROC-57, `08` v1.7 §pre-commit git, `03` v2.3, `01` v2.10)
+- E4 D-5 un fait, une source : adoptée (M-PROC-58, `02` v2.5)
+- E4 D-6 référence de section suivie : adoptée (fusion avec L4 — M-PROC-57, `01` v2.10 ; chemins du grep réduits à `specs/`)
+- E4 D-7 « fait foi » : adoptée (M-PROC-58, `01` v2.10)
+- E4 R6 chemins de `/sdlc-sync` : adaptée (K5 : réglages locaux consignés dans D-SYNC-XX — M-PROC-59, `04b` v2.3, `sdlc-delta.sh`)
+- E5 R-JS-01 config en run réel : adoptée (fusion — M-PROC-60, `01` v2.10)
+- E5 R-JS-02 espace de travail séparé : adaptée (fusion avec S56-2 — M-PROC-55, SDLC-33)
+- E5 R-JS-04 ne pas recréer un fichier : adoptée (ELAG-4, §Modifications spot, R-39)
+- E5 R-JS-06 rien de durable attaché à la session : adoptée (R2 de `/reprise`, `## En vol` — M-PROC-55)
+- E5 R-JS-15 filet déclenché pour de vrai : adoptée (M-PROC-60, `02` v2.5 DoD ; refus observé dès ce sprint sur le hook vivant)
+- E5 R-JS-28 code de décision + phrase : adoptée (M-PROC-58, `01` v2.10, ligne Citabilité)
+- E5 (b) limite de la mesure `M-PROC-50` : adoptée (ELAG-4, `M-PROC-50` close)
+- E5 10 retraits / 12 règles à défaut du prompt-audit : adoptée pour les retraits (ELAG-4) · en attente pour les défauts (sprint Fix, ROADMAP)
+- E6 L1 témoin apparié (P-18) : en attente (Import D-GOV-01)
+- E6 L2 inventaire `--ignored` avant `git worktree remove` : adoptée (`03`, SDLC-33)
+- E6 L3 `/reprise` « même objet » : adoptée (`13`, SDLC-33)
+- E6 L4 inventaire des porteurs d'ID avant scission : adoptée (fusion D-6 — M-PROC-57)
+- E6 L5 une surveillance, une source : adoptée (avec D-1 — M-PROC-56)
+- E6 L6 ligne de log relevée dans le code : adoptée (M-PROC-56, `03` v2.3 ; ⏳ côté Job search — à retirer si refusée)
+- E6 L8 biais de l'issue par défaut : en attente (tracée en LESSONS, ligne Import D-GOV-01)
+- E6 L9 regex `--force` du hook : adoptée (ELAG-1b)
+- E6 P-19 commandes multi-lignes → script : adaptée (`01` v2.10 reformulée sans ligne ajoutée ; partie « annulation + état d'avant » non reprise — M-PROC-58)
+- E7 table de verdict : adaptée (copiée réduite à 3 colonnes, K13 — lot 0)
+- E8 18/11-1 wrap-up « contenu complet » : rejetée (K15 : phrase absente de `03` depuis toujours)
+- E8 18/11-2 « Modifications spot » : adoptée (ELAG-4)
+- E8 18/11-3 liste « Éviter » en double : adoptée (ELAG-4)
+- E8 18/11-4 frontmatter `sdlc-sync` : adoptée (ELAG-1b, M-ARCH-10)
+- E8 18/11-5 état validé après livraison : en attente (déclencheur : 2ᵉ projet en service planifié, ROADMAP §Later)
+- E8 18/11-6 volume d'entrée → durée contre le plafond : en attente (même déclencheur)
+- E8 19/11-1 règle de chemin vérifiée en session neuve : en attente (Import élagage 2)
+- E8 19/11-2 chiffres importés = hypothèses : adoptée (M-PROC-58, `04` v2.8)
+- E8 19/11-3 `$<chiffre>` dans un skill : adoptée (contrôle d'ELAG-1b + K16 dans `13`)
+- E8 P-20 file unique de remontées : adaptée (K17 : `docs/`, décisions `M-…` — M-PROC-61, `03` v2.3, `09` v2.2, `sdlc-init.sh`)
 
 ---
 

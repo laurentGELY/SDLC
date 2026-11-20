@@ -266,3 +266,9 @@ Date : 20/11/2026 (Sprint SDLC-33)
 Commande : `git worktree list --porcelain | sed -n '1s/^worktree //p'` depuis la copie principale puis depuis un worktree → même chemin attendu
 Résultat observé : un chemin relatif `.claude/reprise.md` désigne le fichier du worktree courant ; la 1re ligne `worktree` du porcelain est toujours la copie principale.
 Conclusion : toujours résoudre `$REPRISE` par cette commande ; jamais `awk '{print $2}'` dans un skill (Claude Code remplace `$2` par l'argument).
+
+## Symptôme : le hook vivant refuse une commande qui ne fait que citer le motif qu'il bloque
+Date : 20/11/2026 (Sprint SDLC-34)
+Commande : message de commit écrit dans un fichier, puis `git commit -F <fichier>` ; tests de regex par un script où le mot est construit en deux morceaux (`K="pk""ill"`) et chaque cas comparé à son code attendu (`echo "$c" | grep -qE "$RE"; echo $?`)
+Résultat observé : le hook lit le texte brut de la commande — un `git commit -m` ou un heredoc qui contient le motif est bloqué (exit 2) ; le script de cas a montré les trous `-9f`, chemin absolu et backticks avant correction.
+Conclusion : après l'ajout d'un garde, écrire sa documentation par fichier (Write, `-F`) et tester ses regex par un tableau de cas « attendu / obtenu », pas par une commande isolée.

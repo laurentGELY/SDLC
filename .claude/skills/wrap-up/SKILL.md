@@ -197,7 +197,7 @@ appliquée manuellement que Claude Code aurait dû bloquer automatiquement ?"**
 
 **"Y a-t-il quelque chose dans ce sprint qui devrait changer le modèle SDLC lui-même —
 un template, une procédure, un invariant ?"**
-*(Si oui → sera capturé comme `[SDLC_CANDIDATE]` dans la file `docs/REMONTEE_SDLC.md` à l'étape 2 — `M-PROC-61`)*
+*(Si oui → ici (modèle) : ligne ROADMAP §Later à l'étape 2 ; dans un projet cible : file `docs/REMONTEE_SDLC.md` — `M-PROC-61`)*
 
 ---
 
@@ -213,7 +213,7 @@ Format obligatoire (5 lignes max) :
 **Lien pattern :** [confirme LL-TXX / infirme LL-TXX / nouveau LL-TXX / aucun]
 **Action proposée :** [action + destination (ex: CLAUDE.md §X)] → décision : [en attente]
 **Hook candidat :** [HOOK_CANDIDATE] [description action risquée] → ligne bash : `[commande grep/pattern]` — décision : [en attente]
-**SDLC candidat :** [SDLC_CANDIDATE] [description] → fichier cible : [ex: 03-wrap-up / 04-PDR / CLAUDE.md template] · nature : [nouveau champ / règle renforcée / procédure modifiée] — décision : [en attente — à remonter manuellement dans projet SDLC]
+**SDLC candidat :** → docs/REMONTEE_SDLC.md [SDLC_CANDIDATE] JJ/MM-N — [titre]
 ```
 
 Le champ `**Hook candidat :**` est optionnel — n'inclure que si l'Étape 1 a produit une réponse positive sur la 2e question.
@@ -321,7 +321,7 @@ Rapporter :
 
 **Règle de doc mécanisable** (`M-PROC-57`) — une règle « si X change, mettre à jour Y » dont X est
 détectable (fichier ajouté, clé modifiée) s'applique par un test pre-commit (`hooks-reference.md`
-§pre-commit, squelette d'inventaire), pas seulement ici. Une telle règle appliquée à la main pendant
+§pre-commit git, squelette d'inventaire), pas seulement ici. Une telle règle appliquée à la main pendant
 ce wrap-up → `[HOOK_CANDIDATE]`.
 
 ### Conditionnels (déclencher si applicable)

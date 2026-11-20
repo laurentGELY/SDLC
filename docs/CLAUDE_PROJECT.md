@@ -68,3 +68,6 @@ Delta vérifié : aucun nouveau fichier de gouvernance (seul `specs/Sprints/spri
 
 ## Dernière vérification : 20/11/2026 · Sprint SDLC-33 wrap-up
 Delta vérifié : `13-reprise-SKILL-TEMPLATE.md` (nouveau) ajouté aux fichiers synchronisés ; `.claude/reprise.md` (jamais synchronisé) et `.claude/skills/reprise/SKILL.md` ajoutés aux exclus. Fichiers déjà synchronisés modifiés ce sprint (`00-CONTEXT.md`, `01`, `03`, `04`, `06`, `07-DECISIONS-SDLC.md`, `CHANGELOG.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").
+
+## Dernière vérification : 20/11/2026 · Sprint SDLC-34 wrap-up
+Delta vérifié : aucun nouveau fichier de gouvernance dans ce dépôt (`docs/REMONTEE_SDLC.md` est créé dans les projets, jamais ici) ; section « Traitement des files de remontées » ajoutée. Fichiers déjà synchronisés modifiés ce sprint (`01`, `02`, `03`, `04`, `06`, `07-DECISIONS-SDLC.md`, `CHANGELOG.md`) : re-synchroniser leur contenu dans Claude.ai ("Sync now").
